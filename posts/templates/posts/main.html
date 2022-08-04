@@ -8,7 +8,16 @@
 	</head>
 	<body>
 		<a href="{% url 'posts:write' %}">글쓰기</a>
-		{% block content %} {% endblock content %} {% for post in posts %}
+		{% block content %} {% endblock content %}
+		<form class="sort" method="GET">
+			{% csrf_token %}
+			<select name="sort" onchange="this.form.submit();">
+				<option value="default">--정렬기준--</option>
+				<option value="latest">최신순</option>
+				<option value="view">조회순</option>
+			</select>
+		</form>
+		{% for post in posts %}
 		<div>{{post.title}}</div>
 		<a href="{% url 'posts:detail' post.id%}">바로가기</a>
 		{%endfor%}

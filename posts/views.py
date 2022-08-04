@@ -9,13 +9,11 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def home(request):
     posts = Post.objects.all()
-   #  sort = request.GET.get('sort', 'None')
-   #  if sort == "name":
-   #      posts = posts.order_by("title")
-   #  elif sort == "createAt":
-   #      posts = posts.order_by("created_at")
-   #  elif sort == "updateAt":
-   #      posts = posts.order_by("-updated_at")
+    sort = request.GET.get('sort', 'None')
+    if sort == "latest":
+        posts = posts.order_by("-published_at")
+    elif sort == "views":
+        posts = posts.order_by("views")
 
     context = {
         "posts": posts,

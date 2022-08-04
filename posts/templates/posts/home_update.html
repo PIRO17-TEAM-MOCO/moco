@@ -1,0 +1,51 @@
+{% extends 'posts/home.html' %} {% block content %}
+<form action="{% url 'posts:update' post.id %}" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	<div>
+		제목 :
+		<input type="text" name="title" value="{{post.title}}" />
+	</div>
+	<div>
+		지역 :
+		<input type="text" name="location" value="{{post.location}}" />
+	</div>
+	<div>
+		진행방식 :
+		<select name="contact">
+			<option selected value="default">----------</option>
+			{% for key, value in contacts %}
+			<option value="{{ value }}" {% if value == post.contact %}selected{% endif %}>{{ value }}</option>
+			{% endfor %}
+		</select>
+	</div>
+	<div>
+		모집인원 :
+		<input type="number" name="number" value="{{post.number}}" />
+	</div>
+	<div>
+		태그 :
+		<input type="text" name="tag" value="{{post.tag}}" />
+	</div>
+	<div>
+		내용 :
+		<textarea name="content">{{post.content}}</textarea>
+	</div>
+	<div>
+		구글폼링크 :
+		<input type="text" name="apply_link" value="{{post.apply_link}}"/>
+	</div>
+	<div>
+		기간 :
+		<select name="duration">
+			<option selected value="default">----</option>
+			{% for key, value in durations %}
+			<option value="{{ value }}" {% if value == post.duration %}selected{% endif %}>{{ value }}</option>
+			{% endfor %}
+		</select>
+	</div>
+	<div>
+		<input class="submitBtn" type="submit" value="SUBMIT" />
+	</div>
+</form>
+
+{%endblock content%}

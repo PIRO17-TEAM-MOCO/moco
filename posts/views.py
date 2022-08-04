@@ -20,7 +20,7 @@ def home(request):
     context = {
         "posts": posts,
     }
-    return render(request, template_name="posts/home.html", context=context)
+    return render(request, template_name="posts/main.html", context=context)
 
 
 def write(request):
@@ -49,7 +49,7 @@ def write(request):
         'durations': Post.DURATION_CHOICE
     }
 
-    return render(request, template_name="posts/home_write.html", context=context)
+    return render(request, template_name="posts/main_write.html", context=context)
 
 
 def detail(request, id):
@@ -58,7 +58,7 @@ def detail(request, id):
     context = {
         "post": post,
     }
-    return render(request, template_name="posts/home_detail.html", context=context)
+    return render(request, template_name="posts/main_detail.html", context=context)
 
 
 def update(request, id):
@@ -88,7 +88,7 @@ def update(request, id):
         'durations': Post.DURATION_CHOICE
     }
 
-    return render(request, template_name="posts/home_update.html", context=context)
+    return render(request, template_name="posts/main_update.html", context=context)
 
 
 def delete(request, id):

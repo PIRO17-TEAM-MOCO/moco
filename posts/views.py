@@ -86,7 +86,7 @@ def update(request, id):
         'durations': Post.DURATION_CHOICE
     }
 
-    return render(request, template_name="posts/main_update.html", context=context)
+    return render(request, template_name="posts/main_revise.html", context=context)
 
 
 def delete(request, id):

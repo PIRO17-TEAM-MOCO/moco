@@ -1,25 +1,16 @@
-<!DOCTYPE html>
-<html lang="ko">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>MOCO</title>
-	</head>
-	<body>
-		<a href="{% url 'posts:write' %}">글쓰기</a>
-		{% block content %} {% endblock content %}
-		<form class="sort" method="GET">
-			{% csrf_token %}
-			<select name="sort" onchange="this.form.submit();">
-				<option value="default">--정렬기준--</option>
-				<option value="latest">최신순</option>
-				<option value="view">조회순</option>
-			</select>
-		</form>
-		{% for post in posts %}
-		<div>{{post.title}}</div>
-		<a href="{% url 'posts:detail' post.id%}">바로가기</a>
-		{%endfor%}
-	</body>
-</html>
+{% extends 'posts/base.html' %} {% block content %}
+<div>
+	<form class="sort" method="GET">
+		{% csrf_token %}
+		<select name="sort" onchange="this.form.submit();">
+			<option value="default">--정렬기준--</option>
+			<option value="latest">최신순</option>
+			<option value="view">조회순</option>
+		</select>
+	</form>
+	{% for post in posts %}
+	<div>{{post.title}}</div>
+	<a href="{% url 'posts:detail' post.id%}">바로가기</a>
+	{%endfor%}
+</div>
+{% endblock %}

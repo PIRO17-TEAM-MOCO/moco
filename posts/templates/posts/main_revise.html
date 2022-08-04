@@ -1,4 +1,4 @@
-{% extends 'posts/home.html' %} {% block content %}
+{% extends 'posts/main.html' %} {% block content %}
 <form action="{% url 'posts:update' post.id %}" method="post" enctype="multipart/form-data">
 	{% csrf_token %}
 	<div>

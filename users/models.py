@@ -1,7 +1,5 @@
-from secrets import choice
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
 
 class User(AbstractUser):
     # 유저네임, 비밀번호, 이메일, 성, 이름 상속받아옴
@@ -16,6 +14,9 @@ class User(AbstractUser):
         ('Worker', '직장인'),
         ('Etc', '기타')
     ]
+    first_name = None
+    last_name = None
+    name = models.CharField(max_length=25)
     nickname = models.CharField(max_length=25)
     birth = models.DateField(null=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICE)

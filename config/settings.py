@@ -83,9 +83,6 @@ DATABASES = {
 }
 
 AUTH_USER_MODEL = 'users.User'
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = ('email')
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

@@ -52,9 +52,14 @@ def write(request):
 
 def detail(request, id):
     post = Post.objects.get(id=id)
+    if post.user == request.user:  # 현재 로그인한 유저가 해당 모집글을 쓴 유저이면 can_revise가 True
+        can_revise = True
+    else:
+        can_revise = False
 
     context = {
         "post": post,
+        'can_revise': can_revise    # can_revise가 True면 수정, 삭제, 모집 완료로 전환 가능
     }
     return render(request, template_name="posts/main_detail.html", context=context)
 
@@ -80,10 +85,11 @@ def update(request, id):
         return redirect(f"/post/detail/{id}")
 
     post = Post.objects.get(id=id)
+
     context = {
         'post': post,
         'contacts': Post.CONTACT_CHOICE,
-        'durations': Post.DURATION_CHOICE
+        'durations': Post.DURATION_CHOICE,
     }
 
     return render(request, template_name="posts/main_revise.html", context=context)

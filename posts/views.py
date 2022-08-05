@@ -6,17 +6,17 @@ from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 
-@csrf_exempt
 def home(request):
     posts = Post.objects.all()
     sort = request.GET.get('sort', 'None')
     if sort == "latest":
         posts = posts.order_by("-published_at")
     elif sort == "views":
-        posts = posts.order_by("views")
+        posts = posts.order_by("-views")
 
     context = {
         "posts": posts,
+        "sort": sort,
     }
     return render(request, template_name="posts/main.html", context=context)
 
@@ -39,7 +39,7 @@ def write(request):
 
         Post.objects.create(user=user, title=title, location=location, contact=contact, number=number,
                             tag=tag, content=content, apply_link=apply_link, duration=duration)
-        id = len(Post.objects.all())
+        id = Post.objects.last().id
         return redirect(f"/post/detail/{id}")
 
     context = {
@@ -56,6 +56,8 @@ def detail(request, id):
         can_revise = True
     else:
         can_revise = False
+        views = post.views + 1
+        Post.objects.filter(id=id).update(views=views)
 
     context = {
         "post": post,

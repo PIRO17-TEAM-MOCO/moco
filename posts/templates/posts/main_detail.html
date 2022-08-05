@@ -8,9 +8,13 @@
 <p>지역 : {{post.location}}</p>
 <p>개발언어 : {{post.tag}}</p>
 <p>{{post.content}}</p>
+<form action="{% url 'posts:close' post.id %}" method="post">
+	{% csrf_token %}
+	<button>모집완료로 전환</button>
+</form>
 <a href="{% url 'posts:update' post.id%}">수정</a>
 <form action="{% url 'posts:delete' post.id %}" method="post">
 	{% csrf_token %}
-	<button class="delBtn">삭제</button>
+	<button>삭제</button>
 </form>
 {% endblock content %}

@@ -93,3 +93,9 @@ def delete(request, id):
     if request.method == "POST":
         Post.objects.filter(id=id).delete()
         return redirect("/post")
+
+
+def close(request, id):
+    if request.method == "POST":
+        Post.objects.filter(id=id).update(activation=False)
+        return redirect(f"/post/detail/{id}")

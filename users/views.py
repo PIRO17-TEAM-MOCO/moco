@@ -4,6 +4,10 @@ from .models import User
 from .forms import SignupForm
 
 # url은 임시입니다
+# main은 기능확인용입니다.
+def main(request):
+    return render(request, 'main.html')
+
 def signup(request):
   if request.method == 'POST':
     form = SignupForm(request.POST)

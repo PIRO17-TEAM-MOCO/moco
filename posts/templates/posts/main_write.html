@@ -1,0 +1,50 @@
+{% extends 'posts/base.html' %} {% block content %}
+<form action="{% url 'posts:write' %}" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	<div>
+		제목 :
+		<input type="text" name="title" />
+	</div>
+	<div>
+		지역 :
+		<input type="text" name="location" />
+	</div>
+	<div>
+		진행방식 :
+		<select name="contact">
+			<option selected value="default">----------</option>
+			{% for key, value in contacts %}
+			<option value="{{ value }}">{{ value }}</option>
+			{% endfor %}
+		</select>
+	</div>
+	<div>
+		모집인원 :
+		<input type="number" name="number" />
+	</div>
+	<div>
+		태그 :
+		<input type="text" name="tag" />
+	</div>
+	<div>
+		내용 :
+		<textarea name="content"></textarea>
+	</div>
+	<div>
+		구글폼링크 :
+		<input type="text" name="apply_link" />
+	</div>
+	<div>
+		기간 :
+		<select name="duration">
+			<option selected value="default">----</option>
+			{% for key, value in durations %}
+			<option value="{{ value }}">{{ value }}</option>
+			{% endfor %}
+		</select>
+	</div>
+	<div>
+		<input class="submitBtn" type="submit" value="SUBMIT" />
+	</div>
+</form>
+{% endblock content %}

@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Place, PlaceImage
+from .forms import PlaceForm
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     places = Place.objects.all()
@@ -12,30 +14,59 @@ def home(request):
     }
     return render(request, template_name="place/home.html", context=context)
 
+@login_required
 def write(request):
-    if request.method == "POST":
-        user = request.user
-        name = request.POST["name"]
-        location = request.POST["location"]
-        category = request.POST["category"]
-        opening_time = request.POST["opening_time"]
-        closing_time = request.POST["closing_time"]
-        wifi = request.POST["wifi"]
-        power_socket = request.POST["power_socket"]
-        rating = request.POST["rating"]
-        content = request.POST["content"]
-        Place.objects.create(user=user, name=name, location=location, category=category, opening_time=opening_time,
-                            closing_time=closing_time, wifi=wifi, power_socket=power_socket, rating=rating, content=content)
+    if request.method == 'POST':
+        form = PlaceForm(request.POST)
+        if form.is_valid():
+            place = form.save(commit=False)
+            place.user = request.user
+            place.save()
+            return redirect('/place')
 
-        image = request.FILES["image"]
-        id = Place.objects.latest('id')
-        PlaceImage.objects.create(place=id, image=image)
-        return redirect(f"place/detail/{id}")
+    else:
+        form = PlaceForm()
+        context = {
+            'form': form,
+            }
+        return render(request, template_name="place/write.html", context=context)
 
+def detail(request, id):
+    place = Place.objects.get(id=id)
     context = {
-        'categorys': Place.CATEGORY_CHOICE,
-        'sockets': Place.SOCKET_CHOICE,
-        'wifis': Place.WIFI_CHOICE
+        "place": place,
     }
+    return render(request, template_name="place/detail.html", context=context)
 
-    return render(request, template_name="place/write.html", context=context)
+@login_required
+def update(request, id):
+    place = Place.objects.get(id=id)
+    if request.method == "POST":
+        form = PlaceForm(request.POST)
+        if form.is_valid():
+            place.name = form.cleaned_data['name']
+            place.location = form.cleaned_data['location']
+            place.category = form.cleaned_data['category']
+            place.opening_time = form.cleaned_data['opening_time']
+            place.closing_time = form.cleaned_data['closing_time']
+            place.wifi = form.cleaned_data['wifi']
+            place.power_socket = form.cleaned_data['power_socket']
+            place.rating = form.cleaned_data['rating']
+            place.content = form.cleaned_data['content']
+            place.save()
+            return redirect(f'/place/detail/{id}')
+        
+    else:
+        form = PlaceForm(instance=place)
+        context = {
+            "form": form,
+            "id": id,
+        }
+        return render(request, template_name='place/update.html', context=context)
+
+@login_required
+def delete(request, id):
+    if request.method == "POST":
+        place = Place.objects.get(id=id)
+        place.delete()
+        return redirect('/place')

@@ -2,8 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
-    # 유저네임, 비밀번호, 이메일, 성, 이름 상속받아옴
-    # 로그인은 이메일과 비밀번호로 시도
+    # 유저네임, 비밀번호 상속
     GENDER_CHOICE = [
         ('Male', '남자'),
         ('Female', '여자'),

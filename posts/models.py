@@ -28,3 +28,11 @@ class Post(models.Model):
     duration = models.CharField(
         max_length=10, choices=DURATION_CHOICE)  # 정기, 번개
     activation = models.BooleanField(default=True)  # True : 모집중, False : 모집완료
+
+
+class Review(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)    # 후기 작성 유저
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)    # 후기를 다는 Post
+    image = models.ImageField(blank=True, null=True)    # 모임 인증 이미지
+    content = models.TextField()    # 내용
+    write_at = models.DateTimeField(auto_now_add=True)

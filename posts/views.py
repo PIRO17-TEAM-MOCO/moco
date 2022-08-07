@@ -1,6 +1,6 @@
 from email import contentmanager
 from django.shortcuts import redirect, render
-from .models import Post, User
+from .models import Post, User, Review
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime, timedelta
 
@@ -54,6 +54,8 @@ def write(request):
 def detail(request, id):
     post = Post.objects.get(id=id)
 
+    all_reviews = post.review_set.all()
+
     tomorrow = datetime.now() + timedelta(days=1)
     tomorrow = datetime.replace(tomorrow, hour=0, minute=0, second=0)
     expires = datetime.strftime(tomorrow, "%a, %d-%b-%Y %H:%M:%S GMT")
@@ -64,7 +66,8 @@ def detail(request, id):
         can_revise = False
         context = {
             "post": post,
-            'can_revise': can_revise    # can_revise가 True면 수정, 삭제, 모집 완료로 전환 가능
+            'can_revise': can_revise,   # can_revise가 True면 수정, 삭제, 모집 완료로 전환 가능
+            "reviews": all_reviews
         }
 
         session_cookie = id
@@ -88,7 +91,8 @@ def detail(request, id):
 
     context = {
         "post": post,
-        'can_revise': can_revise    # can_revise가 True면 수정, 삭제, 모집 완료로 전환 가능
+        'can_revise': can_revise,
+        "reviews": all_reviews
     }
     return render(request, template_name="posts/main_detail.html", context=context)
 
@@ -114,7 +118,6 @@ def update(request, id):
         return redirect(f"/post/detail/{id}")
 
     post = Post.objects.get(id=id)
-
     context = {
         'post': post,
         'contacts': Post.CONTACT_CHOICE,
@@ -134,3 +137,50 @@ def close(request, id):
     if request.method == "POST":
         Post.objects.filter(id=id).update(activation=False)
         return redirect(f"/post/detail/{id}")
+
+
+def review_home(request):
+    reviews = Review.objects.all()
+    context = {
+        'reviews': reviews,
+    }
+    return render(request, template_name="reviews/review.html", context=context)
+
+
+def review_write(request, id):
+    if request.method == "POST":
+        img = request.FILES.get('review_image')
+        content = request.POST['review_content']
+        user = request.user
+        post = Post.objects.get(id=id)
+        Review.objects.create(user=user, content=content, post=post, image=img)
+        return redirect(f"/post/detail/{id}")
+
+
+def review_revise(request, id):
+    if request.method == "POST":
+        img = request.FILES.get('review_image')
+        content = request.POST['review_content']
+        user = request.user
+        post = Review.objects.get(id=id).post
+        Review.objects.filter(id=id).update(
+            user=user, content=content, post=post, image=img)
+        return redirect(f"/post/detail/{post.id}")
+    revised_review = Review.objects.get(id=id)
+    post = revised_review.post
+    all_reviews = post.review_set.all()
+
+    context = {
+        'reviews': all_reviews,
+        'revised_review': revised_review,
+        'post': post
+    }
+    return render(request, template_name="reviews/review_revise.html", context=context)
+
+
+def review_delete(request, id):
+    if request.method == "POST":
+        review = Review.objects.get(id=id)
+        post_id = review.post.id
+        Review.objects.filter(id=id).delete()
+        return redirect(f"/post/detail/{post_id}")

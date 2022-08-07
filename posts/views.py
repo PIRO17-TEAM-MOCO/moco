@@ -3,12 +3,19 @@ from django.shortcuts import redirect, render
 from .models import Post, User, Review
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime, timedelta
+from django.db.models import Q
 
 # Create your views here.
 
 
 def home(request):
-    posts = Post.objects.all()
+    query = request.GET.get('query', None)
+    if query:
+        posts = Post.objects.filter(
+            Q(title__contains=query) | Q(tag__contains=query) | Q(
+                content__contains=query) | Q(location__contains=query) | Q(user__nickname__contains=query))
+    else:
+        posts = Post.objects.all()
     sort = request.GET.get('sort', 'None')
     if sort == "latest":
         posts = posts.order_by("-published_at")

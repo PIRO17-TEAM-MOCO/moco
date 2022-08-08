@@ -33,6 +33,7 @@ class Post(models.Model):
 class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)    # 후기 작성 유저
     post = models.ForeignKey(Post, on_delete=models.CASCADE)    # 후기를 다는 Post
-    image = models.ImageField(blank=True, null=True)    # 모임 인증 이미지
+    image = models.ImageField(blank=True, null=True,
+                              upload_to='post/reviews/%Y%m%d')    # 모임 인증 이미지
     content = models.TextField()    # 내용
     write_at = models.DateTimeField(auto_now_add=True)

@@ -179,6 +179,7 @@ def review_home(request):
 def review_write(request, id):
     if request.method == "POST":
         img = request.FILES.get('review_image')
+        print(img)
         content = request.POST['review_content']
         user = request.user
         post = Post.objects.get(id=id)
@@ -187,15 +188,18 @@ def review_write(request, id):
 
 
 def review_revise(request, id):
-    if request.method == "POST":
-        img = request.FILES.get('review_image')
-        content = request.POST['review_content']
-        user = request.user
-        post = Review.objects.get(id=id).post
-        Review.objects.filter(id=id).update(
-            user=user, content=content, post=post, image=img)
-        return redirect(f"/post/detail/{post.id}")
     revised_review = Review.objects.get(id=id)
+    if request.method == "POST":
+        revised_review.user = request.user
+        revised_review.content = request.POST['review_content']
+        revised_review.post = Review.objects.get(id=id).post
+        if request.FILES.get("review_image"):
+            revised_review.image = request.FILES.get("review_image")
+        else:
+            revised_review.image = revised_review.image
+        revised_review.save()
+        return redirect(f"/post/detail/{revised_review.post.id}")
+
     post = revised_review.post
     all_reviews = post.review_set.all()
 

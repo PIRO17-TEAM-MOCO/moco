@@ -1,9 +1,10 @@
 from email import contentmanager
 from django.shortcuts import redirect, render
-from .models import Post, User, Review
+from .models import Post, Review
+from comments.models import Comment
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime, timedelta
-from django.db.models import Q
+from django.db.models import Q, Count
 
 # Create your views here.
 
@@ -41,6 +42,9 @@ def home(request):
         posts = posts.order_by("-published_at")
     elif sort == "views":
         posts = posts.order_by("-views")
+    elif sort == "comments":
+        posts = posts.annotate(comment_count=Count(
+            'comment')).order_by("-comment_count")
 
     context = {
         "posts": posts,
@@ -85,6 +89,8 @@ def detail(request, id):
 
     all_reviews = post.review_set.all()
 
+    all_comments = post.comment_set.all()
+
     tomorrow = datetime.now() + timedelta(days=1)
     tomorrow = datetime.replace(tomorrow, hour=0, minute=0, second=0)
     expires = datetime.strftime(tomorrow, "%a, %d-%b-%Y %H:%M:%S GMT")
@@ -96,7 +102,8 @@ def detail(request, id):
         context = {
             "post": post,
             'can_revise': can_revise,   # can_revise가 True면 수정, 삭제, 모집 완료로 전환 가능
-            "reviews": all_reviews
+            "reviews": all_reviews,
+            "comments": all_comments
         }
 
         session_cookie = id
@@ -121,7 +128,8 @@ def detail(request, id):
     context = {
         "post": post,
         'can_revise': can_revise,
-        "reviews": all_reviews
+        "reviews": all_reviews,
+        "comments": all_comments
     }
     return render(request, template_name="posts/main_detail.html", context=context)
 

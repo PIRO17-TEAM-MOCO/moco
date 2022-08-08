@@ -10,12 +10,32 @@ from django.db.models import Q
 
 def home(request):
     query = request.GET.get('query', None)
+    dur = request.GET.get('duration', None)
+    ctt = request.GET.get('contact', None)
+
+    q = Q()
+    if dur == "regular":
+        q.add(Q(duration="정기"), q.AND)
+
+    elif dur == "one-time":
+        q.add(Q(duration="번개"), q.AND)
+
+    if ctt == "on":
+        q.add(Q(contact="온라인"), q.AND)
+    elif ctt == "off":
+        q.add(Q(contact="오프라인"), q.AND)
+    elif ctt == "mix":
+        q.add(Q(contact="혼합"), q.AND)
+
     if query:
-        posts = Post.objects.filter(
-            Q(title__contains=query) | Q(tag__contains=query) | Q(
-                content__contains=query) | Q(location__contains=query) | Q(user__nickname__contains=query))
-    else:
-        posts = Post.objects.all()
+        q.add(Q(title__contains=query), q.OR)
+        q.add(Q(tag__contains=query), q.OR)
+        q.add(Q(content__contains=query), q.OR)
+        q.add(Q(location__contains=query), q.OR)
+        q.add(Q(user__nickname__contains=query), q.OR)
+
+    posts = Post.objects.filter(q)
+
     sort = request.GET.get('sort', 'None')
     if sort == "latest":
         posts = posts.order_by("-published_at")
@@ -25,6 +45,8 @@ def home(request):
     context = {
         "posts": posts,
         "sort": sort,
+        "duration": dur,
+        "contact": ctt
     }
     return render(request, template_name="posts/main.html", context=context)
 

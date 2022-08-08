@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/05a54db67a.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="{% static 'css/main_write.css' %}" />
+    <title>MOCO</title>
+  </head>
+  <body>
+    <div id="main_write__top">
+      <div class="main_write__title">
+        <div class="main_write__title_num"><h2>1</h2></div>
+        <h2>모집 요건을 작성해주세요</h2>
+      </div>
+      <div id="main_write__top__select">
+        <div class="main_write__top__select_row">
+          <div class="main_write__top__select_left">
+            <div class="main_write__top__select_title">
+              <h3>진행방식</h3>
+            </div>
+            <div class="main_write__top__box">
+              <select name="" class="main_write__top__box_select"></select>
+            </div>
+          </div>
+          <div class="main_write__top__select_right">
+            <div class="main_write__top__select_title">
+              <h3>모임형태</h3>
+            </div>
+            <div class="main_write__top__box">
+              <select name="" class="main_write__top__box_select"></select>
+            </div>
+          </div>
+        </div>
+        <div class="main_write__top__select_row">
+          <div class="main_write__top__select_left">
+            <div class="main_write__top__select_title">
+              <h3>모집인원</h3>
+            </div>
+            <div class="main_write__top__box">
+              <input type="text" class="main_write__top__box_text" />
+            </div>
+          </div>
+          <div class="main_write__top__select_right">
+            <div class="main_write__top__select_title">
+              <h3>지역</h3>
+            </div>
+            <div class="main_write__top__box">
+              <input type="text" class="main_write__top__box_text" />
+            </div>
+          </div>
+        </div>
+        <div class="main_write__top__select_row">
+          <div class="main_write__top__select_left">
+            <div class="main_write__top__select_title">
+              <h3>모집링크</h3>
+            </div>
+            <div class="main_write__top__box">
+              <input type="text" class="main_write__top__box_text" />
+            </div>
+          </div>
+          <div class="main_write__top__select_right">
+            <div class="main_write__top__select_title">
+              <h3>개발언어(선택)</h3>
+            </div>
+            <div class="main_write__top__box">
+              <input type="text" class="main_write__top__box_text" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="main_write__tag">
+      <div class="main_write__title">
+        <div class="main_write__title_num"><h2>2</h2></div>
+        <h2>태그를 입력해주세요</h2>
+      </div>
+      <div class="main_write__tag_write__main">
+        <div class="main_write__tag_write__main_title"><h3>태그</h3></div>
+        <div class="main_write__tag_write__main_content">
+          <input type="text" class="main_write__tag__main_content_input" />
+        </div>
+      </div>
+    </div>
+    <div id="main_write__content">
+      <div class="main_write__title">
+        <div class="main_write__title_num"><h2>3</h2></div>
+        <h2>글 제목과 내용을 작성해주세요</h2>
+      </div>
+      <div class="main_write__tag_write__main">
+        <div class="main_write__tag_write__main_title"><h3>제목</h3></div>
+        <div class="main_write__tag_write__main_content">
+          <input type="text" class="main_write__tag__main_content_input" />
+        </div>
+        <div id="main_write__content__contents">
+          <div class="main_write__tag_write__main_title"><h3>내용</h3></div>
+          <div id="main_write__content__write_txt">
+            <textarea
+              name="main_write__content_txt"
+              id="main_write__content_box"
+              cols="30"
+              rows="10"
+              placeholder="내용을 작성해주세요."
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <div id="main_write__content__btn">
+        <button type="submit" id="main_write__content__btn_cancel">
+          <h3>취소</h3>
+        </button>
+        <button type="submit" id="main_write__content__btn_register">
+          <h3>등록하기</h3>
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

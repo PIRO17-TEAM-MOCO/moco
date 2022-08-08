@@ -1,0 +1,334 @@
+div,
+input {
+  border: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+}
+
+/* 단위 다 vh로 바꾸기 */
+
+#main__introduce_div {
+  height: 569px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: gray;
+}
+
+/* main__main_div 마진에 따 화면 구성도 많이 바뀜(기존엔 272px) */
+#main__main_div {
+  /* 기존에 margin 좌우 272로 했다가 padding으로 바꿨다가 일단 없앰 */
+  /* width를 없애면 스크롤 문제를 해결하고 양 옆에 여백을 둘 수 있음 */
+  padding: 0 50px;
+  /* 일단 지금 너무 커서 50으로 둠 */
+}
+
+#main__search_div {
+  margin-top: 20px;
+}
+
+#main__info_div {
+  margin-top: 20px;
+  width: 1360px;
+}
+
+#main__search_div__top {
+  display: flex;
+  height: 250px;
+  width: 1360px;
+}
+
+#search_div__top_right {
+  /*width: 234px;*/
+  width: 234px;
+}
+
+#search_div__top_left {
+  /*width: 1126px;*/
+  width: 1126px;
+}
+
+#search_div__top_left__nav {
+  display: flex;
+  height: 60px;
+  width: 400px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#search_div__top_left__nav span {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+#search_div__top_left__search {
+  display: inline-block;
+}
+
+#search_div__top_left__search input {
+  height: 79px;
+  /* 원래 width는 1126px */
+  width: 1126px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid rgb(141, 141, 141);
+  font-size: 20px;
+}
+
+#main__search_text {
+  background-image: url(/static/img/magnifying\ glass.png);
+  background-position: 13px center;
+  background-size: 30px;
+  background-repeat: no-repeat;
+  text-indent: 50px;
+}
+
+#main__search_tag {
+  background-image: url(/static/img/tag.png);
+  background-position: 13px center;
+  background-size: 30px;
+  background-repeat: no-repeat;
+  text-indent: 50px;
+}
+
+#search_div__top_right__switch {
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+#search_div__top_right__switch span {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+#search_div__top_right__btn {
+  height: 79px;
+  margin: 10px 0 0;
+  display: flex;
+  justify-content: center;
+}
+
+#search_div__top_right__reset {
+  height: 79px;
+  margin: 20px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#search_div__top_right__reset span {
+  font-size: 22px;
+  margin-left: 12px;
+}
+
+#main__search_div__tag {
+  height: 50px;
+  width: fit-content;
+}
+
+#main__info_div__nav {
+  display: flex;
+  height: 60px;
+  width: 330px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#main__info_div__nav span {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+#main__info_div__box {
+  display: flex;
+  align-items: center;
+  margin-left: 1000px;
+}
+
+#info_div__select_box {
+  width: 83px;
+  height: 32px;
+}
+
+#main__info_div__top {
+  display: flex;
+}
+
+#main__info_div__post {
+  height: 274px;
+  border: 1px solid rgb(221, 221, 221);
+  border-left: 5px solid blue;
+  display: flex;
+}
+
+/* 셀렉트 박스 고치고 https://velog.io/@ewaterbin/CSS-.-%EC%85%80%EB%A0%89%ED%8A%B8-%EB%B0%95%EC%8A%A4%EB%A5%BC-%EA%B5%AC%ED%98%84%ED%95%98%EB%A9%B0-%EB%B4%89%EC%B0%A9%ED%95%9C-%EB%82%9C%EA%B4%80%EB%93%A4, 
+나머지 채우기(220804) */
+
+.main__info_li__tag_flex {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin-top: 25px;
+}
+
+.main__search_li__tag_flex {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.main__info_li__tag_flex li {
+  border-radius: 5px;
+  background-color: rgb(221, 221, 221);
+  font-size: 18px;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.main__search_li__tag_flex li {
+  border-radius: 5px;
+  background-color: rgb(221, 221, 221);
+  font-size: 18px;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+#main__info_div__post_left {
+  width: 1106px;
+  margin-left: 20px;
+}
+
+#main__info_div__post_right {
+  width: 234px;
+  display: flex;
+  align-items: center;
+}
+
+#main__info_div__post_left__title {
+  font-size: 24px;
+  margin-top: 30px;
+  font-weight: 700;
+}
+
+#main__info_div__post_left__txt {
+  font-size: 18px;
+  margin-top: 25px;
+  width: 977px;
+  height: 56px;
+}
+
+#main__info_div__post_left__txt p {
+  line-height: 25px;
+}
+
+#main__info_div__post_left__reaction i {
+  width: 16px;
+  height: 16px;
+  margin-right: 12px;
+  color: rgb(110, 110, 110);
+}
+
+#main__info_div__post_left__reaction span {
+  margin-right: 20px;
+  font-size: 18px;
+  color: rgb(110, 110, 110);
+}
+
+#main__info_div__post_left__reaction {
+  margin-top: 20px;
+  width: 300px;
+}
+
+#main__info_div__post_right__info {
+  margin-left: 20px;
+}
+
+#main__info_div__post_right__img {
+  margin-left: 40px;
+}
+
+#main__search_btn {
+  border-radius: 5px;
+  border-style: none;
+  height: 79px;
+  width: 206px;
+  background-color: #2253ff;
+  color: white;
+  font-size: 22px;
+}
+
+#main__reset_btn {
+  border-style: none;
+  background-color: #fff;
+  font-weight: 700;
+  font-size: 22px;
+}
+
+#main__search_reset {
+  border-style: none;
+}
+
+/*스위치 구현 파트*/
+.wrapper {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  margin-top: 15px;
+  margin-left: 15px;
+  align-items: center;
+}
+#switch {
+  position: absolute;
+  /* hidden */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.switch_label {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  width: 58px;
+  height: 28px;
+  background: #fff;
+  border: 2px solid #2253ff;
+  border-radius: 20px;
+  transition: 0.2s;
+}
+.switch_label:hover {
+  background: #fff;
+}
+.onf_btn {
+  position: absolute;
+  top: 4px;
+  left: 3px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  background: #2253ff;
+  transition: 0.2s;
+}
+
+/* checking style */
+#switch:checked + .switch_label {
+  background: #2253ff;
+  border: 2px solid #2253ff;
+}
+
+#switch:checked + .switch_label:hover {
+  background: #2253ff;
+}
+
+/* move */
+#switch:checked + .switch_label .onf_btn {
+  left: 34px;
+  background: #fff;
+  box-shadow: 1px 2px 3px #00000020;
+}
+/* 여기까지 스위치 구현 */

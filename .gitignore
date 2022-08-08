@@ -294,3 +294,5 @@ pip-selfcheck.json
 users/migrations/
 
 posts/migrations/
+
+place/

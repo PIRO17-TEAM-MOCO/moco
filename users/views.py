@@ -1,12 +1,18 @@
 from django.shortcuts import render, redirect
 from django.contrib import auth
+from django.contrib.auth.forms import AuthenticationForm
 from .models import User
 from .forms import SignupForm
+
 
 # url은 임시입니다
 # main은 기능확인용입니다.
 def main(request):
-    return render(request, 'main.html')
+    if request.user:
+      context = {
+        'user': request.user,
+      }
+    return render(request, template_name='users/main.html', context=context)
 
 def signup(request):
   if request.method == 'POST':
@@ -18,20 +24,28 @@ def signup(request):
     return redirect('users:signup')
   else:
     form = SignupForm()
-    return render(request, 'signup.html', {'form' : form})
+    context = {
+      'form': form,
+    }
+    return render(request, template_name='users/signup.html', context=context)
 
 def login(request):
   if request.method == 'POST':
-    username = request.POST['username']
-    password = request.POST['password']
-    user = auth.authenticate(request, username=username, password=password)
-    if user is not None:
-      auth.login(request, user)
+    form = AuthenticationForm(request, request.POST)
+    if form.is_valid():
+      auth.login(request, form.get_user())
       return redirect('users:main')
     else:
-      return render(request, 'login.html')
+      context = {
+        'form': form,
+      }
+      return render(request, template_name='users/login.html', context=context)
   else:
-    return render(request, 'login.html')
+    form = AuthenticationForm()
+    context = {
+        'form': form,
+      }
+    return render(request, template_name='users/login.html', context=context)
 
 def logout(request):
   auth.logout(request)

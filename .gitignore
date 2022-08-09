@@ -298,3 +298,5 @@ posts/migrations/
 place/
 
 comments/migrations/
+
+likes/migrations/

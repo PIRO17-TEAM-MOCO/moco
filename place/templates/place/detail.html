@@ -1,0 +1,36 @@
+{% extends 'place/base.html' %}
+{% block content %}
+<div class="content">
+  <div class="banner"></div>
+    <div class="content-title">
+      <div class="content-title__name">{{place.name}}</div>
+      <div class="content-title__location">{{place.location}}</div>
+      <div class="content-title__published">{{place.published_at}}</div>
+      <div class="like">
+        <button type="submit" onclick="onClickLike()">
+            {% csrf_token %} <!--{% if comment.like %}-->
+            <i class="fa-regular fa-heart"></i>
+            <!--{%else%}
+            <i class="fa-solid fa-heart"></i>
+            {%endif%}-->
+        </button>
+        {% if user.is_authenticated %}
+        <button type="submit" onclick="onClickSetting()">
+            {% csrf_token %}
+            <i class="fa-solid fa-ellipsis"></i>
+        </button>
+        {% endif %}
+      </div>
+    </div>
+    <div class="content-info">
+      <div class="content-info__item"><span>장소 분류</span><span>{{place.get_category_display}}</span></div>
+      <div class="content-info__item"><span>운영 시간</span><span>{{place.opening_time}}~{{place.closing_time}}</span></div>
+      <div class="content-info__item"><span>와이파이</span><span>{{place.get_wifi_display}}</span></div>
+      <div class="content-info__item"><span>콘센트</span><span>{{place.get_power_socket_display}}</span></div>
+      <div class="content-info__item"><span>별점</span><span>{{place.rating}}</span></div>
+      <div class="content-info__item"><span>위치</span><span>{{place.location}}</span></div>
+      <div class="content-info__map"></div>
+      <div class="content-info__content">{{place.content}}</div>
+    </div>
+</div>
+{% endblock %}

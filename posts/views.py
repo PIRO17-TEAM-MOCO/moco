@@ -1,9 +1,10 @@
 from email import contentmanager
 from django.shortcuts import redirect, render
-from .models import Post, User, Review
+from .models import Post, Review
+from comments.models import Comment
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime, timedelta
-from django.db.models import Q
+from django.db.models import Q, Count
 
 # Create your views here.
 
@@ -41,6 +42,9 @@ def home(request):
         posts = posts.order_by("-published_at")
     elif sort == "views":
         posts = posts.order_by("-views")
+    elif sort == "comments":
+        posts = posts.annotate(comment_count=Count(
+            'comment')).order_by("-comment_count")
 
     context = {
         "posts": posts,
@@ -90,6 +94,10 @@ def detail(request, id):
 
     all_reviews = post.review_set.all()
 
+    all_comments = post.comment_set.all()
+
+    len_likes = len(post.like_set.all())
+
     tomorrow = datetime.now() + timedelta(days=1)
     tomorrow = datetime.replace(tomorrow, hour=0, minute=0, second=0)
     expires = datetime.strftime(tomorrow, "%a, %d-%b-%Y %H:%M:%S GMT")
@@ -101,7 +109,9 @@ def detail(request, id):
         context = {
             "post": post,
             'can_revise': can_revise,   # can_revise가 True면 수정, 삭제, 모집 완료로 전환 가능
-            "reviews": all_reviews
+            "reviews": all_reviews,
+            "comments": all_comments,
+            "len_likes": len_likes,
         }
 
         session_cookie = id
@@ -126,7 +136,9 @@ def detail(request, id):
     context = {
         "post": post,
         'can_revise': can_revise,
-        "reviews": all_reviews
+        "reviews": all_reviews,
+        "comments": all_comments,
+        "len_likes": len_likes,
     }
     return render(request, template_name="posts/main_detail.html", context=context)
 
@@ -158,6 +170,8 @@ def update(request, id):
         'durations': Post.DURATION_CHOICE,
     }
 
+    if post.user.id != request.user.id:
+        return redirect(f'/post/detail/{id}')
     return render(request, template_name="posts/main_revise.html", context=context)
 
 
@@ -207,10 +221,12 @@ def review_revise(request, id):
 
     post = revised_review.post
     all_reviews = post.review_set.all()
+    all_comments = post.comment_set.all()
 
     context = {
         'reviews': all_reviews,
         'revised_review': revised_review,
+        'comments': all_comments,
         'post': post
     }
     return render(request, template_name="reviews/review_revise.html", context=context)

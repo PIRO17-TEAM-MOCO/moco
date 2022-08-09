@@ -1,39 +1,41 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Sans:wght@400;700&display=swap");
-@import url(/static/css/reset.css);
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Sans:wght@400;700&display=swap');
+@import url(reset.css);
 
-.btn:active,
-.btn:focus {
-  outline: none;
-  box-shadow: none;
+.btn:active, .btn:focus {
+  outline:none;
+  box-shadow:none;
 }
 
-.navbar a:hover {
-  color: #2253ff !important;
+.navbar a:hover { 
+  color: #2253FF!important;
 }
 
 body a:hover {
-  color: black !important;
+  color: black!important;
 }
 
 body {
-  color: black !important;
-  font-family: "Noto Sans", sans-serif;
-  font-family: "Noto Sans KR", sans-serif;
+  color: black!important;
+  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-weight: 400;
   padding-top: 5rem;
 }
 
 .navbar {
   box-shadow: 0px 4px 10px rgba(171, 186, 189, 0.15);
-  font-family: "Noto Sans", sans-serif;
-  font-family: "Noto Sans KR", sans-serif;
+  background-color: white;
+  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-weight: 600;
   font-size: 1rem;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .navbar__list {
@@ -54,7 +56,7 @@ body {
   gap: 2rem;
 }
 
-.navbar__shortcut i {
+.navbar__shortcut i{
   font-size: 1.25rem;
 }
 

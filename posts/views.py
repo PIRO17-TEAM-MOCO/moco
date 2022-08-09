@@ -91,6 +91,8 @@ def detail(request, id):
 
     all_comments = post.comment_set.all()
 
+    len_likes = len(post.like_set.all())
+
     tomorrow = datetime.now() + timedelta(days=1)
     tomorrow = datetime.replace(tomorrow, hour=0, minute=0, second=0)
     expires = datetime.strftime(tomorrow, "%a, %d-%b-%Y %H:%M:%S GMT")
@@ -103,7 +105,8 @@ def detail(request, id):
             "post": post,
             'can_revise': can_revise,   # can_revise가 True면 수정, 삭제, 모집 완료로 전환 가능
             "reviews": all_reviews,
-            "comments": all_comments
+            "comments": all_comments,
+            "len_likes": len_likes,
         }
 
         session_cookie = id
@@ -129,7 +132,8 @@ def detail(request, id):
         "post": post,
         'can_revise': can_revise,
         "reviews": all_reviews,
-        "comments": all_comments
+        "comments": all_comments,
+        "len_likes": len_likes,
     }
     return render(request, template_name="posts/main_detail.html", context=context)
 
@@ -161,6 +165,8 @@ def update(request, id):
         'durations': Post.DURATION_CHOICE,
     }
 
+    if post.user.id != request.user.id:
+        return redirect(f'/post/detail/{id}')
     return render(request, template_name="posts/main_revise.html", context=context)
 
 

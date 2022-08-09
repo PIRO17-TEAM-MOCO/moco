@@ -1,0 +1,144 @@
+/*아이디 찾기*/
+main {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-family: "Noto Sans", "Noto Sans KR";
+  margin-top: 5rem;
+}
+
+main .idsearch__container {
+  width: 50rem;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 2rem;
+  flex-wrap: wrap;
+}
+
+main .idsearch__div {
+  width: 30rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+main .input {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.input__name {
+  width: 22rem;
+  height: 4rem;
+  border-radius: 0.5rem;
+  margin-top: 2.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 2rem;
+  border: 1px solid #8c8c8c;
+}
+
+.input__name::placeholder {
+  font-size: 1rem;
+  color: #8c8c8c;
+}
+
+.input__birth {
+  width: 22rem;
+  height: 4rem;
+  border-radius: 0.5rem;
+  padding-left: 2rem;
+  border: 1px solid #8c8c8c;
+}
+
+.input__birth::placeholder {
+  font-size: 1rem;
+  color: #8c8c8c;
+  border-color: #8c8c8c;
+}
+
+.input__name:focus {
+  outline: none !important;
+  border: 1px solid #8c8c8c;
+}
+
+.input__birth:focus {
+  outline: none !important;
+  border: 1px solid #8c8c8c;
+}
+
+#search__btn {
+  cursor: pointer;
+  margin-top: 1rem;
+  width: 22rem;
+  height: 4rem;
+  outline: 0;
+  border: 0;
+  border-radius: 0.5rem;
+  background-color: rgb(47, 82, 245);
+  color: #fff;
+  font-weight: 900;
+}
+
+#sub__menu {
+  height: 2rem;
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 100;
+  color: #8c8c8c;
+}
+
+#sub__menu a {
+  text-decoration: none;
+  color: #8c8c8c;
+}
+
+/*간편 로그인*/
+.login__sim {
+  width: 50rem;
+  height: 2rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  color: #8c8c8c;
+  font-weight: 100;
+}
+
+hr {
+  width: 9rem;
+  height: 0.1rem;
+  margin: 0 0.5rem 0 0.5rem;
+}
+
+.login__sim__soc {
+  width: 22rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 1rem;
+}
+
+.login__sim__soc button {
+  cursor: pointer;
+  width: 4.5rem;
+  height: 4.5rem;
+  outline: 0;
+  border: 1px solid #8c8c8c;
+  border-radius: 0.3rem;
+  background-color: #fff;
+  font-size: 1rem;
+  font-weight: 100;
+  color: #8c8c8c;
+}

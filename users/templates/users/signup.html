@@ -1,0 +1,104 @@
+{% extends 'users/account_base.html' %} {% block content %}
+<main>
+  <div class="signup__container">
+    <div class="signup__nor">
+      <span>회원가입</span>
+      <div class="input">
+        <p style="margin-top: 2.5rem">아이디</p>
+        <input class="input__reg__id" type="text" placeholder="아이디" />
+        <p>이메일</p>
+        <input class="input__email" type="email" placeholder="이메일 주소" />
+        <p>비밀번호</p>
+        <input class="input__reg__pw" type="password" placeholder="비밀번호" />
+        <p>비밀번호&nbsp;<span style="color: #8c8c8c">(확인)</span></p>
+        <input
+          class="input__reg__pw"
+          type="password"
+          placeholder="비밀번호 (확인)"
+        />
+      </div>
+      <button id="signup__1st__btn" onclick="signupFuntion()">다음</button>
+      <div id="sub__reg__menu">
+        회원가입 시, MOCO가 제공하는 서비스를 모두 이용하실 수 있습니다. MOCO의
+        <button class="openBtn1">서비스 이용약관</button>,
+        <button class="openBtn2">개인정보취급방침</button>에 동의합니다.
+        <input type="checkbox" id="input__reg__cb" />
+        <label for="input__reg__cb"></label>
+      </div>
+      <div class="signup__sim">
+        <hr noshade />
+        <span>간편 회원가입</span>
+        <hr noshade />
+      </div>
+      <div class="signup__sim__soc">
+        <button>구글</button>
+        <button>네이버</button>
+        <button>카카오</button>
+        <button>깃허브</button>
+      </div>
+      <div class="modal hidden">
+        <div class="bg"></div>
+        <div class="modalBox">
+          <p>
+            <span
+              style="font-size: 1.5rem; font-weight: 900; margin-bottom: 0.5rem"
+              >서비스 이용약관</span
+            ><br />
+            여우별 감사합니다 아슬라 컴퓨터 바나나 나비잠 사과 아슬라 나래
+            감사합니다 비나리 책방 아리아 아슬라 나비잠 아리아 노트북 감사합니다
+            별빛 늘품 미리내 로운 노트북 우리는 도르레 아련 함초롱하다 도서관
+            바람꽃 바람꽃 예그리나 늘품 미리내 미쁘다 노트북 우리는 나래 옅구름
+            산들림 아리아 예그리나 여우별 감사합니다 여우별 도르레 함초롱하다
+            아슬라 우리는 소솜 감사합니다. 옅구름 산들림 다솜 도서 감사합니다
+            가온해 나래 가온해 곰다시 그루잠 컴퓨터 나비잠 도담도담 달볓 도서
+            아름드리 사과 도서관 함초롱하다 아름드리 노트북 비나리 포도 나비잠
+            감사합니다 바나나 곰다시 로운 여우비 옅구름 도서관 책방 포도 노트북
+            별빛 바나나 컴퓨터 도담도담 달볓 도르레 감사합니다 이플 비나리
+            가온해 로운 아리아 비나리 노트북 나래 다솜. 포도 소솜 포도 미쁘다
+            안녕 달볓 컴퓨터 옅구름 그루잠 아슬라 산들림 아련 미쁘다 아련
+            예그리나 도르레 안녕 늘품 이플 소록소록 아슬라 비나리 곰다시 늘품
+            바나나 곰다시 노트북 컴퓨터 여우별 여우별 감사합니다 가온해 예그리나
+            바나나 노트북 도담도담 감사합니다 아련 나래 미리내 나래 나비잠
+            미리내 아름드리 우리는 함초롱하다 별빛 비나리 가온해 다솜. 여우별
+            감사합니다 아슬라 컴퓨터 바나나 나비잠 사과 아슬라 나래 감사합니다
+            비나리 책방 아리아 아슬라 나비잠 아리아 노트북 감사합니다 별빛 늘품
+            미리내 로운 노트북 우리는 도르레 아련 함초롱하다 도서관 바람꽃
+            바람꽃 예그리나 늘품 미리내 미쁘다 노트북 우리는 나래 옅구름 산들림
+            아리아 예그리나 여우별 감사합니다 여우별 도르레 함초롱하다 아슬라
+            우리는 소솜 감사합니다.
+          </p>
+          <button class="closeBtn">X</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+  const open = () => {
+    document.querySelector(".modal").classList.remove("hidden");
+  };
+
+  const close = () => {
+    document.querySelector(".modal").classList.add("hidden");
+  };
+
+  document.querySelector(".openBtn1").addEventListener("click", open);
+  document.querySelector(".openBtn2").addEventListener("click", open);
+  document.querySelector(".closeBtn").addEventListener("click", close);
+  document.querySelector(".bg").addEventListener("click", close);
+
+  function popupOpen() {
+    if (document.all.popup.style.visibility == "hidden") {
+      document.all.popup.style.visibility = "visible";
+      return false;
+    } else {
+      document.all.popup.style.visibility = "hidden";
+      return false;
+    }
+  }
+
+  function signupFuntion() {
+    location.replace("user/signup-2nd-step.html");
+  }
+</script>
+{% endblock %}

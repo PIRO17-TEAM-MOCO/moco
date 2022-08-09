@@ -1,0 +1,36 @@
+{% extends 'users/account_base.html' %} {% block content %}
+
+<main>
+  <div class="login__container">
+    <div class="login__nor">
+      <span>MOCO</span>
+      <div class="input">
+        <input class="input__id" type="text" placeholder="아이디" />
+        <input class="input__pw" type="password" placeholder="비밀번호" />
+      </div>
+      <div class="align__cb">
+        <input type="checkbox" id="input__cb" />
+        <label for="input__cb"></label>
+        <span>아이디 저장</span>
+      </div>
+      <button id="login__btn">로그인</button>
+      <div id="sub__menu">
+        <a href="">아이디 찾기&nbsp;&nbsp;</a> |
+        <a href="">&nbsp;&nbsp;회원가입</a>
+      </div>
+
+      <div class="login__sim">
+        <hr noshade />
+        <span>간편 로그인</span>
+        <hr noshade />
+      </div>
+      <div class="login__sim__soc">
+        <button>구글</button>
+        <button>네이버</button>
+        <button>카카오</button>
+        <button>깃허브</button>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

@@ -27,7 +27,10 @@ def write(request):
             place = form.save(commit=False)
             place.user = request.user
             place.save()
-            return redirect(f'/place/detail/{id}')
+            return redirect('/place')
+        else:
+            print(form.is_valid())
+            return redirect('place:write')
             
     else:
         form = PlaceForm()

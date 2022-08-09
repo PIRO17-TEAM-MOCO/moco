@@ -6,7 +6,7 @@ from .forms import SignupForm
 # url은 임시입니다
 # main은 기능확인용입니다.
 def main(request):
-    return render(request, 'main.html')
+    return render(request, 'users/login.html')
 
 def signup(request):
   if request.method == 'POST':
@@ -18,7 +18,7 @@ def signup(request):
     return redirect('users:signup')
   else:
     form = SignupForm()
-    return render(request, 'signup.html', {'form' : form})
+    return render(request, 'users/signup.html', {'form' : form})
 
 def login(request):
   if request.method == 'POST':

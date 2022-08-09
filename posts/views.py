@@ -210,10 +210,12 @@ def review_revise(request, id):
 
     post = revised_review.post
     all_reviews = post.review_set.all()
+    all_comments = post.comment_set.all()
 
     context = {
         'reviews': all_reviews,
         'revised_review': revised_review,
+        'comments': all_comments,
         'post': post
     }
     return render(request, template_name="reviews/review_revise.html", context=context)

@@ -1,0 +1,55 @@
+{% extends 'place/base.html' %}
+{% block content %}
+<div class="content">
+  <div class="content-category"> <!--카테고리-->
+    <div class="content-category__item">전체</div>
+    <div class="content-category__item">카페</div>
+    <div class="content-category__item">스터디룸</div>
+    <div class="content-category__item">그 외</div>
+  </div>
+    <form class="search"> {% csrf_token %} <!--검색-->
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" name="search" class="search__input" placeholder="관심 모각코를 검색해보세요">
+      <input type="button" value="검색" class="search__button">
+    </form>
+    <form class="tag"> {% csrf_token %} <!--태그 검색-->
+      <input type="text" name="tag" class="tag__input" placeholder="태그로 검색해보세요">
+      <i class="fa-solid fa-hashtag"></i>
+      <div class="tag__reset">
+        <i class="fa-solid fa-arrows-rotate" style="color: black;"></i>
+        <input type="submit" name="reset" class="tag__reset" value="초기화">
+      </div>
+    </form>
+  <form class="sort" method="GET"> <!--select box로 임시 대체-->
+    {% csrf_token %}
+		<select name="sort" onchange="this.form.submit();"> 
+			<option value="default">--정렬기준--</option>
+			<option value="latest" {% if sort == "latest" %}selected{% endif %}>최신순</option>
+			<option value="views" {% if sort == "like" %}selected{% endif %}>좋아요순</option>
+			<option value="comment" {% if sort == "comment" %}selected{% endif %}>댓글순</option>
+		</select>
+	</form>
+  <div class="content-box">
+    <ul class="content-box__list">
+      {% for place in places %} <!--게시물-->
+      <a class="content-box__itme" href="{% url 'place:detail' place.id %}" >
+        <div class="content-box__img"></div>
+        <div class="content-box__top">
+          <div class="content-box__name">{{place.name}}</div>
+          <div class="content-box__location">
+            <i class="fa-solid fa-location-dot"></i> {{place.location}}</div>
+          <div class="content-box__rating">{{place.rating}}</div>
+        </div>
+        <div class="content-box__bottom">
+          <span><i class="fa-solid fa-circle-user"></i>{{place.user}}</span>
+          <span>
+            <span style="margin-right: 0.5rem;"><i class="fa-solid fa-comment-dots"></i>1</span>
+            <span><i class="fa-regular fa-heart"></i>2</span>
+          </span>
+        </div>
+      </a>
+      {%endfor%}
+    </ul>
+  </div>
+</div>
+{% endblock %}

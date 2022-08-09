@@ -44,7 +44,7 @@ body {
   flex-direction: row;
   align-items: center;
   padding: 10px 0px;
-  gap: 2.5rem
+  gap: 2.5rem;
 }
 
 .navbar__shortcut {
@@ -53,7 +53,7 @@ body {
   flex-direction: row;
   align-items: center;
   padding: 10px 0px;
-  gap: 2rem
+  gap: 2rem;
 }
 
 .navbar__shortcut i{
@@ -70,6 +70,3 @@ body {
   padding: 20px 10px 0 10px;
   margin: 0 auto;
 }
-
-
-

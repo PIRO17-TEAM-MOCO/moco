@@ -1,0 +1,185 @@
+@import url(./reset.css);
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&family=Noto+Sans:wght@300&display=swap");
+* {
+  box-sizing: border-box;
+  font-family: "Noto Sans", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 62.5%;
+}
+
+/*nav*/
+.navbar a:hover {
+  color: #2253ff !important;
+}
+
+.navbar {
+  box-shadow: 0px 4px 10px rgba(171, 186, 189, 0.15);
+  font-family: "Noto Sans", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.navbar__list {
+  margin-left: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 0px;
+  gap: 2.5rem;
+}
+
+.navbar__shortcut {
+  margin-right: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 0px;
+  gap: 2rem;
+}
+
+.navbar__shortcut i {
+  font-size: 1.25rem;
+}
+/*nav*/
+
+/*login*/
+main {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-family: "Noto Sans", "Noto Sans KR";
+  margin-top: 5rem;
+}
+
+main .signup__container {
+  width: 50rem;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 1rem;
+  flex-wrap: wrap;
+}
+
+main .signup__nor {
+  margin-top: 5rem;
+  width: 30rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+main .input {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.signup__nor .input p {
+  width: 24rem;
+  font-size: 1rem;
+  font-weight: normal;
+  color: #000;
+  margin-bottom: 0.5rem;
+}
+
+#celebrate__image {
+  width: 26rem;
+  height: 14rem;
+  background-color: #d9d9d9;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  font-weight: 100;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#move__notice {
+  cursor: pointer;
+  margin-bottom: 5rem;
+  width: 13rem;
+  margin-right: 2rem;
+  height: 4rem;
+  outline: 0;
+  border: 0;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  background-color: rgb(47, 82, 245);
+  color: #fff;
+  font-weight: 100;
+}
+
+#move__later {
+  cursor: pointer;
+  margin-bottom: 5rem;
+  width: 10rem;
+  height: 4rem;
+  outline: 0;
+  border: 0;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  background-color: #bfbfbf;
+  color: #fff;
+  font-weight: 100;
+}
+
+#sub__menu {
+  width: 23rem;
+  height: 2rem;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  font-weight: 100;
+  color: #8c8c8c;
+  line-height: 1.3rem;
+}
+
+#sub__menu a {
+  text-decoration: none;
+  color: rgb(42, 98, 242);
+}
+
+/*checkbox*/
+input#input__cb {
+  display: none;
+  justify-content: flex-start;
+}
+
+input#input__cb + label {
+  cursor: pointer;
+}
+
+input#input__cb + label:before {
+  content: "";
+  display: inline-flex;
+  width: 1rem;
+  height: 1rem;
+  line-height: 1rem;
+  border: 1px solid #cbcbcb;
+  vertical-align: middle;
+}
+
+input#input__cb:checked + label:before {
+  content: "\f14a";
+  font-family: "FontAwesome";
+  color: rgb(47, 82, 245);
+  background-color: #fff;
+  border-color: #000;
+  font-size: 1rem;
+  text-align: center;
+}
+/* checkbox */

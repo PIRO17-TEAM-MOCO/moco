@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>아이디찾기</title>
+  </head>
+  <body>
+    <h2>아이디찾기</h2>
+    {% if form %}
+    <form method="post" action="{% url 'users:find_id' %}">
+      {% csrf_token %} {{form.as_p}}
+      <button type="submit">제출</button>
+    </form>
+    {% elif users %} {% for user in users %}
+    <p>아이디는 {{user.username}} 입니다.</p>
+    {% endfor %} {% else %}
+    <p>등록된 회원이 아닙니다.</p>
+    {% endif %}
+  </body>
+</html>

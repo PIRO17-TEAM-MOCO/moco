@@ -23,4 +23,7 @@ urlpatterns = [
     path('post/', include('posts.urls')),
     path('account/', include('users.urls')),
     path('place/', include('place.urls')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('comment/', include('comments.urls')),
+    path('like/', include('likes.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+

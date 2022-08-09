@@ -64,8 +64,6 @@ def write(request):
         location = request.POST["location"]
         contact = request.POST["contact"]
         number = request.POST["number"]
-        print("number:", number)
-        number = float(number.strip())
 
         if int(number) <= 1:     # 2명 미만인 경우
             return redirect("/post/write")

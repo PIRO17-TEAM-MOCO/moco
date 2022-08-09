@@ -152,16 +152,16 @@
         <div id="main_detail__comment__contents__reply">
           <button></button>
         </div>
-        {% if comment.user == request.user %}
-        <a href="{% url 'comments:revise' comment.id %}">수정</a>
-        <form action="{% url 'comments:delete' comment.id %}" method="post">
-          {% csrf_token %}
-          <button>삭제</button>
+        {{% if comment == revised_comment %}
+        <form action="{% url 'comments:revise' comment.id %}" method="post">
+        {% csrf_token %}
+           <textarea type="text" name="content">{{comment.content}}</textarea>
+           <input type="submit" value="댓글 수정"/>
+           <a href="{% url 'posts:detail' post.id %}">수정 취소</a>
         </form>
         {% else %}
-        <a href="{% url 'comments:recomment' comment.id %}">답글</a>
-        <br />
-        {% endif%}
+          <p>{{comment.content}}</p>
+        {% endif %}
       </div>
       {% endfor %}
     </div>
@@ -238,12 +238,12 @@
         <div class="main_detail__review__contents_revise">
           <img src="/static/img/dots.png" alt="" />
           {% if review.user == request.user %}
-				  <a href="{% url 'posts:review_revise' review.id%}">수정</a>
-				  <form action="{% url 'posts:review_delete' review.id %}" method="post">
-					  {% csrf_token %}
-					  <button>삭제</button>
-				  </form>
-				  {%endif%}
+          <a href="{% url 'posts:review_revise' review.id%}">수정</a>
+          <form action="{% url 'posts:review_delete' review.id %}" method="post">
+            {% csrf_token %}
+            <button>삭제</button>
+          </form>
+          {%endif%}
         </div>
       </div>
       <div class="main_detail__review__contents_content">

@@ -36,6 +36,19 @@ def signup(request):
         return render(request, template_name='users/signup.html', context=context)
 
 
+@login_required
+def signout(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            request.user.delete()
+            auth.logout(request)
+            return redirect('users:main')
+        else:
+            return redirect('user:main')
+    else:
+        return render(request, template_name='users/signout.html')
+
+
 def login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)
@@ -55,6 +68,7 @@ def login(request):
         return render(request, template_name='users/login.html', context=context)
 
 
+@login_required
 def logout(request):
     auth.logout(request)
     return redirect('users:main')

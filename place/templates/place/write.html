@@ -1,0 +1,104 @@
+{% extends 'place/base.html' %}
+{% block content %}
+<div class="content">
+  <form action="{% url 'place:write' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="content-box">
+      <div class="content-box__title">
+        <span>1</span><span> 사진을 업로드해주세요</span>
+        <hr>
+      </div>
+      <div class="content-box__element">
+        <div class="content-box__title">파일 선택</div>
+          <div class="content-box__image"></div>
+      </div>
+    </div>
+    <div class="content-box">
+      <div class="content-box__title">
+        <span>2</span><span> 상호명과 위치를 작성해주세요</span>
+        <hr>
+      </div>
+      <div class="content-box__element">
+        <div class="content-box__title">상호명</div>
+        <input class="content-box__input" type="text" name="name" placeholder="상호명을 입력해주세요">
+      </div>
+      <div class="content-box__element">
+        <div class="content-box__title">위치</div>
+        <input class="content-box__input" type="text" name="location" placeholder="도로명을 입력해주세요">
+        <input class="content-box__input" type="text" name="location" placeholder="상세 정보를 입력해주세요(선택)">
+        <div class="content-box__image"></div>
+      </div>
+    </div>
+    <div class="content-box">
+      <div class="content-box__title">
+        <span>3</span><span> 구체적인 정보를 작성해주세요</span>
+        <hr>
+      </div>
+      <div class="content-box__element">
+        <div class="content-box__title">장소분류</div>
+        <!-- <button class="label">카페/스터디룸/카페</button>
+        <ul class="optionList">
+          {% for category in categories %}
+          <li class="optionItem">{{ category.1 }}</li>
+          {% endfor %}
+        </ul> -->
+        <select name="category" class="selectpicker">
+          {% for category in categories %}
+          <option value="{{ category.1 }}">{{ category.1 }}</option>
+          {% endfor %}
+        </select>        
+      </div>
+      <div class="content-box__element">
+        <div class="content-box__title">운영 시간</div>
+        <input class="content-box__input" type="time" name="opening_time" min="08:00" max="24:00">
+        <input class="content-box__input" type="time" name="closing_time" min="08:00" max="24:00">
+      </div>
+      <div class="content-box__element">
+        <div class="content-box__title">와이파이</div>
+        <!-- <button class="label">빠름/느림/없음</button>
+        <ul class="optionList">
+          {% for wifi in wifis %}
+          <li class="optionItem">{{ wifi.1 }}</li>
+          {% endfor %}
+        </ul> -->
+        <select name="wifi" class="selectpicker">
+          {% for wifi in wifis %}
+          <option>{{ wifi.1 }}</option>
+          {% endfor %}
+        </select>    
+      </div>
+      <div class="content-box__element">
+        <div class="content-box__title">콘센트</div>
+        <select name="power_socket" class="selectpicker">
+          {% for power_socket in power_sockets %}
+          <option>{{ power_socket.1 }}</option>
+          {% endfor %}
+        </select>    
+      </div>
+      <div class="content-box__element">
+        <div class="content-box__title">별점</div>
+        <input class="content-box__input" type="number" name="rating" min="1" max="5">
+      </div>
+    </div>
+    <div class="content-box">
+      <div class="content-box__title">
+        <span>4</span><span> 후기를 작성해주세요</span>
+        <hr>
+      </div>
+      <div class="content-box__element">
+        <div class="content-box__title">후기</div>
+        <input class="content-box__input" type="text" name="content" placeholder="내용을 작성해주세요">
+      </div>
+    </div>
+    <div class="content-button">
+      <input type="button" value="취소" onclick="back()" />
+      <input type="submit" value="등록하기" />
+    </div>
+  </form>
+</div>
+  <script>
+    const back = () => {
+      window.history.back();
+    }
+  </script>
+{% endblock content %}

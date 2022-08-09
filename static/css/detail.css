@@ -1,0 +1,17 @@
+@import url(base.css);
+
+.banner {
+  background-color: #BFBFBF;
+  width: 22rem;
+  height: 10rem;
+}
+
+.content-title {
+  margin: 4rem;
+}
+
+.content-title__name {
+  font-weight: 700;
+  font-size: 36px;
+  color: blueviolet;
+}

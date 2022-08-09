@@ -7,15 +7,20 @@ def home(request):
     places = Place.objects.all()
     sort = request.GET.get('sort', 'None')
     if sort == "latest":
-        posts = posts.order_by("-published_at")
-
+        places = places.order_by("-published_at")
+        
     context = {
         "places": places,
+        "sort": sort
     }
     return render(request, template_name="place/home.html", context=context)
 
 @login_required
 def write(request):
+    categories = Place.CATEGORY_CHOICE
+    wifis = Place.WIFI_CHOICE
+    power_sockets = Place.SOCKET_CHOICE
+
     if request.method == 'POST':
         form = PlaceForm(request.POST)
         if form.is_valid():
@@ -23,11 +28,17 @@ def write(request):
             place.user = request.user
             place.save()
             return redirect('/place')
-
+        else:
+            print(form.is_valid())
+            return redirect('place:write')
+            
     else:
         form = PlaceForm()
         context = {
             'form': form,
+            'categories': categories,
+            "wifis": wifis,
+            "power_sockets": power_sockets
             }
         return render(request, template_name="place/write.html", context=context)
 

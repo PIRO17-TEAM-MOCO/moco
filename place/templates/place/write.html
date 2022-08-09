@@ -1,0 +1,100 @@
+{% extends 'place/base.html' %}
+{% block content %}
+<div class="content">
+<form action="{% url 'place:write' %}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <table>
+    {{form.as_table}}
+  </table>
+  <div class="content-button">
+    <input type="button" value="취소" onclick="back()" />
+    <input type="submit" value="등록하기" />
+  </div>
+    <!-- <div class="content-box">
+      <div class="content-box__title">
+        <span>1</span><span> 사진을 업로드해주세요</span>
+        <hr>
+      </div>
+      <div class="content-box__element">
+        <div class="content-box__title">파일 선택</div>
+          <div class="content-box__image"></div>
+      </div>
+    </div>
+    <div class="content-box">
+      <div class="content-box__title">
+        <span>2</span><span> 상호명과 위치를 작성해주세요</span>
+        <hr>
+      </div>
+      <div class="content-box__element">
+        <div class="content-box__title">상호명</div>
+        <input class="content-box__input" type="text" name="name" maxlength="25" required="" id="id_name" placeholder="상호명을 입력해주세요">
+      </div>
+      <div class="content-box__element">
+        <div class="content-box__title">위치</div>
+        <input class="content-box__input" type="text" name="location" maxlength="25" required=""placeholder="도로명을 입력해주세요">
+        <input class="content-box__input" type="text" name="location" maxlength="25" required="" placeholder="상세 정보를 입력해주세요(선택)">
+        <div class="content-box__image"></div>
+      </div>
+    </div>
+    <div class="content-box">
+      <div class="content-box__title">
+        <span>3</span><span> 구체적인 정보를 작성해주세요</span>
+        <hr>
+      </div>
+      <div class="content-box__element">
+        <div class="content-box__title">장소분류</div>
+        <select name="category" required="" id="id_category" class="selectpicker">
+          <option selected value="default">----</option>
+          {% for category in categories %}
+          <option value="{{ category.1 }}">{{ category.1 }}</option>
+          {% endfor %}
+      </div>
+      <div class="content-box__element">
+        <div class="content-box__title">운영 시간</div>
+        <input class="content-box__input" type="text" name="opening_time" required="" id="id_opening_time">
+        <input class="content-box__input" type="text" name="closing_time" required="" id="id_closing_time">
+      </div>
+      <div class="content-box__element">
+        <div class="content-box__title">와이파이</div>
+        <select name="wifi" required="" id="id_wifi" class="selectpicker">
+          <option selected value="default">----</option>
+          {% for wifi in wifis %}
+          <option value="{{ wifi.1 }}">{{ wifi.1 }}</option>
+          {% endfor %}
+        </select>    
+      </div>
+        <div class="content-box__title">콘센트</div>
+        <select name="power_socket" required="" id="id_power_socket"class="selectpicker">
+          <option value="" selected="">---------</option>
+          {% for power_socket in power_sockets %}
+          <option value="{{ power_socket.1 }}">{{ power_socket.1 }}</option>
+          {% endfor %}
+        </select>    
+      </div>
+      <div class="content-box__element">
+        <div class="content-box__title">별점</div>
+        <input class="content-box__input" type="number" name="rating" step="any" required="" id="id_rating" min="1" max="5">
+      </div>
+    </div>
+    <div class="content-box">
+      <div class="content-box__title">
+        <span>4</span><span> 후기를 작성해주세요</span>
+        <hr>
+      </div>
+      <div class="content-box__element">
+        <div class="content-box__title">후기</div>
+        <textarea name="content" cols="40" rows="10" required="" id="id_content"></textarea>
+      </div>
+    </div>
+    <div class="content-button">
+      <input type="button" value="취소" onclick="back()" />
+      <input type="submit" value="등록하기" />
+    </div>
+  </form>
+  </div> -->
+  <!-- <script>
+    const back = () => {
+      window.history.back();
+    }
+  </script> -->
+{% endblock content %}

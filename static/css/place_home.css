@@ -1,0 +1,135 @@
+@import url(base.css);
+
+.content-category {
+  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-right: auto;
+}
+
+.content-category__item{
+  display: inline-block;
+  padding: 1rem 2rem 1rem 0;
+}
+
+.search, .tag {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: 0.5rem auto;
+}
+
+.search__input, .tag__input {
+  width: 100%;
+  height: 50px;
+  border: 1px solid #BFBFBF;
+  border-radius: 10px;
+  padding: 1.75rem 3rem;
+}
+
+.search i, .tag i {
+  font-size: 1.25rem;
+  color: #BFBFBF;
+  position : absolute;
+  left : 1.25rem;
+  top : 31%;
+}
+
+.tag__reset {
+  display: flex;
+  align-items: center;
+  padding: 5px 32px;
+  margin-left: 1rem;
+}
+
+.tag__reset i {
+  position: static;
+}
+
+.tag__reset input {
+  border: none;
+  background-color: transparent;
+  margin: 0 11px;
+  padding: 0;
+}
+
+.search__button {
+  padding: 20px 60px;
+  margin-left: 1rem;
+  background-color: #2253FF;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.sort {
+  margin-right: auto;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+}
+
+.content-box {
+  margin-right: auto;
+}
+
+.content-box__list {
+  display: flex;
+  flex-direction: row;
+  grid-gap: 35px;
+  gap: 35px;
+  flex-wrap: wrap;
+}
+
+.content-box__itme {
+  border: 1px solid #BFBFBF;
+  border-radius: 10px;
+}
+
+.content-box__top {
+  padding: 1rem 1rem 3rem 1rem;
+}
+
+.content-box__bottom {
+  padding: 1rem;
+}
+
+.content-box__img {
+  background-color: #BFBFBF;
+  width: 22rem;
+  height: 10rem;
+  border-radius: 10px 10px 0 0;
+}
+
+.content-box__name{
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 18px;
+  margin-bottom: 0.75rem;
+}
+
+.content-box__location {
+  color: #8C8C8C;
+  font-weight: 400;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.content-box__rating {
+  color: #8C8C8C;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.content-box__bottom {
+  display: flex;
+  justify-content: space-between;
+  color: #8C8C8C;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.content-box__bottom span i{
+  margin-right: 0.5rem;
+}

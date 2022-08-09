@@ -1,5 +1,4 @@
-body {
-  padding: 0 220px;
+p {
   margin: 0;
 }
 
@@ -36,7 +35,7 @@ body {
 /* 수정 필요 */
 
 #main_detail__top__back_btn i {
-  margin-top: 144px;
+  margin-top: 100px;
 }
 
 #main_detail__top__main {
@@ -109,6 +108,16 @@ body {
   border-style: none;
 }
 
+#main_detail__top__done_btn {
+  height: 40px;
+  width: 80px;
+  font-size: 15px;
+  background-color: #2253ff;
+  color: white;
+  border-radius: 5px;
+  border-style: none;
+}
+
 #main_detail__top__like_btn {
   display: flex;
   align-items: center;
@@ -135,7 +144,6 @@ body {
 }
 
 #main_detail__main__info span {
-  margin-top: 21px;
   font-weight: 700;
 }
 
@@ -190,8 +198,9 @@ body {
   border-style: none;
   border-radius: 5px;
   color: white;
-  padding: 0 20px;
+  padding: 10px 20px;
   font-size: 13px;
+  margin: 10px 0;
 }
 
 #main_detail__comment__contents__profile {
@@ -211,7 +220,7 @@ body {
 
 #main_detail__comment__contents {
   border-top: 1px solid rgb(162, 162, 162);
-  margin-bottom: 130px;
+  margin-bottom: 50px;
 }
 
 #main_detail__comment__each__contents {
@@ -228,4 +237,170 @@ body {
   padding-bottom: 5px;
   color: #2253ff;
   font-size: 14px;
+}
+
+/* main_detail 리뷰 파트 */
+
+#main_detail__review__top {
+  display: flex;
+  justify-content: space-between;
+}
+
+#main_detail__review__title {
+  display: flex;
+  border-top: 50px;
+}
+
+#main_detail__review_num {
+  color: #2253ff;
+  padding-left: 7px;
+}
+
+#main_detail__review__rule {
+  color: rgb(162, 162, 162);
+  padding-top: 35px;
+}
+
+#review_input_box {
+  padding: 0;
+  width: 100%;
+  border: 1px solid rgb(162, 162, 162);
+  border-radius: 5px;
+  resize: none;
+}
+
+#review_input_box::placeholder {
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+#main_detail__review__btnplace {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 7px 0 20px;
+  border-bottom: 1px solid rgb(162, 162, 162);
+}
+
+#main_detail__review__btn {
+  background-color: #2253ff;
+  border-style: none;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 20px;
+  font-size: 13px;
+  margin: 10px 0;
+}
+
+#main_detail__review__blank {
+  display: flex;
+  border-top: 50px;
+}
+
+#main_detail__review__blank_box {
+  display: flex;
+}
+
+#main_detail__review__filebox {
+  width: 20%;
+  margin-right: 10px;
+  height: 200px;
+}
+
+#main_detail__review__uploadbtn {
+  width: 100%;
+  height: 100%;
+  color: rgba(0, 0, 0, 0.44);
+  background: rgb(162, 162, 162);
+  border: 1px solid rgb(162, 162, 162);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+}
+
+#main_detail__review__upload_file {
+  display: none;
+}
+/* 여기까지 main_detail 리뷰 파트 */
+/* 여기부터 main_detail 리뷰_콘텐츠 파트 */
+
+#main_detail__review__contents {
+  border-bottom: 1px solid rgb(162, 162, 162);
+  padding-top: 30px;
+}
+
+.review__contents_box__user_info {
+  width: 50%;
+  display: flex;
+  align-items: center;
+}
+
+.review__contents_box__profile {
+  display: flex;
+}
+
+.review__contents_box__info {
+  display: inline-block;
+  padding-left: 15px;
+  margin-right: 20px;
+  padding-top: 5px;
+}
+
+.main_detail__contents__profile_name {
+  font-size: 20px;
+}
+
+.main_detail__contents__profile_time {
+  font-size: 13px;
+  color: rgb(162, 162, 162);
+}
+
+.review__contents_box__auth {
+  display: flex;
+  align-items: center;
+}
+
+#review__contents_box__auth_host {
+  border: 1px solid #2253ff;
+  background-color: #e9f7ff;
+  color: #2253ff;
+  padding: 7px;
+}
+
+#review__contents_box__auth_guest {
+  border: 1px solid #ff7a68;
+  background-color: #fff0ec;
+  color: #ff7a68;
+  padding: 7px;
+}
+
+.main_detail__review__contents_content {
+  display: flex;
+  padding-bottom: 30px;
+}
+
+.main_detail__review__contents_text {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.main_detail__review__contents_img {
+  width: 300px;
+  background-color: rgb(162, 162, 162);
+  height: 200px;
+  margin-top: 20px;
+}
+
+.main_detail__review__contents_top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main_detail__review__contents_revise {
+}
+
+.main_detail__review__contents_revise img {
+  width: 40px;
 }

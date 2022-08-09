@@ -1,18 +1,11 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script
-      src="https://kit.fontawesome.com/05a54db67a.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="{% static 'css/main_write.css' %}" />
-    <title>MOCO</title>
-  </head>
-  <body>
+{% extends 'posts/base.html' %} {% block content %}
+<div class="content">
+  <form
+    action="{% url 'posts:write' %}"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    {% csrf_token %}
     <div id="main_write__top">
       <div class="main_write__title">
         <div class="main_write__title_num"><h2>1</h2></div>
@@ -25,7 +18,12 @@
               <h3>진행방식</h3>
             </div>
             <div class="main_write__top__box">
-              <select name="" class="main_write__top__box_select"></select>
+              <select name="contact" class="main_write__top__box_select">
+                <option selected value="default">----------</option>
+                {% for key, value in contacts %}
+                <option value="{{ value }}">{{ value }}</option>
+                {% endfor %}
+              </select>
             </div>
           </div>
           <div class="main_write__top__select_right">
@@ -33,7 +31,12 @@
               <h3>모임형태</h3>
             </div>
             <div class="main_write__top__box">
-              <select name="" class="main_write__top__box_select"></select>
+              <select name="duration" class="main_write__top__box_select">
+                <option selected value="default">----</option>
+                {% for key, value in durations %}
+                <option value="{{ value }}">{{ value }}</option>
+                {% endfor %}
+              </select>
             </div>
           </div>
         </div>
@@ -43,7 +46,11 @@
               <h3>모집인원</h3>
             </div>
             <div class="main_write__top__box">
-              <input type="text" class="main_write__top__box_text" />
+              <input
+                type="number"
+                class="main_write__top__box_text"
+                name="number"
+              />
             </div>
           </div>
           <div class="main_write__top__select_right">
@@ -51,7 +58,11 @@
               <h3>지역</h3>
             </div>
             <div class="main_write__top__box">
-              <input type="text" class="main_write__top__box_text" />
+              <input
+                type="text"
+                class="main_write__top__box_text"
+                name="location"
+              />
             </div>
           </div>
         </div>
@@ -61,7 +72,11 @@
               <h3>모집링크</h3>
             </div>
             <div class="main_write__top__box">
-              <input type="text" class="main_write__top__box_text" />
+              <input
+                type="text"
+                class="main_write__top__box_text"
+                name="apply_link"
+              />
             </div>
           </div>
           <div class="main_write__top__select_right">
@@ -79,6 +94,7 @@
       <div class="main_write__title">
         <div class="main_write__title_num"><h2>2</h2></div>
         <h2>태그를 입력해주세요</h2>
+        <input type="text" name="tag" />
       </div>
       <div class="main_write__tag_write__main">
         <div class="main_write__tag_write__main_title"><h3>태그</h3></div>
@@ -95,13 +111,17 @@
       <div class="main_write__tag_write__main">
         <div class="main_write__tag_write__main_title"><h3>제목</h3></div>
         <div class="main_write__tag_write__main_content">
-          <input type="text" class="main_write__tag__main_content_input" />
+          <input
+            type="text"
+            class="main_write__tag__main_content_input"
+            name="title"
+          />
         </div>
         <div id="main_write__content__contents">
           <div class="main_write__tag_write__main_title"><h3>내용</h3></div>
           <div id="main_write__content__write_txt">
             <textarea
-              name="main_write__content_txt"
+              name="content"
               id="main_write__content_box"
               cols="30"
               rows="10"
@@ -114,10 +134,13 @@
         <button type="submit" id="main_write__content__btn_cancel">
           <h3>취소</h3>
         </button>
-        <button type="submit" id="main_write__content__btn_register">
-          <h3>등록하기</h3>
-        </button>
+        <input
+          id="main_write__content__btn_register"
+          type="submit"
+          value="등록하기"
+        />
       </div>
     </div>
-  </body>
-</html>
+  </form>
+</div>
+{% endblock %}

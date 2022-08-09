@@ -53,11 +53,16 @@ def home(request):
 
 def write(request):
     if request.method == "POST":
+        
+        print(request.POST)
         user = request.user
         title = request.POST["title"]
         location = request.POST["location"]
         contact = request.POST["contact"]
         number = request.POST["number"]
+        print("number:", number)
+        number = float(number.strip())
+
         if int(number) <= 1:     # 2명 미만인 경우
             return redirect("/post/write")
         tag = request.POST["tag"]

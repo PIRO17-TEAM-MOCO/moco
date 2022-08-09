@@ -1,17 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script
-      src="https://kit.fontawesome.com/05a54db67a.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="{% static 'css/review.css' %}" />
-    <title>MOCO</title>
-  </head>
-  <body>
-    ddddd
-  </body>
-</html>
+{% extends 'posts/base.html' %} {% block content %}
+<div class="content">
+  <div id="review__page_title">
+    <h2>모각코 후기</h2>
+  </div>
+  <div class="review__contents_box">
+    <div class="review__contents_box__img">
+      <img src="" alt="" />
+    </div>
+    <div class="review__contents_box__content">
+      <div class="review__contents_box__user_info">
+        <div class="review__contents_box__profile">
+          <div class="review__contents_box__profile_img">
+            <i class="fa-solid fa-circle-user fa-3x"></i>
+          </div>
+          <div class="review__contents_box__info">
+            <div class="main_detail__contents__profile_name">
+              <span>김피로</span>
+            </div>
+            <div class="main_detail__contents__profile_time">
+              <span>2022-07-27</span>
+            </div>
+          </div>
+        </div>
+        <div class="review__contents_box__auth">
+          <div id="review__contents_box__auth_host">주최자</div>
+        </div>
+      </div>
+      <div class="review__contents_box__tag_row">
+        <ul class="review__contents_box__tag_tags">
+          <li>오프라인</li>
+          <li>서울</li>
+          <li>백엔드</li>
+          <li>초보자</li>
+          <li>포트폴리오</li>
+        </ul>
+      </div>
+      <div class="review__contents_box__text_lines">
+        <div class="review__contents_box__text_title">
+          <h2>주말 2:00 ~ 4:00 사이 모각코 스터디 구해요</h2>
+          <p>
+            혼자 공부하다가 다른 사람들과 함께 공부하니까 훨씬 잘되네요.
+            모코에서 만난 사람들 다들 열심히 하시고 친절하셔서 좋은
+            경험이었습니다. 앞으로도 자주 이용할게요!
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="review__contents_box">
+    <div class="review__contents_box__img">
+      <img src="" alt="" />
+    </div>
+    <div class="review__contents_box__content">
+      <div class="review__contents_box__user_info">
+        <div class="review__contents_box__profile">
+          <div class="review__contents_box__profile_img">
+            <i class="fa-solid fa-circle-user fa-3x"></i>
+          </div>
+          <div class="review__contents_box__info">
+            <div class="main_detail__contents__profile_name">
+              <span>김피로</span>
+            </div>
+            <div class="main_detail__contents__profile_time">
+              <span>2022-07-27</span>
+            </div>
+          </div>
+        </div>
+        <div class="review__contents_box__auth">
+          <div id="review__contents_box__auth_guest">참여자</div>
+        </div>
+      </div>
+      <div class="review__contents_box__tag_row">
+        <ul class="review__contents_box__tag_tags">
+          <li>오프라인</li>
+          <li>서울</li>
+          <li>백엔드</li>
+          <li>초보자</li>
+          <li>포트폴리오</li>
+        </ul>
+      </div>
+      <div class="review__contents_box__text_lines">
+        <div class="review__contents_box__text_title">
+          <h2>주말 2:00 ~ 4:00 사이 모각코 스터디 구해요</h2>
+          <p>
+            혼자 공부하다가 다른 사람들과 함께 공부하니까 훨씬 잘되네요.
+            모코에서 만난 사람들 다들 열심히 하시고 친절하셔서 좋은
+            경험이었습니다. 앞으로도 자주 이용할게요!
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

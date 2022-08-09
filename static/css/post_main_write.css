@@ -1,8 +1,3 @@
-body {
-  padding: 0 220px;
-  margin: 0;
-}
-
 h1,
 h2,
 h3,
@@ -15,7 +10,7 @@ input {
 }
 
 #main_write__top {
-  padding-top: 190px;
+  padding-top: 130px;
   padding-bottom: 50px;
 }
 

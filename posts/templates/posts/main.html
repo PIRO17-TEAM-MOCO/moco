@@ -1,193 +1,150 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
-    <script
-      src="https://kit.fontawesome.com/05a54db67a.js"
-      crossorigin="anonymous"
-    ></script>
-    <title>MOCO</title>
-  </head>
-  <body>
-    <div id="main__introduce_div">
-      <p>(서비스 소개 배너)</p>
-    </div>
-    <div id="main__main_div">
-      <div id="main__search_div">
-        <div id="main__search_div__top">
-          <div id="search_div__top_left">
-            <div id="search_div__top_left__nav">
-              <span>전체</span>
-              <span>오프라인</span>
-              <span>온라인</span>
-              <span>혼합</span>
-            </div>
-            <div id="search_div__top_left__search">
-              <input
-                id="main__search_text"
-                type="text"
-                placeholder="관심 모각코를 검색하세요"
-              />
-              <input
-                id="main__search_tag"
-                type="text"
-                placeholder="태그로 검색해보세요"
-              />
-            </div>
+{% extends 'posts/base.html' %} {% block content %}
+<div class="content">
+  <div id="main__introduce_div">
+    <p>(서비스 소개 배너)</p>
+  </div>
+  <div id="main__main_div">
+    <div id="main__search_div">
+      <div id="main__search_div__top">
+        <div id="search_div__top_left">
+          <div id="search_div__top_left__nav">
+            <span>전체</span>
+            <span>오프라인</span>
+            <span>온라인</span>
+            <span>혼합</span>
           </div>
-          <div id="search_div__top_right">
-            <div id="search_div__top_right__switch">
-              <span>모집중만 보기</span>
-              <div class="wrapper">
-                <input type="checkbox" id="switch" />
-                <label for="switch" class="switch_label">
-                  <span class="onf_btn"></span>
-                </label>
-              </div>
-            </div>
-            <div id="search_div__top_right__btn">
-              <button id="main__search_btn" type="submit">검색</button>
-            </div>
-            <div id="search_div__top_right__reset">
-              <button id="main__reset_btn">
-                <i class="fa-solid fa-arrow-rotate-left fa-lg"></i
-                ><span>초기화</span>
-              </button>
-            </div>
+          <div id="search_div__top_left__search">
+            <input
+              id="main__search_text"
+              type="text"
+              placeholder="관심 모각코를 검색하세요"
+            />
+            <input
+              id="main__search_tag"
+              type="text"
+              placeholder="태그로 검색해보세요"
+            />
           </div>
         </div>
-        <div id="main__search_div__tag">
-          <ul class="main__search_li__tag_flex">
-            <li>프론트엔드</li>
-            <li>백엔드</li>
-            <li>서울</li>
-            <li>경기</li>
-            <li>Python</li>
-            <li>React</li>
-            <li>HTML/CSS</li>
-            <li>Javascript</li>
-            <li>Java</li>
-            <li>UX/UI</li>
-            <li>포트폴리오</li>
-            <li>취업준비</li>
-          </ul>
+        <div id="search_div__top_right">
+          <div id="search_div__top_right__switch">
+            <div class="search_div__top_right__switch_txt">
+              <p>모집중만 보기</p>
+            </div>
+            <div class="wrapper">
+              <input type="checkbox" id="switch" />
+              <label for="switch" class="switch_label">
+                <span class="onf_btn"></span>
+              </label>
+            </div>
+          </div>
+          <div id="search_div__top_right__btn">
+            <button id="main__search_btn" type="submit">검색</button>
+          </div>
+          <div id="search_div__top_right__reset">
+            <button id="main__reset_btn">
+              <i class="fa-solid fa-arrow-rotate-left"></i><span>초기화</span>
+            </button>
+          </div>
         </div>
       </div>
-      <div id="main__info_div">
-        <div id="main__info_div__top">
-          <div id="main__info_div__nav">
-            <span>최신순</span>
-            <span>조회순</span>
-            <span>댓글순</span>
-            <span>좋아요순</span>
+      <div id="main__search_div__tag">
+        <ul class="main__search_li__tag_flex">
+          <li>프론트엔드</li>
+          <li>백엔드</li>
+          <li>서울</li>
+          <li>경기</li>
+          <li>Python</li>
+          <li>React</li>
+          <li>HTML/CSS</li>
+          <li>Javascript</li>
+          <li>Java</li>
+          <li>UX/UI</li>
+          <li>포트폴리오</li>
+          <li>취업준비</li>
+        </ul>
+      </div>
+    </div>
+    <div id="main__info_div">
+      <div id="main__info_div__top">
+        <!--코드리뷰 받고 채은이하고 수정하기
+        <div id="main__info_div__nav">
+          <span>최신순</span>
+          <span>조회순</span>
+          <span>댓글순</span>
+          <span>좋아요순</span>
+        </div>
+        -->
+        <form class="sort" method="GET" >
+          <select name="sort" onchange="this.form.submit();">
+            <option value="default">--정렬기준--</option>
+            <option value="latest" {% if sort == "latest" %}selected{% endif %}>최신순</option>
+            <option value="views" {% if sort == "views" %}selected{% endif %}>조회순</option>
+            <option value="">댓글순</option>
+            <option value="">좋아요순</option>
+          </select>
+        </form>
+        <div id="main__info_div__box">
+          <select name="language" class="selectbox">
+            <option value="전체" class="lang-option">전체</option>
+            <option value="정기" class="lang-option">📅 정기</option>
+            <option value="번개" class="lang-option">⚡️ 번개</option>
+          </select>
+        </div>
+      </div>
+      {% for post in posts %}
+      <div id="main__info_div__post">
+        <a href="{% url 'posts:detail' post.id%}">바로가기</a>
+        <!--이 부분 바로가기 수정하기(그냥 전체 칸 누르면 이동하도록)-->
+        <div id="main__info_div__post_left">
+          <div id="main__info_div__post_left__tag">
+            <ul class="main__info_li__tag_flex">
+              <li>모집중</li>
+              <li>오프라인</li>
+              <li>서울</li>
+              <li>프론트엔드</li>
+              <li>초보자</li>
+              <li>포트폴리오</li>
+            </ul>
           </div>
-          <div id="main__info_div__box">
-            <select name="language" class="selectbox">
-              <option value="전체" class="lang-option">전체</option>
-              <option value="정기" class="lang-option">📅 정기</option>
-              <option value="번개" class="lang-option">⚡️ 번개</option>
-            </select>
+          <div id="main__info_div__post_left__title">
+            {{post.title}}
+          </div>
+          <div id="main__info_div__post_left__txt">
+            <p>
+              취준생인데 혼자 공부하는 것보다 여럿이서 규칙을 지키면서
+              공부하는게 더 도움이 돼서 만들었습니다. 서로 같이 공부하는데 가끔
+              정보도 주고받고 저녁도 같이 먹는 편안한 분위기를 지향하고
+              있습니다. 무조건 주말 낮 2시~4시에는 참여하셔야하고 그 이후나
+              평일은
+            </p>
+          </div>
+          <div id="main__info_div__post_left__reaction">
+            <i class="fa-solid fa-eye"></i>
+            <span>{{post.views}}</span>
+            <i class="fa-solid fa-comment-dots"></i>
+            <span>2</span>
+            <i class="fa-solid fa-heart"></i>
+            <span>5</span>
           </div>
         </div>
-        <div id="main__info_div__post">
-          <div id="main__info_div__post_left">
-            <div id="main__info_div__post_left__tag">
-              <ul class="main__info_li__tag_flex">
-                <li>모집중</li>
-                <li>오프라인</li>
-                <li>서울</li>
-                <li>프론트엔드</li>
-                <li>초보자</li>
-                <li>포트폴리오</li>
-              </ul>
-            </div>
-            <div id="main__info_div__post_left__title">
-              주말 2:00 ~ 4:00 사이 모각코 스터디 구해요
-            </div>
-            <div id="main__info_div__post_left__txt">
-              <p>
-                취준생인데 혼자 공부하는 것보다 여럿이서 규칙을 지키면서
-                공부하는게 더 도움이 돼서 만들었습니다. 서로 같이 공부하는데
-                가끔 정<br />보도 주고받고 저녁도 같이 먹는 편안한 분위기를
-                지향하고 있습니다. 무조건 주말 낮 2시~4시에는 참여하셔야하고 그
-                이후나 평일은
-              </p>
-            </div>
-            <div id="main__info_div__post_left__reaction">
-              <i class="fa-solid fa-eye fa-lg"></i>
-              <span>23</span>
-              <i class="fa-solid fa-comment-dots fa-lg"></i>
-              <span>2</span>
-              <i class="fa-solid fa-heart fa-lg"></i>
-              <span>5</span>
-            </div>
+        <div id="main__info_div__post_right">
+          <div id="main__info_div__post_right__img">
+            <i class="fa-solid fa-circle-user fa-2x"></i>
           </div>
-          <div id="main__info_div__post_right">
-            <div id="main__info_div__post_right__img">
-              <i class="fa-solid fa-circle-user fa-3x"></i>
+          <div id="main__info_div__post_right__info">
+            <div id="main__info_div__post_right__info_name">
+              <span>김피로</span>
             </div>
-            <div id="main__info_div__post_right__info">
-              <div id="main__info_div__post_right__info_name">
-                <span>김피로</span>
-              </div>
-              <div id="main__info_div__post_right__info_time">
-                <span>2022-07-27</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div id="main__info_div__post">
-          <div id="main__info_div__post_left">
-            <div id="main__info_div__post_left__tag">
-              <ul class="main__info_li__tag_flex">
-                <li>모집중</li>
-                <li>오프라인</li>
-                <li>서울</li>
-                <li>프론트엔드</li>
-                <li>초보자</li>
-                <li>포트폴리오</li>
-              </ul>
-            </div>
-            <div id="main__info_div__post_left__title">
-              주말 2:00 ~ 4:00 사이 모각코 스터디 구해요
-            </div>
-            <div id="main__info_div__post_left__txt">
-              <p>
-                취준생인데 혼자 공부하는 것보다 여럿이서 규칙을 지키면서
-                공부하는게 더 도움이 돼서 만들었습니다. 서로 같이 공부하는데
-                가끔 정<br />보도 주고받고 저녁도 같이 먹는 편안한 분위기를
-                지향하고 있습니다. 무조건 주말 낮 2시~4시에는 참여하셔야하고 그
-                이후나 평일은
-              </p>
-            </div>
-            <div id="main__info_div__post_left__reaction">
-              <i class="fa-solid fa-eye fa-lg"></i>
-              <span>23</span>
-              <i class="fa-solid fa-comment-dots fa-lg"></i>
-              <span>2</span>
-              <i class="fa-solid fa-heart fa-lg"></i>
-              <span>5</span>
-            </div>
-          </div>
-          <div id="main__info_div__post_right">
-            <div id="main__info_div__post_right__img">
-              <i class="fa-solid fa-circle-user fa-3x"></i>
-            </div>
-            <div id="main__info_div__post_right__info">
-              <div id="main__info_div__post_right__info_name">
-                <span>김피로</span>
-              </div>
-              <div id="main__info_div__post_right__info_time">
-                <span>2022-07-27</span>
-              </div>
+            <div id="main__info_div__post_right__info_time">
+              <span>{{post.published_at}}</span>
+              <!--등록 일자 형식 수정하기-->
             </div>
           </div>
         </div>
       </div>
+      {% endfor %}
     </div>
-  </body>
-</html>
+  </div>
+</div>
+{% endblock content %}

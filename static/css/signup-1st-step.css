@@ -95,21 +95,21 @@ main .input {
   margin-bottom: 0.5rem;
 }
 
-.input__id {
+.input__reg__id {
   width: 22rem;
   height: 3.3rem;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
-  padding-left: 2rem;
+  padding-left: 1rem;
   border: 1px solid #8c8c8c;
 }
 
-.input__id::placeholder {
+.input__reg__id::placeholder {
   font-size: 1rem;
   color: #8c8c8c;
 }
 
-.input__id:focus {
+.input__reg__id:focus {
   outline: none !important;
   border: 1px solid #8c8c8c;
 }
@@ -118,7 +118,7 @@ main .input {
   width: 22rem;
   height: 3.3rem;
   border-radius: 0.5rem;
-  padding-left: 2rem;
+  padding-left: 1rem;
   border: 1px solid #8c8c8c;
   margin-bottom: 1rem;
 }
@@ -134,22 +134,22 @@ main .input {
   border: 1px solid #8c8c8c;
 }
 
-.input__pw {
+.input__reg__pw {
   width: 22rem;
   height: 3.3rem;
   border-radius: 0.5rem;
-  padding-left: 2rem;
+  padding-left: 1rem;
   border: 1px solid #8c8c8c;
   margin-bottom: 1rem;
 }
 
-.input__pw::placeholder {
+.input__reg__pw::placeholder {
   font-size: 1rem;
   color: #8c8c8c;
   border-color: #8c8c8c;
 }
 
-.input__pw:focus {
+.input__reg__pw:focus {
   outline: none !important;
   border: 1px solid #8c8c8c;
 }
@@ -167,7 +167,7 @@ main .input {
   font-weight: 900;
 }
 
-#sub__menu {
+#sub__reg__menu {
   width: 23rem;
   height: 2rem;
   margin-top: 1rem;
@@ -177,38 +177,39 @@ main .input {
   line-height: 1.3rem;
 }
 
-#sub__menu a {
+#sub__reg__menu a {
   text-decoration: none;
   color: rgb(42, 98, 242);
 }
 
 /*checkbox*/
-input#input__cb {
+input#input__reg__cb {
   display: none;
   justify-content: flex-start;
 }
 
-input#input__cb + label {
+input#input__reg__cb + label {
   cursor: pointer;
 }
 
-input#input__cb + label:before {
+input#input__reg__cb + label:before {
   content: "";
-  display: inline-flex;
-  width: 1rem;
-  height: 1rem;
-  line-height: 1rem;
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  line-height: 0.7rem;
   border: 1px solid #cbcbcb;
   vertical-align: middle;
+  margin-left: 0.5rem;
 }
 
-input#input__cb:checked + label:before {
+input#input__reg__cb:checked + label:before {
   content: "\f14a";
   font-family: "FontAwesome";
   color: rgb(47, 82, 245);
   background-color: #fff;
   border-color: #000;
-  font-size: 1rem;
+  font-size: 1.1rem;
   text-align: center;
 }
 /* checkbox */

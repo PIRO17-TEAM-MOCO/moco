@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MOCO</title>
+    <link rel="stylesheet" href="{%static 'css/account_base.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/login.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/signup-1st-step.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/signup-2bd-step.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/login_forgot.css' %}" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&family=Noto+Sans:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/0dee369a16.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!--nav bar-->
+    <nav class="navbar">
+      <ul class="navbar__list">
+        <li><a href="">MOCO</a></li>
+        <li><a href="">모각코</a></li>
+        <li><a href="">플레이스</a></li>
+        <li><a href="">공지사항</a></li>
+      </ul>
+      <ul class="navbar__shortcut">
+        {% if user.is_authenticated %}
+        <li><a href="">글쓰기</a></li>
+        <i class="fa-regular fa-bell"></i>
+        <i class="fa-solid fa-circle-user"></i>
+        {% else %}
+        <li><a href="">글쓰기</a></li>
+        <li><a href="">로그인</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+    {% block content %} {% endblock content %}
+  </body>
+</html>

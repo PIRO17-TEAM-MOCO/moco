@@ -5,6 +5,7 @@
 *.log
 *.pot
 *.pyc
+__pycache__/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
@@ -290,8 +291,14 @@ pip-selfcheck.json
 # Ignore code-workspaces
 *.code-workspace
 
-# End of https://www.toptal.com/developers/gitignore/api/django,python,venv,visualstudiocode
-
-
+### 직접 추가 ###
 # 맥북
 .DS_Store
+
+# migrations
+likes/migrations
+place/migrations
+posts/migrations
+users/migrations
+
+# End of https://www.toptal.com/developers/gitignore/api/django,python,venv,visualstudiocode

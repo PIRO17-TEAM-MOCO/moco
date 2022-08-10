@@ -300,5 +300,7 @@ likes/migrations
 place/migrations
 posts/migrations
 users/migrations
+comments/migrations
 
 # End of https://www.toptal.com/developers/gitignore/api/django,python,venv,visualstudiocode
+

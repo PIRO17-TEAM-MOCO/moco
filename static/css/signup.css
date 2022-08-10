@@ -265,7 +265,7 @@ main .input {
 
 .input__reg__name:focus {
   outline: none !important;
-  border: 1px solid #8c8c8c;
+  border: 1px solid blue;
 }
 
 .input__reg__nickname {
@@ -286,7 +286,7 @@ main .input {
 
 .input__reg__nickname:focus {
   outline: none !important;
-  border: 1px solid #8c8c8c;
+  border: 1px solid blue;
 }
 
 .input__profile {

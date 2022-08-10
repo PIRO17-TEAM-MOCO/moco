@@ -1,21 +1,51 @@
 {% extends 'users/account_base.html' %} {% block content %}
 <main>
+  <form
+      action="{% url 'users:signup' %}"
+      method="post"
+      enctype="multipart/form-data"
+    >
+    {% csrf_token %}
   <div id="signup__1st__container">
     <div class="signup__1st__nor">
       <span>회원가입</span>
       <div class="input">
-        <p style="margin-top: 2.5rem">아이디</p>
-        <input class="input__reg__id" type="text" placeholder="아이디" />
-        <p>이메일</p>
-        <input class="input__email" type="email" placeholder="이메일 주소" />
-        <p>비밀번호</p>
-        <input class="input__reg__pw" type="password" placeholder="비밀번호" />
-        <p>비밀번호&nbsp;<span style="color: #8c8c8c">(확인)</span></p>
-        <input
-          class="input__reg__pw"
-          type="password"
-          placeholder="비밀번호 (확인)"
-        />
+          <p style="margin-top: 2.5rem">아이디</p>
+          <input class="input__reg__id" type="text" placeholder="아이디" />
+          <div class="input__reg__id">
+            {{ form.username.errors }}
+            <lable for="{{ form.username.id_for_label }}"><p>아이디</p></lable>
+            {{ form.username }}
+          </div>
+          <p>이메일</p>
+          <input class="input__email" type="email" placeholder="이메일 주소" />
+          <div>
+            {{ form.email.errors }}
+            <lable for="{{ form.username.id_for_label }}"><p>이메일</p></lable>
+            {{ form.email }}
+          </div>
+          <p>비밀번호</p>
+          <input
+            class="input__reg__pw"
+            type="password"
+            placeholder="비밀번호"
+          />
+          <div>
+            {{ form.password1.errors }}
+            <lable for="{{ form.password1.id_for_label }}"><p>비밀번호</p></label>
+            {{ form.password1 }}
+          </div>
+          <p>비밀번호&nbsp;<span style="color: #8c8c8c">(확인)</span></p>
+          <input
+            class="input__reg__pw"
+            type="password"
+            placeholder="비밀번호 (확인)"
+          />
+          <div>
+            {{ form.password2.errors }}
+            <lable for="{{ form.password2.id_for_label }}"><p>비밀번호 (확인)</p></lable>
+            {{ form.password2 }}
+          </div>
       </div>
       <button id="signup__1st__btn" onclick="signupFunction()">다음</button>
       <div id="sub__reg__menu">
@@ -72,20 +102,28 @@
       </div>
     </div>
   </div>
-</main>
-<main>
   <div id="signup__2nd__container">
     <div class="signup__2nd__nor">
       <span>회원가입</span>
       <div class="input">
         <p style="margin-top: 2.5rem">이름</p>
         <input class="input__reg__name" type="text" placeholder="직접입력" />
+        <div>
+          {{ form.name.errors }}
+          <lable for="{{ form.name.id_for_label }}"><p>이름</p></lable>
+          {{ form.name }}
+        </div>
         <p>닉네임</p>
         <input
-          class="input__reg__nickname"
-          type="text"
-          placeholder="직접입력"
-        />
+        class="input__reg__nickname"
+        type="text"
+        placeholder="직접입력"
+      />
+        <div>
+          {{ form.nickname.errors }}
+          <lable for="{{ form.nickname.id_for_label }}"><p>닉네임</p></lable>
+          {{ form.nickname }}
+        </div>
         <p>
           프로필 사진&nbsp;<span style="color: #8c8c8c">(선택)</span><br /><span
             style="color: #8c8c8c; font-size: 0.5rem"
@@ -109,6 +147,11 @@
             >
           </label>
         </div>
+        <div>
+          {{ form.profile_img.errors }}
+          <lable for="{{ form.profile_img.id_for_label }}"></lable>
+            {{ form.profile_img }}
+        </div>
         <p>성별</p>
         <select
           class="form-select form-select-lg mb-3 gender-select"
@@ -118,6 +161,11 @@
           <option value="male">남자</option>
           <option value="female">여자</option>
         </select>
+        <div>
+          {{ form.gender.errors }}
+          <lable  for="{{ form.gender.id_for_label }}"></lable>
+          {{ form.gender }}
+        </div>
         <p>직업</p>
         <select
           class="form-select form-select-lg mb-3 career-select"
@@ -129,6 +177,11 @@
           <option value="worker">직장인</option>
           <option value="other">기타</option>
         </select>
+        <div>
+          {{ form.job.errors }}
+          <lable for="{{ form.job.id_for_label }}"></lable>
+          {{ form.job }}
+        </div>
         <p>생년월일</p>
         <div class="input__birthday">
           <input class="input__year" type="number" placeholder="년" />
@@ -152,6 +205,11 @@
           </select>
           <input class="input__day" type="number" placeholder="일" />
         </div>
+        <div>
+          {{ form.birth.errors }}
+          <lable for="{{ form.birth.id_for_label }}"></lable>
+          {{ form.birth }}
+        </div>
         <p>자기소개&nbsp;<span style="color: #8c8c8c">(선택)</span></p>
         <p>
           <textarea
@@ -162,10 +220,19 @@
             maxlength="100"
           ></textarea>
         </p>
+        <div>
+          {{ form.desc.errors }}
+          <lable aria-placeholder="100자" for="{{ form.desc.id_for_label }}"></lable>
+          {{ form.desc }}
+        </div>
       </div>
       <button id="signup__2nd__btn" onclick="registerLink()">가입 완료</button>
+      <div>
+        <input type="submit" value="가입 완료">
+      </div>
     </div>
   </div>
+  </form>
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

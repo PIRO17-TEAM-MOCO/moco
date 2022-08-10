@@ -4,17 +4,33 @@
   <div class="login__container">
     <div class="login__nor">
       <span>MOCO</span>
-      {% csrf_token %}
-      <div class="input">
-        <input class="input__id" type="text" placeholder="아이디" />
-        <input class="input__pw" type="password" placeholder="비밀번호" />
-      </div>
-      <div class="align__cb">
-        <input type="checkbox" id="input__cb" />
-        <label for="input__cb"></label>
-        <span>아이디 저장</span>
-      </div>
-      <button id="login__btn">로그인</button>
+      <form
+        action="{% url 'users:login' %}"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        {% csrf_token %}
+        <div class="input">
+          <input class="input__id" type="text" placeholder="아이디" />
+          <div>
+            {{ form.username.errors }}
+            <lable for="{{ form.id.username_for_label }}"></lable>
+            {{ form.username }}
+          </div>
+          <input class="input__pw" type="password" placeholder="비밀번호" />
+          <div>
+            {{ form.password.errors }}
+            <lable for="{{ form.password.id_for_label }}"></lable>
+            {{ form.password }}
+          </div>
+          <div class="align__cb">
+            <input type="checkbox" id="input__cb" />
+            <label for="input__cb"></label>
+            <span>아이디 저장</span>
+          </div>
+          <button id="login__btn">로그인</button>
+        </div>
+      </form>
       <div id="sub__menu">
         <a href="{% url 'users:find_id' %}">아이디 찾기&nbsp;&nbsp;</a> |
         <a href="{% url 'users:signup' %}">&nbsp;&nbsp;회원가입</a>

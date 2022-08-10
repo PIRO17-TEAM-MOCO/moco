@@ -3,16 +3,30 @@
   <div class="idsearch__container">
     <div class="idsearch__div">
       <span>아이디 찾기</span>
-      <div class="input">
-        <input class="input__name" type="text" placeholder="이름" />
-        <input class="input__birth" type="password" placeholder="생년월일" />
-      </div>
-      <button id="search__btn">아이디 찾기</button>
+      <form
+        action="{% url 'users:find_id' %}"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <div class="input">
+          {% csrf_token %}
+          <input class="input__name" type="text" placeholder="이름" />
+          <div>
+            {{ form.name.errors }}
+            <lable for="{{ form.name.id_for_label }}"></lable>
+            {{ form.name }}
+          </div>
+          <input class="input__birth" type="password" placeholder="생년월일" />
+          <div>
+            {{ form.birth.errors }}
+            <lable for="{{ form.birth.id_for_label }}"></lable>
+            {{ form.birth }}
+          </div>
+          <button id="search__btn">아이디 찾기</button>
+          <input type="submit" value="아이디 찾기" />
+        </div>
+      </form>
     </div>
-    <!--<div class="login__sim">
-          <span></span>
-
-        </div>-->
   </div>
 </main>
 {% endblock %}

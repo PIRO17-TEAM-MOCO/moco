@@ -5,7 +5,6 @@
 *.log
 *.pot
 *.pyc
-__pycache__/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
@@ -292,15 +291,7 @@ pip-selfcheck.json
 *.code-workspace
 
 # End of https://www.toptal.com/developers/gitignore/api/django,python,venv,visualstudiocode
-users/migrations/
 
-posts/migrations/
-
-place/migrations/
-
-comments/migrations/
-
-likes/migrations/
 
 # 맥북
 .DS_Store

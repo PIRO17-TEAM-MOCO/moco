@@ -106,12 +106,15 @@ def profile_view(request, id):
     'tag': 0,
     }
     if request.user and request.user == user:
-        context['tag'] = 1    
+        context['tag'] = 1
     return render(request, template_name='users/profile_view.html', context=context)
 
 
 @login_required
 def profile_edit(request, id):
+    # Minor Issue
+    # 유저 쿼리 by id -> 이후 request.user와 id 비교
+    # 보다 먼저 request.user와 id를 비교하는 것이 효율적입니다.
     user = User.objects.get(id=id)
     # 다른 사람이 프로필 수정하는 것 방지
     if user.id != request.user.id:

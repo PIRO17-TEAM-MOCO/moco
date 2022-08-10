@@ -9,6 +9,7 @@ class User(AbstractUser):
     ]
     JOB_CHOICE = [
         ('Student', '학생'),
+        # Camel Case 와 Snake Case 중 택일 필요
         ('Job_Seeker', '취준생'),
         ('Worker', '직장인'),
         ('Etc', '기타')

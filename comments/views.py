@@ -10,6 +10,8 @@ def write(request, id):
         content = request.POST["content"]
         user = request.user
         post = Post.objects.get(id=id)
+        # models.py 코멘트 참조
+        # tag = Comment.TAG_POST
         tag = 1
         Comment.objects.create(user=user, post=post,
                                tag=tag, content=content)

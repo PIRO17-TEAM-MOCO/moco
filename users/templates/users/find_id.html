@@ -1,54 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>아이디 찾기</title>
-    <link rel="stylesheet" href="./login_forgot.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&family=Noto+Sans:wght@600&display=swap"
-      rel="stylesheet"
-    />
-    <script
-      src="https://kit.fontawesome.com/0dee369a16.js"
-      crossorigin="anonymous"
-    ></script>
-  </head>
-  <body>
-    <!--nav bar-->
-    <nav id="nav">
-      <div class="nav_1">
-        <div><a href="">MOCO</a></div>
-        <div><a href="">모각코</a></div>
-        <div><a href="">플레이스</a></div>
-        <div><a href="">공지사항</a></div>
+{% extends 'users/account_base.html' %} {% block content %}
+<main>
+  <div class="idsearch__container">
+    <div class="idsearch__div">
+      <span>아이디 찾기</span>
+      <div class="input">
+        <input class="input__name" type="text" placeholder="이름" />
+        <input class="input__birth" type="password" placeholder="생년월일" />
       </div>
-      <div class="nav_2">
-        <div><a href="">글쓰기</a></div>
-        <div><a href="">로그인</a></div>
-      </div>
-    </nav>
-    <!--login main-->
-    <main>
-      <div class="idsearch__container">
-        <div class="idsearch__div">
-          <span>아이디 찾기</span>
-          <div class="input">
-            <input class="input__name" type="text" placeholder="이름" />
-            <input
-              class="input__birth"
-              type="password"
-              placeholder="생년월일"
-            />
-          </div>
-          <button id="search__btn">아이디 찾기</button>
-        </div>
-        <!--<div class="login__sim">
+      <button id="search__btn">아이디 찾기</button>
+    </div>
+    <!--<div class="login__sim">
           <span></span>
 
         </div>-->
-      </div>
-    </main>
-  </body>
-</html>
+  </div>
+</main>
+{% endblock %}

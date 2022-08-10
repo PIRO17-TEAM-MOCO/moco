@@ -1,0 +1,422 @@
+/*login*/
+main {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-family: "Noto Sans", "Noto Sans KR";
+  margin-top: 5rem;
+}
+
+main #signup__1st__container {
+  width: 50rem;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 2rem;
+  flex-wrap: wrap;
+  margin-top: 5rem;
+}
+
+main .signup__1st__nor {
+  width: 30rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+main .input {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.signup__1st__nor .input p {
+  width: 22rem;
+  font-size: 1rem;
+  font-weight: normal;
+  color: #000;
+  margin-bottom: 0.5rem;
+}
+
+.input__reg__id {
+  width: 22rem;
+  height: 3.3rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  border: 1px solid #8c8c8c;
+}
+
+.input__reg__id::placeholder {
+  font-size: 1rem;
+  color: #8c8c8c;
+}
+
+.input__reg__id:focus {
+  outline: none !important;
+  border: 1px solid blue;
+}
+
+.input__email {
+  width: 22rem;
+  height: 3.3rem;
+  border-radius: 0.5rem;
+  padding-left: 1rem;
+  border: 1px solid #8c8c8c;
+  margin-bottom: 1rem;
+}
+
+.input__email::placeholder {
+  font-size: 1rem;
+  color: #8c8c8c;
+  border-color: #8c8c8c;
+}
+
+.input__email:focus {
+  outline: none !important;
+  border: 1px solid blue;
+}
+
+.input__reg__pw {
+  width: 22rem;
+  height: 3.3rem;
+  border-radius: 0.5rem;
+  padding-left: 1rem;
+  border: 1px solid #8c8c8c;
+  margin-bottom: 1rem;
+}
+
+.input__reg__pw::placeholder {
+  font-size: 1rem;
+  color: #8c8c8c;
+  border-color: #8c8c8c;
+}
+
+.input__reg__pw:focus {
+  outline: none !important;
+  border: 1px solid blue;
+}
+
+#signup__1st__btn {
+  cursor: pointer;
+  margin-top: 1rem;
+  width: 22rem;
+  height: 4rem;
+  outline: 0;
+  border: 0;
+  border-radius: 0.5rem;
+  background-color: rgb(47, 82, 245);
+  color: #fff;
+  font-weight: 900;
+}
+
+#sub__reg__menu {
+  width: 23rem;
+  height: 2rem;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  font-weight: 100;
+  color: #8c8c8c;
+  line-height: 1.3rem;
+}
+
+#sub__reg__menu a {
+  text-decoration: none;
+  color: rgb(42, 98, 242);
+}
+
+/*checkbox*/
+input#input__reg__cb {
+  display: none;
+  justify-content: flex-start;
+}
+
+input#input__reg__cb + label {
+  cursor: pointer;
+}
+
+input#input__reg__cb + label:before {
+  content: "";
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  line-height: 0.7rem;
+  border: 1px solid #cbcbcb;
+  vertical-align: middle;
+  margin-left: 0.5rem;
+}
+
+input#input__reg__cb:checked + label:before {
+  content: "\f14a";
+  font-family: "FontAwesome";
+  color: rgb(47, 82, 245);
+  background-color: #fff;
+  border-color: #000;
+  font-size: 1.1rem;
+  text-align: center;
+}
+/* checkbox */
+
+/*간편 로그인*/
+.signup__sim {
+  width: 50rem;
+  height: 2rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  color: #8c8c8c;
+  font-weight: 100;
+}
+
+hr {
+  width: 9rem;
+  height: 0.1rem;
+  margin: 0 0.5rem 0 0.5rem;
+}
+
+.signup__sim__soc {
+  width: 22rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 1rem;
+}
+
+.signup__sim__soc button {
+  cursor: pointer;
+  width: 4.5rem;
+  height: 4.5rem;
+  outline: 0;
+  border: 1px solid #8c8c8c;
+  border-radius: 0.3rem;
+  background-color: #fff;
+  font-size: 1rem;
+  font-weight: 100;
+  color: #8c8c8c;
+  margin-bottom: 5rem;
+}
+
+/*2nd signup step*/
+/*2nd signup step*/
+/*2nd signup step*/
+/*2nd signup step*/
+/*2nd signup step*/
+/*2nd signup step*/
+main #signup__2nd__container {
+  width: 50rem;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 1rem;
+  flex-wrap: wrap;
+}
+
+main .signup__2nd__nor {
+  width: 30rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+main .input {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.signup__2nd__nor .input p {
+  width: 22rem;
+  font-size: 1rem;
+  font-weight: normal;
+  color: #000;
+  margin-bottom: 0.5rem;
+}
+
+.input__reg__name {
+  width: 22rem;
+  height: 3.3rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  border: 1px solid #8c8c8c;
+}
+
+.input__reg__name::placeholder {
+  font-size: 1rem;
+  color: #8c8c8c;
+}
+
+.input__reg__name:focus {
+  outline: none !important;
+  border: 1px solid #8c8c8c;
+}
+
+.input__reg__nickname {
+  width: 22rem;
+  height: 3.3rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  padding-left: 1rem;
+  border: 1px solid #8c8c8c;
+  margin-bottom: 1rem;
+}
+
+.input__reg__nickname::placeholder {
+  font-size: 1rem;
+  color: #8c8c8c;
+  border-color: #8c8c8c;
+}
+
+.input__reg__nickname:focus {
+  outline: none !important;
+  border: 1px solid #8c8c8c;
+}
+
+.input__profile {
+  width: 22rem;
+  height: 12rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.input__img {
+  width: 10rem;
+  height: 10rem;
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 0.5rem;
+
+  background-color: rgb(250, 250, 250);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.input__img #input__plus {
+  width: 10rem;
+  font-size: 3rem;
+  font-weight: 100;
+  padding-left: 4rem;
+  padding-top: 3rem;
+}
+
+#input__plus__desc {
+  line-height: 1rem;
+}
+
+.input__img span {
+  font-size: 0.5rem;
+  font-weight: 100;
+  color: #8c8c8c;
+}
+
+.gender-select {
+  width: 22rem;
+  height: 3.3rem;
+  color: #8c8c8c;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #8c8c8c;
+  margin-bottom: 0.5rem;
+}
+
+.career-select {
+  width: 22rem;
+  height: 3.3rem;
+  color: #8c8c8c;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #8c8c8c;
+  margin-bottom: 0.5rem;
+}
+
+.input__birthday {
+  width: 22rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.input__year {
+  width: 6.7rem;
+  height: 3.3rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  padding-left: 1rem;
+  border: 1px solid #8c8c8c;
+  margin-bottom: 1rem;
+}
+
+.month-select {
+  width: 6.7rem;
+  height: 3.3rem;
+  color: #8c8c8c;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #8c8c8c;
+}
+
+.input__day {
+  width: 6.7rem;
+  height: 3.3rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  padding-left: 1rem;
+  border: 1px solid #8c8c8c;
+  margin-bottom: 1rem;
+}
+
+.input__self {
+  width: 22rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  padding-left: 1rem;
+  border: 1px solid #8c8c8c;
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+  padding-right: 1rem;
+}
+
+.input__self::placeholder {
+  font-size: 1rem;
+  color: #8c8c8c;
+  border-color: #8c8c8c;
+}
+
+.input__self:focus {
+  outline: none !important;
+  border: 1px solid #8c8c8c;
+}
+
+#signup__2nd__btn {
+  cursor: pointer;
+  margin-top: 1rem;
+  margin-bottom: 5rem;
+  width: 22rem;
+  height: 4rem;
+  outline: 0;
+  border: 0;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  background-color: rgb(47, 82, 245);
+  color: #fff;
+  font-weight: 900;
+}

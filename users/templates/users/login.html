@@ -4,6 +4,7 @@
   <div class="login__container">
     <div class="login__nor">
       <span>MOCO</span>
+      {% csrf_token %}
       <div class="input">
         <input class="input__id" type="text" placeholder="아이디" />
         <input class="input__pw" type="password" placeholder="비밀번호" />
@@ -15,8 +16,8 @@
       </div>
       <button id="login__btn">로그인</button>
       <div id="sub__menu">
-        <a href="">아이디 찾기&nbsp;&nbsp;</a> |
-        <a href="">&nbsp;&nbsp;회원가입</a>
+        <a href="{% url 'users:find_id' %}">아이디 찾기&nbsp;&nbsp;</a> |
+        <a href="{% url 'users:signup' %}">&nbsp;&nbsp;회원가입</a>
       </div>
 
       <div class="login__sim">

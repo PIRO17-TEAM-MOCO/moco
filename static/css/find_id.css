@@ -18,6 +18,7 @@ main .idsearch__container {
   justify-content: center;
   font-size: 2rem;
   flex-wrap: wrap;
+  margin-top: 5rem;
 }
 
 main .idsearch__div {
@@ -68,12 +69,12 @@ main .input {
 
 .input__name:focus {
   outline: none !important;
-  border: 1px solid #8c8c8c;
+  border: 1px solid blue;
 }
 
 .input__birth:focus {
   outline: none !important;
-  border: 1px solid #8c8c8c;
+  border: 1px solid blue;
 }
 
 #search__btn {

@@ -57,7 +57,7 @@ def home(request):
 
 def write(request):
     if request.method == "POST":
-        
+
         print(request.POST)
         user = request.user
         title = request.POST["title"]
@@ -186,6 +186,8 @@ def close(request, id):
 
 
 def review_home(request):
+    # 로딩 속도 이슈로 추후 페이지네이션 필요.
+    # Django Paginator 참고.
     reviews = Review.objects.all()
     context = {
         'reviews': reviews,

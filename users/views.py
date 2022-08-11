@@ -103,10 +103,10 @@ def profile_view(request, id):
     context = {
     'user': user,
     'age': age,
-    'tag': 0,
+    'edit_access': False,
     }
     if request.user and request.user == user:
-        context['tag'] = 1    
+        context['edit_access'] = True   
     return render(request, template_name='users/profile_view.html', context=context)
 
 

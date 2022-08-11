@@ -152,7 +152,7 @@
         <div id="main_detail__comment__contents__reply">
           <button></button>
         </div>
-        {{% if comment == revised_comment %}
+        {% if comment == revised_comment %}
         <form action="{% url 'comments:revise' comment.id %}" method="post">
         {% csrf_token %}
            <textarea type="text" name="content">{{comment.content}}</textarea>

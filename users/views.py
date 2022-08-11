@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from django.contrib import auth
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib import auth, messages
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from .models import User
@@ -93,6 +93,32 @@ def find_id(request):
             'form': form,
         }
         return render(request, template_name='users/find_id.html', context=context)
+
+def find_pw(request):
+    pass
+
+
+@login_required
+def change_pw(request):
+    if request.method == "POST":
+        form = PasswordChangeForm(request.user, request.POST)
+        context = {
+            'form': form,
+        }
+        if form.is_valid():
+            user = form.save()
+            auth.update_session_auth_hash(request, user)
+            messages.success(request, 'Password successfully changed')
+            redirect('users:change_pw')
+        else:
+            messages.error(request, 'Password not changed')
+            redirect('users:change_pw')
+    else:
+        form = PasswordChangeForm(request.user)
+        context = {
+            'form': form,
+        }
+    return render(request, template_name='users/change_pw.html', context=context)
 
 
 def profile_view(request, id):

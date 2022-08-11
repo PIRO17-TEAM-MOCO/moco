@@ -10,41 +10,26 @@
     <div class="signup__1st__nor">
       <span>회원가입</span>
       <div class="input">
-          <p style="margin-top: 2.5rem">아이디</p>
-          <input class="input__reg__id" type="text" placeholder="아이디" />
           <div class="input__reg__id">
             {{ form.username.errors }}
-            <lable for="{{ form.username.id_for_label }}"><p>아이디</p></lable>
-            {{ form.username }}
+            <lable for="{{ form.username.id_for_label }}"><p style="margin-top: 2.5rem">아이디</p></lable>
+            <input type="text" name="username" maxlength="150" autofocus="" required="" id="id_username" placeholder="아이디">
           </div>
-          <p>이메일</p>
-          <input class="input__email" type="email" placeholder="이메일 주소" />
-          <div>
+          <div class="input__email">
             {{ form.email.errors }}
             <lable for="{{ form.username.id_for_label }}"><p>이메일</p></lable>
-            {{ form.email }}
+            <input type="email" name="email" maxlength="254" required="" id="id_email" placeholder="example@email.com">
           </div>
-          <p>비밀번호</p>
-          <input
-            class="input__reg__pw"
-            type="password"
-            placeholder="비밀번호"
-          />
-          <div>
+          <div class="input__reg__pw">
             {{ form.password1.errors }}
             <lable for="{{ form.password1.id_for_label }}"><p>비밀번호</p></label>
-            {{ form.password1 }}
+              <input type="password" name="password1" autocomplete="new-password" required="" id="id_password1" placeholder="비밀번호">
           </div>
           <p>비밀번호&nbsp;<span style="color: #8c8c8c">(확인)</span></p>
-          <input
-            class="input__reg__pw"
-            type="password"
-            placeholder="비밀번호 (확인)"
-          />
-          <div>
+          <div class="input__reg__pw">
             {{ form.password2.errors }}
-            <lable for="{{ form.password2.id_for_label }}"><p>비밀번호 (확인)</p></lable>
-            {{ form.password2 }}
+            <lable for="{{ form.password2.id_for_label }}"></lable>
+            <input type="password" name="password2" autocomplete="new-password" required="" id="id_password2" placeholder="비밀번호 (확인)">
           </div>
       </div>
       <button id="signup__1st__btn" onclick="signupFunction()">다음</button>
@@ -106,23 +91,15 @@
     <div class="signup__2nd__nor">
       <span>회원가입</span>
       <div class="input">
-        <p style="margin-top: 2.5rem">이름</p>
-        <input class="input__reg__name" type="text" placeholder="직접입력" />
-        <div>
+        <div class="input__reg__name">
           {{ form.name.errors }}
-          <lable for="{{ form.name.id_for_label }}"><p>이름</p></lable>
-          {{ form.name }}
+          <lable for="{{ form.name.id_for_label }}"><p style="margin-top: 2.5rem">이름</p></lable>
+          <input type="text" name="name" maxlength="10" required="" id="id_name" placeholder="이름">
         </div>
-        <p>닉네임</p>
-        <input
-        class="input__reg__nickname"
-        type="text"
-        placeholder="직접입력"
-      />
-        <div>
+        <div class="input__reg__nickname">
           {{ form.nickname.errors }}
           <lable for="{{ form.nickname.id_for_label }}"><p>닉네임</p></lable>
-          {{ form.nickname }}
+          <input type="text" name="nickname" maxlength="20" required="" id="id_nickname" placeholder="닉네임">
         </div>
         <p>
           프로필 사진&nbsp;<span style="color: #8c8c8c">(선택)</span><br /><span
@@ -132,14 +109,10 @@
           >
         </p>
         <div class="input__profile">
-          <input
-            type="file"
-            name="uploadfile"
-            id="img"
-            style="display: none"
-            accept="image/gif, image/jpeg, image/png"
-          />
-          <label class="input__img" for="img"
+          {{ form.profile_img.errors }}
+          <lable for="{{ form.profile_img.id_for_label }}"></lable>
+            <input type="file" name="profile_img" accept="image/*" id="id_profile_img" style="display: none;">
+            <label class="input__img" for="id_profile_img"
             ><span id="input__plus"> + </span>
             <span id="input__plus__desc"
               >&nbsp;&nbsp;이미지를 드래그하거나<br />클릭해서 업로드
@@ -147,43 +120,38 @@
             >
           </label>
         </div>
-        <div>
-          {{ form.profile_img.errors }}
-          <lable for="{{ form.profile_img.id_for_label }}"></lable>
-            {{ form.profile_img }}
-        </div>
         <p>성별</p>
-        <select
-          class="form-select form-select-lg mb-3 gender-select"
-          aria-label=".form-select-lg example"
-        >
-          <option selected>남자 / 여자</option>
-          <option value="male">남자</option>
-          <option value="female">여자</option>
-        </select>
         <div>
           {{ form.gender.errors }}
           <lable  for="{{ form.gender.id_for_label }}"></lable>
-          {{ form.gender }}
+          <select class="gender-select" name="gender" required="" id="id_gender">
+            <option value="" selected="">---------</option>
+          
+            <option value="Male">남자</option>
+          
+            <option value="Female">여자</option>
+          
+          </select>
         </div>
         <p>직업</p>
-        <select
-          class="form-select form-select-lg mb-3 career-select"
-          aria-label=".form-select-lg example"
-        >
-          <option selected>학생 / 취준생 / 직장인 / 기타</option>
-          <option value="student">학생</option>
-          <option value="jobseeker">취준생</option>
-          <option value="worker">직장인</option>
-          <option value="other">기타</option>
-        </select>
         <div>
           {{ form.job.errors }}
           <lable for="{{ form.job.id_for_label }}"></lable>
-          {{ form.job }}
+          <select class="career-select" name="job" required="" id="id_job">
+            <option value="" selected="">---------</option>
+          
+            <option value="Student">학생</option>
+          
+            <option value="Job_Seeker">취준생</option>
+          
+            <option value="Worker">직장인</option>
+          
+            <option value="Etc">기타</option>
+          
+          </select>
         </div>
         <p>생년월일</p>
-        <div class="input__birthday">
+        <!--<div class="input__birthday">
           <input class="input__year" type="number" placeholder="년" />
           <select
             class="form-select form-select-lg mb-3 month-select"
@@ -204,32 +172,20 @@
             <option value="Dec">12</option>
           </select>
           <input class="input__day" type="number" placeholder="일" />
-        </div>
+        </div>-->
         <div>
           {{ form.birth.errors }}
           <lable for="{{ form.birth.id_for_label }}"></lable>
-          {{ form.birth }}
+          <input class="input__birthday" type="text" name="birth" required="" id="id_birth" placeholder="(예시) 1980-01-01">
         </div>
         <p>자기소개&nbsp;<span style="color: #8c8c8c">(선택)</span></p>
-        <p>
-          <textarea
-            class="input__self"
-            cols="50"
-            rows="10"
-            placeholder="100자 이내로 입력해주세요."
-            maxlength="100"
-          ></textarea>
-        </p>
-        <div>
+        <div class="input__self">
           {{ form.desc.errors }}
-          <lable aria-placeholder="100자" for="{{ form.desc.id_for_label }}"></lable>
-          {{ form.desc }}
+          <lable for="{{ form.desc.id_for_label }}"></lable>
+          <textarea name="desc" cols="40" rows="5" maxlength="100" id="id_desc" placeholder="100자 이내로 입력해주세요."></textarea>
         </div>
       </div>
       <button id="signup__2nd__btn" onclick="registerLink()">가입 완료</button>
-      <div>
-        <input type="submit" value="가입 완료">
-      </div>
     </div>
   </div>
   </form>

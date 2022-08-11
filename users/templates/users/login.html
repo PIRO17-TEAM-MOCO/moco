@@ -11,17 +11,32 @@
       >
         {% csrf_token %}
         <div class="input">
-          <input class="input__id" type="text" placeholder="아이디" />
-          <div>
+          <div class="input__id">
             {{ form.username.errors }}
             <lable for="{{ form.id.username_for_label }}"></lable>
-            {{ form.username }}
+            <input
+              type="text"
+              name="username"
+              autofocus=""
+              autocapitalize="none"
+              autocomplete="username"
+              maxlength="150"
+              required=""
+              id="id_username"
+              placeholder="아이디"
+            />
           </div>
-          <input class="input__pw" type="password" placeholder="비밀번호" />
-          <div>
+          <div class="input__pw">
             {{ form.password.errors }}
             <lable for="{{ form.password.id_for_label }}"></lable>
-            {{ form.password }}
+            <input
+              type="password"
+              name="password"
+              autocomplete="current-password"
+              required=""
+              id="id_password"
+              placeholder="비밀번호"
+            />
           </div>
           <div class="align__cb">
             <input type="checkbox" id="input__cb" />

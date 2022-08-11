@@ -10,20 +10,29 @@
       >
         <div class="input">
           {% csrf_token %}
-          <input class="input__name" type="text" placeholder="이름" />
-          <div>
+          <div class="input__name">
             {{ form.name.errors }}
             <lable for="{{ form.name.id_for_label }}"></lable>
-            {{ form.name }}
+            <input
+              type="text"
+              name="name"
+              required
+              id="id_name"
+              placeholder="이름"
+            />
           </div>
-          <input class="input__birth" type="password" placeholder="생년월일" />
-          <div>
+          <div class="input__birth">
             {{ form.birth.errors }}
             <lable for="{{ form.birth.id_for_label }}"></lable>
-            {{ form.birth }}
+            <input
+              type="text"
+              name="birth"
+              required=""
+              id="id_birth"
+              placeholder="생년월일"
+            />
           </div>
           <button id="search__btn">아이디 찾기</button>
-          <input type="submit" value="아이디 찾기" />
         </div>
       </form>
     </div>

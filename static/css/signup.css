@@ -46,7 +46,7 @@ main .input {
   margin-bottom: 0.5rem;
 }
 
-.input__reg__id {
+.input__reg__id input {
   width: 22rem;
   height: 3.3rem;
   border-radius: 0.5rem;
@@ -55,17 +55,17 @@ main .input {
   border: 1px solid #8c8c8c;
 }
 
-.input__reg__id::placeholder {
+.input__reg__id input::placeholder {
   font-size: 1rem;
   color: #8c8c8c;
 }
 
-.input__reg__id:focus {
+.input__reg__id input:focus {
   outline: none !important;
   border: 1px solid blue;
 }
 
-.input__email {
+.input__email input {
   width: 22rem;
   height: 3.3rem;
   border-radius: 0.5rem;
@@ -74,18 +74,18 @@ main .input {
   margin-bottom: 1rem;
 }
 
-.input__email::placeholder {
+.input__email input::placeholder {
   font-size: 1rem;
   color: #8c8c8c;
   border-color: #8c8c8c;
 }
 
-.input__email:focus {
+.input__email input:focus {
   outline: none !important;
   border: 1px solid blue;
 }
 
-.input__reg__pw {
+.input__reg__pw input {
   width: 22rem;
   height: 3.3rem;
   border-radius: 0.5rem;
@@ -94,13 +94,13 @@ main .input {
   margin-bottom: 1rem;
 }
 
-.input__reg__pw::placeholder {
+.input__reg__pw input::placeholder {
   font-size: 1rem;
   color: #8c8c8c;
   border-color: #8c8c8c;
 }
 
-.input__reg__pw:focus {
+.input__reg__pw input:focus {
   outline: none !important;
   border: 1px solid blue;
 }
@@ -248,7 +248,7 @@ main .input {
   margin-bottom: 0.5rem;
 }
 
-.input__reg__name {
+.input__reg__name input {
   width: 22rem;
   height: 3.3rem;
   font-size: 1rem;
@@ -258,17 +258,17 @@ main .input {
   border: 1px solid #8c8c8c;
 }
 
-.input__reg__name::placeholder {
+.input__reg__name input::placeholder {
   font-size: 1rem;
   color: #8c8c8c;
 }
 
-.input__reg__name:focus {
+.input__reg__nam input:focus {
   outline: none !important;
   border: 1px solid blue;
 }
 
-.input__reg__nickname {
+.input__reg__nickname input {
   width: 22rem;
   height: 3.3rem;
   font-size: 1rem;
@@ -278,13 +278,13 @@ main .input {
   margin-bottom: 1rem;
 }
 
-.input__reg__nickname::placeholder {
+.input__reg__nickname input::placeholder {
   font-size: 1rem;
   color: #8c8c8c;
   border-color: #8c8c8c;
 }
 
-.input__reg__nickname:focus {
+.input__reg__nickname input:focus {
   outline: none !important;
   border: 1px solid blue;
 }
@@ -335,7 +335,13 @@ main .input {
   font-size: 1rem;
   border-radius: 0.5rem;
   border: 1px solid #8c8c8c;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+}
+
+.gender-select select:focus {
+  outline: none !important;
+  border: 1px solid blue;
 }
 
 .career-select {
@@ -345,16 +351,35 @@ main .input {
   font-size: 1rem;
   border-radius: 0.5rem;
   border: 1px solid #8c8c8c;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+}
+
+.career-select select:focus {
+  outline: none !important;
+  border: 1px solid blue;
 }
 
 .input__birthday {
   width: 22rem;
+  height: 3.3rem;
+  color: #8c8c8c;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #8c8c8c;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
+.input__birthday:focus {
+  outline: none !important;
+  border: 1px solid blue;
+}
+
+/*
 .input__year {
   width: 6.7rem;
   height: 3.3rem;
@@ -383,8 +408,9 @@ main .input {
   border: 1px solid #8c8c8c;
   margin-bottom: 1rem;
 }
+*/
 
-.input__self {
+.input__self textarea {
   width: 22rem;
   font-size: 1rem;
   border-radius: 0.5rem;
@@ -395,15 +421,15 @@ main .input {
   padding-right: 1rem;
 }
 
-.input__self::placeholder {
+.input__self textarea::placeholder {
   font-size: 1rem;
   color: #8c8c8c;
   border-color: #8c8c8c;
 }
 
-.input__self:focus {
+.input__self textarea:focus {
   outline: none !important;
-  border: 1px solid #8c8c8c;
+  border: 1px solid blue;
 }
 
 #signup__2nd__btn {

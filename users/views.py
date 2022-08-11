@@ -105,17 +105,17 @@ def profile_view(request, id):
     'age': age,
     'edit_access': False,
     }
-    if request.user and request.user == user:
+    if request.user == user:
         context['edit_access'] = True   
     return render(request, template_name='users/profile_view.html', context=context)
 
 
 @login_required
 def profile_edit(request, id):
-    user = User.objects.get(id=id)
     # 다른 사람이 프로필 수정하는 것 방지
-    if user.id != request.user.id:
+    if id != request.user.id:
         return redirect(f'/account/profile/{id}')
+    user = User.objects.get(id=id)
     if request.method == "POST":
         form = ProfileForm(request.POST)
         if form.is_valid():

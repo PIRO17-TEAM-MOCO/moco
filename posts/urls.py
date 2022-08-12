@@ -16,7 +16,7 @@ urlpatterns = [
     path("close/<int:id>", views.close, name="close"),
     # post-review
     path('review', views.review_home, name="review_home"),
-    path('review/write/<int:id>', views.review_write, name="review_write"),
-    path('review/revise/<int:id>', views.review_revise, name="review_revise"),
-    path('review/delete/<int:id>', views.review_delete, name="review_delete")
+    path('review/write/<int:id>', views.review_write, name="review-write"),
+    path('review/revise/<int:id>', views.review_revise, name="review-revise"),
+    path('review/delete/<int:id>', views.review_delete, name="review-delete")
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

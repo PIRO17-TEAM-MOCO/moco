@@ -42,7 +42,7 @@
             <button>삭제</button>
           </form>
           {% elif can_revise and not post.activation %}
-          <button>모집완료</button>
+          <div>모집완료</div>
           <form action="{% url 'posts:delete' post.id %}" method="post">
             {% csrf_token %}
             <button>삭제</button>
@@ -166,6 +166,7 @@
       {% endfor %}
     </div>
   </div>
+  {%if can_revise and not post.activation %}
   <div id="main_detail__review">
     <div id="main_detail__review__top">
       <div id="main_detail__review__blank">
@@ -183,14 +184,13 @@
           <label for="main_detail__review__upload_file">
             <div id="main_detail__review__uploadbtn">
               <h1>+</h1>
-              <p>이미지를 드래그하거나 클릭해서 업로드해주세요</p>
+              <p>이미지를 드래그하거나 <br> 클릭해서 업로드해주세요</p>
             </div>
           </label>
           <input
             type="file"
             name="review_image"
             id="main_detail__review__upload_file"
-            placeholder="이미지를 드래그하거나 클릭해서 업로드해주세요"
           />
         </div>
         <textarea
@@ -259,5 +259,6 @@
     </div>
     {% endfor %}
   </div>
+  {%endif%}
 </div>
 {% endblock content%}

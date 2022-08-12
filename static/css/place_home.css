@@ -1,19 +1,20 @@
 @import url(base.css);
 
 .content-category {
-  font-family: 'Noto Sans', sans-serif;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-weight: 600;
   font-size: 1.5rem;
   margin-right: auto;
 }
 
-.content-category__item{
+.content-category__item {
   display: inline-block;
   padding: 1rem 2rem 1rem 0;
 }
 
-.search, .tag {
+.search,
+.tag {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -21,20 +22,22 @@
   margin: 0.5rem auto;
 }
 
-.search__input, .tag__input {
+.search__input,
+.tag__input {
   width: 100%;
   height: 50px;
-  border: 1px solid #BFBFBF;
+  border: 1px solid #bfbfbf;
   border-radius: 10px;
   padding: 1.75rem 3rem;
 }
 
-.search i, .tag i {
+.search i,
+.tag i {
   font-size: 1.25rem;
-  color: #BFBFBF;
-  position : absolute;
-  left : 1.25rem;
-  top : 31%;
+  color: #bfbfbf;
+  position: absolute;
+  left: 1.25rem;
+  top: 31%;
 }
 
 .tag__reset {
@@ -58,7 +61,7 @@
 .search__button {
   padding: 20px 60px;
   margin-left: 1rem;
-  background-color: #2253FF;
+  background-color: #2253ff;
   color: white;
   border: none;
   border-radius: 0.5rem;
@@ -83,7 +86,7 @@
 }
 
 .content-box__itme {
-  border: 1px solid #BFBFBF;
+  border: 1px solid #bfbfbf;
   border-radius: 10px;
 }
 
@@ -96,13 +99,13 @@
 }
 
 .content-box__img {
-  background-color: #BFBFBF;
+  background-color: #bfbfbf;
   width: 22rem;
   height: 10rem;
   border-radius: 10px 10px 0 0;
 }
 
-.content-box__name{
+.content-box__name {
   font-weight: 700;
   font-size: 1.25rem;
   line-height: 18px;
@@ -110,14 +113,14 @@
 }
 
 .content-box__location {
-  color: #8C8C8C;
+  color: #8c8c8c;
   font-weight: 400;
   font-size: 1rem;
   margin-bottom: 0.75rem;
 }
 
 .content-box__rating {
-  color: #8C8C8C;
+  color: #8c8c8c;
   font-weight: 400;
   font-size: 1rem;
 }
@@ -125,11 +128,11 @@
 .content-box__bottom {
   display: flex;
   justify-content: space-between;
-  color: #8C8C8C;
+  color: #8c8c8c;
   font-weight: 400;
   font-size: 1rem;
 }
 
-.content-box__bottom span i{
+.content-box__bottom span i {
   margin-right: 0.5rem;
 }

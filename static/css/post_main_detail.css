@@ -1,17 +1,26 @@
-p {
-  margin: 0;
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  width: 100%;
+  padding: 20px 10px 0 10px;
+  margin: 0 auto;
 }
 
 #main_detail__top {
-  height: 338px;
+  width: 100%;
 }
 
 #main_detail__main {
   display: inline-block;
   margin-top: 30px;
+  width: 100%;
 }
 
 #main_detail__comment {
+  width: 100%;
 }
 
 #main__detail__top_left__ul__recruit {
@@ -35,7 +44,7 @@ p {
 /* 수정 필요 */
 
 #main_detail__top__back_btn i {
-  margin-top: 100px;
+  margin-top: 0;
 }
 
 #main_detail__top__main {
@@ -241,6 +250,10 @@ p {
 
 /* main_detail 리뷰 파트 */
 
+#main_detail__review {
+  width: 100%;
+}
+
 #main_detail__review__top {
   display: flex;
   justify-content: space-between;
@@ -306,6 +319,11 @@ p {
   height: 200px;
 }
 
+#main_detail__review__filebox label {
+  height: 100%;
+  width: 100%;
+}
+
 #main_detail__review__uploadbtn {
   width: 100%;
   height: 100%;
@@ -317,6 +335,16 @@ p {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-size: 10px;
+  padding: 0 20%;
+}
+
+#main_detail__review__uploadbtn h1 {
+  font-size: 30px;
+}
+
+#main_detail__review__uploadbtn p {
+  margin-top: 10px;
   font-size: 10px;
 }
 
@@ -379,6 +407,12 @@ p {
 .main_detail__review__contents_content {
   display: flex;
   padding-bottom: 30px;
+}
+
+.main_detail__review__contents_content img {
+  width: 15%;
+  height: 15%;
+  margin-top: 20px;
 }
 
 .main_detail__review__contents_text {

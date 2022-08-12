@@ -13,12 +13,31 @@
       </div>
       <div id="main_write__top__select">
         <div class="main_write__top__select_row">
-          <div class="main_write__top__select_left">
-            <div class="main_write__top__select_title">
+          <div class="main_write__dropdown__select_left">
+            <!--<div class="main_write__top__select_title">
               <h3>진행방식</h3>
             </div>
             <div class="main_write__top__box">
-              <select name="contact" class="main_write__top__box_select">
+              <div class="main_write__dropdown">
+                <div class="main_write__select">
+                  <div
+                    class="main_write__selected"
+                    contenteditable="true"
+                    placeholder="온라인/오프라인/혼합"
+                  ></div>
+                  <div class="main_write__caret"></div>
+                </div>
+                <div class="main_write__menu">
+                  <li class="main_write__active">온라인</li>
+                  <li>오프라인</li>
+                  <li>혼합</li>
+                </div>
+              </div>
+            </div>-->
+            <!--드롭다운 아직 연결 안돼서 일단 select box로-->
+            <div>
+              진행방식 :
+              <select name="contact">
                 <option selected value="default">----------</option>
                 {% for key, value in contacts %}
                 <option value="{{ value }}">{{ value }}</option>
@@ -26,18 +45,38 @@
               </select>
             </div>
           </div>
-          <div class="main_write__top__select_right">
-            <div class="main_write__top__select_title">
+          <!--드롭다운 아직 연결 안돼서 일단 select box로-->
+          <div class="main_write__dropdown__select_right">
+            <!--<div class="main_write__top__select_title">
               <h3>모임형태</h3>
             </div>
             <div class="main_write__top__box">
-              <select name="duration" class="main_write__top__box_select">
+              <div class="main_write__dropdown">
+                <div class="main_write__select">
+                  <div
+                    class="main_write__selected"
+                    contenteditable="true"
+                    placeholder="정기/번개"
+                  ></div>
+                  <div class="main_write__caret"></div>
+                </div>
+                <ul class="main_write__menu">
+                  <li class="main_write__active">정기</li>
+                  <li>번개</li>
+                </ul>
+              </div>
+            </div>-->
+            <!--드롭다운 아직 연결 안돼서 일단 select box로-->
+            <div>
+              기간 :
+              <select name="duration">
                 <option selected value="default">----</option>
                 {% for key, value in durations %}
                 <option value="{{ value }}">{{ value }}</option>
                 {% endfor %}
               </select>
             </div>
+            <!--드롭다운 아직 연결 안돼서 일단 select box로-->
           </div>
         </div>
         <div class="main_write__top__select_row">
@@ -50,6 +89,7 @@
                 type="number"
                 class="main_write__top__box_text"
                 name="number"
+                placeholder="직접 입력"
               />
             </div>
           </div>
@@ -62,6 +102,7 @@
                 type="text"
                 class="main_write__top__box_text"
                 name="location"
+                placeholder="직접 입력"
               />
             </div>
           </div>
@@ -76,6 +117,7 @@
                 type="text"
                 class="main_write__top__box_text"
                 name="apply_link"
+                placeholder="구글폼 링크를 입력해주세요"
               />
             </div>
           </div>
@@ -84,7 +126,12 @@
               <h3>개발언어(선택)</h3>
             </div>
             <div class="main_write__top__box">
-              <input type="text" class="main_write__top__box_text" />
+              <input
+                type="text"
+                class="main_write__top__box_text"
+                name="tag"
+                placeholder="직접 입력"
+              />
             </div>
           </div>
         </div>
@@ -94,12 +141,15 @@
       <div class="main_write__title">
         <div class="main_write__title_num"><h2>2</h2></div>
         <h2>태그를 입력해주세요</h2>
-        <input type="text" name="tag" />
       </div>
       <div class="main_write__tag_write__main">
         <div class="main_write__tag_write__main_title"><h3>태그</h3></div>
         <div class="main_write__tag_write__main_content">
-          <input type="text" class="main_write__tag__main_content_input" />
+          <input
+            type="text"
+            class="main_write__tag__main_content_input"
+            placeholder="태그를 입력해주세요"
+          />
         </div>
       </div>
     </div>
@@ -115,6 +165,7 @@
             type="text"
             class="main_write__tag__main_content_input"
             name="title"
+            placeholder="제목을 작성해주세요"
           />
         </div>
         <div id="main_write__content__contents">
@@ -142,5 +193,6 @@
       </div>
     </div>
   </form>
+  <script src="/static/js/post_main_write.js"></script>
 </div>
 {% endblock %}

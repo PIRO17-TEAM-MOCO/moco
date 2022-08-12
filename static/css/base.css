@@ -20,7 +20,7 @@ body {
   font-family: "Noto Sans", sans-serif;
   font-family: "Noto Sans KR", sans-serif;
   font-weight: 400;
-  padding-top: 5rem;
+  padding-top: 3.5rem;
 }
 
 .navbar {
@@ -93,7 +93,6 @@ body {
   z-index: 1; /*다른 요소들보다 앞에 배치*/
   background-color: white;
   width: 6em;
-  height: 6em;
   top: 100%;
   transform: translateX(-20%);
 }
@@ -185,7 +184,6 @@ body {
   z-index: 1; /*다른 요소들보다 앞에 배치*/
   background-color: white;
   width: 6em;
-  height: 6em;
   top: 100%;
   transform: translateX(-20%);
 }

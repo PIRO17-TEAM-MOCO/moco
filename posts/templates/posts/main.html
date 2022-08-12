@@ -85,17 +85,29 @@
           </select>
         </form>
         <div id="main__info_div__box">
-          <select name="language" class="selectbox">
+          <!--<select name="language" class="selectbox">
             <option value="전체" class="lang-option">전체</option>
             <option value="정기" class="lang-option">📅 정기</option>
             <option value="번개" class="lang-option">⚡️ 번개</option>
-          </select>
+          </select>-->
+          <!--이 부분 class 명 고치기-->
+          <div class="dropdown">
+            <div class="select">
+              <span class="selected">전체</span>
+              <div class="caret"></div>
+            </div>
+            <ul class="menu">
+              <li>전체</li>
+              <li>📅 정기</li>
+              <li class="active">⚡️ 번개</li>
+            </ul>
+          </div>
         </div>
       </div>
       {% for post in posts %}
-      <div id="main__info_div__post">
-        <a href="{% url 'posts:detail' post.id%}">바로가기</a>
+      <div id="main__info_div__post" onclick="location.href='{% url 'posts:detail' post.id %}';">
         <!--이 부분 바로가기 수정하기(그냥 전체 칸 누르면 이동하도록)-->
+        <!--수정은 했는데 링크 부분에 빨간 줄 해결하기-->
         <div id="main__info_div__post_left">
           <div id="main__info_div__post_left__tag">
             <ul class="main__info_li__tag_flex">
@@ -142,5 +154,6 @@
       {% endfor %}
     </div>
   </div>
+  <script src="/static/js/post_main.js"></script>
 </div>
 {% endblock content %}

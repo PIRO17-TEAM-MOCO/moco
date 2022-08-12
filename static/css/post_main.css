@@ -165,6 +165,7 @@ span {
   padding: 10px 0;
   margin-bottom: 20px;
   transition: all 0.5s;
+  cursor: pointer;
 }
 
 #main__info_div__post:hover {
@@ -339,3 +340,79 @@ span {
   box-shadow: 1px 2px 3px #00000020;
 }
 /* 여기까지 스위치 구현 */
+
+/* 정기, 번개 드롭박스 css */
+
+.dropdown {
+  width: 6em;
+  position: relative;
+  margin: 2em;
+}
+
+.dropdown * {
+  box-sizing: border-box;
+}
+
+.select {
+  background: white;
+  border: 1px solid rgb(221, 221, 221);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em;
+  cursor: pointer;
+}
+
+.caret {
+  width: 0;
+  height: 0;
+  display: inline-block;
+  vertical-align: middle;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid;
+  transition: 0.3s;
+}
+
+.caret-rotate {
+  transform: rotate(180deg);
+}
+
+.menu {
+  list-style: none;
+  padding: 0.2em 0.5em;
+  background: white;
+  border-radius: 0.5em;
+  color: #9fa5b5;
+  position: absolute;
+  top: 3em;
+  left: 50%;
+  width: 100%;
+  transform: translateX(-50%);
+  opacity: 0;
+  display: none;
+  transition: 0.2s;
+  z-index: 1;
+  border: 1px solid rgb(221, 221, 221);
+}
+
+.menu li {
+  padding: 0.7em 0.5em;
+  margin: 0.3em 0;
+  border-radius: 0.5em;
+  cursor: pointer;
+  color: black;
+}
+
+.menu li:hover {
+  background: #e9f7ff;
+}
+
+.active {
+  background: #e9f7ff;
+}
+
+.menu-open {
+  display: block;
+  opacity: 1;
+}

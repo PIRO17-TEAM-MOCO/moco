@@ -176,7 +176,7 @@
         <span>300자 이내 작성</span>
       </div>
     </div>
-    <form action="{% url 'posts:review_write' post.id %}" method="post" enctype="multipart/form-data">
+    <form action="{% url 'posts:review-write' post.id %}" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <div id="main_detail__review__blank_box">
         <div id="main_detail__review__filebox">
@@ -238,8 +238,8 @@
         <div class="main_detail__review__contents_revise">
           <img src="/static/img/dots.png" alt="" />
           {% if review.user == request.user %}
-				  <a href="{% url 'posts:review_revise' review.id%}">수정</a>
-				  <form action="{% url 'posts:review_delete' review.id %}" method="post">
+				  <a href="{% url 'posts:review-revise' review.id%}">수정</a>
+				  <form action="{% url 'posts:review-delete' review.id %}" method="post">
 					  {% csrf_token %}
 					  <button>삭제</button>
 				  </form>

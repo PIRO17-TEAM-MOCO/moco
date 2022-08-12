@@ -110,7 +110,7 @@
       </div>
     </div>
     <div id="main_detail__comment__blank_box">
-      <form action="{% url 'comments:write' post.id %}" method="post">
+      <form action="{% url 'comments:write-post' post.id %}" method="post">
         {% csrf_token %}
         <textarea
           type="text"

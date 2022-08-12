@@ -1,11 +1,12 @@
 from django.shortcuts import redirect, render
 from .models import Comment
 from posts.models import Post
+from place.models import Place
 
 # Create your views here.
 
 
-def write(request, id):
+def write_post(request, id):
     if request.method == 'POST':
         content = request.POST["content"]
         user = request.user
@@ -14,6 +15,17 @@ def write(request, id):
         Comment.objects.create(user=user, post=post,
                                tag=tag, content=content)
         return redirect(f"/post/detail/{id}")
+
+
+def write_place(request, id):
+    if request.method == 'POST':
+        content = request.POST["content"]
+        user = request.user
+        place = Place.objects.get(id=id)
+        tag = Comment.TAG_PLACE
+        Comment.objects.create(user=user, place=place,
+                               tag=tag, content=content)
+        return redirect(f"/place/detail/{id}")
 
 
 def revise(request, id):

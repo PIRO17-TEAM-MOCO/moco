@@ -7,13 +7,14 @@ from place.models import Place
 
 
 class Comment(models.Model):
+    TAG_POST = 1
+    TAG_PLACE = 2
     user = models.ForeignKey(
         User, on_delete=models.CASCADE)
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, blank=True, null=True)
+    place = models.ForeignKey(
+        Place, on_delete=models.CASCADE, blank=True, null=True)
     tag = models.IntegerField()  # 1이면 post, 2면 place
     content = models.TextField()
     cmt_class = models.IntegerField(default=0)
-    cmt_parent = models.ForeignKey(
-        'self', on_delete=models.CASCADE, null=True, blank=True)
-    published_at = models.DateTimeField(auto_now_add=True)

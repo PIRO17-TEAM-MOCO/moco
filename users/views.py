@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
-from django.contrib import auth
-from django.contrib.auth.forms import AuthenticationForm
+from django.db.models.query_utils import Q
+from django.contrib import auth, messages
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, PasswordResetForm
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from .models import User
-from .forms import ProfileForm, SignupForm, FindidForm
+from .forms import ProfileForm, SignupForm, FindidForm, ResetpwForm
 
 
 # main은 기능확인용입니다.
@@ -94,6 +95,32 @@ def find_id(request):
         }
         return render(request, template_name='users/find_id.html', context=context)
 
+def find_pw(request):
+    pass
+
+
+@login_required
+def change_pw(request):
+    if request.method == "POST":
+        form = PasswordChangeForm(request.user, request.POST)
+        context = {
+            'form': form,
+        }
+        if form.is_valid():
+            user = form.save()
+            auth.update_session_auth_hash(request, user)
+            messages.success(request, 'Password successfully changed')
+            redirect('users:change_pw')
+        else:
+            messages.error(request, 'Password not changed')
+            redirect('users:change_pw')
+    else:
+        form = PasswordChangeForm(request.user)
+        context = {
+            'form': form,
+        }
+    return render(request, template_name='users/change_pw.html', context=context)
+
 
 def profile_view(request, id):
     user = User.objects.get(id=id)
@@ -103,19 +130,19 @@ def profile_view(request, id):
     context = {
     'user': user,
     'age': age,
-    'tag': 0,
+    'edit_access': False,
     }
-    if request.user and request.user == user:
-        context['tag'] = 1    
+    if request.user == user:
+        context['edit_access'] = True   
     return render(request, template_name='users/profile_view.html', context=context)
 
 
 @login_required
 def profile_edit(request, id):
-    user = User.objects.get(id=id)
     # 다른 사람이 프로필 수정하는 것 방지
-    if user.id != request.user.id:
+    if id != request.user.id:
         return redirect(f'/account/profile/{id}')
+    user = User.objects.get(id=id)
     if request.method == "POST":
         form = ProfileForm(request.POST)
         if form.is_valid():
@@ -136,3 +163,51 @@ def profile_edit(request, id):
             "id": id,
         }
         return render(request, template_name='users/profile_edit.html', context=context)
+
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+
+
+def reset_pw(request):
+    if request.method == "POST":
+        form = ResetpwForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            username = form.cleaned_data['username']
+            users = get_user_model().objects.filter(Q(email=email) & Q(username=username))
+            if users.exists():
+                for user in users:
+                    subject = '[MOCO] 비밀번호 재설정'
+                    email_template_name = "users/password_reset_email.txt"
+                    c = {
+                        "email": user.email,
+                        # local: '127.0.0.1:8000', prod: ''
+                        'domain': settings.HOSTNAME,
+                        'site_name': 'MOCO',
+                        # MTE4
+                        "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                        "user": user,
+                        # Return a token that can be used once to do a password reset for the given user.
+                        'token': default_token_generator.make_token(user),
+                        # local: http, prod: https
+                        'protocol': settings.PROTOCOL,
+                    }
+                    email = render_to_string(email_template_name, c)
+                    try:
+                        send_mail(subject, email, '모코이메일@gmail.com' , [user.email], fail_silently=False)
+                    except BadHeaderError:
+                        return HttpResponse('Invalid header found.')
+                    return redirect("/reset-pw/done/")
+    else:
+        form = ResetpwForm()
+        context={
+            'form': form,
+            }
+        return render(request, template_name='users/reset_pw.html',context=context)

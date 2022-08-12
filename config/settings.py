@@ -12,12 +12,18 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
-import os
-
+from environ import Env
+ 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-AUTH_USER_MODEL = 'users.User'
+env = Env()
+env_path = BASE_DIR / ".env"
+if env_path.exists():
+    with env_path.open("rt", encoding="utf8") as f:
+        env.read_env(f, overwrite=True)
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -43,7 +49,7 @@ INSTALLED_APPS = [
     'posts',
     'place',
     'comments',
-    'likes'
+    'likes',
 ]
 
 MIDDLEWARE = [
@@ -87,7 +93,6 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = 'users.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -123,7 +128,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
@@ -135,6 +139,31 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL = '/media/'
 
+# 커스텀 유저 모델 등록
+AUTH_USER_MODEL = 'users.User'
+
+
+# MEDIA 설정
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# email
+# 메일을 보내는 호스트 서버
+EMAIL_HOST = 'smtp.gmail.com'
+
+# ENAIL_HOST에 정의된 SMTP 서버가 사용하는 포트 (587: TLS/STARTTLS용 포트)
+EMAIL_PORT = '587'
+
+#  발신할 이메일 주소 '~@gmail.com'
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+
+# 발신할 이메일 비밀번호 (2단계 인증일경우 앱 비밀번호)
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+
+# TLS 보안 방법 (SMPT 서버와 통신할 떄 TLS (secure) connection 을 사용할지 말지 여부)
+EMAIL_USE_TLS = True
+
+# 사이트와 관련한 자동응답을 받을 이메일 주소
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

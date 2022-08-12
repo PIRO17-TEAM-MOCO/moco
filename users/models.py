@@ -9,7 +9,7 @@ class User(AbstractUser):
     ]
     JOB_CHOICE = [
         ('Student', '학생'),
-        ('Job_Seeker', '취준생'),
+        ('JobSeeker', '취준생'),
         ('Worker', '직장인'),
         ('Etc', '기타')
     ]
@@ -24,4 +24,4 @@ class User(AbstractUser):
     exp = models.IntegerField(default=0)
     profile_img = models.ImageField(blank=True, null=True)
     job = models.CharField(max_length=10, choices=JOB_CHOICE)
-    desc = models.CharField(max_length=100, blank=True, null=True)
+    desc = models.TextField(max_length=100, blank=True, null=True)

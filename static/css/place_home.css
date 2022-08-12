@@ -77,8 +77,9 @@
 .content-box__list {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   grid-gap: 35px;
-  gap: 35px;
+  gap: 59px;
   flex-wrap: wrap;
 }
 
@@ -99,6 +100,14 @@
   background-color: #BFBFBF;
   width: 22rem;
   height: 10rem;
+  border-radius: 10px 10px 0 0;
+}
+
+.content-box__img img{
+  width: 22rem;
+  height: 10rem;
+  overflow: hidden;
+  object-fit: cover;
   border-radius: 10px 10px 0 0;
 }
 

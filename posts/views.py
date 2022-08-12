@@ -206,6 +206,7 @@ def review_write(request, id):
 
 def review_revise(request, id):
     revised_review = Review.objects.get(id=id)
+    
     if request.method == "POST":
         revised_review.user = request.user
         revised_review.content = request.POST['review_content']

@@ -1,16 +1,19 @@
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-input {
-  margin: 0;
-  padding: 0;
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  width: 100%;
+  padding: 20px 10px 0 10px;
+  margin: 0 auto;
+}
+
+form {
+  width: 100%;
 }
 
 #main_write__top {
-  padding-top: 130px;
   padding-bottom: 50px;
 }
 
@@ -23,20 +26,20 @@ input {
 .main_write__top__select_row {
   display: flex;
   justify-content: space-between;
-}
-
-.main_write__top__box_select {
-  height: 35px;
-  width: 100%;
-  border: 1px solid rgb(162, 162, 162);
-  border-radius: 5px;
+  margin-bottom: 20px;
 }
 
 .main_write__top__box_text {
-  height: 35px;
   width: 100%;
   border: 1px solid rgb(162, 162, 162);
   border-radius: 5px;
+  padding: 1em;
+}
+
+.main_write__dropdown__select_left {
+  width: 48%;
+  margin-bottom: 15px;
+  margin-top: 10px;
 }
 
 .main_write__top__select_left {
@@ -45,6 +48,12 @@ input {
 
 .main_write__top__select_right {
   width: 48%;
+}
+
+.main_write__dropdown__select_right {
+  width: 48%;
+  margin-bottom: 15px;
+  margin-top: 10px;
 }
 
 .main_write__top__select_title {
@@ -84,7 +93,7 @@ input {
 }
 
 .main_write__tag__main_content_input {
-  height: 35px;
+  padding: 1em;
   width: 100%;
   border: 1px solid rgb(162, 162, 162);
   border-radius: 5px;
@@ -92,6 +101,7 @@ input {
 
 .main_write__tag_write__main {
   padding-top: 30px;
+  padding-bottom: 20px;
 }
 
 .main_write__tag_write__main_title {
@@ -103,17 +113,12 @@ input {
 }
 
 #main_write__content_box {
-  padding: 0;
+  padding: 1em;
   width: 100%;
   height: 15em;
   border: 1px solid rgb(162, 162, 162);
   border-radius: 5px;
   resize: none;
-}
-
-#main_write__content_box::placeholder {
-  padding-left: 10px;
-  padding-top: 10px;
 }
 
 #main_write__content__contents {
@@ -155,4 +160,85 @@ input {
 
 #main_write__content {
   padding-bottom: 120px;
+}
+
+/* write 드롭 다운 메뉴 */
+
+.main_write__dropdown {
+  height: 35px;
+  width: 100%;
+  margin: 0;
+}
+
+.main_write__dropdown * {
+  box-sizing: border-box;
+}
+
+.main_write__select {
+  background: white;
+  border: 1px solid rgb(162, 162, 162);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.main_write__caret {
+  width: 0;
+  height: 0;
+  display: inline-block;
+  vertical-align: middle;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid;
+  transition: 0.3s;
+}
+
+.main_write__caret-rotate {
+  transform: rotate(180deg);
+}
+
+.main_write__menu {
+  list-style: none;
+  padding: 0.2em 0.5em;
+  background: white;
+  border-radius: 0.5em;
+  color: #9fa5b5;
+  position: relative;
+  opacity: 0;
+  display: none;
+  transition: 0.2s;
+  z-index: 1;
+  border: 1px solid rgb(221, 221, 221);
+  width: 100%;
+}
+
+.main_write__menu li {
+  padding: 0.7em 0.5em;
+  margin: 0.3em 0;
+  border-radius: 0.5em;
+  cursor: pointer;
+  color: black;
+}
+
+.main_write__menu li:hover {
+  background: #e9f7ff;
+}
+
+.main_write__active {
+  background: #e9f7ff;
+}
+
+.main_write__menu-open {
+  display: block;
+  opacity: 1;
+}
+
+/*div.main_write__selected에 placeholder 넣어주기*/
+
+[contenteditable="true"]:empty:before {
+  content: attr(placeholder);
+  color: gray;
 }

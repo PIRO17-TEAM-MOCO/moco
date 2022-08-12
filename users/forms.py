@@ -19,7 +19,7 @@ class FindidForm(ModelForm):
 class ProfileForm(ModelForm):
     class Meta:
         model = User
-        fields = ['profile_img', 'nickname', 'gender', 'birth', 'job', 'desc']
+        fields = ['name','profile_img', 'nickname', 'gender', 'birth', 'job', 'desc', 'email']
 
 
 class ResetpwForm(PasswordResetForm):

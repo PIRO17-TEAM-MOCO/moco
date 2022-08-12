@@ -8,9 +8,10 @@
     <title>MOCO</title>
     <link rel="stylesheet" href="{%static 'css/account_base.css' %}" />
     <link rel="stylesheet" href="{%static 'css/login.css' %}" />
-    <link rel="stylesheet" href="{%static 'css/signup-1st-step.css' %}" />
-    <link rel="stylesheet" href="{%static 'css/signup-2bd-step.css' %}" />
-    <link rel="stylesheet" href="{%static 'css/login_forgot.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/signup.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/find_id.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/register.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/users_main.css' %}" />
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&family=Noto+Sans:wght@600&display=swap"
       rel="stylesheet"
@@ -36,7 +37,7 @@
         <i class="fa-solid fa-circle-user"></i>
         {% else %}
         <li><a href="">글쓰기</a></li>
-        <li><a href="">로그인</a></li>
+        <li><a href="{% url 'users:login' %}">로그인</a></li>
         {% endif %}
       </ul>
     </nav>

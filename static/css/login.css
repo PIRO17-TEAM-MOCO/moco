@@ -7,6 +7,7 @@ main {
   justify-content: center;
   flex-wrap: wrap;
   font-family: "Noto Sans", "Noto Sans KR";
+  margin-top: 5rem;
 }
 
 main .login__container {
@@ -17,7 +18,7 @@ main .login__container {
   justify-content: center;
   font-size: 2rem;
   flex-wrap: wrap;
-  margin-top: 6rem;
+  margin-top: 5rem;
 }
 
 main .login__nor {
@@ -37,7 +38,7 @@ main .input {
   flex-wrap: wrap;
 }
 
-.input__id {
+.input__id input {
   width: 22rem;
   height: 4rem;
   border-radius: 0.5rem;
@@ -47,12 +48,12 @@ main .input {
   border: 1px solid #8c8c8c;
 }
 
-.input__id::placeholder {
+.input__id input::placeholder {
   font-size: 1rem;
   color: #8c8c8c;
 }
 
-.input__pw {
+.input__pw input {
   width: 22rem;
   height: 4rem;
   border-radius: 0.5rem;
@@ -60,20 +61,20 @@ main .input {
   border: 1px solid #8c8c8c;
 }
 
-.input__pw::placeholder {
+.input__pw input::placeholder {
   font-size: 1rem;
   color: #8c8c8c;
   border-color: #8c8c8c;
 }
 
-.input__id:focus {
+.input__id input:focus {
   outline: none !important;
-  border: 1px solid #8c8c8c;
+  border: 1px solid blue;
 }
 
-.input__pw:focus {
+.input__pw input:focus {
   outline: none !important;
-  border: 1px solid #8c8c8c;
+  border: 1px solid blue;
 }
 
 /*checkbox*/
@@ -95,7 +96,6 @@ input#input__cb + label:before {
   border: 1px solid #cbcbcb;
   vertical-align: middle;
   margin-top: 1rem;
-  margin-left: 0.2rem;
 }
 
 input#input__cb:checked + label:before {

@@ -1,29 +1,84 @@
 {% extends 'users/account_base.html' %} {% block content %}
 <main>
-  <div class="signup__container">
-    <div class="signup__nor">
+  <form
+      action="{% url 'users:signup' %}"
+      method="post"
+      enctype="multipart/form-data"
+    >
+    {% csrf_token %}
+  <div id="signup__1st__container">
+    <div class="signup__1st__nor">
       <span>회원가입</span>
       <div class="input">
-        <p style="margin-top: 2.5rem">아이디</p>
-        <input class="input__reg__id" type="text" placeholder="아이디" />
-        <p>이메일</p>
-        <input class="input__email" type="email" placeholder="이메일 주소" />
-        <p>비밀번호</p>
-        <input class="input__reg__pw" type="password" placeholder="비밀번호" />
-        <p>비밀번호&nbsp;<span style="color: #8c8c8c">(확인)</span></p>
-        <input
-          class="input__reg__pw"
-          type="password"
-          placeholder="비밀번호 (확인)"
-        />
+          <div class="input__reg__id">
+            {{ form.username.errors }}
+            <lable for="{{ form.username.id_for_label }}"><p style="margin-top: 2.5rem">아이디</p></lable>
+            <input type="text" name="username" maxlength="150" autofocus="" required="" id="id_username" placeholder="아이디">
+          </div>
+          <div class="input__email">
+            {{ form.email.errors }}
+            <lable for="{{ form.username.id_for_label }}"><p>이메일</p></lable>
+            <input type="email" name="email" maxlength="254" required="" id="id_email" placeholder="example@email.com">
+          </div>
+          <div class="input__reg__pw">
+            {{ form.password1.errors }}
+            <lable for="{{ form.password1.id_for_label }}"><p>비밀번호</p></label>
+              <input type="password" name="password1" autocomplete="new-password" required="" id="id_password1" placeholder="비밀번호">
+          </div>
+          <p>비밀번호&nbsp;<span style="color: #8c8c8c">(확인)</span></p>
+          <div class="input__reg__pw">
+            {{ form.password2.errors }}
+            <lable for="{{ form.password2.id_for_label }}"></lable>
+            <input type="password" name="password2" autocomplete="new-password" required="" id="id_password2" placeholder="비밀번호 (확인)">
+          </div>
       </div>
-      <button id="signup__1st__btn" onclick="signupFuntion()">다음</button>
+      <button id="signup__1st__btn" onclick="signupFunction()">다음</button>
       <div id="sub__reg__menu">
         회원가입 시, MOCO가 제공하는 서비스를 모두 이용하실 수 있습니다. MOCO의
-        <button class="openBtn1">서비스 이용약관</button>,
-        <button class="openBtn2">개인정보취급방침</button>에 동의합니다.
+        <button id="openBtn1">서비스 이용약관</button>,
+        <button id="openBtn2">개인정보취급방침</button>에 동의합니다.
         <input type="checkbox" id="input__reg__cb" />
         <label for="input__reg__cb"></label>
+      </div>
+      <div id="signup__modal-1" class="modal-overlay" style="display: none;">
+        <div class="modal__window">
+          <div class="modal__title">
+            <h3>서비스 이용약관</h3>
+          </div>
+          <div class="modal-close">X</div>
+          <div class="modal__content">
+            여우별 감사합니다 아슬라 컴퓨터 바나나 나비잠 사과 아슬라 나래
+            감사합니다 비나리 책방 아리아 아슬라 나비잠 아리아 노트북 감사합니다
+            별빛 늘품 미리내 로운 노트북 우리는 도르레 아련 함초롱하다 도서관
+            바람꽃 바람꽃 예그리나 늘품 미리내 미쁘다 노트북 우리는 나래 옅구름
+            산들림 아리아 예그리나 여우별 감사합니다 여우별 도르레 함초롱하다
+            아슬라 우리는 소솜 감사합니다. 옅구름 산들림 다솜 도서 감사합니다
+            가온해 나래 가온해 곰다시 그루잠 컴퓨터 나비잠 도담도담 달볓 도서
+            아름드리 사과 도서관 함초롱하다 아름드리 노트북 비나리 포도 나비잠
+            감사합니다 바나나 곰다시 로운 여우비 옅구름 도서관 책방 포도 노트북
+            별빛 바나나 컴퓨터 도담도담 달볓 도르레 감사합니다 이플 비나리
+          </div>
+        </div>
+      </div>
+      <div id="signup__modal-2" class="modal-overlay" style="display: none;">
+        <div class="modal__window">
+          <div class="modal__title">
+            <h3>개인정보취급방침</h3>
+          </div>
+          <div class="modal-close">X</div>
+          <div class="modal__content">
+            여우별 감사합니다 아슬라 컴퓨터 바나나 나비잠 사과 아슬라 나래
+            감사합니다 비나리 책방 아리아 아슬라 나비잠 아리아 노트북 감사합니다
+            별빛 늘품 미리내 로운 노트북 우리는 도르레 아련 함초롱하다 도서관
+            바람꽃 바람꽃 예그리나 늘품 미리내 미쁘다 노트북 우리는 나래 옅구름
+            산들림 아리아 예그리나 여우별 감사합니다 여우별 도르레 함초롱하다
+            아슬라 우리는 소솜 감사합니다. 옅구름 산들림 다솜 도서 감사합니다
+            가온해 나래 가온해 곰다시 그루잠 컴퓨터 나비잠 도담도담 달볓 도서
+            아름드리 사과 도서관 함초롱하다 아름드리 노트북 비나리 포도 나비잠
+            감사합니다 바나나 곰다시 로운 여우비 옅구름 도서관 책방 포도 노트북
+            별빛 바나나 컴퓨터 도담도담 달볓 도르레 감사합니다 이플 비나리
+          </div>
+        </div>
       </div>
       <div class="signup__sim">
         <hr noshade />
@@ -36,69 +91,178 @@
         <button>카카오</button>
         <button>깃허브</button>
       </div>
-      <div class="modal hidden">
-        <div class="bg"></div>
-        <div class="modalBox">
-          <p>
-            <span
-              style="font-size: 1.5rem; font-weight: 900; margin-bottom: 0.5rem"
-              >서비스 이용약관</span
-            ><br />
-            여우별 감사합니다 아슬라 컴퓨터 바나나 나비잠 사과 아슬라 나래
-            감사합니다 비나리 책방 아리아 아슬라 나비잠 아리아 노트북 감사합니다
-            별빛 늘품 미리내 로운 노트북 우리는 도르레 아련 함초롱하다 도서관
-            바람꽃 바람꽃 예그리나 늘품 미리내 미쁘다 노트북 우리는 나래 옅구름
-            산들림 아리아 예그리나 여우별 감사합니다 여우별 도르레 함초롱하다
-            아슬라 우리는 소솜 감사합니다. 옅구름 산들림 다솜 도서 감사합니다
-            가온해 나래 가온해 곰다시 그루잠 컴퓨터 나비잠 도담도담 달볓 도서
-            아름드리 사과 도서관 함초롱하다 아름드리 노트북 비나리 포도 나비잠
-            감사합니다 바나나 곰다시 로운 여우비 옅구름 도서관 책방 포도 노트북
-            별빛 바나나 컴퓨터 도담도담 달볓 도르레 감사합니다 이플 비나리
-            가온해 로운 아리아 비나리 노트북 나래 다솜. 포도 소솜 포도 미쁘다
-            안녕 달볓 컴퓨터 옅구름 그루잠 아슬라 산들림 아련 미쁘다 아련
-            예그리나 도르레 안녕 늘품 이플 소록소록 아슬라 비나리 곰다시 늘품
-            바나나 곰다시 노트북 컴퓨터 여우별 여우별 감사합니다 가온해 예그리나
-            바나나 노트북 도담도담 감사합니다 아련 나래 미리내 나래 나비잠
-            미리내 아름드리 우리는 함초롱하다 별빛 비나리 가온해 다솜. 여우별
-            감사합니다 아슬라 컴퓨터 바나나 나비잠 사과 아슬라 나래 감사합니다
-            비나리 책방 아리아 아슬라 나비잠 아리아 노트북 감사합니다 별빛 늘품
-            미리내 로운 노트북 우리는 도르레 아련 함초롱하다 도서관 바람꽃
-            바람꽃 예그리나 늘품 미리내 미쁘다 노트북 우리는 나래 옅구름 산들림
-            아리아 예그리나 여우별 감사합니다 여우별 도르레 함초롱하다 아슬라
-            우리는 소솜 감사합니다.
-          </p>
-          <button class="closeBtn">X</button>
-        </div>
-      </div>
+      
     </div>
   </div>
+  <div id="signup__2nd__container">
+    <div class="signup__2nd__nor">
+      <span>회원가입</span>
+      <div class="input">
+        <div class="input__reg__name">
+          {{ form.name.errors }}
+          <lable for="{{ form.name.id_for_label }}"><p style="margin-top: 2.5rem">이름</p></lable>
+          <input type="text" name="name" maxlength="10" required="" id="id_name" placeholder="이름">
+        </div>
+        <div class="input__reg__nickname">
+          {{ form.nickname.errors }}
+          <lable for="{{ form.nickname.id_for_label }}"><p>닉네임</p></lable>
+          <input type="text" name="nickname" maxlength="20" required="" id="id_nickname" placeholder="닉네임">
+        </div>
+        <p>
+          프로필 사진&nbsp;<span style="color: #8c8c8c">(선택)</span><br /><span
+            style="color: #8c8c8c; font-size: 0.5rem"
+            >*업로드 안할 시, MOCO에서 제공하는 기본 프로필 사진으로
+            적용됩니다.</span
+          >
+        </p>
+        <div class="input__profile">
+          {{ form.profile_img.errors }}
+          <lable for="{{ form.profile_img.id_for_label }}"></lable>
+            <input type="file" name="profile_img" accept="image/*" id="id_profile_img" style="display: none;">
+            <label class="input__img" for="id_profile_img"
+            ><span id="input__plus"> + </span>
+            <span id="input__plus__desc"
+              >&nbsp;&nbsp;이미지를 드래그하거나<br />클릭해서 업로드
+              해주세요</span
+            >
+          </label>
+        </div>
+        <p>성별</p>
+        <div>
+          {{ form.gender.errors }}
+          <lable  for="{{ form.gender.id_for_label }}"></lable>
+          <select class="gender-select" name="gender" required="" id="id_gender">
+            <option value="" selected="">---------</option>
+          
+            <option value="Male">남자</option>
+          
+            <option value="Female">여자</option>
+          
+          </select>
+        </div>
+        <p>직업</p>
+        <div>
+          {{ form.job.errors }}
+          <lable for="{{ form.job.id_for_label }}"></lable>
+          <select class="career-select" name="job" required="" id="id_job">
+            <option value="" selected="">---------</option>
+          
+            <option value="Student">학생</option>
+          
+            <option value="Job_Seeker">취준생</option>
+          
+            <option value="Worker">직장인</option>
+          
+            <option value="Etc">기타</option>
+          
+          </select>
+        </div>
+        <p>생년월일</p>
+        <!--<div class="input__birthday">
+          <input class="input__year" type="number" placeholder="년" />
+          <select
+            class="form-select form-select-lg mb-3 month-select"
+            aria-label=".form-select-lg example"
+          >
+            <option selected>월</option>
+            <option value="Jan">1</option>
+            <option value="Feb">2</option>
+            <option value="Mar">3</option>
+            <option value="Apr">4</option>
+            <option value="May">5</option>
+            <option value="Jun">6</option>
+            <option value="Jul">7</option>
+            <option value="Aug">8</option>
+            <option value="Set">9</option>
+            <option value="Oct">10</option>
+            <option value="Nov">11</option>
+            <option value="Dec">12</option>
+          </select>
+          <input class="input__day" type="number" placeholder="일" />
+        </div>-->
+        <div>
+          {{ form.birth.errors }}
+          <lable for="{{ form.birth.id_for_label }}"></lable>
+          <input class="input__birthday" type="text" name="birth" required="" id="id_birth" placeholder="(예시) 1980-01-01">
+        </div>
+        <p>자기소개&nbsp;<span style="color: #8c8c8c">(선택)</span></p>
+        <div class="input__self">
+          {{ form.desc.errors }}
+          <lable for="{{ form.desc.id_for_label }}"></lable>
+          <textarea name="desc" cols="40" rows="5" maxlength="100" id="id_desc" placeholder="100자 이내로 입력해주세요."></textarea>
+        </div>
+      </div>
+      <button id="signup__2nd__btn" onclick="registerLink()">가입 완료</button>
+    </div>
+  </div>
+  </form>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"
+  ></script>
 </main>
 <script>
-  const open = () => {
-    document.querySelector(".modal").classList.remove("hidden");
-  };
+  const modal = document.getElementById("signup__modal-1")
+  const btnModal = document.getElementById("openBtn1")
+  btnModal.addEventListener("click", e => {
+    modal.style.display = "flex"
+  })
 
-  const close = () => {
-    document.querySelector(".modal").classList.add("hidden");
-  };
+  const closeBtn = modal.querySelector(".modal-close")
+  closeBtn.addEventListener("click", e => {
+    modal.style.display = "none"
+  })
 
-  document.querySelector(".openBtn1").addEventListener("click", open);
-  document.querySelector(".openBtn2").addEventListener("click", open);
-  document.querySelector(".closeBtn").addEventListener("click", close);
-  document.querySelector(".bg").addEventListener("click", close);
-
-  function popupOpen() {
-    if (document.all.popup.style.visibility == "hidden") {
-      document.all.popup.style.visibility = "visible";
-      return false;
-    } else {
-      document.all.popup.style.visibility = "hidden";
-      return false;
+  modal.addEventListener("click", e => {
+    const evTarget = e.target
+    if(evTarget.classList.contains("modal-overlay")) {
+        modal.style.display = "none"
     }
-  }
+  })
 
-  function signupFuntion() {
-    location.replace("user/signup-2nd-step.html");
+  const modal2 = document.getElementById("signup__modal-2")
+  const btnModal2 = document.getElementById("openBtn2")
+  btnModal2.addEventListener("click", e => {
+    modal2.style.display = "flex"
+  })
+
+  const closeBtn2 = modal2.querySelector(".modal-close")
+  closeBtn2.addEventListener("click", e => {
+    modal2.style.display = "none"
+  })
+
+  modal2.addEventListener("click", e => {
+    const evTarget = e.target
+    if(evTarget.classList.contains("modal-overlay")) {
+        modal2.style.display = "none"
+    }
+  })
+
+
+  /*function signupFunction() {
+    const div1st = document.getElementById("signup__1st__container");
+    const div2nd = document.getElementById("signup__2nd__container");
+
+    if (div1st.style.display === "none") {
+      div1st.style.display = "block";
+      div2nd.style.display = "none";
+    } else {
+      div1st.style.display = "none";
+      div2nd.style.display = "block";
+    }
+  }*/
+  const div1st = document.getElementById("signup__1st__container");
+  const div2nd = document.getElementById("signup__2nd__container");
+  div2nd.style.display = "none";
+
+  function signupFunction() {
+    if (div1st.style.display === "flex") {
+      div2nd.style.display = "none";
+    } else {
+      div1st.style.display = "none";
+      div2nd.style.display = "flex";
+    }
   }
 </script>
 {% endblock %}

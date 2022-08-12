@@ -1,8 +1,13 @@
 {% extends 'place/base.html' %}
 {% block content %}
 <div class="content">
-<form action="{% url 'place:write' %}" method="post" enctype="multipart/form-data">
+<form action="{% url 'place:update' id %}" method="post" enctype="multipart/form-data">
   {% csrf_token %}
+  {% for image in images %}
+      {% if image.place == place %}
+        <p>Currently: {{image.image.url}}</p>
+        {% endif %}
+      {% endfor %}
   <input type="file" name="place_images" multiple>
   <div class="content-box__item">
       {{ form.name.errors }}
@@ -53,10 +58,6 @@
       <input type="button" value="취소" onclick="back()" />
       <input type="submit" value="등록하기" />
     </div>
-    <!-- <table>
-      {{form.as_table}}
-  </table> 
-  <input type="submit" value="제출"> -->
   </form>
 </div>
   <script>

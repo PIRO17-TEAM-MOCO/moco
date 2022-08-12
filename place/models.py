@@ -32,4 +32,4 @@ class Place(models.Model):
 
 class PlaceImage(models.Model):
     place = models.ForeignKey(Place, on_delete=models.CASCADE)
-    image = models.ImageField()
+    image = models.ImageField(upload_to='place/%Y%m%d', blank=True, null=True)

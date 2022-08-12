@@ -9,7 +9,7 @@ class User(AbstractUser):
     ]
     JOB_CHOICE = [
         ('Student', '학생'),
-        ('Job_Seeker', '취준생'),
+        ('JobSeeker', '취준생'),
         ('Worker', '직장인'),
         ('Etc', '기타')
     ]

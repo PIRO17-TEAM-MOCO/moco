@@ -5,6 +5,7 @@ from comments.models import Comment
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime, timedelta
 from django.db.models import Q, Count
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -57,15 +58,11 @@ def home(request):
 
 def write(request):
     if request.method == "POST":
-        
-        print(request.POST)
         user = request.user
         title = request.POST["title"]
         location = request.POST["location"]
         contact = request.POST["contact"]
         number = request.POST["number"]
-        print("number:", number)
-        number = float(number.strip())
 
         if int(number) <= 1:     # 2명 미만인 경우
             return redirect("/post/write")
@@ -93,10 +90,11 @@ def detail(request, id):
     post = Post.objects.get(id=id)
 
     all_reviews = post.review_set.all()
+    paginator = Paginator(all_reviews, 5)
+    page = request.GET.get('page', 1)
+    reviews = paginator.get_page(page)
 
     all_comments = post.comment_set.all()
-
-    len_likes = len(post.like_set.all())
 
     tomorrow = datetime.now() + timedelta(days=1)
     tomorrow = datetime.replace(tomorrow, hour=0, minute=0, second=0)
@@ -109,9 +107,8 @@ def detail(request, id):
         context = {
             "post": post,
             'can_revise': can_revise,   # can_revise가 True면 수정, 삭제, 모집 완료로 전환 가능
-            "reviews": all_reviews,
+            "reviews": reviews,
             "comments": all_comments,
-            "len_likes": len_likes,
         }
 
         session_cookie = id
@@ -136,9 +133,8 @@ def detail(request, id):
     context = {
         "post": post,
         'can_revise': can_revise,
-        "reviews": all_reviews,
+        "reviews": reviews,
         "comments": all_comments,
-        "len_likes": len_likes,
     }
     return render(request, template_name="posts/main_detail.html", context=context)
 
@@ -192,13 +188,14 @@ def review_home(request):
     context = {
         'reviews': reviews,
     }
+
     return render(request, template_name="reviews/review.html", context=context)
 
 
 def review_write(request, id):
     if request.method == "POST":
+        print(request.FILES.get('review_image'))
         img = request.FILES.get('review_image')
-        print(img)
         content = request.POST['review_content']
         user = request.user
         post = Post.objects.get(id=id)

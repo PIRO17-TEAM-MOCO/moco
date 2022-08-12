@@ -194,12 +194,14 @@ def profile_edit(request, id):
     if request.method == "POST":
         form = ProfileForm(request.POST)
         if form.is_valid():
+            user.name = form.cleaned_data['name']
             user.nickname = form.cleaned_data['nickname']
             user.profile_img = form.cleaned_data['profile_img']
             user.gender = form.cleaned_data['gender']
             user.birth = form.cleaned_data['birth']
             user.job = form.cleaned_data['job']
             user.desc = form.cleaned_data['desc']
+            user.email = form.cleaned_data['email']
             user.save()
             return redirect(f'/account/profile/{id}')
         else:

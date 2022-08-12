@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from .models import Comment
 from posts.models import Post
 from place.models import Place
+from notice.models import Notice
 
 # Create your views here.
 
@@ -26,6 +27,17 @@ def write_place(request, id):
         Comment.objects.create(user=user, place=place,
                                tag=tag, content=content)
         return redirect(f"/place/detail/{id}")
+
+
+def write_notice(request, id):
+    if request.method == 'POST':
+        content = request.POST["content"]
+        user = request.user
+        notice = Notice.objects.get(id=id)
+        tag = Comment.TAG_PLACE
+        Comment.objects.create(user=user, notice=notice,
+                               tag=tag, content=content)
+        return redirect(f"/notice/detail/{id}")
 
 
 def revise(request, id):

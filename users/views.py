@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
+from django.db.models.query_utils import Q
 from django.contrib import auth, messages
-from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, PasswordResetForm
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from .models import User
-from .forms import ProfileForm, SignupForm, FindidForm
+from .forms import ProfileForm, SignupForm, FindidForm, ResetpwForm
 
 
 # main은 기능확인용입니다.
@@ -162,3 +163,51 @@ def profile_edit(request, id):
             "id": id,
         }
         return render(request, template_name='users/profile_edit.html', context=context)
+
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+
+
+def reset_pw(request):
+    if request.method == "POST":
+        form = ResetpwForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            username = form.cleaned_data['username']
+            users = get_user_model().objects.filter(Q(email=email) & Q(username=username))
+            if users.exists():
+                for user in users:
+                    subject = '[MOCO] 비밀번호 재설정'
+                    email_template_name = "users/password_reset_email.txt"
+                    c = {
+                        "email": user.email,
+                        # local: '127.0.0.1:8000', prod: ''
+                        'domain': settings.HOSTNAME,
+                        'site_name': 'MOCO',
+                        # MTE4
+                        "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                        "user": user,
+                        # Return a token that can be used once to do a password reset for the given user.
+                        'token': default_token_generator.make_token(user),
+                        # local: http, prod: https
+                        'protocol': settings.PROTOCOL,
+                    }
+                    email = render_to_string(email_template_name, c)
+                    try:
+                        send_mail(subject, email, '모코이메일@gmail.com' , [user.email], fail_silently=False)
+                    except BadHeaderError:
+                        return HttpResponse('Invalid header found.')
+                    return redirect("/reset-pw/done/")
+    else:
+        form = ResetpwForm()
+        context={
+            'form': form,
+            }
+        return render(request, template_name='users/reset_pw.html',context=context)

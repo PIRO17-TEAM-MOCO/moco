@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!--Reset Password-->
+    <div>
+      <h2>비밀번호 재설정</h2>
+      <hr />
+      <p>
+        비밀번호를 잊어버리셨나요?<br />
+        가입하신 아이디와 이메일을 입력해 주세요.<br />
+        잠시 후 해당 이메일로 비밀번호 재설정 메일이 발송됩니다.
+      </p>
+      <form method="POST">
+        {% csrf_token %} {{ form }}
+        <button type="submit">전송</button>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,17 +1,163 @@
 @import url(base.css);
 
-.banner {
-  background-color: #BFBFBF;
-  width: 22rem;
-  height: 10rem;
+.content-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid #BFBFBF;
+}
+
+.content-right{
+  display: flex;
 }
 
 .content-title {
-  margin: 4rem;
+  display: flex;
+  flex-direction: column;
+  margin: 2rem auto 2rem 0;
 }
 
 .content-title__name {
   font-weight: 700;
-  font-size: 36px;
-  color: blueviolet;
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.content-title__info {
+  display: flex;
+  align-items: center;
+}
+
+.content-title__img i {
+  font-size: 2rem;
+  margin-right: 0.75rem;
+}
+
+.content-title__bar {
+  margin: 0 1rem;
+  color: #8C8C8C;
+}
+
+.content-title__published {
+  color: #8C8C8C;
+}
+
+.dropdown{
+  position: relative;
+  display: inline-block;
+}
+
+#drop-content{
+  position: absolute;
+  background-color: white;
+  box-shadow: 0px 3px 6px -4px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 2px;
+  border: none;
+}
+
+#drop-content li{
+  text-decoration: none;
+  padding: 1rem;
+}
+
+#drop-content .option_blank{
+  margin: 0 1rem;
+  padding: 0 1rem;
+}
+
+/* 이미지 슬라이드 */
+/* 보여줄 구간의 높이와 넓이 설정 */
+#slideShow{
+  width: 500px;
+  height: 500px;
+  position: relative;
+  margin: 50px auto;
+  overflow: hidden;   
+  /*리스트 형식으로 이미지를 일렬로 
+  정렬할 것이기 때문에, 500px 밖으로 튀어 나간 이미지들은
+  hidden으로 숨겨줘야됨*/
+}
+
+.slides{
+  position: absolute;
+  display: flex;
+  left: 0;
+  top: 0;
+  width: 2500px; /* 슬라이드할 사진과 마진 총 넓이 */
+  transition: left 0.5s ease-out; 
+  /*ease-out: 처음에는 느렸다가 점점 빨라짐*/
+}
+
+.slides li img{
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+  overflow: hidden; 
+}
+
+/* 첫 번째 슬라이드 가운데에 정렬하기위해
+첫번째 슬라이드만 margin-left조정 */
+.slides li:first-child{
+  /* margin-left: 100px; */
+}
+
+/* 슬라이드들 옆으로 정렬 */
+.slides li:not(:last-child){
+  float: left;
+  /* margin-right: 100px; */
+}
+
+.slides li{
+  float: left;
+}
+
+.controller span{
+  position:absolute;
+  background-color: transparent;
+  color: black;
+  text-align: center;
+  border-radius: 50%;
+  padding: 10px 20px;
+  top: 50%;
+  font-size: 1.3em;
+  cursor: pointer;
+}
+
+/* 이전, 다음 화살표에 마우스 커서가 올라가 있을때 */
+.controller span:hover{
+  background-color: rgba(128, 128, 128, 0.11);
+}
+
+.prev{
+  left: 10px;
+}
+
+.next{
+  right: 10px;
+}
+
+.content-info {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-right: auto;
+  margin: 1rem auto 1rem 0;
+}
+
+.content-info__top {
+  display: flex;
+}
+
+.content-info__left{
+  color: #8C8C8C;
+  margin-right: 4rem;
+}
+
+.content-info__left div {
+  margin: 1rem 0 1.25rem 0;
+}
+
+.content-info__right div {
+  margin: 1rem 1rem 1.25rem 0;
 }

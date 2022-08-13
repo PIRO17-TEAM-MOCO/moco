@@ -1,23 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Sans:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Sans:wght@400;700&display=swap");
 @import url(reset.css);
 
-.btn:active, .btn:focus {
-  outline:none;
-  box-shadow:none;
+.btn:active,
+.btn:focus {
+  outline: none;
+  box-shadow: none;
 }
 
-.navbar a:hover { 
-  color: #2253FF!important;
+.navbar a:hover {
+  color: #2253ff !important;
 }
 
 body a:hover {
-  color: black!important;
+  color: black !important;
 }
 
 body {
-  color: black!important;
-  font-family: 'Noto Sans', sans-serif;
-  font-family: 'Noto Sans KR', sans-serif;
+  color: black !important;
+  font-family: "Noto Sans", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-weight: 400;
   padding-top: 5rem;
 }
@@ -25,8 +26,8 @@ body {
 .navbar {
   box-shadow: 0px 4px 10px rgba(171, 186, 189, 0.15);
   background-color: white;
-  font-family: 'Noto Sans', sans-serif;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-weight: 600;
   font-size: 1rem;
   position: fixed;
@@ -36,6 +37,7 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
+  z-index:1;
 }
 
 .navbar__list {
@@ -56,7 +58,7 @@ body {
   gap: 2rem;
 }
 
-.navbar__shortcut i{
+.navbar__shortcut i {
   font-size: 1.25rem;
 }
 
@@ -69,4 +71,141 @@ body {
   width: 100%;
   padding: 20px 10px 0 10px;
   margin: 0 auto;
+}
+
+/* JS 없이 호버로 드롭다운 구현 */
+.base__dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.base__dropbtn {
+  cursor: pointer;
+}
+
+.base__dropbtn:hover {
+  color: #2253ff !important;
+}
+
+.base__dropmenu {
+  display: none;
+  opacity: 0;
+  position: absolute;
+  z-index: 1; /*다른 요소들보다 앞에 배치*/
+  background-color: white;
+  width: 6em;
+  height: 6em;
+  top: 100%;
+  transform: translateX(-20%);
+}
+
+.base__dropmenu a {
+  display: block;
+  text-decoration: none;
+  color: rgb(37, 37, 37);
+  font-size: 12px;
+  padding: 12px 12px;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+  background-color: white;
+}
+
+.base__dropmenu a:hover {
+  background-color: #e9f7ff;
+}
+
+.base__dropdown:hover .base__dropmenu {
+  display: block;
+  opacity: 1;
+}
+
+/* 프로필 드롭다운 메뉴 */
+
+.base__profile_dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.base__profile_dropbtn {
+  cursor: pointer;
+}
+
+.base__profile_dropbtn:hover {
+  color: #2253ff !important;
+}
+
+.base__profile_dropmenu {
+  display: none;
+  opacity: 0;
+  position: absolute;
+  z-index: 1; /*다른 요소들보다 앞에 배치*/
+  background-color: white;
+  width: 6em;
+  height: 6em;
+  top: 100%;
+  transform: translateX(-50%);
+}
+
+.base__profile_dropmenu a {
+  display: block;
+  text-decoration: none;
+  color: rgb(37, 37, 37);
+  font-size: 12px;
+  padding: 12px 12px;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+  background-color: white;
+}
+
+.base__profile_dropmenu a:hover {
+  background-color: #e9f7ff;
+}
+
+.base__profile_dropdown:hover .base__profile_dropmenu {
+  display: block;
+  opacity: 1;
+}
+
+/* 모각코 드롭다운 메뉴 */
+
+.base__post_dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.base__post_dropbtn {
+  cursor: pointer;
+}
+
+.base__post_dropbtn:hover {
+  color: #2253ff !important;
+}
+
+.base__post_dropmenu {
+  display: none;
+  opacity: 0;
+  position: absolute;
+  z-index: 1; /*다른 요소들보다 앞에 배치*/
+  background-color: white;
+  width: 6em;
+  height: 6em;
+  top: 100%;
+  transform: translateX(-20%);
+}
+
+.base__post_dropmenu a {
+  display: block;
+  text-decoration: none;
+  color: rgb(37, 37, 37);
+  font-size: 12px;
+  padding: 12px 12px;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+  background-color: white;
+}
+
+.base__post_dropmenu a:hover {
+  background-color: #e9f7ff;
+}
+
+.base__post_dropdown:hover .base__post_dropmenu {
+  display: block;
+  opacity: 1;
 }

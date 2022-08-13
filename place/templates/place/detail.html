@@ -1,36 +1,136 @@
 {% extends 'place/base.html' %}
 {% block content %}
 <div class="content">
-  <div class="banner"></div>
+  <div id="slideShow">
+    <ul class="slides">
+      {% for image in images %}
+        {% if image.place == place %}
+        <li><img src="{{image.image.url}}" width="500" alt=""></li>
+        {% endif %}
+      {% endfor %}
+      </ul>
+      <p class="controller">
+        <span class="prev"><i class="fa-solid fa-chevron-left"></i></span>
+        <span class="next"><i class="fa-solid fa-chevron-right"></i></span>
+      </p>
+  </div>
+  <div class="content-top">
     <div class="content-title">
       <div class="content-title__name">{{place.name}}</div>
-      <div class="content-title__location">{{place.location}}</div>
-      <div class="content-title__published">{{place.published_at}}</div>
-      <div class="like">
-        <button type="submit" onclick="onClickLike()">
-            {% csrf_token %} <!--{% if comment.like %}-->
-            <i class="fa-regular fa-heart"></i>
-            <!--{%else%}
-            <i class="fa-solid fa-heart"></i>
-            {%endif%}-->
-        </button>
-        {% if user.is_authenticated %}
-        <button type="submit" onclick="onClickSetting()">
-            {% csrf_token %}
-            <i class="fa-solid fa-ellipsis"></i>
-        </button>
-        {% endif %}
+      <div class="content-title__info">
+        <span class="content-title__img"><i class="fa-solid fa-circle-user"></i></span>
+        <span class="content-title__location">{{place.user}}</span>
+        <span class="content-title__bar">|</span>
+        <span class="content-title__published">{{place.published_at}}</span>
       </div>
     </div>
-    <div class="content-info">
-      <div class="content-info__item"><span>장소 분류</span><span>{{place.get_category_display}}</span></div>
-      <div class="content-info__item"><span>운영 시간</span><span>{{place.opening_time}}~{{place.closing_time}}</span></div>
-      <div class="content-info__item"><span>와이파이</span><span>{{place.get_wifi_display}}</span></div>
-      <div class="content-info__item"><span>콘센트</span><span>{{place.get_power_socket_display}}</span></div>
-      <div class="content-info__item"><span>별점</span><span>{{place.rating}}</span></div>
-      <div class="content-info__item"><span>위치</span><span>{{place.location}}</span></div>
-      <div class="content-info__map"></div>
-      <div class="content-info__content">{{place.content}}</div>
+    <div class="content-right">
+        {% if user.is_authenticated %}
+            {% csrf_token %}
+            <div id="main_detail__top__like">
+              <form action="{% url 'likes:add' place.id 2 %}" method="post">
+                {% csrf_token %}
+                <button id="main_detail__top__like_btn" type="button">
+                  <i class="fa-regular fa-heart fa-lg"></i>
+                  <p>{{len_likes}}</p>
+                </button>
+              </form>
+              <form action="{% url 'likes:delete' place.id 2 %}" method="post">
+                {% csrf_token %}
+                <button id="main_detail__top__like_btn" type="button">
+                  <i class="fa-regular fa-heart fa-lg"></i>
+                  <p>{{len_likes}}</p>
+                </button>
+              </form>
+            </div>
+        <div class="dropdown">
+          <button onclick="dp_menu()" class="button"><i class="fa-solid fa-ellipsis"></i></button>
+          <div style="display: none;" id="drop-content">
+            <ul class="option-list">
+              <li class="option">
+                <form action="{% url 'place:delete' place.id %}" method="post">
+                  {% csrf_token %}
+                  <button>삭제</button>
+                </form>
+              <li class="option_blank"></li>
+              </li>
+              <li class="option"><a href = "{% url 'place:update' place.id %}">수정</a></li>
+            </ul>
+          </div>
+        </div>
+        {% endif %}
     </div>
+  </div>
+    
+    <div class="content-info">
+      <div class="content-info__top">
+        <div class="content-info__left">
+          <div>장소 분류</div>
+          <div>운영 시간</div>
+          <div>와이파이</div>
+          <div>콘센트</div>
+          <div>별점</div>
+          <div>위치</div>
+        </div>
+        <div class="content-info__right">
+          <div>{{place.get_category_display}}</div>
+          <div>{{place.opening_time}}~{{place.closing_time}}</div>
+          <div>{{place.get_wifi_display}}</div>
+          <div>{{place.get_power_socket_display}}</div>
+          <div>{{place.rating}}</div>
+          <div>{{place.location}}</div>
+        </div>
+      </div>
+      <div class="content-info__bottom">
+        <div class="content-info__map"></div>
+        <div class="content-info__content">{{place.content}}</div>
+      </div>
+    </div>
+
 </div>
+<script>
+  function dp_menu(){
+      let click = document.getElementById("drop-content");
+      if(click.style.display === "none"){
+          click.style.display = "block";
+      }else{
+          click.style.display = "none";
+      }
+  }
+
+  const slides = document.querySelector('.slides'); //전체 슬라이드 컨테이너
+  const slideImg = document.querySelectorAll('.slides li'); //모든 슬라이드들
+  let currentIdx = 0; //현재 슬라이드 index
+  const slideCount = slideImg.length; // 슬라이드 개수
+  const prev = document.querySelector('.prev'); //이전 버튼
+  const next = document.querySelector('.next'); //다음 버튼
+  const slideWidth = 300; //한개의 슬라이드 넓이
+  const slideMargin = 100; //슬라이드간의 margin 값
+
+  //전체 슬라이드 컨테이너 넓이 설정
+  slides.style.width = (slideWidth + slideMargin) * slideCount + 'px';
+
+  function moveSlide(num) {
+    slides.style.left = -num * 500 + 'px';
+    currentIdx = num;
+  }
+
+  prev.addEventListener('click', function () {
+    /*첫 번째 슬라이드로 표시 됐을때는 
+    이전 버튼 눌러도 아무런 반응 없게 하기 위해 
+    currentIdx !==0일때만 moveSlide 함수 불러옴 */
+
+    if (currentIdx !== 0) moveSlide(currentIdx - 1);
+  });
+
+  next.addEventListener('click', function () {
+    /* 마지막 슬라이드로 표시 됐을때는 
+    다음 버튼 눌러도 아무런 반응 없게 하기 위해
+    currentIdx !==slideCount - 1 일때만 
+    moveSlide 함수 불러옴 */
+    if (currentIdx !== slideCount - 1) {
+      moveSlide(currentIdx + 1);
+    }
+  });
+</script>
 {% endblock %}

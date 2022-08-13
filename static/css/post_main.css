@@ -1,19 +1,27 @@
-div,
-input,
-span {
-  border: 0;
-  padding: 0;
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 10px 0 10px;
+  margin: 0 auto;
 }
 
 /* 단위 다 vh로 바꾸기 */
 
 #main__introduce_div {
-  padding-top: 70px;
   height: 300px;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: gray;
+}
+
+#main__introduce_div img {
+  width: 100%;
+  height: 100%;
 }
 
 /* main__main_div 마진에 따 화면 구성도 많이 바뀜(기존엔 272px) */

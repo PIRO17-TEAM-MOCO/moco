@@ -46,13 +46,9 @@ def write(request):
 def detail(request, id):
     images = PlaceImage.objects.all()
     place = Place.objects.get(id=id)
-    # len_likes = len(place.like_set.all())
-    # all_comments = place.comment_set.all()
     context = {
         "place": place,
         "images": images,
-        # "len_likes": len_likes,
-        # "comments": all_comments
     }
     return render(request, template_name="place/detail.html", context=context)
 
@@ -74,22 +70,14 @@ def update(request, id):
             place.content = form.cleaned_data['content']
             place.save()
 
-            # if request.FILES.get("place_images"):
-            #     revised_images.image = request.FILES.get("place_images")
-            # else:
-            #     revised_images.image = revised_images.image
-            # revised_images.save()
             return redirect(f'/place/detail/{id}')
         
     else:
         form = PlaceForm(instance=place)
-        # place = revised_images.place
-        # all_images = place.image_set.all()
         context = {
             "form": form,
             "id": id,
             "place": place,
-            # "all_images": all_images
         }
         return render(request, template_name='place/update.html', context=context)
 

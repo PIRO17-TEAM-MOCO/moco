@@ -1,0 +1,27 @@
+{% extends 'notice/base.html' %}
+{% block content %}
+<form action="{% url 'notice:update' notice.id %}" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+  <div class="content">
+    <div class="content-box">
+      <div>제목</div>
+      <input type="text" name="title" value="{{notice.title}}" />
+    </div>
+    <div class="content-box">
+      <div>제목</div>
+      <input type="text" name="content" value="{{notice.content}}" />
+    </div>
+    
+    <div id="main_write__content__btn">
+      <button type="submit" id="main_write__content__btn_cancel">
+        <h3>취소</h3>
+      </button>
+      <input
+        id="main_write__content__btn_register"
+        type="submit"
+        value="등록하기"
+      />
+    </div>
+  </div>
+</form>
+{% endblock %}

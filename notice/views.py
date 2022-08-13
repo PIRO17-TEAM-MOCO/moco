@@ -7,9 +7,10 @@ from .models import Notice, User
 
 def home(request):
     notices = Notice.objects.all()
-    admin =  User.objects.first()
+    admin = User.objects.filter(is_superuser=True)
     user = request.user
     count = len(notices)
+
     context = {
         "notices": notices,
         "admin": admin,
@@ -32,7 +33,7 @@ def write(request):
 
 def detail(request, id):
     notice = Notice.objects.get(id=id)
-    admin =  User.objects.first()
+    admin = User.objects.first()
     user = request.user
     context = {
         'notice': notice,

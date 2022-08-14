@@ -153,13 +153,13 @@
           <button></button>
         </div>
         {% if comment.user == request.user %}
-        <a href="{% url 'comments:revise' comment.id %}">수정</a>
-        <form action="{% url 'comments:delete' comment.id %}" method="post">
+        <a href="{% url 'comments:revise'%}">수정</a>
+        <form action="{% url 'comments:delete'%}" method="post">
           {% csrf_token %}
           <button>삭제</button>
         </form>
         {% else %}
-        <a href="{% url 'comments:recomment' comment.id %}">답글</a>
+        <a href="{% url 'comments:recomment' %}">답글</a>
         <br />
         {% endif%}
       </div>

@@ -37,7 +37,7 @@ def write_notice(request, id):
         content = request.POST["content"]
         user = request.user
         notice = Notice.objects.get(id=id)
-        tag = Comment.TAG_PLACE
+        tag = Comment.TAG_NOTICE
         Comment.objects.create(user=user, notice=notice,
                                tag=tag, content=content)
         return redirect(f"/notice/detail/{id}")
@@ -73,29 +73,37 @@ def delete(request):
     if comment.tag == Comment.TAG_POST:
         post = comment.post
         Comment.objects.get(id=comment_id).delete()
+        post_id = post.id
         post.save()
-        return redirect(f"/post/detail/{id}")
+        return redirect(f"/post/detail/{post_id}")
     elif comment.tag == Comment.TAG_PLACE:
         place = comment.place
         Comment.objects.get(id=comment_id).delete()
+        place_id = place.id
         place.save()
-        return redirect(f"/place/detail/{id}")
+        return redirect(f"/place/detail/{place_id}")
     elif comment.tag == Comment.TAG_NOTICE:
         notice = comment.notice
         Comment.objects.get(id=comment_id).delete()
+        notice_id = notice.id
         notice.save()
-        return redirect(f"/notice/detail/{id}")
+        return redirect(f"/notice/detail/{notice_id}")
 
 
-def recomment(request, id):
-    re_comment = Comment.objects.get(id=id)
-    post = re_comment.post
-    all_reviews = post.review_set.all()
-    all_comments = post.comment_set.all()
-    context = {
-        'post': post,
-        're_comment': re_comment,
-        'reviews': all_reviews,
-        'comments': all_comments
+def recomment(request):
+    req = json.loads(request.body)
+    pnt_id = req['id']
+    content = req['content']
+    user = request.user
+    pnt_comment = Comment.objects.get(id=pnt_id)
+    tag = pnt_comment.tag
+    recomment = Comment.objects.create(
+        user=user, pnt_comment=pnt_comment, content=content, tag=tag)
+    recomment.save()
+    data = {
+        "content": recomment.content,
+        "user": recomment.user,
+        "published_at": recomment.published_at
     }
-    return render(request, 'comments/comment_recomment.html', context=context)
+    print(data)
+    return JsonResponse(data)

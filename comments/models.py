@@ -19,6 +19,9 @@ class Comment(models.Model):
         Place, on_delete=models.CASCADE, blank=True, null=True)
     notice = models.ForeignKey(
         Notice, on_delete=models.CASCADE, blank=True, null=True)
-    tag = models.IntegerField()  # 1이면 post, 2면 place
+    tag = models.IntegerField()
     content = models.TextField()
     cmt_class = models.IntegerField(default=0)
+    pnt_comment = models.ForeignKey(
+        'self', on_delete=models.CASCADE, blank=True, null=True)
+    published_at = models.DateTimeField(auto_now_add=True)

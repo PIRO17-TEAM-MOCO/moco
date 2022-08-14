@@ -3,6 +3,9 @@ from .models import Comment
 from posts.models import Post
 from place.models import Place
 from notice.models import Notice
+import json
+from django.http import JsonResponse
+
 
 # Create your views here.
 
@@ -40,31 +43,48 @@ def write_notice(request, id):
         return redirect(f"/notice/detail/{id}")
 
 
-def revise(request, id):
-    if request.method == 'POST':
-        content = request.POST["content"]
-        Comment.objects.filter(id=id).update(content=content)
-        post_id = Comment.objects.get(id=id).post.id
-        return redirect(f"/post/detail/{post_id}")
-    revised_comment = Comment.objects.get(id=id)
-    post = revised_comment.post
-    all_reviews = post.review_set.all()
-    all_comments = post.comment_set.all()
-    context = {
-        'post': post,
-        'revised_comment': revised_comment,
-        'reviews': all_reviews,
-        'comments': all_comments
+def revise(request):
+    req = json.loads(request.body)
+    content = req['content']
+    comment_id = req['id']
+    comment = Comment.objects.get(id=comment_id)
+    comment.update(content=content)
+    data = {
+        'content': content,
     }
-    return render(request, 'comments/comment_revise.html', context=context)
+    if comment.tag == Comment.TAG_POST:
+        post = comment.post
+        post.save()
+    elif comment.tag == Comment.TAG_PLACE:
+        place = comment.place
+        place.save()
+    elif comment.tag == Comment.TAG_NOTICE:
+        notice = comment.notice
+        notice.save()
+
+    print(data)
+    return JsonResponse(data)
 
 
-def delete(request, id):
-    if request.method == "POST":
-        comment = Comment.objects.get(id=id)
-        post_id = comment.post.id
-        Comment.objects.filter(id=id).delete()
-        return redirect(f"/post/detail/{post_id}")
+def delete(request):
+    req = json.loads(request.body)
+    comment_id = req['id']
+    comment = Comment.objects.get(id=comment_id)
+    if comment.tag == Comment.TAG_POST:
+        post = comment.post
+        Comment.objects.get(id=comment_id).delete()
+        post.save()
+        return redirect(f"/post/detail/{id}")
+    elif comment.tag == Comment.TAG_PLACE:
+        place = comment.place
+        Comment.objects.get(id=comment_id).delete()
+        place.save()
+        return redirect(f"/place/detail/{id}")
+    elif comment.tag == Comment.TAG_NOTICE:
+        notice = comment.notice
+        Comment.objects.get(id=comment_id).delete()
+        notice.save()
+        return redirect(f"/notice/detail/{id}")
 
 
 def recomment(request, id):

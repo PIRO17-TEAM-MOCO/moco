@@ -28,18 +28,18 @@
         {% if user.is_authenticated %}
             {% csrf_token %}
             <div id="main_detail__top__like">
-              <form action="{% url 'likes:add' place.id 2 %}" method="post">
+              <form action="{% url 'users:like' place.id 2 %}" method="post">
                 {% csrf_token %}
-                <button id="main_detail__top__like_btn" type="button">
+                <button id="main_detail__top__like_btn">
                   <i class="fa-regular fa-heart fa-lg"></i>
-                  <p>{{len_likes}}</p>
+                  <p>{{place.likes}}</p>
                 </button>
               </form>
-              <form action="{% url 'likes:delete' place.id 2 %}" method="post">
+              <form action="{% url 'users:unlike' place.id 2 %}" method="post">
                 {% csrf_token %}
-                <button id="main_detail__top__like_btn" type="button">
+                <button id="main_detail__top__like_btn">
                   <i class="fa-regular fa-heart fa-lg"></i>
-                  <p>{{len_likes}}</p>
+                  <p>{{place.likes}}</p>
                 </button>
               </form>
             </div>

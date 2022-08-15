@@ -29,6 +29,7 @@ class Place(models.Model):
     rating = models.FloatField()
     content = models.TextField()
     published_at = models.DateTimeField(auto_now_add=True)
+    likes = models.IntegerField(default=0)
 
 class PlaceImage(models.Model):
     place = models.ForeignKey(Place, on_delete=models.CASCADE)

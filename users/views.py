@@ -15,6 +15,12 @@ from django.utils.http import urlsafe_base64_encode
 from datetime import datetime
 from .models import User
 from .forms import ProfileForm, SignupForm, FindidForm, ResetpwForm
+from posts.models import Post
+from place.models import Place
+
+# tag 정의
+TAG_POST=1
+TAG_PLACE=2
 
 
 # main은 기능확인용입니다.
@@ -229,3 +235,51 @@ def profile_edit(request, id):
         return render(request, template_name='users/profile_edit.html', context=context)
 
 
+@login_required
+def like(request, id, tag):
+    if request.method == 'POST':
+        user = request.user
+        if tag == TAG_POST:
+            post = Post.objects.get(id=id)
+            post.like_users.add(user)
+            post.likes += 1
+            post.save()
+            return redirect(f'/post/detail/{id}')
+        elif tag == TAG_PLACE:
+            place = Place.objects.get(id=id)
+            place.like_users.add(user)
+            place.likes += 1
+            place.save()
+            print('like 성공')
+            for like_place in user.like_places.all():
+                print(like_place)
+            return redirect(f'/place/detail/{id}')
+        else:
+            return redirect('/post')
+    else:
+        return redirect('/post')
+
+
+@login_required
+def unlike(request, id, tag):
+    if request.method == 'POST':
+        user = request.user
+        if tag == TAG_POST:
+            post = Post.objects.get(id=id)
+            post.like_users.remove(user)
+            post.likes -= 1
+            post.save()
+            return redirect(f'/post/detail/{id}')
+        elif tag == TAG_PLACE:
+            place = Place.objects.get(id=id)
+            place.like_users.remove(user)
+            place.likes -= 1
+            place.save()
+            print('unlike 성공')
+            for like_place in user.like_places.all():
+                print(like_place)
+            return redirect(f'/place/detail/{id}')
+        else:
+            return redirect('/post')
+    else:
+        return redirect('/post')

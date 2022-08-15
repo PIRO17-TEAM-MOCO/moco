@@ -32,5 +32,5 @@ class Place(models.Model):
     likes = models.IntegerField(default=0)
 
 class PlaceImage(models.Model):
-    place = models.ForeignKey(Place, on_delete=models.CASCADE)
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, null=True)
     image = models.ImageField(upload_to='place/%Y%m%d', blank=True, null=True)

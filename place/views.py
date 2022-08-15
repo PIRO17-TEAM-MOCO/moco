@@ -4,16 +4,25 @@ from .forms import PlaceForm
 from django.contrib.auth.decorators import login_required
 
 def home(request):
+    pairs = []
     places = Place.objects.all()
-    images = PlaceImage.objects.all()
+    # 플레이스와 첫번째 이미지를 묶어서 보내줌
+    for place in places:
+        images = PlaceImage.objects.filter(place=place)
+        if images:
+            image = images[0]
+        else:
+            image = None
+        pair = [place, image]
+        pairs.append(pair) 
+ 
     sort = request.GET.get('sort', 'None')
     if sort == "latest":
         places = places.order_by("-published_at")
         
     context = {
-        "places": places,
+        "pairs": pairs,
         "sort": sort,
-        "images": images,
     }
     return render(request, template_name="place/home.html", context=context)
 
@@ -44,8 +53,8 @@ def write(request):
         return render(request, template_name="place/write.html", context=context)
 
 def detail(request, id):
-    images = PlaceImage.objects.all()
     place = Place.objects.get(id=id)
+    images = PlaceImage.objects.filter(place=place)
     context = {
         "place": place,
         "images": images,

@@ -4,9 +4,7 @@
   <div id="slideShow">
     <ul class="slides">
       {% for image in images %}
-        {% if image.place == place %}
         <li><img src="{{image.image.url}}" width="500" alt=""></li>
-        {% endif %}
       {% endfor %}
       </ul>
       <p class="controller">

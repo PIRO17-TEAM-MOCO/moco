@@ -31,16 +31,12 @@
 	</form>
   <div class="content-box">
     <ul class="content-box__list">
-      {% for place in places %} <!--게시물-->
+      {% for place, image in pairs %} <!--게시물-->
       <a class="content-box__itme" href="{% url 'place:detail' place.id %}" >
         <div class="content-box__img">
-          {% for image in images %}
-            {% if image.place == place %}
-              <img src="{{image.image.url}}"><br>
-              {{ "<!--" }}
-                {%endif%} 
-              {%endfor%}     
-              {{ "-->" }}
+          {% if image %}
+          <img src="{{image.image.url}}"><br>
+          {% endif %}
         </div>
         <div class="content-box__top">
           <div class="content-box__name">{{place.name}}</div>

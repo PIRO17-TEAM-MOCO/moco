@@ -1,0 +1,112 @@
+main {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-family: "Noto Sans", "Noto Sans KR";
+  margin-top: 5rem;
+}
+
+#reset-pw__title {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 5rem;
+  color: black;
+}
+
+#reset-pw__container {
+  width: 50rem;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  flex-wrap: wrap;
+  margin-top: 5rem;
+}
+
+#reset-pw__desc {
+  width: 30rem;
+  font-size: 1rem;
+  color: #8c8c8c;
+  font-weight: 900;
+  margin-bottom: 2rem;
+  line-height: 1.2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#reset-pw__input {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#reset-pw__input p {
+  width: 30rem;
+  font-size: 1rem;
+  font-weight: normal;
+  color: #000;
+  margin-bottom: 0.5rem;
+  margin-left: 8rem;
+}
+
+.input__email {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.input__email input {
+  width: 22rem;
+  height: 3.3rem;
+  border-radius: 0.5rem;
+  padding-left: 1rem;
+  border: 1px solid #8c8c8c;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.input__username {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.input__username input {
+  width: 22rem;
+  height: 3.3rem;
+  border-radius: 0.5rem;
+  padding-left: 1rem;
+  border: 1px solid #8c8c8c;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+#reset-pw__btn__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#reset-pw__btn {
+  cursor: pointer;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  width: 20rem;
+  height: 4rem;
+  outline: 0;
+  border: 0;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  background-color: blue;
+  color: #fff;
+  font-weight: 900;
+}

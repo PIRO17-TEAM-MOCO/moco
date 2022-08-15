@@ -12,21 +12,22 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
+from django.http import HttpResponseRedirect
 from datetime import datetime
 from .models import User
 from .forms import ProfileForm, SignupForm, FindidForm, ResetpwForm
 
 
 # main은 기능확인용입니다.
-def main(request):
-    users = User.objects.all()
-    context = {
-        'users': users
-    }
-    if request.user:
-        context['me'] = request.user
-        print(context)
-    return render(request, template_name='users/main.html', context=context)
+# def main(request):
+#     users = User.objects.all()
+#     context = {
+#         'users': users
+#     }
+#     if request.user:
+#         context['me'] = request.user
+#         print(context)
+#     return render(request, template_name='users/main.html', context=context)
 
 
 def signup(request):
@@ -35,7 +36,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             auth.login(request, user)
-            return redirect('users:main')
+            return redirect('posts:home')
         else:
             return redirect('users:signup')
     else:
@@ -52,9 +53,9 @@ def signout(request):
         if request.user.is_authenticated:
             request.user.delete()
             auth.logout(request)
-            return redirect('users:main')
+            return redirect('posts:home')
         else:
-            return redirect('user:main')
+            return redirect('user:signout')
     else:
         return render(request, template_name='users/signout.html')
 
@@ -64,7 +65,7 @@ def login(request):
         form = AuthenticationForm(request, request.POST)
         if form.is_valid():
             auth.login(request, form.get_user())
-            return redirect('users:main')
+            return redirect('posts:home')
         else:
             context = {
                 'form': form,
@@ -81,7 +82,8 @@ def login(request):
 @login_required
 def logout(request):
     auth.logout(request)
-    return redirect('users:main')
+    # 현재 페이지로 redirect
+    return HttpResponseRedirect(request.path_info)
 
 
 def find_id(request):

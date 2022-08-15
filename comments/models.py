@@ -21,7 +21,9 @@ class Comment(models.Model):
         Notice, on_delete=models.CASCADE, blank=True, null=True)
     tag = models.IntegerField()
     content = models.TextField()
-    cmt_class = models.IntegerField(default=0)
+    CMT_PARENT = 0
+    CMT_CHILD = 1
+    cmt_class = models.IntegerField(default=CMT_PARENT)
     pnt_comment = models.ForeignKey(
         'self', on_delete=models.CASCADE, blank=True, null=True)
     published_at = models.DateTimeField(auto_now_add=True)

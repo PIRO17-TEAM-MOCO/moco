@@ -5,6 +5,7 @@ from place.models import Place
 from notice.models import Notice
 import json
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
@@ -43,51 +44,57 @@ def write_notice(request, id):
         return redirect(f"/notice/detail/{id}")
 
 
-def revise(request):
-    req = json.loads(request.body)
-    content = req['content']
-    comment_id = req['id']
-    comment = Comment.objects.get(id=comment_id)
-    comment.update(content=content)
-    data = {
-        'content': content,
-    }
-    if comment.tag == Comment.TAG_POST:
-        post = comment.post
-        post.save()
-    elif comment.tag == Comment.TAG_PLACE:
-        place = comment.place
-        place.save()
-    elif comment.tag == Comment.TAG_NOTICE:
-        notice = comment.notice
-        notice.save()
+@csrf_exempt
+def revise(request, id):
+    if request.method == 'POST':
+        content = request.POST["content"]
+        comment = Comment.objects.get(id=id)
+        Comment.objects.filter(id=id).update(content=content)
+        data = {
+            'id': id,
+            'content': content,
+        }
+        if comment.tag == Comment.TAG_POST:
+            post = comment.post
+            post.save()
+            # return redirect(f"/post/detail/{post.id}")
+        elif comment.tag == Comment.TAG_PLACE:
+            place = comment.place
+            place.save()
+            # return redirect(f"/place/detail/{place.id}")
+        elif comment.tag == Comment.TAG_NOTICE:
+            notice = comment.notice
+            notice.save()
+            # return redirect(f"/notice/detail/{notice.id}")
+        print(data)
+        return JsonResponse(data)
 
-    print(data)
-    return JsonResponse(data)
 
-
+@csrf_exempt
 def delete(request):
     req = json.loads(request.body)
     comment_id = req['id']
     comment = Comment.objects.get(id=comment_id)
+    data = {
+        'id': comment_id
+    }
     if comment.tag == Comment.TAG_POST:
         post = comment.post
         Comment.objects.get(id=comment_id).delete()
         post_id = post.id
         post.save()
-        return redirect(f"/post/detail/{post_id}")
     elif comment.tag == Comment.TAG_PLACE:
         place = comment.place
         Comment.objects.get(id=comment_id).delete()
         place_id = place.id
         place.save()
-        return redirect(f"/place/detail/{place_id}")
     elif comment.tag == Comment.TAG_NOTICE:
         notice = comment.notice
         Comment.objects.get(id=comment_id).delete()
         notice_id = notice.id
         notice.save()
-        return redirect(f"/notice/detail/{notice_id}")
+    print(data)
+    return JsonResponse(data)
 
 
 def recomment(request):
@@ -97,8 +104,9 @@ def recomment(request):
     user = request.user
     pnt_comment = Comment.objects.get(id=pnt_id)
     tag = pnt_comment.tag
+    cmt_class = Comment.CMT_CHILD
     recomment = Comment.objects.create(
-        user=user, pnt_comment=pnt_comment, content=content, tag=tag)
+        user=user, pnt_comment=pnt_comment, content=content, tag=tag, cmt_class=cmt_class)
     recomment.save()
     data = {
         "content": recomment.content,

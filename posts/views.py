@@ -6,6 +6,9 @@ from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime, timedelta
 from django.db.models import Q, Count
 from django.core.paginator import Paginator
+import json
+from django.http import JsonResponse
+from django.contrib import messages
 
 # Create your views here.
 
@@ -65,6 +68,7 @@ def write(request):
         number = request.POST["number"]
 
         if int(number) <= 1:     # 2명 미만인 경우
+            messages.error(request, '인원 수는 2명 이상이어야 합니다!')
             return redirect("/post/write")
         tag = request.POST["tag"]
         if not tag:
@@ -94,7 +98,7 @@ def detail(request, id):
     page = request.GET.get('page', 1)
     reviews = paginator.get_page(page)
 
-    all_comments = post.comment_set.all()
+    all_comments = post.comment_set.all().filter(cmt_class=Comment.CMT_PARENT)
 
     tomorrow = datetime.now() + timedelta(days=1)
     tomorrow = datetime.replace(tomorrow, hour=0, minute=0, second=0)
@@ -147,6 +151,7 @@ def update(request, id):
         contact = request.POST["contact"]
         number = request.POST["number"]
         if int(number) <= 1:
+            messages.error()
             return redirect(f"/post/update/{id}")
         tag = request.POST["tag"]
         if not tag:
@@ -205,7 +210,7 @@ def review_write(request, id):
 
 def review_revise(request, id):
     revised_review = Review.objects.get(id=id)
-    
+
     if request.method == "POST":
         revised_review.user = request.user
         revised_review.content = request.POST['review_content']
@@ -228,6 +233,25 @@ def review_revise(request, id):
         'post': post
     }
     return render(request, template_name="reviews/review_revise.html", context=context)
+
+
+@csrf_exempt
+def review_revise_test(request):
+    req = json.loads(request.body)
+    review_id = req['id']
+    content = req['content']
+    image = req['image']
+    review = Review.objects.filter(id=review_id).update(
+        content=content, image=image)
+    review.save()
+    post = review.post
+    post.save()
+    data = {
+        'content': content,
+        'image': image
+    }
+    print(data)
+    return JsonResponse(data)
 
 
 def review_delete(request, id):

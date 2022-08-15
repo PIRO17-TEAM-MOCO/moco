@@ -12,7 +12,6 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-from django.http import HttpResponseRedirect
 from datetime import datetime
 from .models import User
 from .forms import ProfileForm, SignupForm, FindidForm, ResetpwForm
@@ -63,18 +62,25 @@ def signout(request):
 def login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)
+        next = request.POST.get("next")
         if form.is_valid():
             auth.login(request, form.get_user())
-            return redirect('posts:home')
+            if next == 'None':
+                return redirect('posts:home')
+            else:
+                return redirect(next)
         else:
             context = {
                 'form': form,
+                'next': next,
             }
             return render(request, template_name='users/login.html', context=context)
     else:
         form = AuthenticationForm()
+        next = request.GET.get('next')
         context = {
             'form': form,
+            'next': next,
         }
         return render(request, template_name='users/login.html', context=context)
 
@@ -82,8 +88,14 @@ def login(request):
 @login_required
 def logout(request):
     auth.logout(request)
-    # 현재 페이지로 redirect
-    return HttpResponseRedirect(request.path_info)
+    next = request.GET.get('next')
+    context = {
+        'next': next,
+    }
+    if next == 'None':
+        return redirect('posts:home')
+    else:
+        return redirect(next)
 
 
 def find_id(request):

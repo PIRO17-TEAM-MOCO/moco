@@ -62,18 +62,25 @@ def signout(request):
 def login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)
+        next = request.POST.get("next")
         if form.is_valid():
             auth.login(request, form.get_user())
-            return redirect('users:main')
+            if next == 'None':
+                return redirect('posts:home')
+            else:
+                return redirect(next)
         else:
             context = {
                 'form': form,
+                'next': next,
             }
             return render(request, template_name='users/login.html', context=context)
     else:
         form = AuthenticationForm()
+        next = request.GET.get('next')
         context = {
             'form': form,
+            'next': next,
         }
         return render(request, template_name='users/login.html', context=context)
 
@@ -81,7 +88,14 @@ def login(request):
 @login_required
 def logout(request):
     auth.logout(request)
-    return redirect('users:main')
+    next = request.GET.get('next')
+    context = {
+        'next': next,
+    }
+    if next == 'None':
+        return redirect('posts:home')
+    else:
+        return redirect(next)
 
 
 def find_id(request):

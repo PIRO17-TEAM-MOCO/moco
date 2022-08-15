@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from .models import Place, PlaceImage
 from .forms import PlaceForm
 from django.contrib.auth.decorators import login_required
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 def home(request):
     places = Place.objects.all()
@@ -55,12 +58,14 @@ def detail(request, id):
 @login_required
 def update(request, id):
     place = Place.objects.get(id=id)
+    images = PlaceImage.objects.all()
 
     if request.method == "POST":
         form = PlaceForm(request.POST)
         if form.is_valid():
             place.name = form.cleaned_data['name']
             place.location = form.cleaned_data['location']
+            place.location_detail = form.cleaned_data['location_detail']
             place.category = form.cleaned_data['category']
             place.opening_time = form.cleaned_data['opening_time']
             place.closing_time = form.cleaned_data['closing_time']
@@ -69,7 +74,14 @@ def update(request, id):
             place.rating = form.cleaned_data['rating']
             place.content = form.cleaned_data['content']
             place.save()
-
+            if request.FILES.get("update_images") is not None:
+                images.delete()
+                for img in request.FILES.getlist('update_images'):
+                    photo = PlaceImage()
+                    photo.place = place
+                    photo.image = img
+                    photo.save()  
+                    
             return redirect(f'/place/detail/{id}')
         
     else:
@@ -78,6 +90,7 @@ def update(request, id):
             "form": form,
             "id": id,
             "place": place,
+            "images": images
         }
         return render(request, template_name='place/update.html', context=context)
 

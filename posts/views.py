@@ -196,7 +196,10 @@ def close(request, id):
 
 
 def review_home(request):
-    reviews = Review.objects.all()
+    all_reviews = Review.objects.all()
+    paginator = Paginator(all_reviews, 5)
+    page = request.GET.get('page', 1)
+    reviews = paginator.get_page(page)
     context = {
         'reviews': reviews,
     }

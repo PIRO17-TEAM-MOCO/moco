@@ -1,22 +1,116 @@
 @import url(base.css);
 
-
-.content-box__item input{
-  width: 100%;
-  height: 25px;
-  border: 1px solid #BFBFBF;
-  border-radius: 10px;
-  padding: 1.5rem 1.5rem;
+#content-write {
+  padding-bottom: 50px;
 }
 
-/* .content-box__item select{
+.content-write__title {
+  border-bottom: 1px solid rgb(162, 162, 162);
+  padding-bottom: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.content-write__item input{
   width: 100%;
-  height: 25px;
   border: 1px solid #BFBFBF;
   border-radius: 10px;
-  padding: 1.5rem 1.5rem;
-} */
+  padding: 1rem;
+}
 
-.content-box__item label{
-  color: orange;
+.content-write__title_num {
+  height: 30px;
+  width: 30px;
+  background-color: #2253ff;
+  border-radius: 100px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin-right: 15px;
+}
+
+.content-write__title_num h2 {
+  font-size: 1.3rem;
+  padding-top: 3px;
+}
+
+.content-write__title h2 {
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+.content-write__item > div, .content-write__file h3 {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.content-write__item {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-write__file {
+  margin-top: 1.5rem;
+}
+
+.content-write__item_location {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.content-write__item_location input:nth-child(1) { 
+  flex-basis: 100px;
+  flex-grow: 4; 
+}
+
+.content-write__item_location input:nth-child(2) {
+  display: flex;
+  flex-basis: 100px;
+  flex-grow: 1; 
+  justify-content: center;
+  margin-left: 1rem;
+}
+
+.content-write__btn {
+  display: flex;
+  justify-content: center;
+}
+
+.content-write__btn input:nth-child(1) {
+  padding: 1rem 2rem;
+  background-color: #BFBFBF;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  margin: 0 0.5rem;
+}
+
+.content-write__btn input:nth-child(2) {
+  padding: 1rem 2rem;
+  background-color: #2253FF;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  margin: 0 0.5rem;
+}
+
+.content-write__two {
+  display: flex;
+  width: 100%;
+}
+
+.content-write__two > div:nth-child(1) {
+  display: flex;
+  flex-basis: 100px;
+  flex-grow: 1;
+  margin-right: 0.5rem; 
+}
+
+.content-write__two > div:nth-child(2) {
+  display: flex;
+  flex-basis: 100px;
+  flex-grow: 1; 
+  margin-left: 0.5rem; 
 }

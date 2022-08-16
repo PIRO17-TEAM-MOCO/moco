@@ -75,6 +75,7 @@ def update(request, id):
         if form.is_valid():
             place.name = form.cleaned_data['name']
             place.location = form.cleaned_data['location']
+            place.location_detail = form.cleaned_data['location_detail']
             place.category = form.cleaned_data['category']
             place.opening_time = form.cleaned_data['opening_time']
             place.closing_time = form.cleaned_data['closing_time']
@@ -97,7 +98,8 @@ def update(request, id):
         context = {
             "form": form,
             "id": id,
-            "images": images,
+            "place": place,
+            "images": images
         }
         return render(request, template_name='place/update.html', context=context)
 

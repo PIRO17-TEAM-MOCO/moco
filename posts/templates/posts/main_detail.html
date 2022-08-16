@@ -103,7 +103,7 @@
     <div id="main_detail__comment__top">
       <div id="main_detail__comment__blank">
         <h2>댓글</h2>
-        <h2 id="main_detail__comment_num">2</h2>
+        <h2 id="main_detail__comment_num">{{comments_len}}</h2>
       </div>
       <div id="main_detail__comment__rule">
         <span>300자 이내 작성</span>
@@ -131,7 +131,7 @@
     </div>
     <div id="main_detail__comment__contents">
       {% for comment in comments %}
-      <div id="main_detail__comment__each__contents" id="deleteindex{{comment.id}}">
+      <div id="main_detail__comment__each__contents__{{comment.id}}">
         <div id="main_detail__comment__contents__profile">
           <div id="main_detail__comment__contents__img">
             <i class="fa-solid fa-circle-user fa-2x"></i>
@@ -293,9 +293,8 @@
           if(requestDelete.status < 400){
               const {id} = JSON.parse(requestDelete.response);
               const topdom = document.getElementById("main_detail__comment__contents");
-              const deletedom = document.getElementById(`deleteindex${id}`);
+              const deletedom = document.getElementById(`main_detail__comment__each__contents__${id}`);
               topdom.removeChild(deletedom);
-
           }
       }
   }

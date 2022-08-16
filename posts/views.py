@@ -104,6 +104,9 @@ def detail(request, id):
     tomorrow = datetime.replace(tomorrow, hour=0, minute=0, second=0)
     expires = datetime.strftime(tomorrow, "%a, %d-%b-%Y %H:%M:%S GMT")
 
+    reviews_len = len(post.review_set.all())
+    comments_len = len(post.comment_set.all())
+
     if post.user == request.user:  # 현재 로그인한 유저가 해당 모집글을 쓴 유저이면 can_revise가 True
         can_revise = True
     else:
@@ -112,7 +115,9 @@ def detail(request, id):
             "post": post,
             'can_revise': can_revise,   # can_revise가 True면 수정, 삭제, 모집 완료로 전환 가능
             "reviews": reviews,
+            "review_len": reviews_len,
             "comments": all_comments,
+            "comments_len": comments_len,
         }
 
         session_cookie = id
@@ -138,7 +143,9 @@ def detail(request, id):
         "post": post,
         'can_revise': can_revise,
         "reviews": reviews,
+        "review_len": reviews_len,
         "comments": all_comments,
+        "comments_len": comments_len,
     }
     return render(request, template_name="posts/main_detail.html", context=context)
 

@@ -359,6 +359,19 @@
   padding-top: 30px;
 }
 
+/* 아래 두 태그는 사용자 별 후기 다르게 표시하는 기능 */
+
+#main_detail__review__contents_mine {
+  border-bottom: 1px solid rgb(162, 162, 162);
+  padding-top: 30px;
+  background-color: #e9f7ff;
+}
+
+#main_detail__review__contents_others {
+  border-bottom: 1px solid rgb(162, 162, 162);
+  padding-top: 30px;
+}
+
 .review__contents_box__user_info {
   width: 50%;
   display: flex;

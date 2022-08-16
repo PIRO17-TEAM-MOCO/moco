@@ -9,6 +9,8 @@ from django.core.paginator import Paginator
 import json
 from django.http import JsonResponse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .forms import PostForm
 
 # Create your views here.
 
@@ -59,32 +61,24 @@ def home(request):
     return render(request, template_name="posts/main.html", context=context)
 
 
+@login_required
 def write(request):
     if request.method == "POST":
-        user = request.user
-        title = request.POST["title"]
-        location = request.POST["location"]
-        contact = request.POST["contact"]
-        number = request.POST["number"]
-
-        if int(number) <= 1:     # 2명 미만인 경우
-            messages.error(request, '인원 수는 2명 이상이어야 합니다!')
+        form = PostForm(request.POST)
+        if form.is_valid():
+            if form.cleaned_data["number"] <= 1:
+                messages.error(request, "인원 수는 2명 이상!")
+                redirect(f"/post/write")
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
+            return redirect(f"/post/detail/{id}")
+        else:
             return redirect("/post/write")
-        tag = request.POST["tag"]
-        if not tag:
-            tag = "상관없음"
-        content = request.POST["content"]
-        apply_link = request.POST["apply_link"]
-        duration = request.POST["duration"]
 
-        Post.objects.create(user=user, title=title, location=location, contact=contact, number=number,
-                            tag=tag, content=content, apply_link=apply_link, duration=duration)
-        id = Post.objects.last().id
-        return redirect(f"/post/detail/{id}")
-
+    form = PostForm()
     context = {
-        'contacts': Post.CONTACT_CHOICE,
-        'durations': Post.DURATION_CHOICE
+        'form': form,
     }
 
     return render(request, template_name="posts/main_write.html", context=context)
@@ -106,9 +100,12 @@ def detail(request, id):
 
     reviews_len = len(post.review_set.all())
     comments_len = len(post.comment_set.all())
+    cur_user = request.user
 
     if post.user == request.user:  # 현재 로그인한 유저가 해당 모집글을 쓴 유저이면 can_revise가 True
         can_revise = True
+    elif not cur_user.is_authenticated:
+        can_revise = False
     else:
         can_revise = False
         context = {
@@ -150,36 +147,34 @@ def detail(request, id):
     return render(request, template_name="posts/main_detail.html", context=context)
 
 
+@login_required
 def update(request, id):
-    if request.method == "POST":
-        user = request.user
-        title = request.POST["title"]
-        location = request.POST["location"]
-        contact = request.POST["contact"]
-        number = request.POST["number"]
-        if int(number) <= 1:
-            messages.error()
-            return redirect(f"/post/update/{id}")
-        tag = request.POST["tag"]
-        if not tag:
-            tag = "상관없음"
-        content = request.POST["content"]
-        apply_link = request.POST["apply_link"]
-        duration = request.POST["duration"]
-
-        Post.objects.filter(id=id).update(user=user, title=title, location=location, contact=contact, number=number,
-                                          tag=tag, content=content, apply_link=apply_link, duration=duration)
-        return redirect(f"/post/detail/{id}")
-
     post = Post.objects.get(id=id)
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post.title = form.cleaned_data["title"]
+            post.location = form.cleaned_data["location"]
+            post.contact = form.cleaned_data["contacts"]
+            if form.cleaned_data["number"] <= 1:
+                messages.error(request, "인원 수는 2명 이상!")
+                redirect(f"/post/update/{id}")
+            post.number = form.cleaned_data["number"]
+            post.tag = form.cleaned_data["tag"]
+            post.content = form.cleaned_data["content"]
+            post.apply_link = form.cleaned_data["apply_link"]
+            post.duration = form.cleaned_data["durations"]
+            post.save()
+
+            return redirect(f"/post/detail/{id}")
+
+    form = PostForm(instance=post)
     context = {
-        'post': post,
-        'contacts': Post.CONTACT_CHOICE,
-        'durations': Post.DURATION_CHOICE,
+        "form": form,
+        "id": id,
+        "post": post,
     }
 
-    if post.user.id != request.user.id:
-        return redirect(f'/post/detail/{id}')
     return render(request, template_name="posts/main_revise.html", context=context)
 
 
@@ -207,6 +202,7 @@ def review_home(request):
     return render(request, template_name="reviews/review.html", context=context)
 
 
+@login_required
 def review_write(request, id):
     if request.method == "POST":
         img = request.FILES.get('review_image')
@@ -217,6 +213,7 @@ def review_write(request, id):
         return redirect(f"/post/detail/{id}")
 
 
+@login_required
 def review_revise(request, id):
     revised_review = Review.objects.get(id=id)
 
@@ -242,24 +239,6 @@ def review_revise(request, id):
         'post': post
     }
     return render(request, template_name="reviews/review_revise.html", context=context)
-
-
-@csrf_exempt
-def review_revise_test(request):
-    req = json.loads(request.body)
-    review_id = req['id']
-    content = req['content']
-    image = req['image']
-    review = Review.objects.filter(id=review_id).update(
-        content=content, image=image)
-    review.save()
-    post = review.post
-    post.save()
-    data = {
-        'content': content,
-        'image': image
-    }
-    return JsonResponse(data)
 
 
 def review_delete(request, id):

@@ -131,9 +131,9 @@
             <i class="fa-solid fa-eye"></i>
             <span>{{post.views}}</span>
             <i class="fa-solid fa-comment-dots"></i>
-            <span>2</span>
+            <span>{{post.comment_set.all|length}}</span>
             <i class="fa-solid fa-heart"></i>
-            <span>5</span>
+            <span>{{post.likes}}</span>
           </div>
         </div>
         <div id="main__info_div__post_right">

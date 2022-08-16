@@ -1,16 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <div>
-      <h2>패스워드 변경 완료</h2>
-      <hr />
-      <p>패스워드 변경이 완료되었습니다. MOCO에서 다시 로그인 해주세요.</p>
+{% extends 'users/account_base.html' %} {% block content %}
+<main>
+  <div id="reset-pw-com__container">
+    <div id="reset-pw-com__title">
+      <span>🔓 패스워드 변경 완료 🔒</span>
     </div>
-  </body>
-</html>
+    <div class="hr">
+      <hr />
+    </div>
+    <div id="reset-pw-com__desc">
+      패스워드 변경이 완료되었습니다. MOCO에서 다시 로그인 해주세요.
+    </div>
+    <a href="{% url 'users:login' %}"
+      ><button id="backtologin__btn">로그인 페이지로 돌아가기</button></a
+    >
+  </div>
+</main>
+{% endblock %}

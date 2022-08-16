@@ -1,17 +1,103 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>비밀번호 변경</title>
-  </head>
-  <body>
-    <form method="POST" action="{% url 'users:change_pw' %}">
-      {% csrf_token %} {{form}}
-      <button type="submit">제출</button>
-      {% if messages %} {% for message in messages %} {{ message.tags }}
-      {{message.message }} {% endfor %} {% endif %}
-    </form>
-  </body>
-</html>
+{% extends 'users/account_base.html' %} {% block content %}
+<main>
+  <form method="POST" action="{% url 'users:change_pw' %}">
+    {% csrf_token %}
+    <div id="change-pw__container">
+      <div class="pw-input__container">
+        <span style="margin-bottom: 4rem; font-size: 2rem">비밀번호 변경</span>
+        <div class="change-pw__input">
+          <div class="input__cur__pw">
+            {{ form.old_password.errors }}
+            <lable for="{{ form.old_password.id_for_label }}"
+              ><p>현재 비밀번호</p></lable
+            >
+            <input
+              type="password"
+              name="old_password"
+              autocomplete="current-password"
+              autofocus=""
+              required=""
+              id="id_old_password"
+              placeholder="현재 비밀번호"
+            />
+          </div>
+          <div class="input__new__pw">
+            {{ form.new_password1.errors }}
+            <lable for="{{ form.new_password1.id_for_label }}"
+              ><p>새 비밀번호</p></lable
+            >
+            <input
+              type="password"
+              name="new_password1"
+              autocomplete="new-password"
+              required=""
+              id="id_new_password1"
+              placeholder="새 비밀번호"
+            />
+          </div>
+          <div class="input__new__pw2">
+            {{ form.new_password2.errors }}
+            <lable for="{{ form.new_password2.id_for_label }}"></lable>
+            <input
+              type="password"
+              name="new_password2"
+              autocomplete="new-password"
+              required=""
+              id="id_new_password2"
+              placeholder="새 비밀번호 확인"
+            />
+          </div>
+          <div id="change__btn__container">
+            <button
+              onclick="location.href='{% url 'users:login' %}'"
+              id="cancel-pw__btn"
+            >
+              취소
+            </button>
+            <button
+              onclick="changeform_check()"
+              type="submit"
+              id="change-pw__btn"
+            >
+              완료
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!--{% if messages %} {% for message in messages %} {{ message.tags }}
+  {{message.message }} {% endfor %} {% endif %}-->
+</main>
+<script>
+  function changeform_check() {
+    var curpwd = document.getElementById("id_old_password");
+    var newpwd1 = document.getElementById("id_new_password1");
+    var newpwd2 = document.getElementById("id_new_password2");
+
+    if (curpwd.value === newpwd1.value) {
+      alert(
+        "현재 비밀번호와 새 비밀번호가 일치합니다. 새로운 비밀번호를 작성해주세요."
+      );
+      newpwd1.focus();
+      return false;
+    }
+
+    if (newpwd1.value !== newpwd2.value) {
+      alert("비밀번호가 일치하지 않습니다.");
+      newpwd1.focus();
+      return false;
+    }
+
+    var newpwd1Check = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+
+    if (!newpwd1Check.test(newpwd1.value)) {
+      alert(
+        "비밀번호는 영문자+숫자+특수문자 조합으로 8~15자리 사용해야 합니다."
+      );
+      newpwd1.focus();
+      return false;
+    }
+  }
+</script>
+{% endblock %}

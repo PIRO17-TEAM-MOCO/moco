@@ -1,15 +1,5 @@
 {% extends 'place/base.html' %} {% block content %}
 <div class="content">
-<<<<<<< HEAD
-  <form
-    action="{% url 'place:update' id %}"
-    method="post"
-    enctype="multipart/form-data"
-  >
-    {% csrf_token %}
-    <input type="file" name="place_images" multiple />
-    <div class="content-box__item">
-=======
 <form action="{% url 'place:update' id %}" method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <div id="content-write">
@@ -18,11 +8,6 @@
       <h2>사진을 업로드해주세요</h2>
     </div>
     <div class="content-write__file">
-      {% for image in images %}
-      {% if image.place == place %}
-        <p>현재 : {{image.image}}</p>
-        {% endif %}
-      {% endfor %}
       <h3 style="margin-top: 1rem;">수정</h3>
       <input type="file" name="place_images" accept="image/*" multiple >
     </div>
@@ -33,56 +18,10 @@
       <h2>상호명과 위치를 작성해주세요</h2>
     </div>
     <div class="content-write__item">
->>>>>>> place_templates
       {{ form.name.errors }}
       <div for="{{ form.name.id_for_label }}">상호명</div>
       {{ form.name }}
     </div>
-<<<<<<< HEAD
-    <div class="content-box__item">
-      {{ form.location.errors }}
-      <lable for="{{ form.location.id_for_label }}">위치</lable>
-      {{ form.location }}
-    </div>
-    <div class="content-box__item">
-      {{ form.category.errors }}
-      <lable for="{{ form.category.id_for_label }}">장소 분류</lable>
-      {{ form.category }}
-    </div>
-    <div class="content-box__item">
-      {{ form.opening_time.errors }}
-      <lable for="{{ form.opening_time.id_for_label }}">운영 시간</lable>
-      {{ form.opening_time }}
-    </div>
-    <div class="content-box__item">
-      {{ form.closing_time.errors }}
-      <lable for="{{ form.closing_time.id_for_label }}">운영 시간</lable>
-      {{ form.closing_time }}
-    </div>
-    <div class="content-box__item">
-      {{ form.wifi.errors }}
-      <lable for="{{ form.wifi_time.id_for_label }}">와이파이</lable>
-      {{ form.wifi }}
-    </div>
-    <div class="content-box__item">
-      {{ form.power_socket.errors }}
-      <lable for="{{ form.power_socket.id_for_label }}">콘센트</lable>
-      {{ form.power_socket }}
-    </div>
-    <div class="content-box__item">
-      {{ form.rating.errors }}
-      <lable for="{{ form.rating.id_for_label }}">별점</lable>
-      {{ form.rating }}
-    </div>
-    <div class="content-box__item">
-      {{ form.content.errors }}
-      <lable for="{{ form.content.id_for_label }}">후기</lable>
-      {{ form.content }}
-    </div>
-    <div class="content-box__item">
-      <input type="button" value="취소" onclick="back()" />
-      <input type="submit" value="등록하기" />
-=======
     <div class="content-write__item">
       <div for="id_location">위치</div>
       <div class="content-write__item_location">
@@ -143,7 +82,6 @@
       {{ form.content.errors }}
       <div for="{{ form.content.id_for_label }}">후기</div>
       {{ form.content}}
->>>>>>> place_templates
     </div>
   </div>
   <div class="content-write__btn">
@@ -152,14 +90,6 @@
   </div>
   </form>
 </div>
-<<<<<<< HEAD
-<script>
-  const back = () => {
-    window.history.back();
-  };
-</script>
-{% endblock content %}
-=======
   <script>
     const back = () => {
       window.history.back();
@@ -199,4 +129,3 @@
 
   </script>
 {% endblock content %}
->>>>>>> place_templates

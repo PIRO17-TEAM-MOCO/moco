@@ -1,20 +1,6 @@
 {% extends 'place/base.html' %}
 {% block content %}
 <div class="content">
-<<<<<<< HEAD
-  <div id="slideShow">
-    <ul class="slides">
-      {% for image in images %}
-        <li><img src="{{image.image.url}}" width="500" alt=""></li>
-      {% endfor %}
-      </ul>
-      <p class="controller">
-        <span class="prev"><i class="fa-solid fa-chevron-left"></i></span>
-        <span class="next"><i class="fa-solid fa-chevron-right"></i></span>
-      </p>
-  </div>
-=======
->>>>>>> place_templates
   <div class="content-top">
     <div class="content-title">
       <div class="content-title__name">{{place.name}}</div>
@@ -28,13 +14,8 @@
     <div class="content-right">
         {% if user.is_authenticated %}
             {% csrf_token %}
-<<<<<<< HEAD
             <div id="main_detail__top__like">
               <form action="{% url 'users:like' place.id 2 %}" method="post">
-=======
-            <!-- <div id="main_detail__top__like">
-              <form action="{% url 'likes:add' place.id 2 %}" method="post">
->>>>>>> place_templates
                 {% csrf_token %}
                 <button id="main_detail__top__like_btn">
                   <i class="fa-regular fa-heart fa-lg"></i>

@@ -3,14 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from .models import Place, PlaceImage
 from .forms import PlaceForm
-<<<<<<< HEAD
 
-=======
-from django.contrib.auth.decorators import login_required
-import json
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
->>>>>>> place_templates
 
 def home(request):
     places = Place.objects.annotate(comment_count=Count('comment'))
@@ -77,11 +70,6 @@ def detail(request, id):
 @login_required
 def update(request, id):
     place = Place.objects.get(id=id)
-<<<<<<< HEAD
-=======
-    images = PlaceImage.objects.all()
-
->>>>>>> place_templates
     if request.method == "POST":
         form = PlaceForm(request.POST)
         if form.is_valid():
@@ -96,39 +84,22 @@ def update(request, id):
             place.rating = form.cleaned_data['rating']
             place.content = form.cleaned_data['content']
             place.save()
-<<<<<<< HEAD
         # 기존 이미지는 연결 해제하고 새로운 이미지 업로드
+        place.placeimage_set.clear()
         for img in request.FILES.getlist('place_images'):
-            place.placeimage_set.clear()
             photo = PlaceImage()
             photo.place = place
             photo.image = img
             photo.save()
         return redirect(f'/place/detail/{id}')
-=======
-            if request.FILES.get("update_images") is not None:
-                images.delete()
-                for img in request.FILES.getlist('update_images'):
-                    photo = PlaceImage()
-                    photo.place = place
-                    photo.image = img
-                    photo.save()  
-                    
-            return redirect(f'/place/detail/{id}')
-        
->>>>>>> place_templates
     else:
         form = PlaceForm(instance=place)
         images = PlaceImage.objects.filter(place=place)
         context = {
             "form": form,
             "id": id,
-<<<<<<< HEAD
-            "images": images,
-=======
             "place": place,
             "images": images
->>>>>>> place_templates
         }
         return render(request, template_name='place/update.html', context=context)
 

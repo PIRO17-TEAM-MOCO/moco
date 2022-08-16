@@ -4,7 +4,7 @@
     <h2>모각코 후기</h2>
   </div>
   {% for review in reviews %}
-  <div class="review__contents_box">
+  <div class="review__contents_box" onclick="location.href='{% url 'posts:detail' review.post.id %}';">
     <div class="review__contents_box__img">
       <img src="{{review.image}}" alt="활동이미지"></img>
     </div>

@@ -36,7 +36,7 @@
               <span>모각코</span>
             </div>
             <ul class="base__post_dropmenu">
-              <li><a href="{% url 'posts:home' %}">모각코 모집</a></li>
+              <li><a href="{% url 'posts:home' %}">모각코 홈</a></li>
               <li><a href="{% url 'posts:review_home' %}">모각코 후기</a></li>
             </ul>
           </div>
@@ -70,11 +70,7 @@
               <a href="{% url 'users:profile_view' user.id %}">마이페이지</a>
             </li>
             <li>
-<<<<<<< HEAD
-              <a href={% url 'users:logout' %}?next={{request.path}}>로그아웃</a>
-=======
               <a href="{% url 'users:logout' %}?next={{request.path}}">로그아웃</a>
->>>>>>> place_templates
             </li>
           </ul>
         </div>
@@ -90,11 +86,7 @@
             </ul>
           </div>
         </li>
-<<<<<<< HEAD
-        <li><a href={% url 'users:login' %}?next={{request.path}}>로그인</a></li>
-=======
         <li><a href="{% url 'users:login' %}?next={{request.path}}">로그인</a></li>
->>>>>>> place_templates
         {% endif %}
       </ul>
     </nav>

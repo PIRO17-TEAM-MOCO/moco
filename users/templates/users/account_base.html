@@ -12,6 +12,13 @@
     <link rel="stylesheet" href="{%static 'css/find_id.css' %}" />
     <link rel="stylesheet" href="{%static 'css/register.css' %}" />
     <link rel="stylesheet" href="{%static 'css/users_main.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/change_pw.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/reset_pw.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/reset_pw_done.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/reset_pw_confirm.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/reset_pw_complete.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/find_pw.css' %}" />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&family=Noto+Sans:wght@600&display=swap"
       rel="stylesheet"
@@ -25,23 +32,64 @@
     <!--nav bar-->
     <nav class="navbar">
       <ul class="navbar__list">
-        <li><a href="">MOCO</a></li>
-        <li><a href="">모각코</a></li>
-        <li><a href="">플레이스</a></li>
-        <li><a href="">공지사항</a></li>
+        <li><a href="{% url 'posts:home' %}">MOCO</a></li>
+        <li>
+          <div class="base__post_dropdown">
+            <div class="base__post_dropbtn">
+              <span>모각코</span>
+            </div>
+            <ul class="base__post_dropmenu">
+              <li><a href="{% url 'posts:home' %}">모각코 모집</a></li>
+              <li><a href="{% url 'posts:review_home' %}">모각코 후기</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href="{% url 'place:home' %}">플레이스</a></li>
+        <li><a href="{% url 'notice:home' %}">공지사항</a></li>
       </ul>
       <ul class="navbar__shortcut">
         {% if user.is_authenticated %}
-        <li><a href="">글쓰기</a></li>
+        <li>
+          <div class="base__dropdown">
+            <div class="base__dropbtn">
+              <span>글쓰기</span>
+            </div>
+            <ul class="base__dropmenu">
+              <li><a href="{% url 'posts:write' %}">모각코 모집</a></li>
+              <li><a href="{% url 'place:write' %}">플레이스</a></li>
+            </ul>
+          </div>
+        </li>
         <i class="fa-regular fa-bell"></i>
-        <i class="fa-solid fa-circle-user"></i>
+        <div class="base__profile_dropdown">
+          <div class="base__profile_dropbtn">
+            <i class="fa-solid fa-circle-user"></i>
+          </div>
+          <ul class="base__profile_dropmenu">
+            <li>
+              <a href="{% url 'users:profile_edit' user.id %}">프로필 수정</a>
+            </li>
+            <li>
+              <a href="{% url 'users:profile_view' user.id %}">마이페이지</a>
+            </li>
+            <li>
+              <a href="{% url 'users:logout' %}">로그아웃</a>
+            </li>
+          </ul>
+        </div>
         {% else %}
-        <li><a href="">글쓰기</a></li>
-<<<<<<< HEAD
-        <li><a href={% url 'users:login' %}?next={{request.path}}>로그인</a></li>
-=======
-        <li><a href="{% url 'users:login' %}?next={{request.path}}">로그인</a></li>
->>>>>>> place_templates
+        <li>
+          <div class="base__dropdown">
+            <div class="base__dropbtn">
+              <span>글쓰기</span>
+            </div>
+            <ul class="base__dropmenu">
+              <li><a href="{% url 'posts:write' %}">모각코 모집</a></li>
+              <li><a href="{% url 'place:write' %}">플레이스</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href="{% url 'users:login' %}">로그인</a></li>
         {% endif %}
       </ul>
     </nav>

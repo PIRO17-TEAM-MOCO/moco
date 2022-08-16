@@ -9,7 +9,7 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content', 'number', 'location',
-                  'apply_link', 'tag', 'contacts', 'durations']
+                  'apply_link', 'tag', 'contact', 'duration']
         widgets = {
             'content': SummernoteWidget(),
         }

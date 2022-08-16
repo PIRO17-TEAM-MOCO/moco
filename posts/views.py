@@ -205,6 +205,7 @@ def review_home(request):
 @login_required
 def review_write(request, id):
     if request.method == "POST":
+        print("file : ", request.FILES)
         img = request.FILES.get('review_image')
         content = request.POST['review_content']
         user = request.user
@@ -216,15 +217,13 @@ def review_write(request, id):
 @login_required
 def review_revise(request, id):
     revised_review = Review.objects.get(id=id)
-
     if request.method == "POST":
+        print("file_update : ", request.FILES)
         revised_review.user = request.user
         revised_review.content = request.POST['review_content']
         revised_review.post = Review.objects.get(id=id).post
-        if request.FILES.get("review_image"):
-            revised_review.image = request.FILES.get("review_image")
-        else:
-            revised_review.image = revised_review.image
+        if request.FILES.get('review_image'):
+            revised_review.image = request.FILES.get('review_image')
         revised_review.save()
         return redirect(f"/post/detail/{revised_review.post.id}")
 

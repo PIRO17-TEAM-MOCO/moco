@@ -1,6 +1,7 @@
 {% extends 'place/base.html' %}
 {% block content %}
 <div class="content">
+<<<<<<< HEAD
   <div id="slideShow">
     <ul class="slides">
       {% for image in images %}
@@ -12,6 +13,8 @@
         <span class="next"><i class="fa-solid fa-chevron-right"></i></span>
       </p>
   </div>
+=======
+>>>>>>> place_templates
   <div class="content-top">
     <div class="content-title">
       <div class="content-title__name">{{place.name}}</div>
@@ -19,14 +22,19 @@
         <span class="content-title__img"><i class="fa-solid fa-circle-user"></i></span>
         <span class="content-title__location">{{place.user}}</span>
         <span class="content-title__bar">|</span>
-        <span class="content-title__published">{{place.published_at}}</span>
+        <span class="content-title__published">{{place.published_at|date:"Y. m. d" }}</span>
       </div>
     </div>
     <div class="content-right">
         {% if user.is_authenticated %}
             {% csrf_token %}
+<<<<<<< HEAD
             <div id="main_detail__top__like">
               <form action="{% url 'users:like' place.id 2 %}" method="post">
+=======
+            <!-- <div id="main_detail__top__like">
+              <form action="{% url 'likes:add' place.id 2 %}" method="post">
+>>>>>>> place_templates
                 {% csrf_token %}
                 <button id="main_detail__top__like_btn">
                   <i class="fa-regular fa-heart fa-lg"></i>
@@ -40,7 +48,7 @@
                   <p>{{place.likes}}</p>
                 </button>
               </form>
-            </div>
+            </div> -->
         <div class="dropdown">
           <button onclick="dp_menu()" class="button"><i class="fa-solid fa-ellipsis"></i></button>
           <div style="display: none;" id="drop-content">
@@ -59,10 +67,19 @@
         {% endif %}
     </div>
   </div>
-    
-    <div class="content-info">
-      <div class="content-info__top">
-        <div class="content-info__left">
+
+  <div class="wrap-vertical">
+    {% for image in images %}
+      {% if image.place == place %}
+      <img src="{{image.image.url}}" width="500" alt="">
+      {% endif %}
+    {% endfor %}
+  </div>
+  <hr style= "color: #BCBCBC; height:1px; width: 100%; opacity: 1;">
+    <div class="content-item">
+      <div class="content-item__title">상세정보</div>
+      <div class="content-item__top">
+        <div class="content-item__left">
           <div>장소 분류</div>
           <div>운영 시간</div>
           <div>와이파이</div>
@@ -70,19 +87,25 @@
           <div>별점</div>
           <div>위치</div>
         </div>
-        <div class="content-info__right">
+        <div class="content-item__right">
           <div>{{place.get_category_display}}</div>
           <div>{{place.opening_time}}~{{place.closing_time}}</div>
           <div>{{place.get_wifi_display}}</div>
           <div>{{place.get_power_socket_display}}</div>
           <div>{{place.rating}}</div>
-          <div>{{place.location}}</div>
+          <div>{{place.location}} {{place.location_detail}}</div>
         </div>
-      </div>
-      <div class="content-info__bottom">
-        <div class="content-info__map"></div>
-        <div class="content-info__content">{{place.content}}</div>
-      </div>
+      </div>      
+    </div>
+    <hr style= "color: #BCBCBC; height:1px; width: 100%; opacity: 1;">
+    <div class="content-item">
+      <div class="content-item__title">후기</div>
+      <div class="content-item__content">{{place.content | safe }}</div>
+    </div>
+    <hr style= "color: #BCBCBC; height:1px; width: 100%; opacity: 1;">
+    <div class="content-item" style= "width:1180px;">
+      <div class="content-item__title">지도</div>
+      <div id="map" style="height:400px; margin: 1.5rem 0;"></div>
     </div>
 
 </div>
@@ -95,40 +118,41 @@
           click.style.display = "none";
       }
   }
+  
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        mapOption = {
+            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+            level: 5 // 지도의 확대 레벨
+        };
 
-  const slides = document.querySelector('.slides'); //전체 슬라이드 컨테이너
-  const slideImg = document.querySelectorAll('.slides li'); //모든 슬라이드들
-  let currentIdx = 0; //현재 슬라이드 index
-  const slideCount = slideImg.length; // 슬라이드 개수
-  const prev = document.querySelector('.prev'); //이전 버튼
-  const next = document.querySelector('.next'); //다음 버튼
-  const slideWidth = 300; //한개의 슬라이드 넓이
-  const slideMargin = 100; //슬라이드간의 margin 값
+    //지도를 미리 생성
+    var map = new daum.maps.Map(mapContainer, mapOption);
+    //주소-좌표 변환 객체를 생성
+    var geocoder = new daum.maps.services.Geocoder();
+    
+    // 주소로 좌표를 검색합니다
+    geocoder.addressSearch('{{place.location}}', function(result, status) {
 
-  //전체 슬라이드 컨테이너 넓이 설정
-  slides.style.width = (slideWidth + slideMargin) * slideCount + 'px';
+    // 정상적으로 검색이 완료됐으면 
+    if (status === kakao.maps.services.Status.OK) {
 
-  function moveSlide(num) {
-    slides.style.left = -num * 500 + 'px';
-    currentIdx = num;
-  }
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-  prev.addEventListener('click', function () {
-    /*첫 번째 슬라이드로 표시 됐을때는 
-    이전 버튼 눌러도 아무런 반응 없게 하기 위해 
-    currentIdx !==0일때만 moveSlide 함수 불러옴 */
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
 
-    if (currentIdx !== 0) moveSlide(currentIdx - 1);
-  });
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">{{place.name}}</div>'
+        });
+        infowindow.open(map, marker);
 
-  next.addEventListener('click', function () {
-    /* 마지막 슬라이드로 표시 됐을때는 
-    다음 버튼 눌러도 아무런 반응 없게 하기 위해
-    currentIdx !==slideCount - 1 일때만 
-    moveSlide 함수 불러옴 */
-    if (currentIdx !== slideCount - 1) {
-      moveSlide(currentIdx + 1);
-    }
-  });
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+    });    
 </script>
 {% endblock %}

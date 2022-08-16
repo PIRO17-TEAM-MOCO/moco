@@ -37,7 +37,11 @@
         <i class="fa-solid fa-circle-user"></i>
         {% else %}
         <li><a href="">글쓰기</a></li>
+<<<<<<< HEAD
         <li><a href={% url 'users:login' %}?next={{request.path}}>로그인</a></li>
+=======
+        <li><a href="{% url 'users:login' %}?next={{request.path}}">로그인</a></li>
+>>>>>>> place_templates
         {% endif %}
       </ul>
     </nav>

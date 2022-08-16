@@ -6,11 +6,12 @@ from notice.models import Notice
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 
-
+@login_required
 def write_post(request, id):
     if request.method == 'POST':
         content = request.POST["content"]
@@ -22,6 +23,7 @@ def write_post(request, id):
         return redirect(f"/post/detail/{id}")
 
 
+@login_required
 def write_place(request, id):
     if request.method == 'POST':
         content = request.POST["content"]
@@ -33,6 +35,7 @@ def write_place(request, id):
         return redirect(f"/place/detail/{id}")
 
 
+@login_required
 def write_notice(request, id):
     if request.method == 'POST':
         content = request.POST["content"]
@@ -45,6 +48,7 @@ def write_notice(request, id):
 
 
 @csrf_exempt
+@login_required
 def revise(request, id):
     if request.method == 'POST':
         content = request.POST["content"]
@@ -71,6 +75,7 @@ def revise(request, id):
 
 
 @csrf_exempt
+@login_required
 def delete(request):
     req = json.loads(request.body)
     comment_id = req['id']
@@ -102,6 +107,7 @@ def delete(request):
     return JsonResponse(data)
 
 
+@login_required
 def recomment(request, id):
     if request.method == 'POST':
         pnt_id = id

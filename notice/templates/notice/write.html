@@ -3,7 +3,8 @@
 <form action="{% url 'notice:write' %}" method="post" enctype="multipart/form-data">
 {% csrf_token %}
   <div class="content">
-    <div class="content-box">
+    <div class="content-write__title">글 제목과 내용을 작성해주세요</div>
+    <div class="content-write">
       <div>제목</div>
       <input
         type="text"
@@ -11,13 +12,9 @@
         name="title"
       />
     </div>
-    <div class="content-box">
+    <div class="content-write">
       <div>내용</div>
-      <input
-        type="text"
-        class="main_write__top__box_text"
-        name="content"
-      />
+      <textarea name="content" cols="40" rows="10" required="" id="id_content"></textarea>
     </div>
     <div id="main_write__content__btn">
       <button type="submit" id="main_write__content__btn_cancel">
@@ -31,4 +28,7 @@
     </div>
   </div>
 </form>
+<script>
+  $(document).ready(function() { $("#id_content").summernote(); })
+</script>
 {% endblock %}

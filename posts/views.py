@@ -99,7 +99,6 @@ def detail(request, id):
     reviews = paginator.get_page(page)
 
     all_comments = post.comment_set.all()
-    print(all_comments)
 
     tomorrow = datetime.now() + timedelta(days=1)
     tomorrow = datetime.replace(tomorrow, hour=0, minute=0, second=0)

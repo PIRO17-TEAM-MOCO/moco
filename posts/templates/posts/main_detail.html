@@ -147,25 +147,20 @@
           </div>
         </div>
         <div id="main_detail__comment__contents__txt__{{comment.id}}">
+          {% if comment.cmt_class == 1 %}
+          <span>@{{comment.pnt_comment.user.nickname}}</span>
+          {% endif %}
           <span>{{comment.content}}</span>
         </div>
         <div id="main_detail__comment__contents__reply">
-          {% comment %} {% if comment.comment_set.all %}
-          <p>--답글--</p>
-          {% for recomment in comment.comment_set.all%}
-          <span>{{recomment.user.nickname}}</span>
-          <p>{{recomment.content}}</p>
-          {% endfor %}
-          <p>----------</p>
-          {% endif %} {% endcomment %}
+          <div id="main_detail_comment_contents_reply_form__{{comment.id}}"></div>
         </div>
         {% if comment.user == request.user %}
         <button onclick="changeForm({{comment.id}}, '{{comment.content}}');">수정</button>
-        <button onclick="onClickdelete({{comment.id}})">삭제</button>
-        {% else %}
-        <a href="{% url 'comments:recomment' %}">답글</a>
-        <br />
+        <button onclick="onClickdelete({{comment.id}})">삭제</button> 
         {% endif%}
+        <button onclick="changeForm2({{comment.id}});">답글</button>
+        <br />
       </div>
       {% endfor %}
     </div>
@@ -273,7 +268,12 @@
   const changeForm = (id, content) => {
     idd = id;
     const revise = document.getElementById(`main_detail__comment__contents__txt__${id}`)
-    revise.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}<textarea type="text" name="content">${content}</textarea><input type="submit" value="댓글 수정"/><a href="{% url 'posts:detail' post.id %}">수정 취소</a></form>`
+    revise.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}<textarea type="text" name="content">${content}</textarea><input type="submit" value="등록"/><a href="{% url 'posts:detail' post.id %}">취소</a></form>`
+  }
+
+  const changeForm2 = (id) => {
+    const recomt = document.getElementById(`main_detail_comment_contents_reply_form__${id}`)
+    recomt.innerHTML = `<form action="/comment/recomment/${id}" method="post">{% csrf_token %}<textarea type="text" name="content"></textarea><input type="submit" value="등록"/><a href="{% url 'posts:detail' post.id %}">취소</a></form>`
   }
 
   const requestDelete = new XMLHttpRequest();
@@ -291,10 +291,12 @@
   requestDelete.onreadystatechange = () => {
       if (requestDelete.readyState === XMLHttpRequest.DONE){
           if(requestDelete.status < 400){
-              const {id} = JSON.parse(requestDelete.response);
+              const {id, len} = JSON.parse(requestDelete.response);
               const topdom = document.getElementById("main_detail__comment__contents");
               const deletedom = document.getElementById(`main_detail__comment__each__contents__${id}`);
               topdom.removeChild(deletedom);
+              const cmtLen = document.getElementById('main_detail__comment_num')
+              cmtLen.innerHTML = len
           }
       }
   }

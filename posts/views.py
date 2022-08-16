@@ -98,7 +98,8 @@ def detail(request, id):
     page = request.GET.get('page', 1)
     reviews = paginator.get_page(page)
 
-    all_comments = post.comment_set.all().filter(cmt_class=Comment.CMT_PARENT)
+    all_comments = post.comment_set.all()
+    print(all_comments)
 
     tomorrow = datetime.now() + timedelta(days=1)
     tomorrow = datetime.replace(tomorrow, hour=0, minute=0, second=0)

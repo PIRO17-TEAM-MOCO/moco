@@ -147,13 +147,15 @@
           </div>
         </div>
         <div id="main_detail__comment__contents__txt__{{comment.id}}">
-          {% if comment.cmt_class == 1 %}
-          <span>@{{comment.pnt_comment.user.nickname}}</span>
-          {% endif %}
           <span>{{comment.content}}</span>
         </div>
         <div id="main_detail__comment__contents__reply">
+          {% comment %} 답글 테스트로 여기 위치
+          {% for recomment in comment.comment_set.all %}
+          <div>{{recomment.content}}</div>
+          {% endfor%} {% endcomment %}
           <div id="main_detail_comment_contents_reply_form__{{comment.id}}"></div>
+          
         </div>
         {% if comment.user == request.user %}
         <button onclick="changeForm({{comment.id}}, '{{comment.content}}');">수정</button>

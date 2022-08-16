@@ -98,8 +98,7 @@ def detail(request, id):
     page = request.GET.get('page', 1)
     reviews = paginator.get_page(page)
 
-    all_comments = post.comment_set.all()
-    print(all_comments)
+    all_comments = post.comment_set.all().filter(cmt_class=Comment.CMT_PARENT)
 
     tomorrow = datetime.now() + timedelta(days=1)
     tomorrow = datetime.replace(tomorrow, hour=0, minute=0, second=0)
@@ -207,7 +206,6 @@ def review_home(request):
 
 def review_write(request, id):
     if request.method == "POST":
-        print(request.FILES.get('review_image'))
         img = request.FILES.get('review_image')
         content = request.POST['review_content']
         user = request.user
@@ -258,7 +256,6 @@ def review_revise_test(request):
         'content': content,
         'image': image
     }
-    print(data)
     return JsonResponse(data)
 
 

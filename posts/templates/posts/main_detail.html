@@ -103,7 +103,7 @@
     <div id="main_detail__comment__top">
       <div id="main_detail__comment__blank">
         <h2>댓글</h2>
-        <h2 id="main_detail__comment_num">2</h2>
+        <h2 id="main_detail__comment_num">{{comments_len}}</h2>
       </div>
       <div id="main_detail__comment__rule">
         <span>300자 이내 작성</span>
@@ -131,7 +131,7 @@
     </div>
     <div id="main_detail__comment__contents">
       {% for comment in comments %}
-      <div id="main_detail__comment__each__contents">
+      <div id="main_detail__comment__each__contents__{{comment.id}}">
         <div id="main_detail__comment__contents__profile">
           <div id="main_detail__comment__contents__img">
             <i class="fa-solid fa-circle-user fa-2x"></i>
@@ -146,22 +146,23 @@
             </div>
           </div>
         </div>
-        <div id="main_detail__comment__contents__txt">
+        <div id="main_detail__comment__contents__txt__{{comment.id}}">
           <span>{{comment.content}}</span>
         </div>
         <div id="main_detail__comment__contents__reply">
-          <button></button>
+          {% comment %} 답글 테스트로 여기 위치
+          {% for recomment in comment.comment_set.all %}
+          <div>{{recomment.content}}</div>
+          {% endfor%} {% endcomment %}
+          <div id="main_detail_comment_contents_reply_form__{{comment.id}}"></div>
+          
         </div>
         {% if comment.user == request.user %}
-        <a href="{% url 'comments:revise' comment.id %}">수정</a>
-        <form action="{% url 'comments:delete' comment.id %}" method="post">
-          {% csrf_token %}
-          <button>삭제</button>
-        </form>
-        {% else %}
-        <a href="{% url 'comments:recomment' comment.id %}">답글</a>
-        <br />
+        <button onclick="changeForm({{comment.id}}, '{{comment.content}}');">수정</button>
+        <button onclick="onClickdelete({{comment.id}})">삭제</button> 
         {% endif%}
+        <button onclick="changeForm2({{comment.id}});">답글</button>
+        <br />
       </div>
       {% endfor %}
     </div>
@@ -261,4 +262,46 @@
   </div>
   {%endif%}
 </div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  const sp = document.getElementById('main_detail__comment__contents__txt')
+  let idd = null;
+  
+  const changeForm = (id, content) => {
+    idd = id;
+    const revise = document.getElementById(`main_detail__comment__contents__txt__${id}`)
+    revise.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}<textarea type="text" name="content">${content}</textarea><input type="submit" value="등록"/><a href="{% url 'posts:detail' post.id %}">취소</a></form>`
+  }
+
+  const changeForm2 = (id) => {
+    const recomt = document.getElementById(`main_detail_comment_contents_reply_form__${id}`)
+    recomt.innerHTML = `<form action="/comment/recomment/${id}" method="post">{% csrf_token %}<textarea type="text" name="content"></textarea><input type="submit" value="등록"/><a href="{% url 'posts:detail' post.id %}">취소</a></form>`
+  }
+
+  const requestDelete = new XMLHttpRequest();
+
+  const onClickdelete = (id) => {
+      const url = "/comment/delete";
+      requestDelete.open("POST",url,true);
+      requestDelete.setRequestHeader(
+          "Content-Type",
+          "application/x-www-form-urlencoded"
+      );
+      requestDelete.send(JSON.stringify({'id':id}));
+  }
+
+  requestDelete.onreadystatechange = () => {
+      if (requestDelete.readyState === XMLHttpRequest.DONE){
+          if(requestDelete.status < 400){
+              const {id, len} = JSON.parse(requestDelete.response);
+              const topdom = document.getElementById("main_detail__comment__contents");
+              const deletedom = document.getElementById(`main_detail__comment__each__contents__${id}`);
+              topdom.removeChild(deletedom);
+              const cmtLen = document.getElementById('main_detail__comment_num')
+              cmtLen.innerHTML = len
+          }
+      }
+  }
+
+</script>
 {% endblock content%}

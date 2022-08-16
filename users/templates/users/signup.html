@@ -37,7 +37,7 @@
         회원가입 시, MOCO가 제공하는 서비스를 모두 이용하실 수 있습니다. MOCO의
         <button id="openBtn1">서비스 이용약관</button>,
         <button id="openBtn2">개인정보취급방침</button>에 동의합니다.
-        <input type="checkbox" id="input__reg__cb" />
+        <input type="checkbox" id="input__reg__cb"/>
         <label for="input__reg__cb"></label>
       </div>
       <div id="signup__modal-1" class="modal-overlay" style="display: none;">
@@ -238,7 +238,7 @@
     var uid = document.getElementById("id_username");
     var email_id = document.getElementById("id_email");
     var pwd = document.getElementById("id_password1");
-  var repwd = document.getElementById("id_password2");
+    var repwd = document.getElementById("id_password2");
 
   if (uid.value == "") { 
     alert("아이디를 입력하세요.");
@@ -256,6 +256,14 @@
 
    if (email_id.value == "") {
     alert("이메일 주소를 입력하세요.");
+    email_id.focus();
+    return false;
+  }
+
+  var emailCheck = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+
+  if (!emailCheck.test(email_id.value)) {
+    alert("이메일 형식에 맞춰 입력해주세요.")
     email_id.focus();
     return false;
   }
@@ -317,12 +325,6 @@
   };
 
   var nicknameCheck = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi
-
-  if (email_id.value == "") {
-    alert("이메일 주소를 입력하세요.");
-    email_id.focus();
-    return false;
-  }
 
   if (!nicknameCheck.temst(nickname.value)) {
     alert("닉네임은 특수문자를 제외하여 10자 이내로 작성해주세요.");

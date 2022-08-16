@@ -46,6 +46,12 @@ def write(request):
                 photo.place = place
                 photo.image = img
                 photo.save()
+
+            user = place.user
+            exp = user.exp
+            user.exp = exp + 25
+            user.save()
+
             return redirect('/place')
         else:
             # print(form.is_valid())
@@ -54,7 +60,7 @@ def write(request):
         form = PlaceForm()
         context = {
             'form': form,
-            }
+        }
         return render(request, template_name="place/write.html", context=context)
 
 

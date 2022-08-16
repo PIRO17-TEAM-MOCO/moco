@@ -85,8 +85,8 @@ def update(request, id):
             place.content = form.cleaned_data['content']
             place.save()
         # 기존 이미지는 연결 해제하고 새로운 이미지 업로드
+        place.placeimage_set.clear()
         for img in request.FILES.getlist('place_images'):
-            place.placeimage_set.clear()
             photo = PlaceImage()
             photo.place = place
             photo.image = img

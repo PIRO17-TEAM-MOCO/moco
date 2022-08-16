@@ -22,6 +22,7 @@ img {
   margin: 20px 0 0;
   padding-bottom: 20px;
   border-bottom: 1px solid rgb(162, 162, 162);
+  cursor: pointer;
 }
 
 .review__contents_box__img {

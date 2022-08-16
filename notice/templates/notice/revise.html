@@ -1,17 +1,22 @@
 {% extends 'notice/base.html' %}
 {% block content %}
 <form action="{% url 'notice:update' notice.id %}" method="post" enctype="multipart/form-data">
-{% csrf_token %}
+  {% csrf_token %}
   <div class="content">
-    <div class="content-box">
+    <div class="content-write__title">글 제목과 내용을 작성해주세요</div>
+    <div class="content-write">
       <div>제목</div>
-      <input type="text" name="title" value="{{notice.title}}" />
+      <input
+        type="text"
+        class="main_write__top__box_text"
+        name="title"
+        value="{{notice.title}}"
+      />
     </div>
-    <div class="content-box">
-      <div>제목</div>
-      <input type="text" name="content" value="{{notice.content}}" />
+    <div class="content-write">
+      <div>내용</div>
+      <textarea name="content" cols="40" rows="10" required="" id="id_content">{{notice.content}}</textarea>
     </div>
-    
     <div id="main_write__content__btn">
       <button type="submit" id="main_write__content__btn_cancel">
         <h3>취소</h3>

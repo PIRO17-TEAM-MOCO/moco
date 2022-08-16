@@ -7,7 +7,6 @@ from django.conf.urls.static import static
 app_name = 'users'
 
 urlpatterns = [
-    path('', views.main, name='main'),
     path('signup/', views.signup, name='signup'),
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
@@ -26,4 +25,6 @@ urlpatterns = [
     path('reset-pw/complete/',
          auth_views.PasswordResetCompleteView.as_view(template_name='users/reset_pw_complete.html'),
          name='reset_pw_complete'),
+    path('like/<int:id>/<int:tag>', views.like, name='like'),
+    path('unlike/<int:id>/<int:tag>', views.unlike, name='unlike'),
 ]

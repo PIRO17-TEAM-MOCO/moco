@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+
 class User(AbstractUser):
     # 유저네임, 비밀번호 상속
     GENDER_CHOICE = [
@@ -25,3 +26,5 @@ class User(AbstractUser):
     profile_img = models.ImageField(blank=True, null=True)
     job = models.CharField(max_length=10, choices=JOB_CHOICE)
     desc = models.TextField(max_length=100, blank=True, null=True)
+    like_posts = models.ManyToManyField('posts.Post', related_name='like_users')
+    like_places = models.ManyToManyField('place.Place', related_name='like_users')

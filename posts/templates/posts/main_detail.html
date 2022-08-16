@@ -56,18 +56,18 @@
           {%endif%}
         </div>
         <div id="main_detail__top__like">
-          <form action="{% url 'likes:add' post.id 1 %}" method="post">
+          <form action="{% url 'users:like' post.id 1 %}" method="post">
             {% csrf_token %}
-            <button id="main_detail__top__like_btn" type="button">
+            <button id="main_detail__top__like_btn" type="submit">
               <i class="fa-regular fa-heart fa-lg"></i>
-              <p>{{len_likes}}좋아요</p>
+              <p>{{post.likes}}좋아요</p>
             </button>
           </form>
-          <form action="{% url 'likes:delete' post.id 1 %}" method="post">
+          <form action="{% url 'users:unlike' post.id 1 %}" method="post">
             {% csrf_token %}
-            <button id="main_detail__top__like_btn" type="button">
+            <button id="main_detail__top__like_btn" type="submit">
               <i class="fa-regular fa-heart fa-lg"></i>
-              <p>{{len_likes}}좋아요 취소</p>
+              <p>{{post.likes}}좋아요 취소</p>
             </button>
           </form>
         </div>
@@ -147,13 +147,15 @@
           </div>
         </div>
         <div id="main_detail__comment__contents__txt__{{comment.id}}">
-          {% if comment.cmt_class == 1 %}
-          <span>@{{comment.pnt_comment.user.nickname}}</span>
-          {% endif %}
           <span>{{comment.content}}</span>
         </div>
         <div id="main_detail__comment__contents__reply">
+          {% comment %} 답글 테스트로 여기 위치
+          {% for recomment in comment.comment_set.all %}
+          <div>{{recomment.content}}</div>
+          {% endfor%} {% endcomment %}
           <div id="main_detail_comment_contents_reply_form__{{comment.id}}"></div>
+          
         </div>
         {% if comment.user == request.user %}
         <button onclick="changeForm({{comment.id}}, '{{comment.content}}');">수정</button>

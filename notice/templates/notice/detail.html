@@ -1,7 +1,7 @@
 {% extends 'notice/base.html' %}
 {% block content %}
 <div class="content">
-  <li style="list-style: none;"><a target="_self" href="{% url 'notice:home' %}"><i class="fa-solid fa-arrow-left"></i></a></li>
+  <li class="back"><a target="_self" href="{% url 'notice:home' %}"><i class="fa-solid fa-arrow-left"></i></a></li>
   <div class="content-top">
     <div class="content-title">
       <div class="content-title__top">
@@ -15,12 +15,13 @@
           <p>dfs</p>
           <img src="static/img/moco_symbol.png" width="50" alt="">
           {% endif %}
-          <div class="content-top__left">
-            <span class="content-top__user">{{notice.user}}</span>
-            <span class="content-top__published">{{notice.published_at}}</span>
+          <div class="content-title__left">
+            <span class="content-title__user">{{notice.user}}</span>
+            <span style="margin: 0 0.5rem; color: #8C8C8C;">|</span>
+            <span class="content-title__published">{{notice.published_at|date:"Y. m. d" }}</span>
           </div>
         </div>
-        <div class="content-top__right">
+        <div class="content-title__right">
           {% if user == admin %}
           <div class="dropdown">
             <button onclick="dp_menu()" class="button"><i class="fa-solid fa-ellipsis"></i></button>

@@ -15,18 +15,24 @@ from django.utils.http import urlsafe_base64_encode
 from datetime import datetime
 from .models import User
 from .forms import ProfileForm, SignupForm, FindidForm, ResetpwForm
+from posts.models import Post
+from place.models import Place
+
+# tag 정의
+TAG_POST=1
+TAG_PLACE=2
 
 
 # main은 기능확인용입니다.
-def main(request):
-    users = User.objects.all()
-    context = {
-        'users': users
-    }
-    if request.user:
-        context['me'] = request.user
-        print(context)
-    return render(request, template_name='users/main.html', context=context)
+# def main(request):
+#     users = User.objects.all()
+#     context = {
+#         'users': users
+#     }
+#     if request.user:
+#         context['me'] = request.user
+#         print(context)
+#     return render(request, template_name='users/main.html', context=context)
 
 
 def signup(request):
@@ -35,7 +41,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             auth.login(request, user)
-            return redirect('users:main')
+            return redirect('posts:home')
         else:
             return redirect('users:signup')
     else:
@@ -52,9 +58,9 @@ def signout(request):
         if request.user.is_authenticated:
             request.user.delete()
             auth.logout(request)
-            return redirect('users:main')
+            return redirect('posts:home')
         else:
-            return redirect('user:main')
+            return redirect('user:signout')
     else:
         return render(request, template_name='users/signout.html')
 
@@ -62,18 +68,25 @@ def signout(request):
 def login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)
+        next = request.POST.get("next")
         if form.is_valid():
             auth.login(request, form.get_user())
-            return redirect('users:main')
+            if next == 'None':
+                return redirect('posts:home')
+            else:
+                return redirect(next)
         else:
             context = {
                 'form': form,
+                'next': next,
             }
             return render(request, template_name='users/login.html', context=context)
     else:
         form = AuthenticationForm()
+        next = request.GET.get('next')
         context = {
             'form': form,
+            'next': next,
         }
         return render(request, template_name='users/login.html', context=context)
 
@@ -81,7 +94,14 @@ def login(request):
 @login_required
 def logout(request):
     auth.logout(request)
-    return redirect('users:main')
+    next = request.GET.get('next')
+    context = {
+        'next': next,
+    }
+    if next == 'None':
+        return redirect('posts:home')
+    else:
+        return redirect(next)
 
 
 def find_id(request):
@@ -215,3 +235,51 @@ def profile_edit(request, id):
         return render(request, template_name='users/profile_edit.html', context=context)
 
 
+@login_required
+def like(request, id, tag):
+    if request.method == 'POST':
+        user = request.user
+        if tag == TAG_POST:
+            post = Post.objects.get(id=id)
+            post.like_users.add(user)
+            post.likes += 1
+            post.save()
+            return redirect(f'/post/detail/{id}')
+        elif tag == TAG_PLACE:
+            place = Place.objects.get(id=id)
+            place.like_users.add(user)
+            place.likes += 1
+            place.save()
+            print('like 성공')
+            for like_place in user.like_places.all():
+                print(like_place)
+            return redirect(f'/place/detail/{id}')
+        else:
+            return redirect('/post')
+    else:
+        return redirect('/post')
+
+
+@login_required
+def unlike(request, id, tag):
+    if request.method == 'POST':
+        user = request.user
+        if tag == TAG_POST:
+            post = Post.objects.get(id=id)
+            post.like_users.remove(user)
+            post.likes -= 1
+            post.save()
+            return redirect(f'/post/detail/{id}')
+        elif tag == TAG_PLACE:
+            place = Place.objects.get(id=id)
+            place.like_users.remove(user)
+            place.likes -= 1
+            place.save()
+            print('unlike 성공')
+            for like_place in user.like_places.all():
+                print(like_place)
+            return redirect(f'/place/detail/{id}')
+        else:
+            return redirect('/post')
+    else:
+        return redirect('/post')

@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import User
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Place(models.Model):
     CATEGORY_CHOICE = [
@@ -21,15 +22,17 @@ class Place(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=25)
     location = models.CharField(max_length=25)
+    location_detail = models.CharField(max_length=40, blank=True)
     category = models.CharField(max_length=10, choices=CATEGORY_CHOICE)
     opening_time = models.TimeField()
     closing_time = models.TimeField()
     wifi = models.CharField(max_length=5, choices=WIFI_CHOICE)
     power_socket = models.CharField(max_length=10, choices=SOCKET_CHOICE)
-    rating = models.FloatField()
+    rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     content = models.TextField()
     published_at = models.DateTimeField(auto_now_add=True)
+    likes = models.IntegerField(default=0)
 
 class PlaceImage(models.Model):
-    place = models.ForeignKey(Place, on_delete=models.CASCADE)
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, null=True)
     image = models.ImageField(upload_to='place/%Y%m%d', blank=True, null=True)

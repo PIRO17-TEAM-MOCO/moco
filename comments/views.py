@@ -17,7 +17,7 @@ def write_post(request, id):
         content = request.POST["content"]
         user = request.user
         post = Post.objects.get(id=id)
-        tag = 1
+        tag = Comment.TAG_POST
         exp = user.exp
         user.exp = exp + 5
         user.save()
@@ -33,6 +33,9 @@ def write_place(request, id):
         user = request.user
         place = Place.objects.get(id=id)
         tag = Comment.TAG_PLACE
+        exp = user.exp
+        user.exp = exp + 5
+        user.save()
         Comment.objects.create(user=user, place=place,
                                tag=tag, content=content)
         return redirect(f"/place/detail/{id}")

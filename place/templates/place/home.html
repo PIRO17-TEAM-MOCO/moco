@@ -25,7 +25,7 @@
 		<select name="sort" onchange="this.form.submit();"> 
 			<option value="default">--정렬기준--</option>
 			<option value="latest" {% if sort == "latest" %}selected{% endif %}>최신순</option>
-			<option value="views" {% if sort == "like" %}selected{% endif %}>좋아요순</option>
+			<option value="like" {% if sort == "like" %}selected{% endif %}>좋아요순</option>
 			<option value="comment" {% if sort == "comment" %}selected{% endif %}>댓글순</option>
 		</select>
 	</form>
@@ -47,7 +47,7 @@
         <div class="content-box__bottom">
           <span><i class="fa-solid fa-circle-user"></i>{{place.user}}</span>
           <span>
-            <span style="margin-right: 0.5rem;"><i class="fa-solid fa-comment-dots"></i>1</span>
+            <span style="margin-right: 0.5rem;"><i class="fa-solid fa-comment-dots"></i>{{place.comment_count}}</span>
             <span><i class="fa-regular fa-heart"></i>{{place.likes}}</span>
           </span>
         </div>

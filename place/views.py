@@ -1,13 +1,21 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 from .models import Place, PlaceImage
 from .forms import PlaceForm
-from django.contrib.auth.decorators import login_required
 
 
 def home(request):
+    places = Place.objects.annotate(comment_count=Count('comment'))
+    sort = request.GET.get('sort', 'None')
+    if sort == "latest":
+        places = places.order_by("-published_at")
+    elif sort == "like":
+        places = places.order_by("-likes")
+    elif sort == "comment":
+        places = places.order_by("-comment_count")
+    # 플레이스와 해당 이미지를 묶어서 context로 보내줌
     pairs = []
-    places = Place.objects.all()
-    # 플레이스와 첫번째 이미지(썸네일)를 묶어서 보내줌
     for place in places:
         images = PlaceImage.objects.filter(place=place)
         if images:
@@ -16,10 +24,7 @@ def home(request):
             image = None
         pair = [place, image]
         pairs.append(pair)
-    # 정렬 기준을 정함
-    sort = request.GET.get('sort', 'None')
-    if sort == "latest":
-        places = places.order_by("-published_at")
+
     context = {
         "pairs": pairs,
         "sort": sort,

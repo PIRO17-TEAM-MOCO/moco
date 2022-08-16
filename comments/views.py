@@ -18,6 +18,9 @@ def write_post(request, id):
         user = request.user
         post = Post.objects.get(id=id)
         tag = 1
+        exp = user.exp
+        user.exp = exp + 5
+        user.save()
         Comment.objects.create(user=user, post=post,
                                tag=tag, content=content)
         return redirect(f"/post/detail/{id}")

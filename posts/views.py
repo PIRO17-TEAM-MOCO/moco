@@ -72,6 +72,10 @@ def write(request):
             post = form.save(commit=False)
             post.user = request.user
             post.save()
+            exp = post.user.exp
+            user = post.user
+            user.exp = exp + 25
+            user.save()
             return redirect(f"/post/detail/{id}")
         else:
             return redirect("/post/write")
@@ -187,6 +191,11 @@ def delete(request, id):
 def close(request, id):
     if request.method == "POST":
         Post.objects.filter(id=id).update(activation=False)
+        post = Post.objects.get(id=id)
+        user = post.user
+        exp = user.exp
+        user.exp = exp + 50
+        user.save()
         return redirect(f"/post/detail/{id}")
 
 
@@ -210,6 +219,9 @@ def review_write(request, id):
         content = request.POST['review_content']
         user = request.user
         post = Post.objects.get(id=id)
+        exp = user.exp
+        user.exp = exp + 25
+        user.save()
         Review.objects.create(user=user, content=content, post=post, image=img)
         return redirect(f"/post/detail/{id}")
 

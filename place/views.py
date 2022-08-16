@@ -57,7 +57,7 @@ def write(request):
                 photo.place = place
                 photo.image = img
                 photo.save()
-            return redirect('/place')
+            return redirect('/place/category/all')
         else:
             # print(form.is_valid())
             return redirect('place:write')
@@ -121,4 +121,4 @@ def delete(request, id):
     if request.method == "POST":
         place = Place.objects.get(id=id)
         place.delete()
-        return redirect('/place')
+        return redirect('/place/all')

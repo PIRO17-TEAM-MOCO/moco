@@ -283,3 +283,62 @@ def unlike(request, id, tag):
             return redirect('/post')
     else:
         return redirect('/post')
+
+
+from django.http import HttpResponse,JsonResponse
+import json
+
+def is_ajax(request):
+    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+
+def likes(request, tag):
+    if is_ajax(request):
+        error = False
+        # 로그인 안 했으면 로그인 창으로 이동
+        if not request.user.is_authenticated:
+            error = True
+            print('로그인이 필요합니다.')
+            context = {
+                'error': error,
+            }
+            return HttpResponse(json.dumps(context), content_type='application/json')
+
+        id = request.GET['id']
+    if tag == TAG_POST:
+        post = Post.objects.get(id=id) 
+        user = request.user
+        if user in post.like_users.all():
+            post.like_users.remove(user)
+            post.likes -= 1
+            post.save()
+            print('unlike 성공')
+        else:
+            post.like_users.add(user)
+            post.likes += 1
+            post.save()
+            print('like 성공')
+        context = {
+            'like_count': place.likes,
+            'error': error,
+        }
+        return HttpResponse(json.dumps(context), content_type='application/json')
+    elif tag == TAG_PLACE:
+        place = Place.objects.get(id=id) 
+        user = request.user
+
+        if user in place.like_users.all():
+            place.like_users.remove(user)
+            place.likes -= 1
+            place.save()
+            print('unlike 성공')
+        else:
+            place.like_users.add(user)
+            place.likes += 1
+            place.save()
+            print('like 성공')
+        # post.like.count() : 게시물이 받은 좋아요 수  
+        context = {
+            'like_count': place.likes,
+            'error': error,
+        }
+        return HttpResponse(json.dumps(context), content_type='application/json')

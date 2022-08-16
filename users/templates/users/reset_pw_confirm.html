@@ -1,21 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <!--Password Reset Confirm-->
-    <div>
-      <h2>비밀번호 재설정</h2>
-      <hr />
-      <p>새 비밀번호를 입력해 주세요.</p>
-      <form method="POST">
-        {% csrf_token %} {{ form }}
-        <button>저장</button>
-      </form>
+{% extends 'users/account_base.html' %} {% block content %}
+<main>
+  <!--Password Reset Confirm-->
+  <div id="reset-pw-cf__container">
+    <div id="reset-pw-cf__title">
+      <span>비밀번호 재설정</span>
     </div>
-  </body>
-</html>
+    <hr class="hr" />
+    <p style="font-weight: 900; margin-bottom: 1rem">
+      새 비밀번호를 입력해 주세요.
+    </p>
+    <form method="POST">
+      {% csrf_token %}
+      <div class="input__reset__pw">
+        {{ form.new_password1.errors }}
+        <lable for="{{ form.new_password1.id_for_label }}"
+          ><p>새 비밀번호</p></lable
+        >
+        <input
+          type="password"
+          name="new_password1"
+          autocomplete="new-password"
+          required=""
+          id="id_new_password1"
+          placeholder="새 비밀번호"
+        />
+      </div>
+      <div class="input__reset__pw">
+        {{ form.new_password2.errors }}
+        <lable for="{{ form.new_password2.id_for_label }}"
+          ><p>새 비밀번호 (확인)</p></lable
+        >
+        <input
+          type="password"
+          name="new_password2"
+          autocomplete="new-password"
+          required=""
+          id="id_new_password2"
+          placeholder="새 비밀번호 (확인)"
+        />
+      </div>
+      <!--{{ form }}-->
+      <div id="reset-pw-cf__btn__container">
+        <button id="reset-pw-cf__btn">저장</button>
+      </div>
+    </form>
+  </div>
+</main>
+{% endblock %}

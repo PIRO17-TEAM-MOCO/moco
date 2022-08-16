@@ -92,6 +92,7 @@ main .input {
   padding-left: 1rem;
   border: 1px solid #8c8c8c;
   margin-bottom: 1rem;
+  font-size: 1rem;
 }
 
 .input__reg__pw input::placeholder {

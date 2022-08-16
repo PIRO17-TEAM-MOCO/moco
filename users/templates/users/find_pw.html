@@ -1,0 +1,45 @@
+{% extends 'users/account_base.html' %} {% block content %}
+<main>
+  <span>비밀번호 찾기</span>
+  <form method="POST" action="{% url 'users:find_pw' %}">
+    {% csrf_token %}
+    <div class="find-id__container">
+      <div class="input__reg__name">
+        {{ form.name.errors }}
+        <lable for="{{ form.name.id_for_label }}"
+          ><p style="margin-top: 2.5rem">이름</p></lable
+        >
+        <input
+          type="text"
+          name="name"
+          maxlength="10"
+          required=""
+          id="id_name"
+          placeholder="이름"
+        />
+      </div>
+      <div class="input__reg__id">
+        {{ form.username.errors }}
+        <lable for="{{ form.username.id_for_label }}"
+          ><p style="margin-top: 2.5rem">아이디</p></lable
+        >
+        <input
+          type="text"
+          name="username"
+          maxlength="20"
+          autofocus=""
+          required=""
+          id="id_username"
+          placeholder="아이디"
+        />
+      </div>
+      <button
+        onclick="location.href=('{% url 'users:reset_pw' %}')"
+        type="submit"
+      >
+        비밀번호 찾기
+      </button>
+    </div>
+  </form>
+</main>
+{% endblock %}

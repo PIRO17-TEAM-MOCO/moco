@@ -2,8 +2,9 @@
 <main>
   <div class="idsearch__container">
     <div class="idsearch__div">
-      <span>아이디 찾기</span>
       {% if form %}
+      <span>아이디 찾기</span>
+
       <form
         action="{% url 'users:find_id' %}"
         method="post"
@@ -34,36 +35,33 @@
             />
           </div>
           <button id="search__btn" type="submit">아이디 찾기</button>
-          <!--<div
-            id="searchModal"
-            class="find__modal-overlay"
-            style="display: none"
-          >
-            <div class="modal__window">
-              <div class="modal__title">
-                <div class="modal-close">X</div>
-                <h4>
-                  회원님의 아이디는
-                  <div class="search__modal__content">{{user.username}}</div>
-                  입니다
-                </h4>
-              </div>
-            </div>
-          </div>-->
         </div>
       </form>
       {% elif users %} {% for user in users %}
-      <p>
-        아이디는 {{user.username}} 입니다.
-        <a href="{% url 'users:login' %}"
-          ><button id="search__btn">로그인 페이지로 돌아가기</button></a
-        >
-      </p>
+      <div id="search__modal" class="search__result; modal-overlay">
+        <div class="modal__window">
+          <div class="modal-close">x</div>
+          <div class="modal__content">
+            <p style="font-size: 1rem; font-weight: 300">
+              아이디는&nbsp;
+              <span style="color: blue; font-weight: 900">
+                {{user.username}}
+              </span>
+              &nbsp;입니다.
+              <a href="{% url 'users:login' %}"
+                ><button id="backtologin__btn">
+                  로그인 페이지로 돌아가기
+                </button></a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
       {% endfor %} {% else %}
       <p>
         등록된 회원이 아닙니다.
         <a href="{% url 'users:find_id' %}"
-          ><button id="search__btn">X</button></a
+          ><button id="backtologin__btn">X</button></a
         >
       </p>
       {% endif %}
@@ -71,22 +69,24 @@
   </div>
 </main>
 <script>
-  /*const findIdModal = document.getElementById("searchModal");
-  const findIdBtn = document.getElementById("search__btn");
-  findIdBtn.addEventListener("click", (e) => {
-    findIdModal.style.display = "flex";
+  const modal = document.getElementById("search__modal");
+  const btnModal = document.getElementById("backtologin__btn");
+  btnModal.addEventListener("click", (e) => {
+    modal.style.display = "flex";
   });
 
-  const findCloseBtn = modal.querySelector(".modal-close");
-  findCloseBtn.addEventListener("click", (e) => {
-    findIdModal.style.display = "none";
+  const closeBtn = modal.querySelector(".modal-close");
+  closeBtn.addEventListener("click", (e) => {
+    modal.style.display = "none";
+    location.replace("{% url 'users:find_id' %}");
   });
 
-  findIdModal.addEventListener("click", (e) => {
+  modal.addEventListener("click", (e) => {
     const evTarget = e.target;
-    if (evTarget.classList.contains("find__modal-overlay")) {
-      findIdModal.style.display = "none";
+    if (evTarget.classList.contains("modal-overlay")) {
+      modal.style.display = "none";
+      location.replace("{% url 'users:find_id' %}");
     }
-  });*/
+  });
 </script>
 {% endblock %}

@@ -1,0 +1,114 @@
+main {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-family: "Noto Sans", "Noto Sans KR";
+  margin-top: 5rem;
+}
+
+#change-pw__container {
+  width: 50rem;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 2rem;
+  flex-wrap: wrap;
+  margin-top: 5rem;
+}
+
+main .pw-input__container {
+  width: 50rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 2rem;
+  font-weight: 900;
+  font-size: 0.5rem;
+}
+
+.change-pw__input {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pw-input__container p {
+  width: 30rem;
+  font-size: 1rem;
+  font-weight: normal;
+  color: #000;
+  margin-bottom: 0.5rem;
+}
+
+.input__cur__pw input {
+  width: 30rem;
+  height: 3.3rem;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+  padding-left: 1rem;
+  font-size: 1rem;
+  border: 1px solid #8c8c8c;
+}
+
+.input__new__pw input {
+  width: 30rem;
+  height: 3.3rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  font-size: 1rem;
+  border: 1px solid #8c8c8c;
+}
+
+.input__new__pw2 input {
+  width: 30rem;
+  height: 3.3rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  font-size: 1rem;
+  border: 1px solid #8c8c8c;
+}
+
+#change__btn__container {
+  width: 30rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#cancel-pw__btn {
+  cursor: pointer;
+  margin-top: 2rem;
+  margin-bottom: 5rem;
+  width: 9rem;
+  height: 4rem;
+  outline: 0;
+  border: 0;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  background-color: #bfbfbf;
+  color: #fff;
+  font-weight: 900;
+}
+
+#change-pw__btn {
+  cursor: pointer;
+  margin-top: 2rem;
+  margin-bottom: 5rem;
+  width: 20rem;
+  height: 4rem;
+  outline: 0;
+  border: 0;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  background-color: blue;
+  color: #fff;
+  font-weight: 900;
+}

@@ -1,25 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <!--Reset Password-->
-    <div>
-      <h2>비밀번호 재설정</h2>
-      <hr />
-      <p>
-        비밀번호를 잊어버리셨나요?<br />
-        가입하신 아이디와 이메일을 입력해 주세요.<br />
-        잠시 후 해당 이메일로 비밀번호 재설정 메일이 발송됩니다.
-      </p>
-      <form method="POST">
-        {% csrf_token %} {{ form }}
-        <button type="submit">전송</button>
+{% extends 'users/account_base.html' %} {% block content %}
+<main>
+  <div id="reset-pw__container">
+    <div id="reset-pw__title">
+      <span>비밀번호 재설정</span>
+    </div>
+    <div id="reset-pw__input">
+      <form method="POST" id="reset__form">
+        {% csrf_token %}
+
+        <div class="input__email">
+          {{ form.email.errors }}
+          <lable for="{{ form.email.id_for_label }}"><p>이메일</p></lable>
+          <input
+            type="email"
+            name="email"
+            autocomplete="email"
+            maxlength="254"
+            required=""
+            id="id_email"
+            placeholder="이메일"
+          />
+        </div>
+        <div class="input__username">
+          {{ form.username.errors }}
+          <lable for="{{ form.username.id_for_label }}"><p>아이디</p></lable>
+          <input
+            type="text"
+            name="username"
+            required=""
+            id="id_username"
+            placeholder="아이디"
+          />
+        </div>
+        <!--{{ form }}-->
+        <div id="reset-pw__btn__container">
+          <div id="reset-pw__desc">
+            비밀번호를 잊어버리셨나요?<br />
+            가입하신 아이디와 이메일을 입력해 주세요.<br />
+            잠시 후 해당 이메일로 비밀번호 재설정 메일이 발송됩니다.
+          </div>
+          <button id="reset-pw__btn" type="submit">전송</button>
+        </div>
       </form>
     </div>
-  </body>
-</html>
+  </div>
+</main>
+{% endblock %}

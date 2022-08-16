@@ -240,9 +240,12 @@ def review_revise(request, id):
     return render(request, template_name="reviews/review_revise.html", context=context)
 
 
-def review_delete(request, id):
-    if request.method == "POST":
-        review = Review.objects.get(id=id)
-        post_id = review.post.id
-        Review.objects.filter(id=id).delete()
-        return redirect(f"/post/detail/{post_id}")
+@csrf_exempt
+def review_delete(request):
+    req = json.loads(request.body)
+    review_id = req['id']
+    Review.objects.filter(id=review_id).delete()
+    data = {
+        'id': review_id,
+    }
+    return JsonResponse(data)

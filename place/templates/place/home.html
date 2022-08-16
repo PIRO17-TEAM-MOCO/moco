@@ -2,10 +2,10 @@
 {% block content %}
 <div class="content">
   <div class="content-category"> <!--카테고리-->
-    <div class="content-category__item">전체</div>
-    <div class="content-category__item">카페</div>
-    <div class="content-category__item">스터디룸</div>
-    <div class="content-category__item">그 외</div>
+    <div class="content-category__item"><a href="{% url 'place:home' 'all' %}">전체</a> </div>
+    <div class="content-category__item"><a href="{% url 'place:home' 'cafe' %}">카페</a></div>
+    <div class="content-category__item"><a href="{% url 'place:home' 'studyroom' %}">스터디룸</a></div>
+    <div class="content-category__item"><a href="{% url 'place:home' 'etc' %}">그 외</a></div>
   </div>
     <form class="search"> {% csrf_token %} <!--검색-->
       <i class="fa-solid fa-magnifying-glass"></i>

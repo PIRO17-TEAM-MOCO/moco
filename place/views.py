@@ -5,8 +5,20 @@ from .models import Place, PlaceImage
 from .forms import PlaceForm
 
 
-def home(request):
-    places = Place.objects.annotate(comment_count=Count('comment'))
+def home(request, category):
+    # url에서 매개변수로 카테고리 받아옴
+    if category == 'all':
+        places = Place.objects.all()
+    elif category == 'cafe':
+        places = Place.objects.filter(category='Cafe')
+    elif category == 'studyroom':
+        places = Place.objects.filter(category='StudyRoom')
+    elif category == 'etc':
+        places = Place.objects.filter(category='Etc')
+    else:
+        places = Place.objects.all()
+    # sort는 html에서 받아옴
+    places = places.annotate(comment_count=Count('comment'))
     sort = request.GET.get('sort', 'None')
     if sort == "latest":
         places = places.order_by("-published_at")

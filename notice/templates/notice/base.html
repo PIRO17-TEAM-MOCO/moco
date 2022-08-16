@@ -36,7 +36,7 @@
             </ul>
           </div>
         </li>
-        <li><a href="{% url 'place:home' %}">플레이스</a></li>
+        <li><a href="{% url 'place:home' 'all' %}">플레이스</a></li>
         <li><a href="{% url 'notice:home' %}">공지사항</a></li>
       </ul>
       <ul class="navbar__shortcut">
@@ -65,7 +65,9 @@
               <a href="{% url 'users:profile_view' user.id %}">마이페이지</a>
             </li>
             <li>
-              <a href="{% url 'users:logout' %}?next={{request.path}}">로그아웃</a>
+              <a href="{% url 'users:logout' %}?next={{request.path}}"
+                >로그아웃</a
+              >
             </li>
           </ul>
         </div>
@@ -81,7 +83,9 @@
             </ul>
           </div>
         </li>
-        <li><a href="{% url 'users:login' %}?next={{request.path}}">로그인</a></li>
+        <li>
+          <a href="{% url 'users:login' %}?next={{request.path}}">로그인</a>
+        </li>
         {% endif %}
       </ul>
     </nav>

@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from .models import Place, PlaceImage
 from .forms import PlaceForm
+from comments.models import Comment
 
 
 def home(request):
@@ -60,9 +61,14 @@ def write(request):
 def detail(request, id):
     place = Place.objects.get(id=id)
     images = PlaceImage.objects.filter(place=place)
+    all_comments = place.comment_set.all().filter(cmt_class=Comment.CMT_PARENT)
+    comments_len = len(place.comment_set.all())
+
     context = {
         "place": place,
         "images": images,
+        "comments": all_comments,
+        "comments_len": comments_len,
     }
     return render(request, template_name="place/detail.html", context=context)
 

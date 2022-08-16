@@ -29,7 +29,7 @@
                   <p>{{place.likes}}</p>
                 </button>
               </form>
-            </div> -->
+            </div>
         <div class="dropdown">
           <button onclick="dp_menu()" class="button"><i class="fa-solid fa-ellipsis"></i></button>
           <div style="display: none;" id="drop-content">
@@ -89,7 +89,77 @@
       <div id="map" style="height:400px; margin: 1.5rem 0;"></div>
     </div>
 
+    <div id="main_detail__comment">
+      <div id="main_detail__comment__top">
+        <div id="main_detail__comment__blank">
+          <h2>댓글</h2>
+          <h2 id="main_detail__comment_num">{{comments_len}}</h2>
+        </div>
+        <div id="main_detail__comment__rule">
+          <span>300자 이내 작성</span>
+        </div>
+      </div>
+      <div id="main_detail__comment__blank_box">
+        <form action="{% url 'comments:write-place' place.id %}" method="post">
+          {% csrf_token %}
+          <textarea
+            type="text"
+            name="content"
+            id="comment_input_box"
+            cols="30"
+            rows="10"
+            placeholder="댓글을 입력해주세요."
+          ></textarea>
+          <div id="main_detail__comment__btnplace">
+            <input
+              type="submit"
+              id="main_detail__comment__btn"
+              value="댓글쓰기"
+            />
+          </div>
+        </form>
+      </div>
+      <div id="main_detail__comment__contents">
+        {% for comment in comments %}
+        <div id="main_detail__comment__each__contents__{{comment.id}}">
+          <div id="main_detail__comment__contents__profile">
+            <div id="main_detail__comment__contents__img">
+              <i class="fa-solid fa-circle-user fa-2x"></i>
+              <img src="{{review.user.profile_img}}" alt="profile_img"></img>
+            </div>
+            <div id="main_detail__comments__contents__info">
+              <div id="main_detail__comments__contents__name">
+                <span>{{comment.user.nickname}}</span>
+              </div>
+              <div id="main_detail__comments__contents__time">
+                <span>2022-07-28</span>
+              </div>
+            </div>
+          </div>
+          <div id="main_detail__comment__contents__txt__{{comment.id}}">
+            <span>{{comment.content}}</span>
+          </div>
+          <div id="main_detail__comment__contents__reply">
+            {% comment %} 답글 테스트로 여기 위치
+            {% for recomment in comment.comment_set.all %}
+            <div>{{recomment.content}}</div>
+            {% endfor%} {% endcomment %}
+            <div id="main_detail_comment_contents_reply_form__{{comment.id}}"></div>
+            
+          </div>
+          {% if comment.user == request.user %}
+          <button onclick="changeForm({{comment.id}}, '{{comment.content}}');">수정</button>
+          <button onclick="onClickdelete({{comment.id}})">삭제</button> 
+          {% endif%}
+          <button onclick="changeForm2({{comment.id}});">답글</button>
+          <br />
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
 </div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
   function dp_menu(){
       let click = document.getElementById("drop-content");
@@ -134,6 +204,45 @@
         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
         map.setCenter(coords);
     } 
-    });    
+    });  
+    
+  const sp = document.getElementById('main_detail__comment__contents__txt')
+  let idd = null;
+  
+  const changeForm = (id, content) => {
+    idd = id;
+    const revise = document.getElementById(`main_detail__comment__contents__txt__${id}`)
+    revise.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}<textarea type="text" name="content">${content}</textarea><input type="submit" value="등록"/><a href="{% url 'place:detail' place.id %}">취소</a></form>`
+  }
+
+  const changeForm2 = (id) => {
+    const recomt = document.getElementById(`main_detail_comment_contents_reply_form__${id}`)
+    recomt.innerHTML = `<form action="/comment/recomment/${id}" method="post">{% csrf_token %}<textarea type="text" name="content"></textarea><input type="submit" value="등록"/><a href="{% url 'place:detail' place.id %}">취소</a></form>`
+  }
+
+  const requestDelete = new XMLHttpRequest();
+
+  const onClickdelete = (id) => {
+      const url = "/comment/delete";
+      requestDelete.open("POST",url,true);
+      requestDelete.setRequestHeader(
+          "Content-Type",
+          "application/x-www-form-urlencoded"
+      );
+      requestDelete.send(JSON.stringify({'id':id}));
+  }
+
+  requestDelete.onreadystatechange = () => {
+      if (requestDelete.readyState === XMLHttpRequest.DONE){
+          if(requestDelete.status < 400){
+              const {id, len} = JSON.parse(requestDelete.response);
+              const topdom = document.getElementById("main_detail__comment__contents");
+              const deletedom = document.getElementById(`main_detail__comment__each__contents__${id}`);
+              topdom.removeChild(deletedom);
+              const cmtLen = document.getElementById('main_detail__comment_num')
+              cmtLen.innerHTML = len
+          }
+      }
+  }
 </script>
 {% endblock %}

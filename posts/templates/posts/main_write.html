@@ -171,13 +171,19 @@
         <div id="main_write__content__contents">
           <div class="main_write__tag_write__main_title"><h3>내용</h3></div>
           <div id="main_write__content__write_txt">
-            <textarea
-              name="content"
-              id="main_write__content_box"
-              cols="30"
-              rows="10"
-              placeholder="내용을 작성해주세요."
-            ></textarea>
+            <form action="" method="POST">
+              {% csrf_token %}
+              <table>
+                {{form.as_table}}
+              </table>
+              <textarea
+                name="content"
+                id="main_write__content_box"
+                cols="30"
+                rows="10"
+                placeholder="내용을 작성해주세요."
+              ></textarea>
+            </form>
           </div>
         </div>
       </div>

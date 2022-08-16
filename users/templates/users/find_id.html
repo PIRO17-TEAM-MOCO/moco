@@ -58,12 +58,22 @@
         </div>
       </div>
       {% endfor %} {% else %}
-      <p>
-        등록된 회원이 아닙니다.
-        <a href="{% url 'users:find_id' %}"
-          ><button id="backtologin__btn">X</button></a
-        >
-      </p>
+      <div id="search__modal" class="search__result; modal-overlay">
+        <div class="modal__window">
+          <div class="modal-close">x</div>
+          <div class="modal__content">
+            <p style="font-size: 1rem; font-weight: 300">
+              등록된 회원이 아닙니다.
+              <a href="{% url 'users:login' %}"
+                ><button id="backtologin__btn">
+                  로그인 페이지로 돌아가기
+                </button></a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+
       {% endif %}
     </div>
   </div>

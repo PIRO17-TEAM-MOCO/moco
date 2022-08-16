@@ -235,6 +235,63 @@
   div2nd.style.display = "none";
 
   function signupFunction() {
+    var uid = document.getElementById("id_username");
+    var email_id = document.getElementById("id_email");
+    var pwd = document.getElementById("id_password1");
+    var repwd = document.getElementById("id_password2");
+
+  if (uid.value == "") { 
+    alert("아이디를 입력하세요.");
+    uid.focus(); 
+    return false; 
+  };
+
+  var uidCheck = /^(?=.*[a-zA-Z]).{5,20}$/;
+
+  if (!uidCheck.test(uid.value)) {
+    alert("아이디는 5~20자리 영문(소문자)와 숫자로 설정해주세요.")
+    uid.focus();
+    return false();
+  }
+
+   if (email_id.value == "") {
+    alert("이메일 주소를 입력하세요.");
+    email_id.focus();
+    return false;
+  }
+
+  var emailCheck = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+
+  if (!emailCheck.test(email_id.value)) {
+    alert("이메일 형식에 맞춰 입력해주세요.")
+    email_id.focus();
+    return false;
+  }
+
+  if (pwd.value == "") {
+    alert("비밀번호를 입력하세요.");
+    pwd.focus();
+    return false;
+  };
+
+  var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+
+  if (!pwdCheck.test(pwd.value)) {
+    alert("비밀번호는 영문자+숫자+특수문자 조합으로 8~15자리 사용해야 합니다.");
+    pwd.focus();
+    return false;
+  };
+
+  if (repwd.value !== pwd.value) {
+    alert("비밀번호가 일치하지 않습니다.");
+    repwd.focus();
+    return false;
+  };
+
+  //if (!$("input:checked[id='input__reg__cb']").is(":checked")){ 
+	//  alert("에러문구를 표시"); 
+  //}
+
     if (div1st.style.display === "flex") {
       div2nd.style.display = "none";
     } else {
@@ -254,46 +311,8 @@
   //
   function joinform_check() {
   //변수에 담아주기
-  var uid = document.getElementById("id_username");
-  var pwd = document.getElementById("id_password1");
-  var repwd = document.getElementById("id_password2");
   var uname = document.getElementById("id_name");
   var nickname = document.getElementById("id_nickname")
-  var email_id = document.getElementById("id_email");
-
-  if (uid.value == "") { 
-    alert("아이디를 입력하세요.");
-    uid.focus(); 
-    return false; 
-  };
-
-  if (pwd.value == "") {
-    alert("비밀번호를 입력하세요.");
-    pwd.focus();
-    return false;
-  };
-
-  var uidCheck = /^(?=.*[a-zA-Z]).{5,20}$/;
-
-  if (!uidCheck.test(uid.value)) {
-    alert("아이디는 5~20자리 영문(소문자)와 숫자로 설정해주세요.")
-    uid.focus();
-    return false();
-  }
-
-  var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
-
-  if (!pwdCheck.test(pwd.value)) {
-    alert("비밀번호는 영문자+숫자+특수문자 조합으로 8~15자리 사용해야 합니다.");
-    pwd.focus();
-    return false;
-  };
-
-  if (repwd.value !== pwd.value) {
-    alert("비밀번호가 일치하지 않습니다.");
-    repwd.focus();
-    return false;
-  };
 
   var unameCheck = /^(?=.*[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{2,10}$/;
 
@@ -310,12 +329,6 @@
   };
 
   var nicknameCheck = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi
-
-  if (email_id.value == "") {
-    alert("이메일 주소를 입력하세요.");
-    email_id.focus();
-    return false;
-  }
 
   if (!nicknameCheck.temst(nickname.value)) {
     alert("닉네임은 특수문자를 제외하여 10자 이내로 작성해주세요.");

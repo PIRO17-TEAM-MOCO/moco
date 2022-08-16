@@ -1,68 +1,66 @@
-{% extends 'place/base.html' %}
-{% block content %}
+{% extends 'place/base.html' %} {% block content %}
 <div class="content">
-<form action="{% url 'place:update' id %}" method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  {% for image in images %}
-      {% if image.place == place %}
-        <p>Currently: {{image.image.url}}</p>
-        {% endif %}
-      {% endfor %}
-  <input type="file" name="place_images" multiple>
-  <div class="content-box__item">
+  <form
+    action="{% url 'place:update' id %}"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    {% csrf_token %}
+    <input type="file" name="place_images" multiple />
+    <div class="content-box__item">
       {{ form.name.errors }}
       <lable for="{{ form.name.id_for_label }}">상호명</lable>
       {{ form.name }}
-  </div>
-  <div class="content-box__item">
+    </div>
+    <div class="content-box__item">
       {{ form.location.errors }}
       <lable for="{{ form.location.id_for_label }}">위치</lable>
       {{ form.location }}
-  </div>
-  <div class="content-box__item">
+    </div>
+    <div class="content-box__item">
       {{ form.category.errors }}
       <lable for="{{ form.category.id_for_label }}">장소 분류</lable>
       {{ form.category }}
-  </div>
-  <div class="content-box__item">
-    {{ form.opening_time.errors }}
-    <lable for="{{ form.opening_time.id_for_label }}">운영 시간</lable>
-    {{ form.opening_time }}
-  </div>
-  <div class="content-box__item">
-    {{ form.closing_time.errors }}
-    <lable for="{{ form.closing_time.id_for_label }}">운영 시간</lable>
-    {{ form.closing_time }}
-  </div>
-  <div class="content-box__item">
-    {{ form.wifi.errors }}
-    <lable for="{{ form.wifi_time.id_for_label }}">와이파이</lable>
-    {{ form.wifi }}
-  </div>
-  <div class="content-box__item">
+    </div>
+    <div class="content-box__item">
+      {{ form.opening_time.errors }}
+      <lable for="{{ form.opening_time.id_for_label }}">운영 시간</lable>
+      {{ form.opening_time }}
+    </div>
+    <div class="content-box__item">
+      {{ form.closing_time.errors }}
+      <lable for="{{ form.closing_time.id_for_label }}">운영 시간</lable>
+      {{ form.closing_time }}
+    </div>
+    <div class="content-box__item">
+      {{ form.wifi.errors }}
+      <lable for="{{ form.wifi_time.id_for_label }}">와이파이</lable>
+      {{ form.wifi }}
+    </div>
+    <div class="content-box__item">
       {{ form.power_socket.errors }}
       <lable for="{{ form.power_socket.id_for_label }}">콘센트</lable>
       {{ form.power_socket }}
-  </div>
-  <div class="content-box__item">
+    </div>
+    <div class="content-box__item">
       {{ form.rating.errors }}
       <lable for="{{ form.rating.id_for_label }}">별점</lable>
       {{ form.rating }}
-  </div>
-  <div class="content-box__item">
+    </div>
+    <div class="content-box__item">
       {{ form.content.errors }}
       <lable for="{{ form.content.id_for_label }}">후기</lable>
       {{ form.content }}
-  </div>
+    </div>
     <div class="content-box__item">
       <input type="button" value="취소" onclick="back()" />
       <input type="submit" value="등록하기" />
     </div>
   </form>
 </div>
-  <script>
-    const back = () => {
-      window.history.back();
-    }
-  </script>
+<script>
+  const back = () => {
+    window.history.back();
+  };
+</script>
 {% endblock content %}

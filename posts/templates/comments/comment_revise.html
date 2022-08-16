@@ -153,7 +153,7 @@
           <button></button>
         </div>
         {% if comment == revised_comment %}
-        <form action="{% url 'comments:revise' comment.id %}" method="post">
+        <form action="{% url 'comments:revise'%}" method="post">
         {% csrf_token %}
            <textarea type="text" name="content">{{comment.content}}</textarea>
            <input type="submit" value="댓글 수정"/>

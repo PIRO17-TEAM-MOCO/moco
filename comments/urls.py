@@ -9,6 +9,6 @@ urlpatterns = [
     path('write-place/<int:id>', views.write_place, name="write-place"),
     path('write-notice/<int:id>', views.write_notice, name="write-notice"),
     path('revise/<int:id>', views.revise, name="revise"),
-    path('delete/<int:id>', views.delete, name="delete"),
+    path('delete', views.delete, name="delete"),
     path('recomment/<int:id>', views.recomment, name="recomment"),
 ]

@@ -1,6 +1,7 @@
+from re import search
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.db.models import Count
+from django.db.models import Count, Q
 from .models import Place, PlaceImage
 from .forms import PlaceForm
 from comments.models import Comment
@@ -19,8 +20,16 @@ def home(request, category='None'):
         places = Place.objects.filter(category='Etc')
     else:
         places = Place.objects.all()
-    # sort는 html에서 받아옴
     places = places.annotate(comment_count=Count('comment'))
+    # search했다면 필터링 실행
+    search = request.Get.get('search', 'None')
+    if search:
+        places.filter(
+            Q(title__icontains = search) | #제목
+            Q(body__icontains = search) | #내용
+            Q(writer__username__icontains = search) #글쓴이
+            )
+    # sort는 html에서 받아옴
     sort = request.GET.get('sort', 'None')
     if sort == "latest":
         places = places.order_by("-published_at")

@@ -68,13 +68,8 @@
             </div>-->
             <!--드롭다운 아직 연결 안돼서 일단 select box로-->
             <div>
-              기간 :
-              <select name="duration">
-                <option selected value="default">----</option>
-                {% for key, value in durations %}
-                <option value="{{ value }}">{{ value }}</option>
-                {% endfor %}
-              </select>
+              <div for="{{ form.duration.id_for_label }}">기간</div>
+              {{ form.duration }}
             </div>
             <!--드롭다운 아직 연결 안돼서 일단 select box로-->
           </div>
@@ -159,25 +154,14 @@
         <h2>글 제목과 내용을 작성해주세요</h2>
       </div>
       <div class="main_write__tag_write__main">
-        <div class="main_write__tag_write__main_title"><h3>제목</h3></div>
-        <div class="main_write__tag_write__main_content">
-          <input
-            type="text"
-            class="main_write__tag__main_content_input"
-            name="title"
-            placeholder="제목을 작성해주세요"
-          />
+        <div >
+          <input for="{{ form.title.id_for_label }}">제목</input>
+          {{ form.title }}
         </div>
         <div id="main_write__content__contents">
-          <div class="main_write__tag_write__main_title"><h3>내용</h3></div>
           <div id="main_write__content__write_txt">
-            <textarea
-              name="content"
-              id="main_write__content_box"
-              cols="30"
-              rows="10"
-              placeholder="내용을 작성해주세요."
-            ></textarea>
+            <div for="{{form.content.id_for_label }}">내용</div>
+            {{ form.content }}
           </div>
         </div>
       </div>

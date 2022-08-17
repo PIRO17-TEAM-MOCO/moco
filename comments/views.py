@@ -19,7 +19,7 @@ def write_post(request, id):
         post = Post.objects.get(id=id)
         tag = Comment.TAG_POST
         exp = user.exp
-        user.exp = exp + 5
+        user.exp = exp + 10
         user.save()
         Comment.objects.create(user=user, post=post,
                                tag=tag, content=content)
@@ -34,7 +34,7 @@ def write_place(request, id):
         place = Place.objects.get(id=id)
         tag = Comment.TAG_PLACE
         exp = user.exp
-        user.exp = exp + 5
+        user.exp = exp + 10
         user.save()
         Comment.objects.create(user=user, place=place,
                                tag=tag, content=content)
@@ -48,6 +48,9 @@ def write_notice(request, id):
         user = request.user
         notice = Notice.objects.get(id=id)
         tag = Comment.TAG_NOTICE
+        exp = user.exp
+        user.exp = exp + 10
+        user.save()
         Comment.objects.create(user=user, notice=notice,
                                tag=tag, content=content)
         return redirect(f"/notice/detail/{id}")

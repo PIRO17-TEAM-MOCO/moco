@@ -22,12 +22,13 @@ def home(request, category='None'):
         places = Place.objects.all()
     places = places.annotate(comment_count=Count('comment'))
     # search했다면 필터링 실행
-    search = request.Get.get('search', 'None')
-    if search:
-        places.filter(
-            Q(title__icontains = search) | #제목
-            Q(body__icontains = search) | #내용
-            Q(writer__username__icontains = search) #글쓴이
+    search = request.GET.get('search', 'None')
+    if search != 'None':
+        places = places.filter(
+            Q(name__icontains = search) | #제목
+            Q(content__icontains = search) | #내용
+            Q(user__nickname__exact = search) | #글쓴이(닉네임 정확히 일치해야함)
+            Q(location__icontains = search) #위치
             )
     # sort는 html에서 받아옴
     sort = request.GET.get('sort', 'None')

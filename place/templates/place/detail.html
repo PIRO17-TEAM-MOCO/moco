@@ -13,7 +13,7 @@
     </div>
     <div class="content-right">
             <div id="main_detail__top__like">
-              <button id="{{place.id}}" onclick="post_like(this.id)">
+              <button id="{{place.id}}" onclick="place_like(this.id)">
                 좋아요
                 <span id="like_count">{{place.likes}}</span>
             </button>
@@ -237,9 +237,9 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script type="text/javascript">
-function post_like(id) {
+function place_like(id) {
     $.ajax({
-        url: "{%url 'users:likes' 2 %}", // data를 전송할 url 입니다.
+        url: "{%url 'users:likes' 2 %}", // data를 전송할 url 입니다. place = 2
         data: {
             'id': id
         }, // id 값 전송

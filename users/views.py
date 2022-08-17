@@ -318,7 +318,7 @@ def likes(request, tag):
             post.save()
             print('like 성공')
         context = {
-            'like_count': place.likes,
+            'like_count': post.likes,
             'error': error,
         }
         return HttpResponse(json.dumps(context), content_type='application/json')

@@ -73,10 +73,10 @@ def login(request):
         next = request.POST.get("next")
         if form.is_valid():
             auth.login(request, form.get_user())
-            if next == 'None':
-                return redirect('posts:home')
-            else:
+            try:
                 return redirect(next)
+            except:
+                return redirect('posts:home')
         else:
             context = {
                 'form': form,
@@ -97,13 +97,10 @@ def login(request):
 def logout(request):
     auth.logout(request)
     next = request.GET.get('next')
-    context = {
-        'next': next,
-    }
-    if next == 'None':
-        return redirect('posts:home')
-    else:
+    try:
         return redirect(next)
+    except:
+        return redirect('posts:home')
 
 
 def find_id(request):

@@ -13,10 +13,21 @@ from django.contrib import messages
 # Create your views here.
 
 
-def home(request):
+def home(request, contact='None'):
+    # url에서 매개변수로 컨택트 받아옴
+    # url에서 매개변수를 안 주면 'None'처리
+    if contact == 'all':
+        posts = Post.objects.all()
+    elif contact == 'offline':
+        posts = Post.objects.filter(contact='Off')
+    elif contact == 'online':
+        posts = Post.objects.filter(contact='On')
+    elif contact == 'mix':
+        posts = Post.objects.filter(contact='Mix')
+    else:
+        posts = Post.objects.all()
     query = request.GET.get('query', None)
     dur = request.GET.get('duration', None)
-    ctt = request.GET.get('contact', None)
 
     q = Q()
     if dur == "regular":
@@ -25,13 +36,6 @@ def home(request):
     elif dur == "one-time":
         q.add(Q(duration="번개"), q.AND)
 
-    if ctt == "on":
-        q.add(Q(contact="온라인"), q.AND)
-    elif ctt == "off":
-        q.add(Q(contact="오프라인"), q.AND)
-    elif ctt == "mix":
-        q.add(Q(contact="혼합"), q.AND)
-
     if query:
         q.add(Q(title__contains=query), q.OR)
         q.add(Q(tag__contains=query), q.OR)
@@ -39,7 +43,7 @@ def home(request):
         q.add(Q(location__contains=query), q.OR)
         q.add(Q(user__nickname__contains=query), q.OR)
 
-    posts = Post.objects.filter(q)
+    posts = posts.filter(q)
 
     sort = request.GET.get('sort', 'None')
     if sort == "latest":
@@ -54,7 +58,6 @@ def home(request):
         "posts": posts,
         "sort": sort,
         "duration": dur,
-        "contact": ctt
     }
     return render(request, template_name="posts/main.html", context=context)
 

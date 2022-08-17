@@ -5,8 +5,9 @@ from .models import Place, PlaceImage
 from .forms import PlaceForm
 
 
-def home(request, category):
+def home(request, category='None'):
     # url에서 매개변수로 카테고리 받아옴
+    # url에서 매개변수를 안 주면 'None'처리
     if category == 'all':
         places = Place.objects.all()
     elif category == 'cafe':

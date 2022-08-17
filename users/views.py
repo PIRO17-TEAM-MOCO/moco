@@ -12,6 +12,8 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
+from django.http import HttpResponse,JsonResponse
+import json
 from datetime import datetime
 from .models import User
 from .forms import ProfileForm, SignupForm, FindidForm, ResetpwForm
@@ -71,10 +73,10 @@ def login(request):
         next = request.POST.get("next")
         if form.is_valid():
             auth.login(request, form.get_user())
-            if next == 'None':
-                return redirect('posts:home')
-            else:
+            try:
                 return redirect(next)
+            except:
+                return redirect('posts:home')
         else:
             context = {
                 'form': form,
@@ -95,13 +97,10 @@ def login(request):
 def logout(request):
     auth.logout(request)
     next = request.GET.get('next')
-    context = {
-        'next': next,
-    }
-    if next == 'None':
-        return redirect('posts:home')
-    else:
+    try:
         return redirect(next)
+    except:
+        return redirect('posts:home')
 
 
 def find_id(request):
@@ -235,51 +234,57 @@ def profile_edit(request, id):
         return render(request, template_name='users/profile_edit.html', context=context)
 
 
-@login_required
-def like(request, id, tag):
-    if request.method == 'POST':
-        user = request.user
-        if tag == TAG_POST:
-            post = Post.objects.get(id=id)
-            post.like_users.add(user)
-            post.likes += 1
-            post.save()
-            return redirect(f'/post/detail/{id}')
-        elif tag == TAG_PLACE:
-            place = Place.objects.get(id=id)
-            place.like_users.add(user)
-            place.likes += 1
-            place.save()
-            print('like 성공')
-            for like_place in user.like_places.all():
-                print(like_place)
-            return redirect(f'/place/detail/{id}')
-        else:
-            return redirect('/post')
-    else:
-        return redirect('/post')
+def is_ajax(request):
+    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
+def likes(request, tag):
+    if is_ajax(request):
+        error = False
+        # 로그인 안 했으면 로그인 창으로 이동
+        if not request.user.is_authenticated:
+            error = True
+            print('로그인이 필요합니다.')
+            context = {
+                'error': error,
+            }
+            return HttpResponse(json.dumps(context), content_type='application/json')
 
-@login_required
-def unlike(request, id, tag):
-    if request.method == 'POST':
+        id = request.GET['id']
+    if tag == TAG_POST:
+        post = Post.objects.get(id=id) 
         user = request.user
-        if tag == TAG_POST:
-            post = Post.objects.get(id=id)
+        if user in post.like_users.all():
             post.like_users.remove(user)
             post.likes -= 1
             post.save()
-            return redirect(f'/post/detail/{id}')
-        elif tag == TAG_PLACE:
-            place = Place.objects.get(id=id)
+            print('unlike 성공')
+        else:
+            post.like_users.add(user)
+            post.likes += 1
+            post.save()
+            print('like 성공')
+        context = {
+            'like_count': post.likes,
+            'error': error,
+        }
+        return HttpResponse(json.dumps(context), content_type='application/json')
+    elif tag == TAG_PLACE:
+        place = Place.objects.get(id=id) 
+        user = request.user
+
+        if user in place.like_users.all():
             place.like_users.remove(user)
             place.likes -= 1
             place.save()
             print('unlike 성공')
-            for like_place in user.like_places.all():
-                print(like_place)
-            return redirect(f'/place/detail/{id}')
         else:
-            return redirect('/post')
-    else:
-        return redirect('/post')
+            place.like_users.add(user)
+            place.likes += 1
+            place.save()
+            print('like 성공')
+        # post.like.count() : 게시물이 받은 좋아요 수  
+        context = {
+            'like_count': place.likes,
+            'error': error,
+        }
+        return HttpResponse(json.dumps(context), content_type='application/json')

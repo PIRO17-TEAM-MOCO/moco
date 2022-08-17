@@ -36,8 +36,13 @@
             </div>-->
             <!--드롭다운 아직 연결 안돼서 일단 select box로-->
             <div>
-              <div for="{{ form.contact.id_for_label }}">진행방식</div>
-              {{ form.contact }}
+              진행방식 :
+              <select name="contact">
+                <option selected value="default">----------</option>
+                {% for key, value in contacts %}
+                <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+              </select>
             </div>
           </div>
           <!--드롭다운 아직 연결 안돼서 일단 select box로-->

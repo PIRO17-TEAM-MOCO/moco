@@ -56,20 +56,10 @@
           {%endif%}
         </div>
         <div id="main_detail__top__like">
-          <form action="{% url 'users:like' post.id 1 %}" method="post">
-            {% csrf_token %}
-            <button id="main_detail__top__like_btn" type="submit">
-              <i class="fa-regular fa-heart fa-lg"></i>
-              <p>{{post.likes}}좋아요</p>
-            </button>
-          </form>
-          <form action="{% url 'users:unlike' post.id 1 %}" method="post">
-            {% csrf_token %}
-            <button id="main_detail__top__like_btn" type="submit">
-              <i class="fa-regular fa-heart fa-lg"></i>
-              <p>{{post.likes}}좋아요 취소</p>
-            </button>
-          </form>
+          <button id="{{post.id}}" onclick="post_like(this.id)">
+            좋아요
+            <span id="like_count">{{post.likes}}</span>
+        </button>
         </div>
       </div>
     </div>
@@ -159,7 +149,7 @@
         </div>
         {% if comment.user == request.user %}
         <button onclick="changeForm({{comment.id}}, '{{comment.content}}');">수정</button>
-        <button onclick="onClickdelete({{comment.id}})">삭제</button> 
+        <button onclick="onClickdelete({{comment.id}});">삭제</button> 
         {% endif%}
         <button onclick="changeForm2({{comment.id}});">답글</button>
         <br />
@@ -209,57 +199,56 @@
         </button>
       </div>
     </form>
-    {% for review in reviews %}
     <div id="main_detail__review__contents">
-      <div class="main_detail__review__contents_top">
-        <div class="review__contents_box__user_info">
-          <div class="review__contents_box__profile">
-            <div class="review__contents_box__profile_img">
-              <i class="fa-solid fa-circle-user fa-3x"></i>
-              <img src="{{review.user.profile_img}}" alt="profile_img"></img>
-            </div>
-            <div class="review__contents_box__info">
-              <div class="main_detail__contents__profile_name">
-                <span>{{review.user.nickname}}</span>
+    {% for review in reviews %}
+      <div id="main_detail__review__each__contents__{{review.id}}">
+        <div class="main_detail__review__contents_top">
+          <div class="review__contents_box__user_info">
+            <div class="review__contents_box__profile">
+              <div class="review__contents_box__profile_img">
+                <i class="fa-solid fa-circle-user fa-3x"></i>
+                <img src="{{review.user.profile_img}}" alt="profile_img"></img>
               </div>
-              <div class="main_detail__contents__profile_time">
-                <span>{{review.write_at}}</span>
+              <div class="review__contents_box__info">
+                <div class="main_detail__contents__profile_name">
+                  <span>{{review.user.nickname}}</span>
+                </div>
+                <div class="main_detail__contents__profile_time">
+                  <span>{{review.write_at}}</span>
+                </div>
               </div>
             </div>
+            {% if review.user == post.user %}
+            <div class="review__contents_box__auth">
+              <div id="review__contents_box__auth_host">주최자</div>
+            </div>
+            {% else %}
+            <div class="review__contents_box__auth">
+              <div id="review__contents_box__auth_guest">참여자</div>
+            </div>
+            {%endif%}
           </div>
-          {% if review.user == post.user %}
-			    <div class="review__contents_box__auth">
-            <div id="review__contents_box__auth_host">주최자</div>
+          <div class="main_detail__review__contents_revise">
+            <img src="/static/img/dots.png" alt="" />
+            {% if review.user == request.user %}
+            <button onclick="changeForm3({{review.id}}, '{{review.content}}');">수정</button>
+            <button onclick="onClickdelete2({{review.id}})">삭제</button>
+            {%endif%}
           </div>
-			    {% else %}
-			    <div class="review__contents_box__auth">
-            <div id="review__contents_box__auth_guest">참여자</div>
+        </div>
+        <div class="main_detail__review__contents_content__{{review.id}}">
+          {% if review.image %}
+          <img src="{{review.image.url}}"/>
+          {% else %}
+          <p>no image</p>
+          {% endif %}
+          <div class="main_detail__review__contents_text">
+            {{review.content}}
           </div>
-			    {%endif%}
         </div>
-        <div class="main_detail__review__contents_revise">
-          <img src="/static/img/dots.png" alt="" />
-          {% if review.user == request.user %}
-				  <a href="{% url 'posts:review-revise' review.id%}">수정</a>
-				  <form action="{% url 'posts:review-delete' review.id %}" method="post">
-					  {% csrf_token %}
-					  <button>삭제</button>
-				  </form>
-				  {%endif%}
-        </div>
-      </div>
-      <div class="main_detail__review__contents_content">
-        {% if review.image %}
-				<img src="{{review.image.url}}"/>
-				{% else %}
-				<p>no image</p>
-				{% endif %}
-        <div class="main_detail__review__contents_text">
-          {{review.content}}
-        </div>
-      </div>
     </div>
     {% endfor %}
+    </div>
     <div>
       {% if reviews.has_previous %}
         <a href="?page={{reviews.previous_page_number}}">이전</a>
@@ -278,36 +267,33 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-  const sp = document.getElementById('main_detail__comment__contents__txt')
-  let idd = null;
-  
+  // 댓글 수정
   const changeForm = (id, content) => {
-    idd = id;
-    const revise = document.getElementById(`main_detail__comment__contents__txt__${id}`)
-    revise.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}<textarea type="text" name="content">${content}</textarea><input type="submit" value="등록"/><a href="{% url 'posts:detail' post.id %}">취소</a></form>`
+    const reviseCmt = document.getElementById(`main_detail__comment__contents__txt__${id}`)
+    reviseCmt.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}<textarea type="text" name="content">${content}</textarea><input type="submit" value="등록"/><a href="{% url 'posts:detail' post.id %}">취소</a></form>`
   }
 
+  // 대댓글
   const changeForm2 = (id) => {
-    const recomt = document.getElementById(`main_detail_comment_contents_reply_form__${id}`)
-    recomt.innerHTML = `<form action="/comment/recomment/${id}" method="post">{% csrf_token %}<textarea type="text" name="content"></textarea><input type="submit" value="등록"/><a href="{% url 'posts:detail' post.id %}">취소</a></form>`
+    const reCmt = document.getElementById(`main_detail_comment_contents_reply_form__${id}`)
+    reCmt.innerHTML = `<form action="/comment/recomment/${id}" method="post">{% csrf_token %}<textarea type="text" name="content"></textarea><input type="submit" value="등록"/><a href="{% url 'posts:detail' post.id %}">취소</a></form>`
   }
 
-  const requestDelete = new XMLHttpRequest();
-
+  // 댓글 삭제
+  const cmtDelete = new XMLHttpRequest();
   const onClickdelete = (id) => {
       const url = "/comment/delete";
-      requestDelete.open("POST",url,true);
-      requestDelete.setRequestHeader(
+      cmtDelete.open("POST",url,true);
+      cmtDelete.setRequestHeader(
           "Content-Type",
           "application/x-www-form-urlencoded"
       );
-      requestDelete.send(JSON.stringify({'id':id}));
+      cmtDelete.send(JSON.stringify({'id':id}));
   }
-
-  requestDelete.onreadystatechange = () => {
-      if (requestDelete.readyState === XMLHttpRequest.DONE){
-          if(requestDelete.status < 400){
-              const {id, len} = JSON.parse(requestDelete.response);
+  cmtDelete.onreadystatechange = () => {
+      if (cmtDelete.readyState === XMLHttpRequest.DONE){
+          if(cmtDelete.status < 400){
+              const {id, len} = JSON.parse(cmtDelete.response);
               const topdom = document.getElementById("main_detail__comment__contents");
               const deletedom = document.getElementById(`main_detail__comment__each__contents__${id}`);
               topdom.removeChild(deletedom);
@@ -316,5 +302,85 @@
           }
       }
   }
+
+  // 후기 수정
+  const changeForm3 = (id, content) => {
+    console.log(id)
+    console.log(content)
+    const reviseRvw = document.querySelector(`.main_detail__review__contents_content__${id}`)
+    console.log(reviseRvw);
+    reviseRvw.innerHTML = `<form action="/post/review/revise/${id}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="main_detail__review__blank_box">
+        <div class="main_detail__review__filebox">
+          <label for="main_detail__review__upload_file">
+            <div class="main_detail__review__uploadbtn">
+              <h1>+</h1>
+              <p>이미지를 드래그하거나 <br> 클릭해서 업로드해주세요</p>
+            </div>
+          </label>
+          <input
+            type="file"
+            name="review_image"
+            class="main_detail__review__upload_file"
+            accept="image/*" />
+        </div>
+        <textarea
+          name="review_content"
+          class="review_input_box"
+          cols="30"
+          rows="10"
+        >${content}</textarea>
+      </div>
+      <div class="main_detail__review__btnplace">
+        <button type="submit" class="main_detail__review__btn">
+          <p>후기 작성</p>
+        </button>
+        <a href="{% url 'posts:detail' post.id %}">취소</a>
+      </div>
+    </form>`
+  }
+
+  // 후기 삭제
+  const rvwDelete = new XMLHttpRequest();
+  const onClickdelete2 = (id) => {
+      const url = "/post/review/delete";
+      rvwDelete.open("POST",url,true);
+      rvwDelete.setRequestHeader(
+          "Content-Type",
+          "application/x-www-form-urlencoded"
+      );
+      rvwDelete.send(JSON.stringify({'id':id}));
+  }
+  rvwDelete.onreadystatechange = () => {
+      if (rvwDelete.readyState === XMLHttpRequest.DONE){
+          if(rvwDelete.status < 400){
+              const {id} = JSON.parse(rvwDelete.response);
+              const topdom = document.getElementById("main_detail__review__contents");
+              const deletedom = document.getElementById(`main_detail__review__each__contents__${id}`);
+              topdom.removeChild(deletedom);
+          }
+      }
+  }
+
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+function post_like(id) {
+    $.ajax({
+        url: "{%url 'users:likes' 1 %}", // data를 전송할 url 입니다. post = 1
+        data: {
+            'id': id
+        }, // id 값 전송
+        dataType: "json",
+        success: function (response) { // ajax 통신이 정상적으로 완료되었을 때
+            $('#like_count').html(response.like_count) //id가 like_count의 내용을 전송받은 좋아요 수로 바꾼다
+            if (response.error) {
+              window.location.replace("http://127.0.0.1:8000/account/login"); // 배포용 서버로 변경
+            } 
+        }
+    })
+}
 </script>
 {% endblock content%}

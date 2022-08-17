@@ -15,10 +15,30 @@ from .forms import PostForm
 # Create your views here.
 
 
-def home(request):
+def home(request, contact='None'):
+    # url에서 매개변수로 컨택트 받아옴
+    # url에서 매개변수를 안 주면 'None'처리
+    if contact == 'all':
+        posts = Post.objects.all()
+    elif contact == 'offline':
+        posts = Post.objects.filter(contact='Off')
+    elif contact == 'online':
+        posts = Post.objects.filter(contact='On')
+    elif contact == 'mix':
+        posts = Post.objects.filter(contact='Mix')
+    else:
+        posts = Post.objects.all()
+    # search했다면 필터링 실행
+    search = request.GET.get('search', 'None')
+    if search != 'None':
+        places = places.filter(
+            Q(title__icontains = search) | #제목
+            Q(content__icontains = search) | #내용
+            Q(user__nickname__exact = search) | #글쓴이(닉네임 정확히 일치해야함)
+            Q(location__icontains = search) #위치
+            )
     query = request.GET.get('query', None)
     dur = request.GET.get('duration', None)
-    ctt = request.GET.get('contact', None)
 
     q = Q()
     if dur == "regular":
@@ -27,13 +47,6 @@ def home(request):
     elif dur == "one-time":
         q.add(Q(duration="번개"), q.AND)
 
-    if ctt == "on":
-        q.add(Q(contact="온라인"), q.AND)
-    elif ctt == "off":
-        q.add(Q(contact="오프라인"), q.AND)
-    elif ctt == "mix":
-        q.add(Q(contact="혼합"), q.AND)
-
     if query:
         q.add(Q(title__contains=query), q.OR)
         q.add(Q(tag__contains=query), q.OR)
@@ -41,7 +54,7 @@ def home(request):
         q.add(Q(location__contains=query), q.OR)
         q.add(Q(user__nickname__contains=query), q.OR)
 
-    posts = Post.objects.filter(q)
+    posts = posts.filter(q)
 
     sort = request.GET.get('sort', 'None')
     if sort == "latest":
@@ -56,7 +69,6 @@ def home(request):
         "posts": posts,
         "sort": sort,
         "duration": dur,
-        "contact": ctt,
     }
     return render(request, template_name="posts/main.html", context=context)
 
@@ -72,6 +84,10 @@ def write(request):
             post = form.save(commit=False)
             post.user = request.user
             post.save()
+            exp = post.user.exp
+            user = post.user
+            user.exp = exp + 25
+            user.save()
             return redirect(f"/post/detail/{id}")
         else:
             return redirect("/post/write")
@@ -187,6 +203,11 @@ def delete(request, id):
 def close(request, id):
     if request.method == "POST":
         Post.objects.filter(id=id).update(activation=False)
+        post = Post.objects.get(id=id)
+        user = post.user
+        exp = user.exp
+        user.exp = exp + 50
+        user.save()
         return redirect(f"/post/detail/{id}")
 
 
@@ -205,10 +226,14 @@ def review_home(request):
 @login_required
 def review_write(request, id):
     if request.method == "POST":
+        print("file : ", request.FILES)
         img = request.FILES.get('review_image')
         content = request.POST['review_content']
         user = request.user
         post = Post.objects.get(id=id)
+        exp = user.exp
+        user.exp = exp + 25
+        user.save()
         Review.objects.create(user=user, content=content, post=post, image=img)
         return redirect(f"/post/detail/{id}")
 
@@ -216,15 +241,13 @@ def review_write(request, id):
 @login_required
 def review_revise(request, id):
     revised_review = Review.objects.get(id=id)
-
     if request.method == "POST":
+        print("file_update : ", request.FILES)
         revised_review.user = request.user
         revised_review.content = request.POST['review_content']
         revised_review.post = Review.objects.get(id=id).post
-        if request.FILES.get("review_image"):
-            revised_review.image = request.FILES.get("review_image")
-        else:
-            revised_review.image = revised_review.image
+        if request.FILES.get('review_image'):
+            revised_review.image = request.FILES.get('review_image')
         revised_review.save()
         return redirect(f"/post/detail/{revised_review.post.id}")
 
@@ -241,9 +264,12 @@ def review_revise(request, id):
     return render(request, template_name="reviews/review_revise.html", context=context)
 
 
-def review_delete(request, id):
-    if request.method == "POST":
-        review = Review.objects.get(id=id)
-        post_id = review.post.id
-        Review.objects.filter(id=id).delete()
-        return redirect(f"/post/detail/{post_id}")
+@csrf_exempt
+def review_delete(request):
+    req = json.loads(request.body)
+    review_id = req['id']
+    Review.objects.filter(id=review_id).delete()
+    data = {
+        'id': review_id,
+    }
+    return JsonResponse(data)

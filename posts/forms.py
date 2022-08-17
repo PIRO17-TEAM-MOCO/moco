@@ -9,7 +9,8 @@ from django_summernote.widgets import SummernoteWidget
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'content', 'number', 'location', 'apply_link', 'tag', 'contact', 'duration']
+        fields = ['title', 'content', 'number', 'location',
+                  'apply_link', 'tag', 'contact', 'duration']
         widgets = {
             'content': SummernoteWidget(),
         }

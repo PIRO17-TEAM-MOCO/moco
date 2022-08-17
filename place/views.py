@@ -63,14 +63,17 @@ def write(request):
             place = form.save(commit=False)
             place.user = request.user
             place.save()
+
+            user = place.user
+            exp = user.exp
+            if request.FILES.getlist('place_images'):
+                exp += 10
             for img in request.FILES.getlist('place_images'):
                 photo = PlaceImage()
                 photo.place = place
                 photo.image = img
                 photo.save()
 
-            user = place.user
-            exp = user.exp
             user.exp = exp + 25
             user.save()
 

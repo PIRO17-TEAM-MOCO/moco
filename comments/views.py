@@ -6,45 +6,58 @@ from notice.models import Notice
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 
-
+@login_required
 def write_post(request, id):
     if request.method == 'POST':
         content = request.POST["content"]
         user = request.user
         post = Post.objects.get(id=id)
-        tag = 1
+        tag = Comment.TAG_POST
+        exp = user.exp
+        user.exp = exp + 10
+        user.save()
         Comment.objects.create(user=user, post=post,
                                tag=tag, content=content)
         return redirect(f"/post/detail/{id}")
 
 
+@login_required
 def write_place(request, id):
     if request.method == 'POST':
         content = request.POST["content"]
         user = request.user
         place = Place.objects.get(id=id)
         tag = Comment.TAG_PLACE
+        exp = user.exp
+        user.exp = exp + 10
+        user.save()
         Comment.objects.create(user=user, place=place,
                                tag=tag, content=content)
         return redirect(f"/place/detail/{id}")
 
 
+@login_required
 def write_notice(request, id):
     if request.method == 'POST':
         content = request.POST["content"]
         user = request.user
         notice = Notice.objects.get(id=id)
         tag = Comment.TAG_NOTICE
+        exp = user.exp
+        user.exp = exp + 10
+        user.save()
         Comment.objects.create(user=user, notice=notice,
                                tag=tag, content=content)
         return redirect(f"/notice/detail/{id}")
 
 
 @csrf_exempt
+@login_required
 def revise(request, id):
     if request.method == 'POST':
         content = request.POST["content"]
@@ -71,6 +84,7 @@ def revise(request, id):
 
 
 @csrf_exempt
+@login_required
 def delete(request):
     req = json.loads(request.body)
     comment_id = req['id']
@@ -102,6 +116,7 @@ def delete(request):
     return JsonResponse(data)
 
 
+@login_required
 def recomment(request, id):
     if request.method == 'POST':
         pnt_id = id

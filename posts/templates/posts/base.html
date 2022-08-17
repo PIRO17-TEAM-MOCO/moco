@@ -29,14 +29,14 @@
   <body>
     <nav class="navbar">
       <ul class="navbar__list">
-        <li><a href="{% url 'posts:home' %}">MOCO</a></li>
+        <li><a href="">MOCO</a></li>
         <li>
           <div class="base__post_dropdown">
             <div class="base__post_dropbtn">
               <span>모각코</span>
             </div>
             <ul class="base__post_dropmenu">
-              <li><a href="{% url 'posts:home' %}">모각코 모집</a></li>
+              <li><a href="{% url 'posts:home' %}">모각코 홈</a></li>
               <li><a href="{% url 'posts:review_home' %}">모각코 후기</a></li>
             </ul>
           </div>
@@ -70,7 +70,9 @@
               <a href="{% url 'users:profile_view' user.id %}">마이페이지</a>
             </li>
             <li>
-              <a href="{% url 'users:logout' %}?next={{request.path}}">로그아웃</a>
+              <a href="{% url 'users:logout' %}?next={{request.path}}"
+                >로그아웃</a
+              >
             </li>
           </ul>
         </div>
@@ -86,7 +88,9 @@
             </ul>
           </div>
         </li>
-        <li><a href="{% url 'users:login' %}?next={{request.path}}">로그인</a></li>
+        <li>
+          <a href="{% url 'users:login' %}?next={{request.path}}">로그인</a>
+        </li>
         {% endif %}
       </ul>
     </nav>

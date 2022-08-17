@@ -9,7 +9,10 @@
       src="https://kit.fontawesome.com/f0c26c0bfa.js"
       crossorigin="anonymous"
     ></script>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cb7ccec687e9ae05def0b343b1f55486&libraries=services"></script>
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cb7ccec687e9ae05def0b343b1f55486&libraries=services"
+    ></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
@@ -26,7 +29,7 @@
   <body>
     <nav class="navbar">
       <ul class="navbar__list">
-        <li><a href="{% url 'posts:home' %}">MOCO</a></li>
+        <li><a href="">MOCO</a></li>
         <li>
           <div class="base__post_dropdown">
             <div class="base__post_dropbtn">
@@ -67,7 +70,9 @@
               <a href="{% url 'users:profile_view' user.id %}">마이페이지</a>
             </li>
             <li>
-              <a href="{% url 'users:logout' %}?next={{request.path}}">로그아웃</a>
+              <a href="{% url 'users:logout' %}?next={{request.path}}"
+                >로그아웃</a
+              >
             </li>
           </ul>
         </div>
@@ -83,7 +88,9 @@
             </ul>
           </div>
         </li>
-        <li><a href="{% url 'users:login' %}?next={{request.path}}">로그인</a></li>
+        <li>
+          <a href="{% url 'users:login' %}?next={{request.path}}">로그인</a>
+        </li>
         {% endif %}
       </ul>
     </nav>

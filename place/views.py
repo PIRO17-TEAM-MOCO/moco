@@ -1,12 +1,36 @@
+from re import search
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.db.models import Count
+from django.db.models import Count, Q
 from .models import Place, PlaceImage
 from .forms import PlaceForm
+from comments.models import Comment
 
 
-def home(request):
-    places = Place.objects.annotate(comment_count=Count('comment'))
+def home(request, category='None'):
+    # url에서 매개변수로 카테고리 받아옴
+    # url에서 매개변수를 안 주면 'None'처리
+    if category == 'all':
+        places = Place.objects.all()
+    elif category == 'cafe':
+        places = Place.objects.filter(category='Cafe')
+    elif category == 'studyroom':
+        places = Place.objects.filter(category='StudyRoom')
+    elif category == 'etc':
+        places = Place.objects.filter(category='Etc')
+    else:
+        places = Place.objects.all()
+    places = places.annotate(comment_count=Count('comment'))
+    # search했다면 필터링 실행
+    search = request.GET.get('search', 'None')
+    if search != 'None':
+        places = places.filter(
+            Q(name__icontains = search) | #제목
+            Q(content__icontains = search) | #내용
+            Q(user__nickname__exact = search) | #글쓴이(닉네임 정확히 일치해야함)
+            Q(location__icontains = search) #위치
+            )
+    # sort는 html에서 받아옴
     sort = request.GET.get('sort', 'None')
     if sort == "latest":
         places = places.order_by("-published_at")
@@ -40,11 +64,20 @@ def write(request):
             place = form.save(commit=False)
             place.user = request.user
             place.save()
+
+            user = place.user
+            exp = user.exp
+            if request.FILES.getlist('place_images'):
+                exp += 10
             for img in request.FILES.getlist('place_images'):
                 photo = PlaceImage()
                 photo.place = place
                 photo.image = img
                 photo.save()
+
+            user.exp = exp + 25
+            user.save()
+
             return redirect('/place')
         else:
             # print(form.is_valid())
@@ -53,16 +86,21 @@ def write(request):
         form = PlaceForm()
         context = {
             'form': form,
-            }
+        }
         return render(request, template_name="place/write.html", context=context)
 
 
 def detail(request, id):
     place = Place.objects.get(id=id)
     images = PlaceImage.objects.filter(place=place)
+    all_comments = place.comment_set.all().filter(cmt_class=Comment.CMT_PARENT)
+    comments_len = len(place.comment_set.all())
+
     context = {
         "place": place,
         "images": images,
+        "comments": all_comments,
+        "comments_len": comments_len,
     }
     return render(request, template_name="place/detail.html", context=context)
 
@@ -85,8 +123,8 @@ def update(request, id):
             place.content = form.cleaned_data['content']
             place.save()
         # 기존 이미지는 연결 해제하고 새로운 이미지 업로드
+        place.placeimage_set.clear()
         for img in request.FILES.getlist('place_images'):
-            place.placeimage_set.clear()
             photo = PlaceImage()
             photo.place = place
             photo.image = img

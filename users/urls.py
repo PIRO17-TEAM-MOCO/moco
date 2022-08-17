@@ -27,4 +27,5 @@ urlpatterns = [
          name='reset_pw_complete'),
     path('like/<int:id>/<int:tag>', views.like, name='like'),
     path('unlike/<int:id>/<int:tag>', views.unlike, name='unlike'),
+    path('likes/<int:tag>', views.likes, name="likes"),
 ]

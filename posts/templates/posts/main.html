@@ -8,10 +8,10 @@
       <div id="main__search_div__top">
         <div id="search_div__top_left">
           <div id="search_div__top_left__nav">
-            <span>전체</span>
-            <span>오프라인</span>
-            <span>온라인</span>
-            <span>혼합</span>
+            <span><a href="{% url 'posts:home' 'all' %}">전체</a></span>
+            <span><a href="{% url 'posts:home' 'offline' %}">오프라인</a></span>
+            <span><a href="{% url 'posts:home' 'online' %}">온라인</a></span>
+            <span><a href="{% url 'posts:home' 'mix' %}">혼합</a></span>
           </div>
           <div id="search_div__top_left__search">
             <input

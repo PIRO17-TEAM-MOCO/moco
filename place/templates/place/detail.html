@@ -12,24 +12,13 @@
       </div>
     </div>
     <div class="content-right">
-        {% if user.is_authenticated %}
-            {% csrf_token %}
             <div id="main_detail__top__like">
-              <form action="{% url 'users:like' place.id 2 %}" method="post">
-                {% csrf_token %}
-                <button id="main_detail__top__like_btn">
-                  <i class="fa-regular fa-heart fa-lg"></i>
-                  <p>{{place.likes}}</p>
-                </button>
-              </form>
-              <form action="{% url 'users:unlike' place.id 2 %}" method="post">
-                {% csrf_token %}
-                <button id="main_detail__top__like_btn">
-                  <i class="fa-regular fa-heart fa-lg"></i>
-                  <p>{{place.likes}}</p>
-                </button>
-              </form>
+              <button id="{{place.id}}" onclick="post_like(this.id)">
+                좋아요
+                <span id="like_count">{{place.likes}}</span>
+            </button>
             </div>
+        {% if user.is_authenticated %}
         <div class="dropdown">
           <button onclick="dp_menu()" class="button"><i class="fa-solid fa-ellipsis"></i></button>
           <div style="display: none;" id="drop-content">
@@ -244,5 +233,24 @@
           }
       }
   }
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+function post_like(id) {
+    $.ajax({
+        url: "{%url 'users:likes' 2 %}", // data를 전송할 url 입니다.
+        data: {
+            'id': id
+        }, // id 값 전송
+        dataType: "json",
+        success: function (response) { // ajax 통신이 정상적으로 완료되었을 때
+            $('#like_count').html(response.like_count) //id가 like_count의 내용을 전송받은 좋아요 수로 바꾼다
+            if (response.error) {
+              window.location.replace("http://127.0.0.1:8000/account/login"); // 배포용 서버로 변경
+            } 
+        }
+    })
+}
 </script>
 {% endblock %}

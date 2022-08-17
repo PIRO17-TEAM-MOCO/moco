@@ -40,7 +40,7 @@
               <select name="contact">
                 <option selected value="default">----------</option>
                 {% for key, value in contacts %}
-                <option value="{{ value }}">{{ value }}</option>
+                <option value="{{ key }}">{{ value }}</option>
                 {% endfor %}
               </select>
             </div>

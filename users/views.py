@@ -25,16 +25,18 @@ TAG_POST = 1
 TAG_PLACE = 2
 
 
-# main은 기능확인용입니다.
-# def main(request):
-#     users = User.objects.all()
-#     context = {
-#         'users': users
-#     }
-#     if request.user:
-#         context['me'] = request.user
-#         print(context)
-#     return render(request, template_name='users/main.html', context=context)
+# 프로필 유효성 검사 데코레이터
+def profile_valid(func):          # 호출할 함수를 매개변수로 받음
+    def wrapper(request):         # 호출할 함수의 매개변수와 똑같이 지정
+        user = request.user
+        if user.is_authenticated:
+            if user.birth is None:
+                return redirect(f'/account/profile/edit/{user.id}')
+            else:
+                return func(request)
+        else:
+            return redirect('users:login')
+    return wrapper
 
 
 def signup(request):
@@ -69,11 +71,15 @@ def signout(request):
 
 
 def login(request):
+    if request.user.is_authenticated:
+            print('이미 로그인함')
+            return redirect('posts:home')
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)
         next = request.POST.get("next")
         if form.is_valid():
-            auth.login(request, form.get_user())
+            user = form.get_user()
+            auth.login(request, user)
             try:
                 return redirect(next)
             except:

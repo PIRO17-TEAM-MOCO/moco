@@ -163,7 +163,6 @@ def detail(request, id):
         "comments": all_comments,
         "comments_len": comments_len,
     }
-    print(post)
     return render(request, template_name="posts/main_detail.html", context=context)
 
 

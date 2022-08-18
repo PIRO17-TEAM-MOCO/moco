@@ -32,11 +32,11 @@ def home(request, contact='None'):
     search = request.GET.get('search', 'None')
     if search != 'None':
         places = places.filter(
-            Q(title__icontains = search) | #제목
-            Q(content__icontains = search) | #내용
-            Q(user__nickname__exact = search) | #글쓴이(닉네임 정확히 일치해야함)
-            Q(location__icontains = search) #위치
-            )
+            Q(title__icontains=search) |  # 제목
+            Q(content__icontains=search) |  # 내용
+            Q(user__nickname__exact=search) |  # 글쓴이(닉네임 정확히 일치해야함)
+            Q(location__icontains=search)  # 위치
+        )
     query = request.GET.get('query', None)
     dur = request.GET.get('duration', None)
 
@@ -89,6 +89,7 @@ def write(request):
             user = post.user
             user.exp = exp + 25
             user.save()
+            print(post.contact)
             return redirect(f"/post")
         else:
             print(form.errors)
@@ -98,6 +99,7 @@ def write(request):
     form = PostForm()
     context = {
         'form': form,
+        'contacts': Post.CONTACT_CHOICE
     }
 
     return render(request, template_name="posts/main_write.html", context=context)
@@ -163,6 +165,7 @@ def detail(request, id):
         "comments": all_comments,
         "comments_len": comments_len,
     }
+
     return render(request, template_name="posts/main_detail.html", context=context)
 
 

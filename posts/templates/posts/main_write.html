@@ -40,9 +40,9 @@
               <label for="{{form.contact.id_for_label}}"></label>
               <select name="contact">
                 <option value selected="default">----------</option>
-                <option value="Off">오프라인</option>
-                <option value="On">온라인</option>
-                <option value="Mix">혼합</option>
+                <option key="Off">오프라인</option>
+                <option key="On">온라인</option>
+                <option key="Mix">혼합</option>
                 {% for key, value in contacts %}
                 <option value="{{ key }}">{{ value }}</option>
                 {% endfor %}

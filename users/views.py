@@ -243,7 +243,6 @@ def likes(request, tag):
         # 로그인 안 했으면 로그인 창으로 이동
         if not request.user.is_authenticated:
             error = True
-            print('로그인이 필요합니다.')
             context = {
                 'error': error,
             }
@@ -257,12 +256,10 @@ def likes(request, tag):
             post.like_users.remove(user)
             post.likes -= 1
             post.save()
-            print('unlike 성공')
         else:
             post.like_users.add(user)
             post.likes += 1
             post.save()
-            print('like 성공')
         context = {
             'like_count': post.likes,
             'error': error,
@@ -276,13 +273,10 @@ def likes(request, tag):
             place.like_users.remove(user)
             place.likes -= 1
             place.save()
-            print('unlike 성공')
         else:
             place.like_users.add(user)
             place.likes += 1
-            place.save()
-            print('like 성공')
-        # post.like.count() : 게시물이 받은 좋아요 수  
+            place.save()  
         context = {
             'like_count': place.likes,
             'error': error,

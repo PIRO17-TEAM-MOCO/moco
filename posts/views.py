@@ -72,8 +72,10 @@ def write(request):
             post = form.save(commit=False)
             post.user = request.user
             post.save()
-            return redirect(f"/post/detail/{id}")
+            return redirect(f"/post/detail/{post.id}")
         else:
+            print(form.errors)
+            print(form.non_field_errors())
             return redirect("/post/write")
 
     form = PostForm()

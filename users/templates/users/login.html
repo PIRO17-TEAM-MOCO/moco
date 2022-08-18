@@ -1,73 +1,50 @@
 {% extends 'users/account_base.html' %} {% block content %}
-
 <main>
-  <div class="login__container">
-    <div class="login__nor">
-      <span>MOCO</span>
-      <form
-        action="{% url 'users:login' %}"
-        method="post"
-        enctype="multipart/form-data"
-      >
-        {% csrf_token %}
-        <div class="input">
-          <div class="input__id">
-            {{ form.username.errors }}
-            <lable for="{{ form.username.id_for_label }}"></lable>
-            <input
-              type="text"
-              name="username"
-              autofocus=""
-              autocapitalize="none"
-              autocomplete="username"
-              maxlength="150"
-              required=""
-              id="id_username"
-              placeholder="아이디"
-            />
-          </div>
-          <div class="input__pw">
-            {{ form.password.errors }}
-            <lable for="{{ form.password.id_for_label }}"></lable>
-            <input
-              type="password"
-              name="password"
-              autocomplete="current-password"
-              required=""
-              id="id_password"
-              placeholder="비밀번호"
-            />
-          </div>
-          <div class="align__cb">
-            <input type="checkbox" id="input__cb" />
-            <label for="input__cb"></label>
-            <span>아이디 저장</span>
-          </div>
-          <input type="hidden" name="next" value="{{ next }}" />
-          <button id="login__btn">로그인</button>
-        </div>
-      </form>
-      <div id="sub__menu">
-        <a href="{% url 'users:find_id' %}">아이디 찾기&nbsp;&nbsp;</a> |
-        <a href="{% url 'users:reset_pw' %}"
-          >&nbsp;비밀번호 재설정&nbsp;&nbsp;</a
-        >
-        |
-        <a href="{% url 'users:signup' %}">&nbsp;&nbsp;회원가입</a>
-      </div>
+	<div class="login__container">
+		<div class="login__nor">
+			<span>MOCO</span>
+			<form action="{% url 'users:login' %}" method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div class="input">
+					<div class="input__id">
+						{{ form.username.errors }}
+						<lable for="{{ form.username.id_for_label }}"></lable>
+						<input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username" placeholder="아이디" />
+					</div>
+					<div class="input__pw">
+						{{ form.password.errors }}
+						<lable for="{{ form.password.id_for_label }}"></lable>
+						<input type="password" name="password" autocomplete="current-password" required="" id="id_password" placeholder="비밀번호" />
+					</div>
+					<div class="align__cb">
+						<input type="checkbox" id="input__cb" />
+						<label for="input__cb"></label>
+						<span>아이디 저장</span>
+					</div>
+					<input type="hidden" name="next" value="{{ next }}" />
+					<button id="login__btn">로그인</button>
+				</div>
+			</form>
+			<div id="sub__menu">
+				<a href="{% url 'users:find_id' %}">아이디 찾기&nbsp;&nbsp;</a> |
+				<a href="{% url 'users:reset_pw' %}">&nbsp;비밀번호 재설정&nbsp;&nbsp;</a>
+				|
+				<a href="{% url 'users:signup' %}">&nbsp;&nbsp;회원가입</a>
+			</div>
 
-      <div class="login__sim">
-        <hr noshade />
-        <span>간편 로그인</span>
-        <hr noshade />
-      </div>
-      <div class="login__sim__soc">
-        <button>구글</button>
-        <button>네이버</button>
-        <button>카카오</button>
-        <button>깃허브</button>
-      </div>
-    </div>
-  </div>
+			<div class="login__sim">
+				<hr noshade />
+				<span>간편 로그인</span>
+				<hr noshade />
+			</div>
+      {% load socialaccount %} {% providers_media_js %}
+			<div class="login__sim__soc">
+				<a href="{% provider_login_url 'google' %}">구글</button>
+        <a href="{% provider_login_url "naver" %}">네이버</a>
+				<a href="{% provider_login_url "kakao" %}">카카오</a>
+				<a href="{% provider_login_url "github" %}">깃허브</a>
+			</div>
+		</div>
+	</div>
 </main>
 {% endblock %}

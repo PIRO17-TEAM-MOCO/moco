@@ -1,8 +1,12 @@
 @import url(base.css);
 
+.content {
+  max-width: 1084px;
+}
+
 .profile-top {
   width: 100%;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   line-height: 2rem;
 }
 

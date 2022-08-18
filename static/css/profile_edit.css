@@ -62,7 +62,7 @@ main {
   display: none;
 }
 
-.input__img__container {
+#input__img__container {
   width: 13rem;
   height: 13rem;
   border: 1px solid rgb(200, 200, 200);
@@ -75,6 +75,32 @@ main {
   margin-top: 2rem;
   margin-bottom: 3rem;
   position: relative;
+}
+
+#input__img__container img {
+  position: absolute;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 13rem;
+}
+
+#camera__img {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 2rem;
+  border: 1px solid rgb(200, 200, 200);
+  background-color: #fff;
+  position: absolute;
+  right: 0rem;
+  bottom: 0rem;
+  z-index: 1;
 }
 
 .input__edit__gender select {
@@ -135,6 +161,10 @@ main {
   border: 1px solid #8c8c8c;
   margin-bottom: 2rem;
   font-size: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 #signout__btn {
@@ -145,6 +175,10 @@ main {
   border: 1px solid #8c8c8c;
   margin-bottom: 3rem;
   font-size: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 #edit__btn__container {
@@ -166,9 +200,13 @@ main {
   background-color: #bfbfbf;
   color: #fff;
   font-weight: 900;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
-.edit-cf__btn {
+#edit-cf__btn {
   cursor: pointer;
   width: 20rem;
   height: 4rem;
@@ -179,8 +217,14 @@ main {
   background-color: #2253ff;
   color: #fff;
   font-weight: 900;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
+/* signout 모달 */
+/* signout 모달 */
 /* signout 모달 */
 #signout__modal.modal-overlay {
   display: none;
@@ -266,11 +310,16 @@ main {
   color: #fff;
   font-weight: 900;
   margin-left: 3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1rem;
 }
 
 #signout-cf__btn {
   cursor: pointer;
-  width: 9rem;
+  width: 10rem;
   height: 4rem;
   outline: 0;
   border: 0;
@@ -279,6 +328,105 @@ main {
   background-color: red;
   color: #fff;
   font-weight: 900;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+/* signout 모달 */
+/* signout 모달 */
+/* signout 모달 */
+
+/* edit-confirm 모달 */
+/* edit-confirm 모달 */
+/* edit-confirm 모달 */
+#cf__modal.modal-overlay {
+  display: none;
+  width: 100%;
+  height: 300%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(103, 99, 99, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-/* signout 모달 */
+#cf__modal .modal__window {
+  background: #fff;
+  box-shadow: 0 8px 32px 0 rgba(16, 18, 42, 0.37);
+  backdrop-filter: blur(13.5px);
+  -webkit-backdrop-filter: blur(13.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  width: 30rem;
+  height: 12rem;
+  position: relative;
+  padding: 10px;
+}
+
+#cf__modal .modal-close {
+  display: inline;
+  float: right;
+  padding-right: 10px;
+  cursor: pointer;
+  color: black;
+  font-size: 2rem;
+}
+
+#cf__modal .modal__content p {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+  padding: 0px 10px;
+  color: black;
+  font-size: 1rem;
+  line-height: 1rem;
+  margin-left: 1rem;
+}
+
+#cf__modal .modal__content a {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0px 10px;
+  font-size: 1rem;
+  line-height: 1rem;
+}
+
+#cf__modal__btns {
+  width: 25rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  margin-left: 0.5rem;
+}
+
+#cf__modal__btn {
+  cursor: pointer;
+  width: 10rem;
+  height: 4rem;
+  outline: 0;
+  border: 0;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  background-color: #2253ff;
+  color: #fff;
+  font-weight: 900;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}

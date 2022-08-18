@@ -48,12 +48,7 @@
             />
           </div>
           <div id="change__btn__container">
-            <button
-              onclick="location.href='{% url 'users:login' %}'"
-              id="cancel-pw__btn"
-            >
-              취소
-            </button>
+            <button onclick="history.go(-1)" id="cancel-pw__btn">취소</button>
             <button
               onclick="changeform_check()"
               type="submit"

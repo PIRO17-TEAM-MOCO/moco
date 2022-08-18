@@ -25,7 +25,7 @@
             type="text"
             name="nickname"
             value="{{user.nickname}}"
-            maxlength="20"
+            maxlength="10"
             required=""
             id="id_nickname"
             placeholder="새 닉네임을 입력하세요."
@@ -45,8 +45,16 @@
             name="profile_img"
             accept="image/*"
             id="id_profile_img"
+            onchange="thumbnailImg(event);"
             />
-            <label class="input__img__container" for="id_profile_img"></label>
+            <label for="id_profile_img">
+                <div id="input__img__container">
+                    <img src="{{user.profile_img}}" onerror="this.style.display='none'">
+                    <div id="camera__img">
+                        <i class="fa-solid fa-camera fa-2xl"></i>
+                    </div>
+                </div>
+            </label>
         </div>
         <div class="input__edit__gender">
             {{ form.gender.errors }}
@@ -75,11 +83,15 @@
         </div>
         <div>
             <p>비밀번호 변경</p>
-            <button class="change-pw__btn" onclick="changePw()"><span>바로가기</span></button>
+            <div class="change-pw__btn">
+                <a onclick="changePw()"><span>바로가기</span></a>
+            </div>
         </div>
         <div>
             <p>회원탈퇴</p>
-            <button id="signout__btn"><span style="color: red;">회원탈퇴</span></button>
+            <div id="signout__btn">
+                <a><span style="color: red;">회원탈퇴</span></a>
+            </div>
         </div>
         <!--회원탈퇴 모달-->
         <div id="signout__modal" class="modal-overlay" style="display: none;">
@@ -91,24 +103,40 @@
                     ⚠️회원 탈퇴시, 계정과 관련된 모든 정보가 삭제되며 복구할 수 없습니다⚠️ 
                     </p>
                     <div id="signout__modal__btns">
-                        <a href=""
-                        ><button id="signout-cc__btn">
-                            아니요
-                        </button></a
-                        >
-                        <a href=""
-                        ><button id="signout-cf__btn">
-                            탈퇴하기
-                        </button></a
-                        >
+                        <div id="signout-cc__btn">
+                        <a href="">아니요</a>
+                        </div>
+                        <div id="signout-cf__btn">
+                            <a onclick="signoutCf()">탈퇴하기</a>
+                        </div>
                     </div>  
                 </div>
               </div>
         </div>
         <!--회원탈퇴 모달-->
         <div id="edit__btn__container">
-            <button class="edit-cancel__btn">취소</button>
-            <button class="edit-cf__btn" type="submit">수정 완료</button>
+            <div class="edit-cancel__btn">
+                <a href="">취소</a>
+            </div>
+            <div id="edit-cf__btn">
+                <a type="submit" onclick="editConfirm()">수정 완료</a>
+            </div>
+            <!-- 수정확인 모달 -->
+            <div id="cf__modal" class="modal-overlay" style="display: none;">
+                <div class="modal__window">
+                    <div class="modal-close">x</div>
+                    <div class="modal__content">
+                        <p style="margin-top:3rem; font-size: 1.3rem; font-weight: 900">프로필 수정 사항을 저장할까요?</p>
+                        <div id="cf__modal__btns">
+                            <div id="signout-cc__btn">
+                            <a href="">아니요</a>
+                            </div>
+                            <button id="cf__modal__btn" type="submit">저장</button>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+            <!-- 수정확인 모달 -->
         </div>
       <!--{{form.as_p}}
       <button type="submit">제출</button>-->
@@ -116,10 +144,12 @@
   </div>
 </main>
 <script>
+    // 비밀번호 변경으로 바로 가기
     function changePw() {
         location.href="{% url 'users:change_pw' %}"
     }
 
+    // 모달 이벤트 - 탈퇴하기
     const modal = document.getElementById("signout__modal")
     const btnModal = document.getElementById("signout__btn")
     btnModal.addEventListener("click", e => {
@@ -131,11 +161,100 @@
         modal.style.display = "none"
     })
 
+    const ccBtn = modal.querySelector("#signout-cc__btn")
+    ccBtn.addEventListener("click", e => {
+        modal.style.display = "none"
+    })
+
     modal.addEventListener("click", e => {
         const evTarget = e.target
         if(evTarget.classList.contains("modal-overlay")) {
             modal.style.display = "none"
         }
     })
+
+    //모달 이벤트 - 수정완료
+    const cfmodal = document.getElementById("cf__modal")
+    const cfbtnModal = document.getElementById("edit-cf__btn")
+    cfbtnModal.addEventListener("click", e => {
+        cfmodal.style.display = "flex"
+    })
+
+    const cfcloseBtn = cfmodal.querySelector(".modal-close")
+    cfcloseBtn.addEventListener("click", e => {
+        cfmodal.style.display = "none"
+    })
+
+    cfmodal.addEventListener("click", e => {
+        const evTarget = e.target
+        if(evTarget.classList.contains("modal-overlay")) {
+            cfmodal.style.display = "none"
+        }
+    })
+
+    // 프로필 이미지 미리보기
+    function thumbnailImg(event) {
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+          var img = document.createElement("img");
+          img.setAttribute("src", event.target.result);
+          document.querySelector("div#input__img__container").appendChild(img);
+        };
+
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    //회원탈퇴 confirm 
+    function signoutCf() {
+        location.href="{% url 'users:signout' %}"
+    }
+
+    //유효성 검증
+    function editConfirm() {
+        var uname = document.getElementById("id_name");
+        var nickname = document.getElementById("id_nickname")
+        var email_id = document.getElementById("id_email");
+
+        var pattern_num = /[0-9]/;	// 숫자 
+        var pattern_eng = /[a-zA-Z]/;	// 문자 
+        var pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
+        var pattern_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글체크
+
+        var unameCheck = /^(?=.*[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/;
+
+        if (!unameCheck.test(uname.value)) {
+            alert("이름은 10자 이내의 한글로 작성해주세요.");
+            uname.focus();
+            return false;
+        }
+
+        if (uname.value == "") {
+            alert("이름을 입력하세요.");
+            uname.focus();
+            return false;
+        };
+
+        if ((pattern_spc.test(nickname.value))) {
+            alert("닉네임은 특수문자를 제외하여 10자 이내로 작성해주세요.");
+            return false
+        }
+
+        // var nicknameCheck = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi
+
+        // if (!nicknameCheck.test(nickname.value)) {
+        //     alert("닉네임은 특수문자를 제외하여 10자 이내로 작성해주세요.");
+        //     nickname.focus();
+        //     return false;
+        // }
+
+        var emailCheck = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+
+        if (!emailCheck.test(email_id.value)) {
+            alert("이메일 형식에 맞춰 입력해주세요.")
+            email_id.focus();
+            return false;
+        }
+    }
 </script>
 {% endblock %}

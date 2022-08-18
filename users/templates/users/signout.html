@@ -1,0 +1,9 @@
+{% extends 'users/account_base.html' %} {% block content %}
+
+<main>잘가시게~</main>
+<form action="{% url 'users:signout' %}" method="post">
+  {% csrf_token %}
+  <button type="submit">회원 탈퇴</button>
+</form>
+
+{% endblock %}

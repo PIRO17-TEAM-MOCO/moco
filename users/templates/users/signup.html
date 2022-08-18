@@ -326,13 +326,23 @@
     return false;
   };
 
-  var nicknameCheck = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi
+  var pattern_num = /[0-9]/;	// 숫자 
+  var pattern_eng = /[a-zA-Z]/;	// 문자 
+  var pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
+  var pattern_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글체크
 
-  if (!nicknameCheck.temst(nickname.value)) {
-    alert("닉네임은 특수문자를 제외하여 10자 이내로 작성해주세요.");
-    nickname.focus();
-    return false;
+  if ((pattern_spc.test(nickname.value))) {
+            alert("닉네임은 특수문자를 제외하여 10자 이내로 작성해주세요.");
+            return false
   }
+
+  // var nicknameCheck = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi
+
+  // if (!nicknameCheck.test(nickname.value)) {
+  //   alert("닉네임은 특수문자를 제외하여 10자 이내로 작성해주세요.");
+  //   nickname.focus();
+  //   return false;
+  // }
 
 }
 </script>

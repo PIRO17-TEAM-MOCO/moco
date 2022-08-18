@@ -40,9 +40,6 @@
               <label for="{{form.contact.id_for_label}}"></label>
               <select name="contact">
                 <option value selected="default">----------</option>
-                <option key="Off">오프라인</option>
-                <option key="On">온라인</option>
-                <option key="Mix">혼합</option>
                 {% for key, value in contacts %}
                 <option value="{{ key }}">{{ value }}</option>
                 {% endfor %}
@@ -72,8 +69,14 @@
           </div>-->
             <!--드롭다운 아직 연결 안돼서 일단 select box로-->
             <div>
-              <div for="{{ form.duration.id_for_label }}">기간</div>
-              {{ form.duration }}
+              모임 형태 :
+              <label for="{{form.duration.id_for_label}}"></label>
+              <select name="duration">
+                <option value selected="default">----------</option>
+                {% for key, value in durations %}
+                <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+              </select>
             </div>
             <!--드롭다운 아직 연결 안돼서 일단 select box로-->
           </div>
@@ -149,7 +152,7 @@
           id="main_write__content__btn_register"
           type="submit"
           value="등록하기"
-          onclick="return confirm('정말 삭제하시겠습니까?')"
+          onclick=""
         />
         <!--여기 포스트가 잘 만들어졌다는 걸 if문으로 처리하려면 뭘 넣어야 할까-->
       </div>

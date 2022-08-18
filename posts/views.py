@@ -90,7 +90,9 @@ def write(request):
             user.exp = exp + 25
             user.save()
             print(post.contact)
-            return redirect(f"/post")
+            id = Post.objects.last().id # 220818 마지막으로 작성된 포스트 가져오기(얘 없으면 오류 뜸)
+            messages.success(request, 'Post Write success')
+            return redirect(f"/post/detail/{id}")
         else:
             print(form.errors)
             print(form.non_field_errors())
@@ -99,7 +101,8 @@ def write(request):
     form = PostForm()
     context = {
         'form': form,
-        'contacts': Post.CONTACT_CHOICE
+        'contacts': Post.CONTACT_CHOICE,
+        'durations': Post.DURATION_CHOICE
     }
 
     return render(request, template_name="posts/main_write.html", context=context)

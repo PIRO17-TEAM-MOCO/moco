@@ -69,6 +69,7 @@ def home(request, contact='None'):
         "posts": posts,
         "sort": sort,
         "duration": dur,
+
     }
     return render(request, template_name="posts/main.html", context=context)
 
@@ -88,8 +89,10 @@ def write(request):
             user = post.user
             user.exp = exp + 25
             user.save()
-            return redirect(f"/post/detail/{id}")
+            return redirect(f"/post")
         else:
+            print(form.errors)
+            print(form.non_field_errors())
             return redirect("/post/write")
 
     form = PostForm()
@@ -160,6 +163,7 @@ def detail(request, id):
         "comments": all_comments,
         "comments_len": comments_len,
     }
+    print(post)
     return render(request, template_name="posts/main_detail.html", context=context)
 
 

@@ -25,7 +25,7 @@
             <span>{{post.user.nickname}}</span>
           </div>
           <div id="main_detail__top__time">
-            <span>{{post.published_at}}</span>
+            <span>{{post.published_at|date:"Y. m. d" }}</span>
           </div>
         </div>
       </div>
@@ -68,11 +68,11 @@
     <div id="main_detail__main__info">
       <div>
         <h4>진행방식</h4>
-        <span>{{post.contact}}</span>
+        <span>{{post.get_contact_display}}</span>
       </div>
       <div>
         <h4>모임형태</h4>
-        <span>{{post.duration}}</span>
+        <span>{{post.get_duration_display}}</span>
       </div>
       <div>
         <h4>모집인원</h4>

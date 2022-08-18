@@ -1,20 +1,16 @@
 {% extends 'posts/base.html' %} {% block content %}
 <div class="content">
-  <form
-    action="{% url 'posts:write' %}"
-    method="post"
-    enctype="multipart/form-data"
-  >
-    {% csrf_token %}
-    <div id="main_write__top">
-      <div class="main_write__title">
-        <div class="main_write__title_num"><h2>1</h2></div>
-        <h2>모집 요건을 작성해주세요</h2>
-      </div>
-      <div id="main_write__top__select">
-        <div class="main_write__top__select_row">
-          <div class="main_write__dropdown__select_left">
-            <!--<div class="main_write__top__select_title">
+	<form action="{% url 'posts:write' %}" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<div id="main_write__top">
+			<div class="main_write__title">
+				<div class="main_write__title_num"><h2>1</h2></div>
+				<h2>모집 요건을 작성해주세요</h2>
+			</div>
+			<div id="main_write__top__select">
+				<div class="main_write__top__select_row">
+					<div class="main_write__dropdown__select_left">
+						<!--<div class="main_write__top__select_title">
             <h3>진행방식</h3>
           </div>
           <div class="main_write__top__box">
@@ -34,24 +30,21 @@
               </div>
             </div>
           </div>-->
-            <!--드롭다운 아직 연결 안돼서 일단 select box로-->
-            <div>
-              진행방식 :
-              <label for="{{form.contact.id_for_label}}"></label>
-              <select name="contact">
-                <option value selected="default">----------</option>
-                <option key="Off">오프라인</option>
-                <option key="On">온라인</option>
-                <option key="Mix">혼합</option>
-                {% for key, value in contacts %}
-                <option value="{{ key }}">{{ value }}</option>
-                {% endfor %}
-              </select>
-            </div>
-          </div>
-          <!--드롭다운 아직 연결 안돼서 일단 select box로-->
-          <div class="main_write__dropdown__select_right">
-            <!--<div class="main_write__top__select_title">
+						<!--드롭다운 아직 연결 안돼서 일단 select box로-->
+						<div>
+							진행방식 :
+							<label for="{{form.contact.id_for_label}}"></label>
+							<select name="contact">
+								<option value selected="default">----------</option>
+								{% for key, value in contacts %}
+								<option value="{{ key }}">{{ value }}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<!--드롭다운 아직 연결 안돼서 일단 select box로-->
+					<div class="main_write__dropdown__select_right">
+						<!--<div class="main_write__top__select_title">
             <h3>모임형태</h3>
           </div>
           <div class="main_write__top__box">
@@ -70,91 +63,82 @@
               </ul>
             </div>
           </div>-->
-            <!--드롭다운 아직 연결 안돼서 일단 select box로-->
-            <div>
-              <div for="{{ form.duration.id_for_label }}">기간</div>
-              {{ form.duration }}
-            </div>
-            <!--드롭다운 아직 연결 안돼서 일단 select box로-->
-          </div>
-        </div>
-        <div class="main_write__top__select_row">
-          <div class="main_write__top__select_left">
-            <div class="main_write__top__box_text">
-              <div for="{{ form.number.id_for_label }}">모집 인원</div>
-              {{form.number}}
-            </div>
-          </div>
-          <div class="main_write__top__select_right">
-            <div class="main_write__top__box_text">
-              <div for="{{ form.location.id_for_label }}">지역</div>
-              {{form.location}}
-            </div>
-          </div>
-        </div>
-        <div class="main_write__top__select_row">
-          <div class="main_write__top__select_left">
-            <div class="main_write__top__box_text">
-              <div for="{{ form.apply_link.id_for_label }}">모집 링크</div>
-              {{form.apply_link}}
-            </div>
-          </div>
-          <div class="main_write__top__select_right">
-            <div class="main_write__top__box_text">
-              <div for="{{ form.tag.id_for_label }}">개발 언어</div>
-              {{form.tag}}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="main_write__tag">
-      <div class="main_write__title">
-        <div class="main_write__title_num"><h2>2</h2></div>
-        <h2>태그를 입력해주세요</h2>
-      </div>
-      <div class="main_write__tag_write__main">
-        <div class="main_write__tag_write__main_title"><h3>태그</h3></div>
-        <div class="main_write__tag_write__main_content">
-          <input
-            type="text"
-            class="main_write__tag__main_content_input"
-            placeholder="태그를 입력해주세요"
-          />
-        </div>
-      </div>
-    </div>
-    <div id="main_write__content">
-      <div class="main_write__title">
-        <div class="main_write__title_num"><h2>3</h2></div>
-        <h2>글 제목과 내용을 작성해주세요</h2>
-      </div>
-      <div class="main_write__tag_write__main">
-        <div>
-          <div for="{{ form.title.id_for_label }}">제목</div>
-          {{ form.title }}
-        </div>
-        <div id="main_write__content__contents">
-          <div id="main_write__content__write_txt">
-            <div for="{{form.content.id_for_label }}">내용</div>
-            {{ form.content }}
-          </div>
-        </div>
-      </div>
-      <div id="main_write__content__btn">
-        <button type="submit" id="main_write__content__btn_cancel">
-          <h3>취소</h3>
-        </button>
-        <input
-          id="main_write__content__btn_register"
-          type="submit"
-          value="등록하기"
-          onclick="return confirm('정말 삭제하시겠습니까?')"
-        />
-        <!--여기 포스트가 잘 만들어졌다는 걸 if문으로 처리하려면 뭘 넣어야 할까-->
-      </div>
-    </div>
-  </form>
-  <script src="/static/js/post_main_write.js"></script>
+						<!--드롭다운 아직 연결 안돼서 일단 select box로-->
+						<div>
+							<div for="{{ form.duration.id_for_label }}">기간</div>
+							{{ form.duration }}
+						</div>
+						<!--드롭다운 아직 연결 안돼서 일단 select box로-->
+					</div>
+				</div>
+				<div class="main_write__top__select_row">
+					<div class="main_write__top__select_left">
+						<div class="main_write__top__box_text">
+							<div for="{{ form.number.id_for_label }}">모집 인원</div>
+							{{form.number}}
+						</div>
+					</div>
+					<div class="main_write__top__select_right">
+						<div class="main_write__top__box_text">
+							<div for="{{ form.location.id_for_label }}">지역</div>
+							{{form.location}}
+						</div>
+					</div>
+				</div>
+				<div class="main_write__top__select_row">
+					<div class="main_write__top__select_left">
+						<div class="main_write__top__box_text">
+							<div for="{{ form.apply_link.id_for_label }}">모집 링크</div>
+							{{form.apply_link}}
+						</div>
+					</div>
+					<div class="main_write__top__select_right">
+						<div class="main_write__top__box_text">
+							<div for="{{ form.tag.id_for_label }}">개발 언어</div>
+							{{form.tag}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="main_write__tag">
+			<div class="main_write__title">
+				<div class="main_write__title_num"><h2>2</h2></div>
+				<h2>태그를 입력해주세요</h2>
+			</div>
+			<div class="main_write__tag_write__main">
+				<div class="main_write__tag_write__main_title"><h3>태그</h3></div>
+				<div class="main_write__tag_write__main_content">
+					<input type="text" class="main_write__tag__main_content_input" placeholder="태그를 입력해주세요" />
+				</div>
+			</div>
+		</div>
+		<div id="main_write__content">
+			<div class="main_write__title">
+				<div class="main_write__title_num"><h2>3</h2></div>
+				<h2>글 제목과 내용을 작성해주세요</h2>
+			</div>
+			<div class="main_write__tag_write__main">
+				<div>
+					<div for="{{ form.title.id_for_label }}">제목</div>
+					{{ form.title }}
+				</div>
+				<div id="main_write__content__contents">
+					<div id="main_write__content__write_txt">
+						<div for="{{form.content.id_for_label }}">내용</div>
+						{{ form.content }}
+					</div>
+				</div>
+			</div>
+			<div id="main_write__content__btn">
+				<button type="submit" id="main_write__content__btn_cancel">
+					<h3>취소</h3>
+				</button>
+				<input id="main_write__content__btn_register" type="submit" value="등록하기" onclick="return confirm('정말 삭제하시겠습니까?')" />
+				<!--여기 포스트가 잘 만들어졌다는 걸 if문으로 처리하려면 뭘 넣어야 할까-->
+			</div>
+		</div>
+	</form>
+	<script src="/static/js/post_main_write.js"></script>
 </div>
 {% endblock %}

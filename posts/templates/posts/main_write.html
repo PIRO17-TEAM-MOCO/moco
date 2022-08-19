@@ -35,18 +35,35 @@
               </div>
             </div>-->
             <!--드롭다운 아직 연결 안돼서 일단 select box로-->
-            <div>
+            <select name="contact">
+              <option value selected ="default" required id="id_contact">----------</option>
+              <option value="On">온라인</option>
+              <option value="Off">오프라인</option>
+              <option value="Mix">혼합</option>
+              {% for key, value in contacts %}
+              <option value="{{ key }}">{{ value }}</option>
+              {% endfor %}
+            </select>
+            <!-- <div>
               진행방식 :
               <select name="contact">
-                <option selected value="default">----------</option>
+                <option value selected="default">----------</option>
                 {% for key, value in contacts %}
                 <option value="{{ key }}">{{ value }}</option>
                 {% endfor %}
               </select>
             </div>
-          </div>
+          </div> -->
           <!--드롭다운 아직 연결 안돼서 일단 select box로-->
           <div class="main_write__dropdown__select_right">
+            <select name="duration">
+              <option value selected ="default">----------</option>
+              <option value="Regular">정기</option>
+              <option value="One-Time">번개</option>
+              {% for key, value in contacts %}
+              <option value="{{ key }}">{{ value }}</option>
+              {% endfor %}
+            </select>
             <!--<div class="main_write__top__select_title">
               <h3>모임형태</h3>
             </div>
@@ -66,11 +83,6 @@
                 </ul>
               </div>
             </div>-->
-            <!--드롭다운 아직 연결 안돼서 일단 select box로-->
-            <div>
-              <div for="{{ form.duration.id_for_label }}">기간</div>
-              {{ form.duration }}
-            </div>
             <!--드롭다운 아직 연결 안돼서 일단 select box로-->
           </div>
         </div>

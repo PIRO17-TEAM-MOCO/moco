@@ -17,8 +17,8 @@ import json
 from datetime import datetime
 from .models import User
 from .forms import ProfileForm, SignupForm, FindidForm, ResetpwForm
-from posts.models import Post
-from place.models import Place
+from posts.models import Post, Review
+from place.models import Place, PlaceImage
 
 # tag 정의
 TAG_POST = 1
@@ -201,11 +201,32 @@ def profile_view(request, id):
     user = User.objects.get(id=id)
     birth = user.birth
     today = datetime.now().date()
-    age = today.year - birth.year + 1  # 나이 구하기
+    age = today.year - birth.year + 1 # 나이 구하기
+    pairs_my = []
+    for place in user.place_set.all() :
+        images = PlaceImage.objects.filter(place=place)
+        if images:
+            image = images[0]
+        else:
+            image = None
+        pair = [place, image]
+        pairs_my.append(pair)
+    pairs_like = []
+    for place in user.like_places.all() :
+        images = PlaceImage.objects.filter(place=place)
+        if images:
+            image = images[0]
+        else:
+            image = None
+        pair = [place, image]
+        pairs_like.append(pair)
+
     context = {
-        'user': user,
-        'age': age,
-        'edit_access': False,
+    'user': user,
+    'age': age,
+    'edit_access': False,
+    'pairs_my': pairs_my,
+    'pairs_like': pairs_like
     }
     if request.user == user:
         context['edit_access'] = True

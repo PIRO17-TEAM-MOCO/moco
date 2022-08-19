@@ -29,13 +29,13 @@ TAG_PLACE = 2
 def profile_valid(func):          # 호출할 함수를 매개변수로 받음
     def wrapper(request):         # 호출할 함수의 매개변수와 똑같이 지정
         user = request.user
-        if user.is_authenticated:
+        if user.is_authenticated: # 로그인했으면 프로필 정보 검사
             if user.birth is None:
-                return redirect(f'/account/profile/edit/{user.id}')
+                return redirect(f'/account/profile/add/{user.id}')
             else:
                 return func(request)
         else:
-            return redirect('users:login')
+            return func(request)
     return wrapper
 
 
@@ -232,7 +232,8 @@ def profile_edit(request, id):
             user.save()
             return redirect(f'/account/profile/{id}')
         else:
-            return redirect('users:profile_view')
+            print(form.errors)
+            return redirect(f'/account/profile/edit/{id}')
     else:
         form = ProfileForm(instance=user)
         context = {
@@ -240,6 +241,37 @@ def profile_edit(request, id):
             "id": id,
         }
         return render(request, template_name='users/profile_edit.html', context=context)
+
+
+@login_required
+def profile_add(request, id):
+    # 다른 사람이 프로필 추가하는 것 방지
+    if id != request.user.id:
+        return redirect(f'/account/profile/{id}')
+    user = User.objects.get(id=id)
+    if request.method == "POST":
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            user.name = form.cleaned_data['name']
+            user.nickname = form.cleaned_data['nickname']
+            user.profile_img = form.cleaned_data['profile_img']
+            user.gender = form.cleaned_data['gender']
+            user.birth = form.cleaned_data['birth']
+            user.job = form.cleaned_data['job']
+            user.desc = form.cleaned_data['desc']
+            user.email = form.cleaned_data['email']
+            user.save()
+            return redirect('posts:home')
+        else:
+            print(form.errors)
+            return redirect(f'/account/profile/add/{id}')
+    else:
+        form = ProfileForm(instance=user)
+        context = {
+            "form": form,
+            "id": id,
+        }
+        return render(request, template_name='users/profile_add.html', context=context)
 
 
 def is_ajax(request):
@@ -291,3 +323,7 @@ def likes(request, tag):
             'error': error,
         }
         return HttpResponse(json.dumps(context), content_type='application/json')
+
+
+def social_error(request):
+    return render(request, template_name='users/social_error.html')

@@ -13,6 +13,7 @@ urlpatterns = [
     path('find-id/', views.find_id, name='find_id'),
     path('profile/<int:id>', views.profile_view, name='profile_view'),
     path('profile/edit/<int:id>', views.profile_edit, name='profile_edit'),
+    path('profile/add/<int:id>', views.profile_add, name='profile_add'),
     path('signout/', views.signout, name='signout'),
     path('change-pw/', views.change_pw, name='change_pw'),
     path('reset-pw/', views.reset_pw, name='reset_pw'),
@@ -26,4 +27,5 @@ urlpatterns = [
          auth_views.PasswordResetCompleteView.as_view(template_name='users/reset_pw_complete.html'),
          name='reset_pw_complete'),
     path('likes/<int:tag>', views.likes, name="likes"),
+    path('social/signup/', views.social_error, name="social_error"),
 ]

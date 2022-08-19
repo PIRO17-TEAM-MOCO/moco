@@ -5,8 +5,10 @@ from django.db.models import Count, Q
 from .models import Place, PlaceImage
 from .forms import PlaceForm
 from comments.models import Comment
+from users.views import profile_valid
 
 
+@profile_valid
 def home(request, category='None'):
     # url에서 매개변수로 카테고리 받아옴
     # url에서 매개변수를 안 주면 'None'처리
@@ -20,7 +22,6 @@ def home(request, category='None'):
         places = Place.objects.filter(category='Etc')
     else:
         places = Place.objects.all()
-    places = places.annotate(comment_count=Count('comment'))
     # search했다면 필터링 실행
     search = request.GET.get('search', 'None')
     if search != 'None':
@@ -37,6 +38,7 @@ def home(request, category='None'):
     elif sort == "like":
         places = places.order_by("-likes")
     elif sort == "comment":
+        places = places.annotate(comment_count=Count('comment'))
         places = places.order_by("-comment_count")
     # 플레이스와 해당 이미지를 묶어서 context로 보내줌
     pairs = []
@@ -57,6 +59,7 @@ def home(request, category='None'):
 
 
 @login_required
+@profile_valid
 def write(request):
     if request.method == 'POST':
         form = PlaceForm(request.POST)

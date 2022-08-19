@@ -18,7 +18,7 @@ class User(AbstractUser):
     first_name = None
     last_name = None
     name = models.CharField(max_length=10)
-    email = models.EmailField() # 이메일을 필수 컬럼으로 재선언
+    email = models.EmailField(unique=True) # 이메일을 필수 컬럼으로 재선언
     nickname = models.CharField(max_length=20)
     birth = models.DateField(null=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICE)

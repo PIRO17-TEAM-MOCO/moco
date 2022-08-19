@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>이미 존재하는 이메일입니다</h2>
+    <p>일반 회원으로 로그인해주세요</p>
+    <form method="get" action="{% url 'users:login' %}">
+      <button type="submit">로그인</button>
+    </form>
+  </body>
+</html>

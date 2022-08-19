@@ -12,7 +12,7 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-from django.http import HttpResponse,JsonResponse
+from django.http import HttpResponse, JsonResponse
 import json
 from datetime import datetime
 from .models import User
@@ -21,20 +21,22 @@ from posts.models import Post
 from place.models import Place
 
 # tag 정의
-TAG_POST=1
-TAG_PLACE=2
+TAG_POST = 1
+TAG_PLACE = 2
 
 
-# main은 기능확인용입니다.
-# def main(request):
-#     users = User.objects.all()
-#     context = {
-#         'users': users
-#     }
-#     if request.user:
-#         context['me'] = request.user
-#         print(context)
-#     return render(request, template_name='users/main.html', context=context)
+# 프로필 유효성 검사 데코레이터
+def profile_valid(func):          # 호출할 함수를 매개변수로 받음
+    def wrapper(request):         # 호출할 함수의 매개변수와 똑같이 지정
+        user = request.user
+        if user.is_authenticated: # 로그인했으면 프로필 정보 검사
+            if user.birth is None:
+                return redirect(f'/account/profile/add/{user.id}')
+            else:
+                return func(request)
+        else:
+            return func(request)
+    return wrapper
 
 
 def signup(request):
@@ -42,7 +44,8 @@ def signup(request):
         form = SignupForm(request.POST)
         if form.is_valid():
             user = form.save()
-            auth.login(request, user)
+            auth.login(request, user,
+                       backend='django.contrib.auth.backends.ModelBackend')
             return redirect('posts:home')
         else:
             return redirect('users:signup')
@@ -68,11 +71,15 @@ def signout(request):
 
 
 def login(request):
+    if request.user.is_authenticated:
+            print('이미 로그인함')
+            return redirect('posts:home')
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)
         next = request.POST.get("next")
         if form.is_valid():
-            auth.login(request, form.get_user())
+            user = form.get_user()
+            auth.login(request, user)
             try:
                 return redirect(next)
             except:
@@ -109,7 +116,7 @@ def find_id(request):
         if form.is_valid():
             name = form.cleaned_data['name']
             birth = form.cleaned_data['birth']
-            users = User.objects.filter(name=name, birth=birth) # 모든 user 반환
+            users = User.objects.filter(name=name, birth=birth)  # 모든 user 반환
             context = {
                 'users': users,
             }
@@ -177,30 +184,31 @@ def reset_pw(request):
                     }
                     email = render_to_string(email_template_name, c)
                     try:
-                        send_mail(subject, email, 'mocoofficial180@gmail.com' , [user.email], fail_silently=False)
+                        send_mail(subject, email, 'mocoofficial180@gmail.com',
+                                  [user.email], fail_silently=False)
                     except BadHeaderError:
                         return HttpResponse('Invalid header found.')
                     return redirect('users:reset_pw_done')
     else:
         form = ResetpwForm()
-        context={
+        context = {
             'form': form,
-            }
-        return render(request, template_name='users/reset_pw.html',context=context)
+        }
+        return render(request, template_name='users/reset_pw.html', context=context)
 
 
 def profile_view(request, id):
     user = User.objects.get(id=id)
     birth = user.birth
     today = datetime.now().date()
-    age = today.year - birth.year + 1 # 나이 구하기
+    age = today.year - birth.year + 1  # 나이 구하기
     context = {
-    'user': user,
-    'age': age,
-    'edit_access': False,
+        'user': user,
+        'age': age,
+        'edit_access': False,
     }
     if request.user == user:
-        context['edit_access'] = True   
+        context['edit_access'] = True
     return render(request, template_name='users/profile_view.html', context=context)
 
 
@@ -224,7 +232,8 @@ def profile_edit(request, id):
             user.save()
             return redirect(f'/account/profile/{id}')
         else:
-            return redirect('users:profile_view')
+            print(form.errors)
+            return redirect(f'/account/profile/edit/{id}')
     else:
         form = ProfileForm(instance=user)
         context = {
@@ -234,8 +243,40 @@ def profile_edit(request, id):
         return render(request, template_name='users/profile_edit.html', context=context)
 
 
+@login_required
+def profile_add(request, id):
+    # 다른 사람이 프로필 추가하는 것 방지
+    if id != request.user.id:
+        return redirect(f'/account/profile/{id}')
+    user = User.objects.get(id=id)
+    if request.method == "POST":
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            user.name = form.cleaned_data['name']
+            user.nickname = form.cleaned_data['nickname']
+            user.profile_img = form.cleaned_data['profile_img']
+            user.gender = form.cleaned_data['gender']
+            user.birth = form.cleaned_data['birth']
+            user.job = form.cleaned_data['job']
+            user.desc = form.cleaned_data['desc']
+            user.email = form.cleaned_data['email']
+            user.save()
+            return redirect('posts:home')
+        else:
+            print(form.errors)
+            return redirect(f'/account/profile/add/{id}')
+    else:
+        form = ProfileForm(instance=user)
+        context = {
+            "form": form,
+            "id": id,
+        }
+        return render(request, template_name='users/profile_add.html', context=context)
+
+
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+
 
 def likes(request, tag):
     if is_ajax(request):
@@ -250,7 +291,7 @@ def likes(request, tag):
 
         id = request.GET['id']
     if tag == TAG_POST:
-        post = Post.objects.get(id=id) 
+        post = Post.objects.get(id=id)
         user = request.user
         if user in post.like_users.all():
             post.like_users.remove(user)
@@ -266,7 +307,7 @@ def likes(request, tag):
         }
         return HttpResponse(json.dumps(context), content_type='application/json')
     elif tag == TAG_PLACE:
-        place = Place.objects.get(id=id) 
+        place = Place.objects.get(id=id)
         user = request.user
 
         if user in place.like_users.all():
@@ -282,3 +323,7 @@ def likes(request, tag):
             'error': error,
         }
         return HttpResponse(json.dumps(context), content_type='application/json')
+
+
+def social_error(request):
+    return render(request, template_name='users/social_error.html')

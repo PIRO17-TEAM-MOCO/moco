@@ -1,5 +1,4 @@
 {% extends 'users/account_base.html' %} {% block content %}
-
 <main>
   <div class="login__container">
     <div class="login__nor">
@@ -61,11 +60,24 @@
         <span>간편 로그인</span>
         <hr noshade />
       </div>
+      {% load socialaccount %} {% providers_media_js %}
       <div class="login__sim__soc">
-        <button>구글</button>
-        <button>네이버</button>
-        <button>카카오</button>
-        <button>깃허브</button>
+        <form method="post" action="{% provider_login_url 'google' %}">
+          {% csrf_token %}
+          <button type="submit">구글</button>
+        </form>
+        <form method="post" action="{% provider_login_url 'naver' %}">
+          {% csrf_token %}
+          <button type="submit">네이버</button>
+        </form>
+        <form method="post" action="{% provider_login_url 'kakao' %}">
+          {% csrf_token %}
+          <button type="submit">카카오</button>
+        </form>
+        <form method="post" action="{% provider_login_url 'github' %}">
+          {% csrf_token %}
+          <button type="submit">깃허브</button>
+        </form>
       </div>
     </div>
   </div>

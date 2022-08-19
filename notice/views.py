@@ -1,10 +1,12 @@
 from configparser import NoOptionError
 from django.shortcuts import render, redirect
 from .models import Notice, User
+from users.views import profile_valid
 
 # Create your views here.
 
 
+@profile_valid
 def home(request):
     notices = Notice.objects.all()
     admin = User.objects.filter(is_superuser=True)

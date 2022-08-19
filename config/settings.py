@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
+from telnetlib import AUTHENTICATION
 from environ import Env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,6 +42,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -53,6 +55,17 @@ INSTALLED_APPS = [
     'comments',
     'likes',
     'notice',
+
+    # allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    # provider
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.naver',
+    'allauth.socialaccount.providers.kakao',
+    'allauth.socialaccount.providers.github',
 ]
 
 MIDDLEWARE = [
@@ -70,7 +83,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -172,3 +185,28 @@ EMAIL_USE_TLS = True
 
 # 사이트와 관련한 자동응답을 받을 이메일 주소
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# 소셜 로그인
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+)
+
+SITE_ID = 1
+# 소셜 로그인 이후 리다이렉트
+LOGIN_REDIRECT_URL = "/post"
+# login_required 데코레이터용 url
+LOGIN_URL = "/account/login"
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+    }
+}

@@ -1,8 +1,75 @@
 @import url(base.css);
 
+.wrap-vertical{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  height: 30rem;
+  padding: 2rem 1rem 2rem 1rem;
+  overflow: scroll;
+  color: #112031;
+  /* background: #FAFAFA; */
+  /* border: 1px solid #BFBFBF; */
+  overflow: auto;
+  white-space: nowrap;
+  margin: 0 auto;
+}
+
+.wrap-vertical img {
+  margin: 0 0.25rem;
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid #BFBFBF; */
+  object-fit: cover;
+  object-position: center;
+}
+
+.dropdown{
+  position: relative;
+  display: inline-block;
+}
+
+#drop-content{
+  position: absolute;
+  background-color: white;
+  box-shadow: 0px 3px 6px -4px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 2px;
+  border: none;
+}
+
+#drop-content li:nth-child(3){
+  text-decoration: none;
+  padding: 1rem;
+}
+
+.option:hover{
+  color: #2253ff !important;
+}
+
+#drop-content li:hover{
+  color: #2253ff !important;
+  background-color: #e9f7ff;
+}
+
+#drop-content .option_blank{
+  margin: 0 1rem;
+  padding: 0 1rem;
+}
+
+#drop-content button { 
+  padding: 1rem;
+}
+
+.option > form > button:hover{
+  color: #2253ff !important;
+}
+
+.option > a:hover{
+  color: #2253ff !important;
+}
+
 .content-top {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
   border-bottom: 1px solid #BFBFBF;
@@ -43,121 +110,138 @@
   color: #8C8C8C;
 }
 
-.dropdown{
-  position: relative;
-  display: inline-block;
-}
-
-#drop-content{
-  position: absolute;
-  background-color: white;
-  box-shadow: 0px 3px 6px -4px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05);
-  border-radius: 2px;
-  border: none;
-}
-
-#drop-content li{
-  text-decoration: none;
-  padding: 1rem;
-}
-
-#drop-content .option_blank{
-  margin: 0 1rem;
-  padding: 0 1rem;
-}
-
-/* 이미지 슬라이드 */
-/* 보여줄 구간의 높이와 넓이 설정 */
-#slideShow{
-  width: 500px;
-  height: 500px;
-  position: relative;
-  margin: 50px auto;
-  overflow: hidden;   
-  /*리스트 형식으로 이미지를 일렬로 
-  정렬할 것이기 때문에, 500px 밖으로 튀어 나간 이미지들은
-  hidden으로 숨겨줘야됨*/
-}
-
-.slides{
-  position: absolute;
-  display: flex;
-  left: 0;
-  top: 0;
-  width: 2500px; /* 슬라이드할 사진과 마진 총 넓이 */
-  transition: left 0.5s ease-out; 
-  /*ease-out: 처음에는 느렸다가 점점 빨라짐*/
-}
-
-.slides li img{
-  width: 500px;
-  height: 500px;
-  object-fit: cover;
-  overflow: hidden; 
-}
-
-/* 첫 번째 슬라이드 가운데에 정렬하기위해
-첫번째 슬라이드만 margin-left조정 */
-.slides li:first-child{
-  /* margin-left: 100px; */
-}
-
-/* 슬라이드들 옆으로 정렬 */
-.slides li:not(:last-child){
-  float: left;
-  /* margin-right: 100px; */
-}
-
-.slides li{
-  float: left;
-}
-
-.controller span{
-  position:absolute;
-  background-color: transparent;
-  color: black;
-  text-align: center;
-  border-radius: 50%;
-  padding: 10px 20px;
-  top: 50%;
-  font-size: 1.3em;
-  cursor: pointer;
-}
-
-/* 이전, 다음 화살표에 마우스 커서가 올라가 있을때 */
-.controller span:hover{
-  background-color: rgba(128, 128, 128, 0.11);
-}
-
-.prev{
-  left: 10px;
-}
-
-.next{
-  right: 10px;
-}
-
-.content-info {
+.content-item {
   font-family: 'Noto Sans KR', sans-serif;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1.25rem;
   margin-right: auto;
-  margin: 1rem auto 1rem 0;
-}
-
-.content-info__top {
+  padding: 2rem 0 1.5rem 0;
   display: flex;
+  flex-direction: column;
 }
 
-.content-info__left{
-  color: #8C8C8C;
+.content-item__title {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.content-item__top {
+  display: flex;
+  flex-direction: row;
+  margin-right: auto;
+}
+
+.content-item__left{
+  font-weight: 600;
+  color: black;
   margin-right: 4rem;
 }
 
-.content-info__left div {
-  margin: 1rem 0 1.25rem 0;
+.content-item__right{
+  margin-right: auto;
 }
 
-.content-info__right div {
-  margin: 1rem 1rem 1.25rem 0;
+.content-item__left div {
+  margin: 1.5rem 0 1.5rem 0;
+}
+
+.content-item__right div {
+  margin: 1.5rem 1rem 1.5rem 0;
+}
+
+.content-item__content {
+  line-height: 2rem;
+  font-size: 1.15rem;
+}
+
+/* comment */
+#main_detail__comment {
+  width: 100%;
+}
+
+#main_detail__comment__blank {
+  display: flex;
+  border-top: 50px;
+}
+
+#main_detail__comment__rule {
+  color: rgb(162, 162, 162);
+  padding-top: 35px;
+}
+
+#comment_input_box {
+  padding: 0;
+  width: 100%;
+  height: 10em;
+  border: 1px solid rgb(162, 162, 162);
+  border-radius: 5px;
+  resize: none;
+}
+
+#comment_input_box::placeholder {
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+#main_detail__comment__top {
+  display: flex;
+  justify-content: space-between;
+}
+
+#main_detail__comment_num {
+  color: #2253ff;
+  padding-left: 7px;
+}
+
+#main_detail__comment__btnplace {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 7px 0;
+}
+
+#main_detail__comment__btn {
+  background-color: #2253ff;
+  border-style: none;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 20px;
+  font-size: 13px;
+  margin: 10px 0;
+}
+
+#main_detail__comment__contents__profile {
+  display: flex;
+  padding-bottom: 15px;
+}
+
+#main_detail__comments__contents__info {
+  display: inline-block;
+  padding-left: 15px;
+}
+
+#main_detail__comments__contents__time {
+  font-size: 8px;
+  color: rgb(162, 162, 162);
+}
+
+#main_detail__comment__contents {
+  border-top: 1px solid rgb(162, 162, 162);
+  margin-bottom: 50px;
+}
+
+#main_detail__comment__each__contents {
+  border-bottom: 1px solid rgb(162, 162, 162);
+  padding-top: 23px;
+  padding-bottom: 23px;
+}
+
+#main_detail__comment__contents__txt span {
+  font-size: 15px;
+}
+
+#main_detail__comment__contents__tag {
+  padding-bottom: 5px;
+  color: #2253ff;
+  font-size: 14px;
 }

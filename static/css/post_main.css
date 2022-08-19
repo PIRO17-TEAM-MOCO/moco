@@ -172,12 +172,13 @@
   display: flex;
   padding: 10px 0;
   margin-bottom: 20px;
-  transition: all 0.5s;
+  transition: all 0.3s;
   cursor: pointer;
 }
 
 #main__info_div__post:hover {
-  box-shadow: 1px 1px 20px rgb(221, 221, 221);
+  box-shadow: 0px 4px 10px 2px rgba(171, 186, 189, 0.2);
+  transform: translateY(-1%);
 }
 
 /* 셀렉트 박스 고치고 https://velog.io/@ewaterbin/CSS-.-%EC%85%80%EB%A0%89%ED%8A%B8-%EB%B0%95%EC%8A%A4%EB%A5%BC-%EA%B5%AC%ED%98%84%ED%95%98%EB%A9%B0-%EB%B4%89%EC%B0%A9%ED%95%9C-%EB%82%9C%EA%B4%80%EB%93%A4, 
@@ -226,7 +227,7 @@
 
 #main__info_div__post_left__title {
   font-size: 18px;
-  margin-top: 10px;
+  margin-top: 25px;
   font-weight: 700;
 }
 
@@ -254,7 +255,7 @@
 }
 
 #main__info_div__post_left__reaction {
-  margin-top: 20px;
+  margin-top: 40px;
   margin-bottom: 10px;
   width: 100%;
 }

@@ -2,10 +2,10 @@
 {% block content %}
 <div class="content">
   <div class="content-category"> <!--카테고리-->
-    <div class="content-category__item">전체</div>
-    <div class="content-category__item">카페</div>
-    <div class="content-category__item">스터디룸</div>
-    <div class="content-category__item">그 외</div>
+    <div class="content-category__item"><a href="{% url 'place:home' 'all' %}">전체</a> </div>
+    <div class="content-category__item"><a href="{% url 'place:home' 'cafe' %}">카페</a></div>
+    <div class="content-category__item"><a href="{% url 'place:home' 'studyroom' %}">스터디룸</a></div>
+    <div class="content-category__item"><a href="{% url 'place:home' 'etc' %}">그 외</a></div>
   </div>
     <form class="search"> {% csrf_token %} <!--검색-->
       <i class="fa-solid fa-magnifying-glass"></i>
@@ -25,22 +25,18 @@
 		<select name="sort" onchange="this.form.submit();"> 
 			<option value="default">--정렬기준--</option>
 			<option value="latest" {% if sort == "latest" %}selected{% endif %}>최신순</option>
-			<option value="views" {% if sort == "like" %}selected{% endif %}>좋아요순</option>
+			<option value="like" {% if sort == "like" %}selected{% endif %}>좋아요순</option>
 			<option value="comment" {% if sort == "comment" %}selected{% endif %}>댓글순</option>
 		</select>
 	</form>
   <div class="content-box">
     <ul class="content-box__list">
-      {% for place in places %} <!--게시물-->
+      {% for place, image in pairs %} <!--게시물-->
       <a class="content-box__itme" href="{% url 'place:detail' place.id %}" >
         <div class="content-box__img">
-          {% for image in images %}
-            {% if image.place == place %}
-              <img src="{{image.image.url}}"><br>
-              {{ "<!--" }}
-                {%endif%} 
-              {%endfor%}     
-              {{ "-->" }}
+          {% if image %}
+          <img src="{{image.image.url}}"><br>
+          {% endif %}
         </div>
         <div class="content-box__top">
           <div class="content-box__name">{{place.name}}</div>
@@ -51,8 +47,8 @@
         <div class="content-box__bottom">
           <span><i class="fa-solid fa-circle-user"></i>{{place.user}}</span>
           <span>
-            <span style="margin-right: 0.5rem;"><i class="fa-solid fa-comment-dots"></i>1</span>
-            <span><i class="fa-regular fa-heart"></i>2</span>
+            <span style="margin-right: 0.5rem;"><i class="fa-solid fa-comment-dots"></i>{{place.comment_count}}</span>
+            <span><i class="fa-regular fa-heart"></i>{{place.likes}}</span>
           </span>
         </div>
       </a>

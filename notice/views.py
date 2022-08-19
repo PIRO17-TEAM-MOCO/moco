@@ -1,14 +1,21 @@
 from configparser import NoOptionError
 from django.shortcuts import render, redirect
-from .models import Notice
+from .models import Notice, User
 
 # Create your views here.
 
 
 def home(request):
     notices = Notice.objects.all()
+    admin = User.objects.filter(is_superuser=True)
+    user = request.user
+    count = len(notices)
+
     context = {
-        "notices": notices
+        "notices": notices,
+        "admin": admin,
+        "user": user,
+        "count": count
     }
     return render(request, template_name="notice/main.html", context=context)
 
@@ -21,13 +28,17 @@ def write(request):
         Notice.objects.create(user=user, title=title, content=content)
         id = Notice.objects.last().id
         return redirect(f"/notice/detail/{id}")
-    return render(request, template="notice/write.html")
+    return render(request, template_name="notice/write.html")
 
 
 def detail(request, id):
     notice = Notice.objects.get(id=id)
+    admin = User.objects.first()
+    user = request.user
     context = {
         'notice': notice,
+        'admin': admin,
+        'user': user
     }
     return render(request, template_name="notice/detail.html", context=context)
 

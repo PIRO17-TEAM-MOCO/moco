@@ -12,11 +12,11 @@
 }
 
 body a:hover {
-  color: black !important;
+  color: #141414 !important;
 }
 
 body {
-  color: black !important;
+  color: #141414 !important;
   font-family: "Noto Sans", sans-serif;
   font-family: "Noto Sans KR", sans-serif;
   font-weight: 400;
@@ -69,8 +69,8 @@ body {
   justify-content: center;
   max-width: 1200px;
   width: 100%;
-  padding: 20px 10px 0 10px;
-  margin: 0 auto;
+  padding: 0 10px 0 10px;
+  margin: 3rem auto;
 }
 
 /* JS 없이 호버로 드롭다운 구현 */

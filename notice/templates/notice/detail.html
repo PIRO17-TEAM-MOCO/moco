@@ -1,0 +1,59 @@
+{% extends 'notice/base.html' %}
+{% block content %}
+<div class="content">
+  <li class="back"><a target="_self" href="{% url 'notice:home' %}"><i class="fa-solid fa-arrow-left"></i></a></li>
+  <div class="content-top">
+    <div class="content-title">
+      <div class="content-title__top">
+        {{notice.title}}
+      </div>
+      <div class="content-title__bottom">
+        <div class="content-title__info">
+          {% if notice.user.profile_img %}
+          <img src="{{notice.user.profile_img.url}}" width="50" alt="">
+          {% else %}
+          <img src="static/img/moco_symbol.png" width="50" alt="">
+          {% endif %}
+          <div class="content-title__left">
+            <span class="content-title__user">{{notice.user}}</span>
+            <span style="margin: 0 0.5rem; color: #8C8C8C;">|</span>
+            <span class="content-title__published">{{notice.published_at|date:"Y. m. d" }}</span>
+          </div>
+        </div>
+        <div class="content-title__right">
+          {% if user == admin %}
+          <div class="dropdown">
+            <button onclick="dp_menu()" class="button"><i class="fa-solid fa-ellipsis"></i></button>
+            <div style="display: none;" id="drop-content">
+              <ul class="option-list">
+                <li class="option">
+                  <form action="{% url 'notice:delete' notice.id %}" method="post">
+                    {% csrf_token %}
+                    <button>삭제</button>
+                  </form>
+                <li class="option_blank"></li>
+                </li>
+                <li class="option"><a href = "{% url 'notice:update' notice.id %}">수정</a></li>
+              </ul>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content-bottom">
+    {{notice.content}}
+  </div>
+</div>
+<script>
+  function dp_menu(){
+      let click = document.getElementById("drop-content");
+      if(click.style.display === "none"){
+          click.style.display = "block";
+      }else{
+          click.style.display = "none";
+      }
+  }
+</script>
+{% endblock %}

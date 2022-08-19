@@ -13,7 +13,7 @@
         <div class="input">
           <div class="input__id">
             {{ form.username.errors }}
-            <lable for="{{ form.id.username_for_label }}"></lable>
+            <lable for="{{ form.username.id_for_label }}"></lable>
             <input
               type="text"
               name="username"
@@ -39,15 +39,20 @@
             />
           </div>
           <div class="align__cb">
-            <input type="checkbox" id="input__cb" />
+            <input type="checkbox" id="input__cb" name="input__cb" />
             <label for="input__cb"></label>
             <span>아이디 저장</span>
           </div>
+          <input type="hidden" name="next" value="{{ next }}" />
           <button id="login__btn">로그인</button>
         </div>
       </form>
       <div id="sub__menu">
         <a href="{% url 'users:find_id' %}">아이디 찾기&nbsp;&nbsp;</a> |
+        <a href="{% url 'users:reset_pw' %}"
+          >&nbsp;비밀번호 재설정&nbsp;&nbsp;</a
+        >
+        |
         <a href="{% url 'users:signup' %}">&nbsp;&nbsp;회원가입</a>
       </div>
 

@@ -29,6 +29,7 @@ class Post(models.Model):
     duration = models.CharField(
         max_length=10, choices=DURATION_CHOICE)  # 정기, 번개
     activation = models.BooleanField(default=True)  # True : 모집중, False : 모집완료
+    likes = models.IntegerField(default=0)
 
 
 class Review(models.Model):

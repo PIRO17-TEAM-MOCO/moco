@@ -8,15 +8,16 @@
       <div id="main__search_div__top">
         <div id="search_div__top_left">
           <div id="search_div__top_left__nav">
-            <span>전체</span>
-            <span>오프라인</span>
-            <span>온라인</span>
-            <span>혼합</span>
+            <span><a href="{% url 'posts:home' 'all' %}">전체</a></span>
+            <span><a href="{% url 'posts:home' 'offline' %}">오프라인</a></span>
+            <span><a href="{% url 'posts:home' 'online' %}">온라인</a></span>
+            <span><a href="{% url 'posts:home' 'mix' %}">혼합</a></span>
           </div>
           <div id="search_div__top_left__search">
             <input
               id="main__search_text"
               type="text"
+              name="search"
               placeholder="관심 모각코를 검색하세요"
             />
             <input
@@ -122,18 +123,14 @@
           <div id="main__info_div__post_left__title">
             {{post.title}}
           </div>
-          <div id="main__info_div__post_left__txt">
-            <p>
-              {{post.content}}
-            </p>
-          </div>
           <div id="main__info_div__post_left__reaction">
             <i class="fa-solid fa-eye"></i>
             <span>{{post.views}}</span>
             <i class="fa-solid fa-comment-dots"></i>
-            <span>2</span>
+            <span>{{post.comment_set.all|length}}</span>
+            <!--역참조-->
             <i class="fa-solid fa-heart"></i>
-            <span>5</span>
+            <span>{{post.likes}}</span>
           </div>
         </div>
         <div id="main__info_div__post_right">

@@ -12,21 +12,29 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
+from django.http import HttpResponse,JsonResponse
+import json
 from datetime import datetime
 from .models import User
 from .forms import ProfileForm, SignupForm, FindidForm, ResetpwForm
+from posts.models import Post
+from place.models import Place
+
+# tag 정의
+TAG_POST=1
+TAG_PLACE=2
 
 
 # main은 기능확인용입니다.
-def main(request):
-    users = User.objects.all()
-    context = {
-        'users': users
-    }
-    if request.user:
-        context['me'] = request.user
-        print(context)
-    return render(request, template_name='users/main.html', context=context)
+# def main(request):
+#     users = User.objects.all()
+#     context = {
+#         'users': users
+#     }
+#     if request.user:
+#         context['me'] = request.user
+#         print(context)
+#     return render(request, template_name='users/main.html', context=context)
 
 
 def signup(request):
@@ -35,7 +43,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             auth.login(request, user)
-            return redirect('users:main')
+            return redirect('posts:home')
         else:
             return redirect('users:signup')
     else:
@@ -52,9 +60,9 @@ def signout(request):
         if request.user.is_authenticated:
             request.user.delete()
             auth.logout(request)
-            return redirect('users:main')
+            return redirect('posts:home')
         else:
-            return redirect('user:main')
+            return redirect('user:signout')
     else:
         return render(request, template_name='users/signout.html')
 
@@ -62,18 +70,25 @@ def signout(request):
 def login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)
+        next = request.POST.get("next")
         if form.is_valid():
             auth.login(request, form.get_user())
-            return redirect('users:main')
+            try:
+                return redirect(next)
+            except:
+                return redirect('posts:home')
         else:
             context = {
                 'form': form,
+                'next': next,
             }
             return render(request, template_name='users/login.html', context=context)
     else:
         form = AuthenticationForm()
+        next = request.GET.get('next')
         context = {
             'form': form,
+            'next': next,
         }
         return render(request, template_name='users/login.html', context=context)
 
@@ -81,7 +96,11 @@ def login(request):
 @login_required
 def logout(request):
     auth.logout(request)
-    return redirect('users:main')
+    next = request.GET.get('next')
+    try:
+        return redirect(next)
+    except:
+        return redirect('posts:home')
 
 
 def find_id(request):
@@ -215,3 +234,57 @@ def profile_edit(request, id):
         return render(request, template_name='users/profile_edit.html', context=context)
 
 
+def is_ajax(request):
+    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+
+def likes(request, tag):
+    if is_ajax(request):
+        error = False
+        # 로그인 안 했으면 로그인 창으로 이동
+        if not request.user.is_authenticated:
+            error = True
+            print('로그인이 필요합니다.')
+            context = {
+                'error': error,
+            }
+            return HttpResponse(json.dumps(context), content_type='application/json')
+
+        id = request.GET['id']
+    if tag == TAG_POST:
+        post = Post.objects.get(id=id) 
+        user = request.user
+        if user in post.like_users.all():
+            post.like_users.remove(user)
+            post.likes -= 1
+            post.save()
+            print('unlike 성공')
+        else:
+            post.like_users.add(user)
+            post.likes += 1
+            post.save()
+            print('like 성공')
+        context = {
+            'like_count': post.likes,
+            'error': error,
+        }
+        return HttpResponse(json.dumps(context), content_type='application/json')
+    elif tag == TAG_PLACE:
+        place = Place.objects.get(id=id) 
+        user = request.user
+
+        if user in place.like_users.all():
+            place.like_users.remove(user)
+            place.likes -= 1
+            place.save()
+            print('unlike 성공')
+        else:
+            place.like_users.add(user)
+            place.likes += 1
+            place.save()
+            print('like 성공')
+        # post.like.count() : 게시물이 받은 좋아요 수  
+        context = {
+            'like_count': place.likes,
+            'error': error,
+        }
+        return HttpResponse(json.dumps(context), content_type='application/json')

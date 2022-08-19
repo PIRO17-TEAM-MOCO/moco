@@ -1,9 +1,88 @@
 {% extends 'users/account_base.html' %} {% block content %}
 
-<main>잘가시게~</main>
-<form action="{% url 'users:signout' %}" method="post">
-  {% csrf_token %}
-  <button type="submit">회원 탈퇴</button>
-</form>
+<main>
+  <div id="profile-edit__container">
+    <form method="post">
+      {% csrf_token %}
+      <div>
+          {{ form.birth.errors }}
+          <lable for="{{ form.birth.id_for_label }}"><p>생년월일</p></lable>
+          <input class="input__edit__birthday" type="text" name="birth" value="{{user.birth}}" required="" id="id_birth" placeholder="YYYY-MM-DD 형식으로 적어주세요.">
+      </div>
+      <div class="input__edit__desc">
+          {{ form.desc.errors }}
+          <lable for="{{ form.desc.id_for_label }}"><p>자기소개&nbsp;<span style="color: #8c8c8c">(선택)</span></p></lable>
+          <textarea class="input__edit__desc" name="desc" cols="40" rows="10" maxlength="100" id="id_desc" placeholder="100자 이내로 입력해주세요.">{{user.desc}}</textarea>
+      </div>
+      <div class="input__edit__email">
+          {{ form.email.errors }}
+          <lable for="{{ form.email.id_for_label }}"><p>이메일</p></lable>
+          <input type="email" name="email" value="{{user.email}}" maxlength="254" required="" id="id_email" placeholder="이메일 형식에 맞추어 적어주세요.">
+      </div>
+      <div>
+          <p>비밀번호 변경</p>
+          <div class="change-pw__btn">
+              <a onclick="changePw()"><span>바로가기</span></a>
+          </div>
+      </div>
+      <div>
+          <p>회원탈퇴</p>
+          <div id="signout__btn">
+              <a><span style="color: red;">회원탈퇴</span></a>
+          </div>
+      </div>
+      <div id="edit__btn__container">
+        <div class="edit-cancel__btn">
+            <a href="">취소</a>
+        </div>
+        <div id="edit-cf__btn">
+            <a type="submit" onclick="editConfirm()">수정 완료</a>
+        </div>
+      </div>
+  <form action="{% url 'users:signout' %}" method="post">
+    {% csrf_token %}
+    <div id="signout__cf__modal" class="modal-overlay">
+      <div class="modal__window">
+        <div class="modal-close">x</div>
+        <div class="modal__content">
+          <p style="margin-top: 3rem; font-size: 1.3rem; font-weight: 900">
+            MOCO에서 탈퇴하시겠어요?
+          </p>
+          <p style="font-size: 1rem; font-weight: 300">
+            ⚠️회원 탈퇴시, 계정과 관련된 모든 정보가 삭제되며 복구할 수
+            없습니다⚠️
+          </p>
+          <div id="signout__modal__btns">
+            <div id="signout-cc__btn">
+              <a onclick="history.go(-1)">아니요</a>
+            </div>
+            <div>
+              <button id="signout-cf__btn" type="submit">탈퇴하기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</main>
+<script>
+  const modal = document.getElementById("signout__cf__modal")
 
+  const closeBtn = modal.querySelector(".modal-close")
+  closeBtn.addEventListener("click", e => {
+      history.go(-1);
+  })
+
+  const ccBtn = modal.querySelector("#signout-cc__btn")
+  ccBtn.addEventListener("click", e => {
+      history.go(-1);
+  })
+
+  modal.addEventListener("click", e => {
+      const evTarget = e.target
+      if(evTarget.classList.contains("modal-overlay")) {
+        history.go(-1);
+      }
+    })
+</script>
 {% endblock %}

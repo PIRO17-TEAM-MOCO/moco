@@ -71,10 +71,10 @@
             <lable for="{{ form.birth.id_for_label }}"><p>생년월일</p></lable>
             <input class="input__edit__birthday" type="text" name="birth" value="{{user.birth}}" required="" id="id_birth" placeholder="YYYY-MM-DD 형식으로 적어주세요.">
         </div>
-        <div>
+        <div class="input__edit__desc">
             {{ form.desc.errors }}
             <lable for="{{ form.desc.id_for_label }}"><p>자기소개&nbsp;<span style="color: #8c8c8c">(선택)</span></p></lable>
-            <textarea class="input__edit__desc" name="desc" cols="40" rows="10" maxlength="100" value="{{user.desc}}" id="id_desc" placeholder="100자 이내로 입력해주세요."></textarea>
+            <textarea name="desc" cols="40" rows="10" maxlength="100" id="id_desc" placeholder="100자 이내로 입력해주세요.">{{user.desc}}</textarea>
         </div>
         <div class="input__edit__email">
             {{ form.email.errors }}
@@ -90,11 +90,11 @@
         <div>
             <p>회원탈퇴</p>
             <div id="signout__btn">
-                <a><span style="color: red;">회원탈퇴</span></a>
+                <a href="{% url 'users:signout' %}"><span style="color: red;">회원탈퇴</span></a>
             </div>
         </div>
-        <!--회원탈퇴 모달-->
-        <div id="signout__modal" class="modal-overlay" style="display: none;">
+        <!-- 회원탈퇴 모달-->
+        <!-- <div id="signout__modal" class="modal-overlay" style="display: none;">
             <div class="modal__window">
                 <div class="modal-close">x</div>
                 <div class="modal__content">
@@ -112,8 +112,8 @@
                     </div>  
                 </div>
               </div>
-        </div>
-        <!--회원탈퇴 모달-->
+        </div> -->
+        <!--회원탈퇴 모달 -->
         <div id="edit__btn__container">
             <div class="edit-cancel__btn">
                 <a href="">취소</a>
@@ -150,28 +150,28 @@
     }
 
     // 모달 이벤트 - 탈퇴하기
-    const modal = document.getElementById("signout__modal")
-    const btnModal = document.getElementById("signout__btn")
-    btnModal.addEventListener("click", e => {
-        modal.style.display = "flex"
-    })
+    // const modal = document.getElementById("signout__modal")
+    // const btnModal = document.getElementById("signout__btn")
+    // btnModal.addEventListener("click", e => {
+    //     modal.style.display = "flex"
+    // })
 
-    const closeBtn = modal.querySelector(".modal-close")
-    closeBtn.addEventListener("click", e => {
-        modal.style.display = "none"
-    })
+    // const closeBtn = modal.querySelector(".modal-close")
+    // closeBtn.addEventListener("click", e => {
+    //     modal.style.display = "none"
+    // })
 
-    const ccBtn = modal.querySelector("#signout-cc__btn")
-    ccBtn.addEventListener("click", e => {
-        modal.style.display = "none"
-    })
+    // const ccBtn = modal.querySelector("#signout-cc__btn")
+    // ccBtn.addEventListener("click", e => {
+    //     modal.style.display = "none"
+    // })
 
-    modal.addEventListener("click", e => {
-        const evTarget = e.target
-        if(evTarget.classList.contains("modal-overlay")) {
-            modal.style.display = "none"
-        }
-    })
+    // modal.addEventListener("click", e => {
+    //     const evTarget = e.target
+    //     if(evTarget.classList.contains("modal-overlay")) {
+    //         modal.style.display = "none"
+    //     }
+    // })
 
     //모달 이벤트 - 수정완료
     const cfmodal = document.getElementById("cf__modal")

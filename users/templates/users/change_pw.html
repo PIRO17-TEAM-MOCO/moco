@@ -93,6 +93,8 @@
       newpwd1.focus();
       return false;
     }
+
+    location.href = "{% url 'posts:home' %}";
   }
 </script>
 {% endblock %}

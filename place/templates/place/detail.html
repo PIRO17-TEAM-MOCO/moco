@@ -129,10 +129,10 @@
             <span>{{comment.content}}</span>
           </div>
           <div id="main_detail__comment__contents__reply">
-            {% comment %} 답글 테스트로 여기 위치
+            <!-- 답글 테스트로 여기 위치 -->
             {% for recomment in comment.comment_set.all %}
             <div>{{recomment.content}}</div>
-            {% endfor%} {% endcomment %}
+            {% endfor%}
             <div id="main_detail_comment_contents_reply_form__{{comment.id}}"></div>
             
           </div>

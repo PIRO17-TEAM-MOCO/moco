@@ -9,7 +9,7 @@ main {
   margin-top: 5rem;
 }
 
-#reset-pw-done__container {
+#social-error__container {
   width: 50rem;
   height: auto;
   display: flex;
@@ -21,7 +21,7 @@ main {
   margin-top: 5rem;
 }
 
-#reset-pw-done__title {
+#social-error__title {
   font-size: 2rem;
   font-weight: 900;
   margin-bottom: 3rem;
@@ -32,28 +32,14 @@ main {
   margin-bottom: 3rem;
 }
 
-#reset-pw-done__desc {
+#social-error__desc {
   width: 30rem;
-  font-size: 1rem;
-  color: #8c8c8c;
-  font-weight: 900;
+  font-size: 1.5rem;
+  color: black;
+  font-weight: 100;
   margin-bottom: 2rem;
   line-height: 1.2rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
-}
-
-#social-error__btn {
-  cursor: pointer;
-  margin-top: 1rem;
-  width: 20rem;
-  height: 4rem;
-  outline: 0;
-  border: 0;
-  font-size: 1rem;
-  border-radius: 0.5rem;
-  background-color: #2f52f5;
-  color: #fff;
-  font-weight: 900;
 }

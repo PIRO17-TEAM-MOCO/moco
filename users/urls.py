@@ -27,6 +27,6 @@ urlpatterns = [
          auth_views.PasswordResetCompleteView.as_view(template_name='users/reset_pw_complete.html'),
          name='reset_pw_complete'),
     path('likes/<int:tag>', views.likes, name="likes"),
-    path('social/signup/', views.social_error, name="social_error"),
+    #path('social/signup/', views.social_error, name="social_error"),
     path('check/', views.social_check, name='social_check')
 ]

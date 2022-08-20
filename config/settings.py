@@ -195,7 +195,7 @@ AUTHENTICATION_BACKENDS = (
 
 SITE_ID = 1
 # 소셜 로그인 이후 리다이렉트
-LOGIN_REDIRECT_URL = "/post"
+LOGIN_REDIRECT_URL = "/account/check"
 # login_required 데코레이터용 url
 LOGIN_URL = "/account/login"
 

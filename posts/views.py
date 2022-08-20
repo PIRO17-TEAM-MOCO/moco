@@ -14,7 +14,6 @@ from .forms import PostForm
 from users.views import profile_valid
 
 
-@profile_valid
 def home(request, contact='None'):
     # url에서 매개변수로 컨택트 받아옴
     # url에서 매개변수를 안 주면 'None'처리
@@ -211,7 +210,6 @@ def review_home(request):
 
 
 @login_required
-@profile_valid
 def review_write(request, id):
     if request.method == "POST":
         print("file : ", request.FILES)

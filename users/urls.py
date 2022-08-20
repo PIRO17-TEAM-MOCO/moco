@@ -28,4 +28,5 @@ urlpatterns = [
          name='reset_pw_complete'),
     path('likes/<int:tag>', views.likes, name="likes"),
     path('social/signup/', views.social_error, name="social_error"),
+    path('check/', views.social_check, name='social_check')
 ]

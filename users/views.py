@@ -348,3 +348,8 @@ def likes(request, tag):
 
 def social_error(request):
     return render(request, template_name='users/social_error.html')
+
+
+@profile_valid
+def social_check(request):
+    return redirect('posts:home')

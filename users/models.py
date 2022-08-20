@@ -23,7 +23,7 @@ class User(AbstractUser):
     birth = models.DateField(null=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICE, null=True)
     exp = models.IntegerField(default=0)
-    profile_img = models.ImageField(upload_to='profile/%Y%m%d', blank=True, null=True)
+    profile_img = models.ImageField(upload_to='profile_img/%Y%m%d', blank=True, null=True)
     job = models.CharField(max_length=10, choices=JOB_CHOICE, null=True)
     desc = models.TextField(max_length=100, blank=True, null=True)
     like_posts = models.ManyToManyField('posts.Post', related_name='like_users')

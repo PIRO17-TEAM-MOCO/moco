@@ -38,6 +38,12 @@ def profile_valid(func):          # 호출할 함수를 매개변수로 받음
             return func(request)
     return wrapper
 
+def signup_error(request):
+    form = SignupForm()
+    context = {
+        'form': form,
+    }
+    return render(request, template_name='users/signup_error.html', context=context)
 
 def user_check(user):
     # 프로필 유효성 검사
@@ -48,14 +54,17 @@ def user_check(user):
 
 def signup(request):
     if request.method == 'POST':
-        form = SignupForm(request.POST)
+        form = SignupForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             user = form.save()
             auth.login(request, user,
-                       backend='django.contrib.auth.backends.ModelBackend')
+                       backend='django.contrib.auth.backends.ModelBackend')      
+            if request.FILES.get('profile_img'):
+                user.profile_img = request.FILES.get('profile_img')
+            user.save()
             return redirect('posts:home')
         else:
-            return redirect('users:signup')
+            return redirect('users:signup_error')
     else:
         form = SignupForm()
         context = {

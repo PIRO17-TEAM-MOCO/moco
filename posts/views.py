@@ -11,10 +11,12 @@ from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm
-from users.views import profile_valid
+from users.views import profile_valid, user_check
 
 
 def home(request, contact='None'):
+    # 프로필 유효성 검사
+    user_check(request.user)
     # url에서 매개변수로 컨택트 받아옴
     # url에서 매개변수를 안 주면 'None'처리
     if contact == 'offline':

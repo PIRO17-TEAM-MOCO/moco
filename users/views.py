@@ -39,6 +39,13 @@ def profile_valid(func):          # 호출할 함수를 매개변수로 받음
     return wrapper
 
 
+def user_check(user):
+    # 프로필 유효성 검사
+    if user.is_authenticated:
+        if user.birth is None:
+            return redirect(f'/account/profile/add/{user.id}')
+
+
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)

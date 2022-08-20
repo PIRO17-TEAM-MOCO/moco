@@ -1,6 +1,7 @@
 {% extends 'users/base.html' %} {% block content %}
 
 <main>
+  <!-- 뒷배경 -->
   <div id="profile-edit__container">
     <form method="post">
       {% csrf_token %}
@@ -39,6 +40,7 @@
             <a type="submit" onclick="editConfirm()">수정 완료</a>
         </div>
       </div>
+      <!-- 뒷배경 -->
   <form action="{% url 'users:signout' %}" method="post">
     {% csrf_token %}
     <div id="signout__cf__modal" class="modal-overlay">

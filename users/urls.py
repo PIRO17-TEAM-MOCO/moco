@@ -7,6 +7,7 @@ from django.conf.urls.static import static
 app_name = 'users'
 
 urlpatterns = [
+     path('signup-error/', views.signup_error, name='signup_error'),
     path('signup/', views.signup, name='signup'),
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),

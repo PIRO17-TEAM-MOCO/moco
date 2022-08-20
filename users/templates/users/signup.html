@@ -1,4 +1,5 @@
 {% extends 'users/account_base.html' %} {% block content %}
+{% load static %}
 <main>
   <form
       action="{% url 'users:signup' %}"
@@ -13,7 +14,7 @@
           <div class="input__reg__id">
             {{ form.username.errors }}
             <lable for="{{ form.username.id_for_label }}"><p style="margin-top: 2.5rem">아이디</p></lable>
-            <input type="text" name="username" maxlength="20" autofocus="" required="" id="id_username" placeholder="아이디">
+            <input type="text" name="username" minlength="5" maxlength="20" autofocus="" required="" id="id_username" placeholder="아이디">
           </div>
           <div class="input__email">
             {{ form.email.errors }}
@@ -108,24 +109,35 @@
           <lable for="{{ form.nickname.id_for_label }}"><p>닉네임</p></lable>
           <input type="text" name="nickname" maxlength="10" required="" id="id_nickname" placeholder="닉네임">
         </div>
-        <p>
-          프로필 사진&nbsp;<span style="color: #8c8c8c">(선택)</span><br /><span
-            style="color: #8c8c8c; font-size: 0.5rem"
-            >*업로드 안할 시, MOCO에서 제공하는 기본 프로필 사진으로
-            적용됩니다.</span
-          >
-        </p>
         <div class="input__profile">
           {{ form.profile_img.errors }}
-          <lable for="{{ form.profile_img.id_for_label }}"></lable>
-            <input type="file" name="profile_img" accept="image/*" id="id_profile_img" style="display: none;">
-            <label class="input__img" for="id_profile_img"
-            ><span id="input__plus"> + </span>
-            <span id="input__plus__desc"
-              >&nbsp;&nbsp;이미지를 드래그하거나<br />클릭해서 업로드
-              해주세요</span
+          <lable for="{{ form.profile_img.id_for_label }}"><p>
+            프로필 사진&nbsp;<span style="color: #8c8c8c">(선택)</span><br /><span
+              style="color: #8c8c8c; font-size: 0.5rem"
+              >*업로드 안할 시, MOCO에서 제공하는 기본 프로필 사진으로
+              적용됩니다.</span
             >
-          </label>
+          </p></lable>
+            <input
+            type="file"
+            name="profile_img"
+            accept="image/*"
+            id="id_profile_img"
+            onchange="thumbnailImg(event);"
+            />
+            <label for="id_profile_img">
+              <div id="input__img__container">
+                  {% if user.profile_img %}
+                  <img src="{{user.profile_img.url}}" alt="profile_img"></img>
+                  {% else %}
+                  <img src="{% static 'img/moco_symbol.png' %}" alt="profile_img"></img>
+                  {% endif %}
+                  <!-- <img src="" onerror="this.style.display='none'"> -->
+                  <div id="camera__img">
+                      <i class="fa-solid fa-camera"></i>
+                  </div>
+              </div>
+            </label>
         </div>
         <p>성별</p>
         <div>
@@ -241,9 +253,12 @@
     return false; 
   };
 
-  var uidCheck = /^(?=.*[a-zA-Z]).{5,20}$/;
+  var pattern_num = /[0-9]/;	// 숫자 
+  var pattern_eng = /[a-zA-Z]/;	// 문자 
+  var pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
+  var pattern_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글체크
 
-  if (!uidCheck.test(uid.value)) {
+  if ((pattern_spc.test(uid.value))||(pattern_kor.test(uid.value))) {
     alert("아이디는 5~20자리 영문(소문자)와 숫자로 설정해주세요.")
     uid.focus();
     return false();
@@ -343,7 +358,18 @@
   //   nickname.focus();
   //   return false;
   // }
+}
 
+function thumbnailImg(event) {
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+          var img = document.createElement("img");
+          img.setAttribute("src", event.target.result);
+          document.querySelector("div#input__img__container").appendChild(img);
+        };
+
+        reader.readAsDataURL(event.target.files[0]);
 }
 </script>
 {% endblock %}

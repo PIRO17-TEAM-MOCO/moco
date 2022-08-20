@@ -38,17 +38,26 @@ def profile_valid(func):          # 호출할 함수를 매개변수로 받음
             return func(request)
     return wrapper
 
+def signup_error(request):
+    form = SignupForm()
+    context = {
+        'form': form,
+    }
+    return render(request, template_name='users/signup_error.html', context=context)
 
 def signup(request):
     if request.method == 'POST':
-        form = SignupForm(request.POST)
+        form = SignupForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             user = form.save()
             auth.login(request, user,
-                       backend='django.contrib.auth.backends.ModelBackend')
+                       backend='django.contrib.auth.backends.ModelBackend')      
+            if request.FILES.get('profile_img'):
+                user.profile_img = request.FILES.get('profile_img')
+            user.save()
             return redirect('posts:home')
         else:
-            return redirect('users:signup')
+            return redirect('users:signup_error')
     else:
         form = SignupForm()
         context = {
@@ -240,7 +249,7 @@ def profile_edit(request, id):
         return redirect(f'/account/profile/{id}')
     user = User.objects.get(id=id)
     if request.method == "POST":
-        form = ProfileForm(request.POST)
+        form = ProfileForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             user.name = form.cleaned_data['name']
             user.nickname = form.cleaned_data['nickname']
@@ -250,6 +259,8 @@ def profile_edit(request, id):
             user.job = form.cleaned_data['job']
             user.desc = form.cleaned_data['desc']
             user.email = form.cleaned_data['email']
+            if request.FILES.get('profile_img'):
+                user.profile_img = request.FILES.get('profile_img')
             user.save()
             return redirect(f'/account/profile/{id}')
         else:

@@ -1,4 +1,9 @@
 {% extends 'users/base.html' %} {% block content %}
+{% load static %}
+{% static 'img/naver_login.png' as naver_button %}
+{% static 'img/google_login.png' as google_button %}
+{% static 'img/kakao_login.png' as kakao_button %}
+{% static 'img/github_login.png' as github_button %}
 <main>
   <div class="login__container">
     <div class="login__nor">
@@ -62,22 +67,30 @@
       </div>
       {% load socialaccount %} {% providers_media_js %}
       <div class="login__sim__soc">
-        <form method="post" action="{% provider_login_url 'google' %}">
-          {% csrf_token %}
-          <button type="submit">구글</button>
-        </form>
-        <form method="post" action="{% provider_login_url 'naver' %}">
-          {% csrf_token %}
-          <button type="submit">네이버</button>
-        </form>
-        <form method="post" action="{% provider_login_url 'kakao' %}">
-          {% csrf_token %}
-          <button type="submit">카카오</button>
-        </form>
-        <form method="post" action="{% provider_login_url 'github' %}">
-          {% csrf_token %}
-          <button type="submit">깃허브</button>
-        </form>
+        <div>
+          <form method="post" action="{% provider_login_url 'google' %}">
+            {% csrf_token %}
+            <button type="submit"><img src="{{ google_button }}" height="42" width="152"></button>
+            <!-- <button type="submit">구글</button> -->
+          </form>
+          <form method="post" action="{% provider_login_url 'kakao' %}">
+            {% csrf_token %}
+            <button type="submit"><img src="{{ kakao_button }}" height="40" width="150"></button>
+            <!-- <button type="submit">카카오</button> -->
+          </form>
+        </div>
+        <div>
+          <form method="post" action="{% provider_login_url 'naver' %}">
+            {% csrf_token %}
+            <button type="submit"><img src="{{ naver_button }}" height="40" width="152" style="padding-bottom: 0.1rem;"></button>
+            <!-- <button type="submit">네이버</button> -->
+          </form>
+          <form method="post" action="{% provider_login_url 'github' %}">
+            {% csrf_token %}
+            <button type="submit"><img src="{{ github_button }}" height="40" width="152"></button>
+            <!-- <button type="submit">깃허브</button> -->
+          </form>
+        </div>
       </div>
     </div>
   </div>

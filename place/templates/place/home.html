@@ -18,13 +18,6 @@
       <input type="text" name="search" class="search__input" placeholder="관심 모각코를 검색해보세요">
       <button type="submit"">검색</button>
       {% endif %}
-      <!--태그 검색-->
-      <input type="text" name="tag" class="tag__input" placeholder="태그로 검색해보세요">
-      <i class="fa-solid fa-hashtag"></i>
-      <div class="tag__reset">
-        <i class="fa-solid fa-arrows-rotate" style="color: black;"></i>
-        <input type="submit" name="reset" class="tag__reset" value="초기화">
-      </div>
 		<select id="sort" name="sort" onchange="this.form.submit()">
 			<option value="default">--정렬기준--</option>
 			<option value="latest" {% if sort == "latest" %}selected{% endif %}>최신순</option>

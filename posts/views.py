@@ -31,7 +31,7 @@ def home(request, contact='None'):
     # search했다면 필터링 실행
     search = request.GET.get('search', 'None')
     if search != 'None':
-        places = places.filter(
+        posts = posts.filter(
             Q(title__icontains=search) |  # 제목
             Q(content__icontains=search) |  # 내용
             Q(user__nickname__exact=search) |  # 글쓴이(닉네임 정확히 일치해야함)

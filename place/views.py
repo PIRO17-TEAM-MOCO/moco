@@ -1,6 +1,7 @@
 from re import search
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.db.models import Count, Q
 from .models import Place, PlaceImage
 from .forms import PlaceForm
@@ -24,8 +25,8 @@ def home(request, category='None'):
     else:
         places = Place.objects.all()
     # search했다면 필터링 실행
-    search = request.GET.get('search', 'None')
-    if search != 'None':
+    search = request.GET.get('search', None)
+    if search != None:
         places = places.filter(
             Q(name__icontains = search) | #제목
             Q(content__icontains = search) | #내용
@@ -41,6 +42,10 @@ def home(request, category='None'):
     elif sort == "comment":
         places = places.annotate(comment_count=Count('comment'))
         places = places.order_by("-comment_count")
+    # 페이지네이터 적용
+    paginator = Paginator(places, 6)
+    page = request.GET.get('page', 1)
+    places = paginator.get_page(page)
     # 플레이스와 해당 이미지를 묶어서 context로 보내줌
     pairs = []
     for place in places:
@@ -55,6 +60,7 @@ def home(request, category='None'):
     context = {
         "pairs": pairs,
         "sort": sort,
+        "search": search,
     }
     return render(request, template_name="place/home.html", context=context)
 

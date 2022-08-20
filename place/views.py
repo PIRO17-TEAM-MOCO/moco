@@ -1,13 +1,17 @@
 from re import search
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.db.models import Count, Q
 from .models import Place, PlaceImage
 from .forms import PlaceForm
 from comments.models import Comment
+from users.views import profile_valid, user_check
 
 
 def home(request, category='None'):
+    # 프로필 유효성 검사
+    user_check(request.user)
     # url에서 매개변수로 카테고리 받아옴
     # url에서 매개변수를 안 주면 'None'처리
     if category == 'all':
@@ -20,10 +24,9 @@ def home(request, category='None'):
         places = Place.objects.filter(category='Etc')
     else:
         places = Place.objects.all()
-    places = places.annotate(comment_count=Count('comment'))
     # search했다면 필터링 실행
-    search = request.GET.get('search', 'None')
-    if search != 'None':
+    search = request.GET.get('search', None)
+    if search != None:
         places = places.filter(
             Q(name__icontains = search) | #제목
             Q(content__icontains = search) | #내용
@@ -37,7 +40,12 @@ def home(request, category='None'):
     elif sort == "like":
         places = places.order_by("-likes")
     elif sort == "comment":
+        places = places.annotate(comment_count=Count('comment'))
         places = places.order_by("-comment_count")
+    # 페이지네이터 적용
+    paginator = Paginator(places, 6)
+    page = request.GET.get('page', 1)
+    places = paginator.get_page(page)
     # 플레이스와 해당 이미지를 묶어서 context로 보내줌
     pairs = []
     for place in places:
@@ -52,11 +60,13 @@ def home(request, category='None'):
     context = {
         "pairs": pairs,
         "sort": sort,
+        "search": search,
     }
     return render(request, template_name="place/home.html", context=context)
 
 
 @login_required
+@profile_valid
 def write(request):
     if request.method == 'POST':
         form = PlaceForm(request.POST)

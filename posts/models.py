@@ -13,7 +13,7 @@ class Post(models.Model):
     ]
     DURATION_CHOICE = [
         ('Regular', '정기'),
-        ('One-Time', '번개')
+        ('OneTime', '번개')
     ]
     user = models.ForeignKey(
         User, on_delete=models.CASCADE)  # 유저가 삭제되면 작성한 글도 삭제됨

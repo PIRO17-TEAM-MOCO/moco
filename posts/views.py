@@ -11,16 +11,15 @@ from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm
-
-# Create your views here.
+from users.views import profile_valid, user_check
 
 
 def home(request, contact='None'):
+    # 프로필 유효성 검사
+    user_check(request.user)
     # url에서 매개변수로 컨택트 받아옴
     # url에서 매개변수를 안 주면 'None'처리
-    if contact == 'all':
-        posts = Post.objects.all()
-    elif contact == 'offline':
+    if contact == 'offline':
         posts = Post.objects.filter(contact='Off')
     elif contact == 'online':
         posts = Post.objects.filter(contact='On')
@@ -31,31 +30,17 @@ def home(request, contact='None'):
     # search했다면 필터링 실행
     search = request.GET.get('search', 'None')
     if search != 'None':
-        places = places.filter(
+        posts = posts.filter(
             Q(title__icontains = search) | #제목
             Q(content__icontains = search) | #내용
             Q(user__nickname__exact = search) | #글쓴이(닉네임 정확히 일치해야함)
             Q(location__icontains = search) #위치
             )
-    query = request.GET.get('query', None)
-    dur = request.GET.get('duration', None)
-
-    q = Q()
-    if dur == "regular":
-        q.add(Q(duration="정기"), q.AND)
-
-    elif dur == "one-time":
-        q.add(Q(duration="번개"), q.AND)
-
-    if query:
-        q.add(Q(title__contains=query), q.OR)
-        q.add(Q(tag__contains=query), q.OR)
-        q.add(Q(content__contains=query), q.OR)
-        q.add(Q(location__contains=query), q.OR)
-        q.add(Q(user__nickname__contains=query), q.OR)
-
-    posts = posts.filter(q)
-
+    # 기간별 필터링 실행
+    duration = request.GET.get('duration', 'None')
+    if (duration == "Reugular") or (duration == "OneTime"):
+        posts = posts.filter(duration=duration)
+    # 정렬 실행
     sort = request.GET.get('sort', 'None')
     if sort == "latest":
         posts = posts.order_by("-published_at")
@@ -64,16 +49,16 @@ def home(request, contact='None'):
     elif sort == "comments":
         posts = posts.annotate(comment_count=Count(
             'comment')).order_by("-comment_count")
-
     context = {
         "posts": posts,
         "sort": sort,
-        "duration": dur,
+        "duration": duration,
     }
     return render(request, template_name="posts/main.html", context=context)
 
 
 @login_required
+@profile_valid
 def write(request):
     if request.method == "POST":
         form = PostForm(request.POST)
@@ -88,8 +73,10 @@ def write(request):
             user = post.user
             user.exp = exp + 25
             user.save()
-            return redirect(f"/post/detail/{id}")
+            return redirect(f"/post/detail/{post.id}")
         else:
+            print(form.errors)
+            print(form.non_field_errors())
             return redirect("/post/write")
 
     form = PostForm()
@@ -211,6 +198,7 @@ def close(request, id):
         return redirect(f"/post/detail/{id}")
 
 
+@profile_valid
 def review_home(request):
     all_reviews = Review.objects.all()
     paginator = Paginator(all_reviews, 5)

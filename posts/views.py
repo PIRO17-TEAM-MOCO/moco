@@ -31,15 +31,23 @@ def home(request, contact='None'):
     search = request.GET.get('search', 'None')
     if search != 'None':
         posts = posts.filter(
-            Q(title__icontains = search) | #제목
-            Q(content__icontains = search) | #내용
-            Q(user__nickname__exact = search) | #글쓴이(닉네임 정확히 일치해야함)
-            Q(location__icontains = search) #위치
-            )
+            Q(title__icontains=search) |  # 제목
+            Q(content__icontains=search) |  # 내용
+            Q(user__nickname__exact=search) |  # 글쓴이(닉네임 정확히 일치해야함)
+            Q(location__icontains=search)  # 위치
+        )
     # 기간별 필터링 실행
     duration = request.GET.get('duration', 'None')
-    if (duration == "Reugular") or (duration == "OneTime"):
+    if (duration == "Regular") or (duration == "OneTime"):
         posts = posts.filter(duration=duration)
+
+    # 모집중 분류
+    onActive = request.GEt.get('onActive', 'None')
+    if (onActive == 'Yes'):
+        posts = posts.filter(activation=True)
+    elif (onActive == 'No'):
+        posts = posts.filter(activation=False)
+
     # 정렬 실행
     sort = request.GET.get('sort', 'None')
     if sort == "latest":

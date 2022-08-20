@@ -1,9 +1,9 @@
-{% extends 'users/account_base.html' %} {% block content %}
+{% extends 'users/base.html' %} {% block content %}
 
 <main>
   <div id="profile-edit__container">
     <span class="profile-edit__title">프로필 수정</span>
-    <form method="post" action="{% url 'users:profile_edit' id %}">
+    <form method="post" action="{% url 'users:profile_edit' id %}" enctype="multipart/form-data">
       {% csrf_token %}
         <div class="input__edit__name">
             {{ form.name.errors }}
@@ -49,7 +49,7 @@
             />
             <label for="id_profile_img">
                 <div id="input__img__container">
-                    <img src="{{user.profile_img}}" onerror="this.style.display='none'">
+                    <img src="{{user.profile_img.url}}" onerror="this.style.display='none'">
                     <div id="camera__img">
                         <i class="fa-solid fa-camera fa-2xl"></i>
                     </div>

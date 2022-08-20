@@ -247,7 +247,7 @@ def profile_edit(request, id):
         return redirect(f'/account/profile/{id}')
     user = User.objects.get(id=id)
     if request.method == "POST":
-        form = ProfileForm(request.POST)
+        form = ProfileForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             user.name = form.cleaned_data['name']
             user.nickname = form.cleaned_data['nickname']
@@ -257,6 +257,8 @@ def profile_edit(request, id):
             user.job = form.cleaned_data['job']
             user.desc = form.cleaned_data['desc']
             user.email = form.cleaned_data['email']
+            if request.FILES.get('profile_img'):
+                user.profile_img = request.FILES.get('profile_img')
             user.save()
             return redirect(f'/account/profile/{id}')
         else:

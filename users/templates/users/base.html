@@ -7,6 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
     <link rel="stylesheet" href="{% static 'css/profile_view.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/login.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/signup.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/find_id.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/register.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/change_pw.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/reset_pw.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/reset_pw_done.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/reset_pw_confirm.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/reset_pw_complete.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/find_pw.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/profile_edit.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/signout.css' %}" />
     <script
       src="https://kit.fontawesome.com/f0c26c0bfa.js"
       crossorigin="anonymous"
@@ -22,69 +34,62 @@
     <title>MOCO</title>
   </head>
   <body>
-    <nav class="navbar">
-      <ul class="navbar__list">
-        <li><a href="{% url 'posts:home' %}">MOCO</a></li>
-        <li>
-          <div class="base__post_dropdown">
-            <div class="base__post_dropbtn">
-              <span>모각코</span>
-            </div>
-            <ul class="base__post_dropmenu">
+    <div class="wrap">
+      <nav class="navbar">
+        <a class="navbar__logo" href="{% url 'posts:home' %}">
+          <img src="{% static "img/moco_logo.png" %}" alt="profile_img"></img>
+        </a>
+
+        <ul class="navbar__list">
+          <li class="base__dropdown">
+            <a href="{% url 'posts:home' %}">모각코</a>
+            <ul class="base__dropmenu">
               <li><a href="{% url 'posts:home' %}">모각코 홈</a></li>
               <li><a href="{% url 'posts:review_home' %}">모각코 후기</a></li>
             </ul>
-          </div>
-        </li>
-        <li><a href="{% url 'place:home' %}">플레이스</a></li>
-        <li><a href="{% url 'notice:home' %}">공지사항</a></li>
-      </ul>
-      <ul class="navbar__shortcut">
-        {% if user.is_authenticated %}
-        <li>
-          <div class="base__dropdown">
-            <div class="base__dropbtn">
+          </li>
+          <li><a href="{% url 'place:home' %}">플레이스</a></li>
+          <li><a href="{% url 'notice:home' %}">공지사항</a></li>
+        </ul>
+
+        <ul class="navbar__shortcut">
+          {% if user.is_authenticated %}
+          <li class="base__dropdown">
               <span>글쓰기</span>
-            </div>
+              <ul class="base__dropmenu">
+                <li><a href="{% url 'posts:write' %}">모각코 모집</a></li>
+                <li><a href="{% url 'place:write' %}">플레이스</a></li>
+              </ul>
+          </li>
+          <li class="base__dropdown">
+            <span class="base__profile_dropbtn">
+              {% if user.profile_img %}
+              <div class="profile_img"><img src="{{user.profile_img.url}}" alt="profile_img"></img></div>
+              <!-- <div class="profile_img_icon"><i class="fa-solid fa-caret-down"></i></div> -->
+              {% else %}
+              <div class="profile_img"><img src="{% static "img/moco_symbol.png" %}" alt="profile_img"></img></div>
+              <!-- <div class="profile_img_icon"><i class="fa-solid fa-caret-down"></i></div> -->
+              {% endif %}
+            </span>
+            <ul class="base__dropmenu">
+              <li><a href="{% url 'users:profile_edit' user.id %}">프로필 수정</a></li>
+              <li><a href="{% url 'users:profile_view' user.id %}">마이페이지</a></li>
+              <li><a href="{% url 'users:logout' %}?next={{request.path}}">로그아웃</a></li>
+            </ul>
+          </li>
+          {% else %}
+          <li class="base__dropdown">
+            <span>글쓰기</span>
             <ul class="base__dropmenu">
               <li><a href="{% url 'posts:write' %}">모각코 모집</a></li>
               <li><a href="{% url 'place:write' %}">플레이스</a></li>
             </ul>
-          </div>
-        </li>
-        <i class="fa-regular fa-bell"></i>
-        <div class="base__profile_dropdown">
-          <div class="base__profile_dropbtn">
-            <i class="fa-solid fa-circle-user"></i>
-          </div>
-          <ul class="base__profile_dropmenu">
-            <li>
-              <a href="{% url 'users:profile_edit' user.id %}">프로필 수정</a>
-            </li>
-            <li>
-              <a href="{% url 'users:profile_view' user.id %}">마이페이지</a>
-            </li>
-            <li>
-              <a href="{% url 'users:logout' %}?next={{request.path}}">로그아웃</a>
-            </li>
-          </ul>
-        </div>
-        {% else %}
-        <li>
-          <div class="base__dropdown">
-            <div class="base__dropbtn">
-              <span>글쓰기</span>
-            </div>
-            <ul class="base__dropmenu">
-              <li><a href="{% url 'posts:write' %}">모각코 모집</a></li>
-              <li><a href="{% url 'place:write' %}">플레이스</a></li>
-            </ul>
-          </div>
-        </li>
-        <li><a href="{% url 'users:login' %}?next={{request.path}}">로그인</a></li>
-        {% endif %}
-      </ul>
-    </nav>
+          </li>
+          <li><a href="{% url 'users:login' %}?next={{request.path}}">로그인</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
     {% block content %} {% endblock content %}
   </body>
 </html>

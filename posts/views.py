@@ -73,7 +73,7 @@ def write(request):
             user = post.user
             user.exp = exp + 25
             user.save()
-            return redirect(f"/post/detail/{id}")
+            return redirect(f"/post/detail/{post.id}")
         else:
             print(form.errors)
             print(form.non_field_errors())

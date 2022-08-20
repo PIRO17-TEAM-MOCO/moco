@@ -7,10 +7,6 @@
   box-shadow: none;
 }
 
-.navbar a:hover {
-  color: #2253ff !important;
-}
-
 body a:hover {
   color: #141414 !important;
 }
@@ -23,39 +19,57 @@ body {
   padding-top: 3.5rem;
 }
 
-.navbar {
+.wrap {
   box-shadow: 0px 4px 10px rgba(171, 186, 189, 0.15);
   background-color: white;
-  font-family: "Noto Sans", sans-serif;
-  font-family: "Noto Sans KR", sans-serif;
-  font-weight: 600;
-  font-size: 1rem;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   display: flex;
-  flex-direction: row;
+}
+
+.navbar {
+  font-family: "Noto Sans", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
   align-items: center;
   z-index:1;
+  max-width: 1200px;
+  min-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.navbar__logo{
+  display: inline-flex;
+  width: 10%;
+}
+
+.navbar__logo img{
+  width: 100%;
 }
 
 .navbar__list {
-  margin-left: 2rem;
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 10px 0px;
+  height: 100%;
   gap: 2.5rem;
+  margin-left: 2rem;
 }
 
 .navbar__shortcut {
-  margin-right: 2rem;
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 10px 0px;
   gap: 2rem;
+  margin-left: auto;
+  height: 100%;
+  justify-content: flex-end;
 }
 
 .navbar__shortcut i {
@@ -68,6 +82,7 @@ body {
   align-items: center;
   justify-content: center;
   max-width: 1200px;
+  min-width: 1200px;
   width: 100%;
   padding: 0 10px 0 10px;
   margin: 3rem auto;
@@ -76,39 +91,56 @@ body {
 /* JS 없이 호버로 드롭다운 구현 */
 .base__dropdown {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  height: 100%;
+  align-items: center;
 }
 
-.base__dropbtn {
-  cursor: pointer;
+.base__dropdown_not {
+  position: relative;
+  display: flex;
+  height: 100%;
+  align-items: center;
 }
 
-.base__dropbtn:hover {
+.base__dropdown li > a, .base__dropdown li > span {
+  height: 100%;
+}
+
+.base__dropdown:hover, .base__dropdown a:hover {
   color: #2253ff !important;
 }
 
+.base__dropdown:hover > .base__dropmenu{
+  display: block;
+}
+
 .base__dropmenu {
-  display: none;
   opacity: 0;
   position: absolute;
   z-index: 1; /*다른 요소들보다 앞에 배치*/
-  background-color: white;
-  width: 6em;
+  width: 7em;
   top: 100%;
-  transform: translateX(-20%);
+  padding: 0.5rem 0;
+  background-color: white;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
 }
 
 .base__dropmenu a {
   display: block;
   text-decoration: none;
   color: rgb(37, 37, 37);
-  font-size: 12px;
+  font-weight: 400;
+  font-size: 0.9rem;
   padding: 12px 12px;
-  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
   background-color: white;
 }
 
 .base__dropmenu a:hover {
+  background-color: #e9f7ff;
+}
+
+.base__dropmenu li:hover {
   background-color: #e9f7ff;
 }
 
@@ -119,43 +151,29 @@ body {
 
 /* 프로필 드롭다운 메뉴 */
 
-.base__profile_dropdown {
+.base__profile_dropbtn{
+  display: flex;
+  align-items: center;
   position: relative;
-  display: inline-block;
-}
-
-.base__profile_dropbtn {
   cursor: pointer;
 }
 
-.base__profile_dropbtn:hover {
-  color: #2253ff !important;
+.base__profile_dropbtn .profile_img {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-right: 0.5rem;
 }
 
-.base__profile_dropmenu {
-  display: none;
-  opacity: 0;
-  position: absolute;
-  z-index: 1; /*다른 요소들보다 앞에 배치*/
-  background-color: white;
-  width: 6em;
-  height: 6em;
-  top: 100%;
-  transform: translateX(-50%);
+.base__profile_dropbtn div img{
+  display: inline-block;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 80%;
 }
 
-.base__profile_dropmenu a {
-  display: block;
-  text-decoration: none;
-  color: rgb(37, 37, 37);
-  font-size: 12px;
-  padding: 12px 12px;
-  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
-  background-color: white;
-}
-
-.base__profile_dropmenu a:hover {
-  background-color: #e9f7ff;
+.base__profile_dropbtn div i{
+  font-size: 90%;
 }
 
 .base__profile_dropdown:hover .base__profile_dropmenu {
@@ -163,47 +181,61 @@ body {
   opacity: 1;
 }
 
-/* 모각코 드롭다운 메뉴 */
-
-.base__post_dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.base__post_dropbtn {
-  cursor: pointer;
-}
-
-.base__post_dropbtn:hover {
-  color: #2253ff !important;
-}
-
-.base__post_dropmenu {
+.navbar__toggleBtn {
   display: none;
-  opacity: 0;
-  position: absolute;
-  z-index: 1; /*다른 요소들보다 앞에 배치*/
-  background-color: white;
-  width: 6em;
-  top: 100%;
-  transform: translateX(-20%);
 }
 
-.base__post_dropmenu a {
-  display: block;
-  text-decoration: none;
-  color: rgb(37, 37, 37);
-  font-size: 12px;
-  padding: 12px 12px;
-  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
-  background-color: white;
+/* 반응형 */
+
+@media screen and (max-width: 700px) {
+  .navbar {
+    display: flex;
+    max-width: 1180px;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  .navbar__logo {
+    margin-right: auto;
+    padding: 12px 0;
+  }
+
+  .navbar__list {
+    margin: 1.25rem auto;
+    width: 100%;
+    max-width: 100%;
+    height: 0;
+  }
+
+  .navbar__shortcut {
+    position: absolute;
+    top: -20px;
+    right: 550px;
+  }
+
+  .base__dropdown {
+    height: 0;
+  }
+
+  .base__dropmenu {
+    transform: translateY(15%);
+  }
 }
 
-.base__post_dropmenu a:hover {
-  background-color: #e9f7ff;
-}
+@media screen and (max-width: 500px) {
+  .navbar__shortcut {
+    position: absolute;
+    top: -20px;
+    right: 750px;
+  }
 
-.base__post_dropdown:hover .base__post_dropmenu {
-  display: block;
-  opacity: 1;
+  .base__dropdown {
+    height: 0;
+  }
 }

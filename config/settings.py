@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.forms',
     'django_summernote',
+    'debug_toolbar',
     'users',
     'posts',
     'place',
@@ -76,6 +77,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+     'debug_toolbar.middleware.DebugToolbarMiddleware', 
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -210,3 +212,6 @@ SOCIALACCOUNT_PROVIDERS = {
         },
     }
 }
+
+# 디버그 툴바
+INTERNAL_IPS = ('127.0.0.1',) 

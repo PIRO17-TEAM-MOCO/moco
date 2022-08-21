@@ -9,6 +9,9 @@
         <div id="main_detail__top_left__tag">
           <ul class="main_detatil__top_left__ul">
             <li id="main__detail__top_left__ul__recruit">모집중</li>
+            {% for tag in tags %}
+            <li id="main__detail__top_left__ul__recruit">{{tag}}</li>
+            {% endfor %}
           </ul>
         </div>
         <div id="main_detail__top__title">{{post.title}}</div>
@@ -119,12 +122,6 @@
       <div>
         <h4>지역</h4>
         <span>{{post.location}}</span>
-      </div>
-      <div>
-        <h4>개발언어</h4>
-        {% for tag in tags %}
-        <span>{{tag}}</span>
-        {% endfor %}
       </div>
     </div>
     <div id="main_detail__main__txt">{{post.content | safe}}</div>

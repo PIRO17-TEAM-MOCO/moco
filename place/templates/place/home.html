@@ -27,7 +27,7 @@
 	</form>
   <div class="content-box">
     <ul class="content-box__list">
-      {% for place, image in pairs %} <!--게시물-->
+      {% for place, image, width in pairs %} <!--게시물-->
       <a class="content-box__itme" href="{% url 'place:detail' place.id %}" >
         <div class="content-box__img">
           {% if image %}
@@ -38,7 +38,15 @@
           <div class="content-box__name">{{place.name}}</div>
           <div class="content-box__location">
             <i class="fa-solid fa-location-dot"></i> {{place.location}}</div>
-          <div class="content-box__rating">{{place.rating}}</div>
+          <div class="content-box__rating"><div class="star-ratings">
+            <div 
+              class="star-ratings-fill"
+            >
+            {% for i in width %}
+              <span>★</span>
+              {% endfor %}
+            </div>
+          </div></div>
         </div>
         <div class="content-box__bottom">
           <span><i class="fa-solid fa-circle-user"></i>{{place.user}}</span>

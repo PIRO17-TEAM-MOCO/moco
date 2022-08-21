@@ -22,9 +22,16 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('post/', include('posts.urls')),
     path('account/', include('users.urls')),
+    path('account/', include('allauth.urls')),
     path('place/', include('place.urls')),
     path('comment/', include('comments.urls')),
     path('like/', include('likes.urls')),
     path('notice/', include('notice.urls')),
     path('summernote/', include('django_summernote.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]

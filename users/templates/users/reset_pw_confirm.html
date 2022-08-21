@@ -1,4 +1,4 @@
-{% extends 'users/account_base.html' %} {% block content %}
+{% extends 'users/base.html' %} {% block content %}
 <main>
   <!--Password Reset Confirm-->
   <div id="reset-pw-cf__container">
@@ -41,9 +41,44 @@
       </div>
       <!--{{ form }}-->
       <div id="reset-pw-cf__btn__container">
-        <button id="reset-pw-cf__btn">저장</button>
+        <button onclick="resetPwForm()" id="reset-pw-cf__btn">저장</button>
       </div>
     </form>
   </div>
 </main>
+<script>
+  function resetPwForm() {
+    var newpwd1 = document.getElementById("id_new_password1");
+    var newpwd2 = document.getElementById("id_new_password2");
+
+    var pattern_num = /[0-9]/; // 숫자
+    var pattern_eng = /[a-zA-Z]/; // 문자
+    var pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
+    var pattern_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글체크
+
+    var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+
+    if (!pwdCheck.test(newpwd1.value)) {
+      alert(
+        "비밀번호는 영문자+숫자+특수문자 조합으로 8~15자리 사용해야 합니다."
+      );
+      newpwd1.focus();
+      return false;
+    }
+
+    if (!pwdCheck.test(newpwd2.value)) {
+      alert(
+        "비밀번호는 영문자+숫자+특수문자 조합으로 8~15자리 사용해야 합니다."
+      );
+      newpwd1.focus();
+      return false;
+    }
+
+    if (newpwd1.value !== newpwd2.value) {
+      alert("비밀번호가 일치하지 않습니다.");
+      newpwd2.focus();
+      return false;
+    }
+  }
+</script>
 {% endblock %}

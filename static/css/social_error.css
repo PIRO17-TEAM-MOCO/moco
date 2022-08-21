@@ -1,0 +1,45 @@
+main {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-family: "Noto Sans", "Noto Sans KR";
+  margin-top: 5rem;
+}
+
+#social-error__container {
+  width: 50rem;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  flex-wrap: wrap;
+  margin-top: 5rem;
+}
+
+#social-error__title {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 3rem;
+  color: black;
+}
+
+.hr {
+  margin-bottom: 3rem;
+}
+
+#social-error__desc {
+  width: 30rem;
+  font-size: 1.5rem;
+  color: black;
+  font-weight: 100;
+  margin-bottom: 2rem;
+  line-height: 1.2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

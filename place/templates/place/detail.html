@@ -1,4 +1,5 @@
 {% extends 'place/base.html' %}
+{% load static %}
 {% block content %}
 <div class="content">
   <div class="content-top">
@@ -14,11 +15,12 @@
     <div class="content-right">
             <div id="main_detail__top__like">
               <button id="{{place.id}}" onclick="place_like(this.id)">
-                좋아요
+                <i id="blank" class="fa-regular fa-heart"></i>
                 <span id="like_count">{{place.likes}}</span>
             </button>
             </div>
         {% if user.is_authenticated %}
+        {% if request.user == place.user %}
         <div class="dropdown">
           <button onclick="dp_menu()" class="button"><i class="fa-solid fa-ellipsis"></i></button>
           <div style="display: none;" id="drop-content">
@@ -34,6 +36,7 @@
             </ul>
           </div>
         </div>
+        {% endif %}
         {% endif %}
     </div>
   </div>
@@ -113,8 +116,11 @@
         <div id="main_detail__comment__each__contents__{{comment.id}}">
           <div id="main_detail__comment__contents__profile">
             <div id="main_detail__comment__contents__img">
-              <i class="fa-solid fa-circle-user fa-2x"></i>
-              <img src="{{review.user.profile_img}}" alt="profile_img"></img>
+              {% if comment.user.profile_img %}
+              <img src="{{comment.user.profile_img.url}}" width="45px" alt="profile_img"></img>
+              {% else %}
+              <img src="{% static "img/moco_symbol.png" %}" width="45px" alt="profile_img"></img>
+              {% endif %}
             </div>
             <div id="main_detail__comments__contents__info">
               <div id="main_detail__comments__contents__name">
@@ -129,10 +135,10 @@
             <span>{{comment.content}}</span>
           </div>
           <div id="main_detail__comment__contents__reply">
-            {% comment %} 답글 테스트로 여기 위치
+            <!-- 답글 테스트로 여기 위치 -->
             {% for recomment in comment.comment_set.all %}
             <div>{{recomment.content}}</div>
-            {% endfor%} {% endcomment %}
+            {% endfor%}
             <div id="main_detail_comment_contents_reply_form__{{comment.id}}"></div>
             
           </div>
@@ -246,6 +252,10 @@ function place_like(id) {
         dataType: "json",
         success: function (response) { // ajax 통신이 정상적으로 완료되었을 때
             $('#like_count').html(response.like_count) //id가 like_count의 내용을 전송받은 좋아요 수로 바꾼다
+            if ($('#blank').hasClass("fa-regular fa-heart"))
+              $('#blank').removeClass("fa-regular fa-heart").addClass("fa-solid fa-heart");
+            else
+              $('#blank').removeClass("fa-solid fa-heart").addClass("fa-regular fa-heart");
             if (response.error) {
               window.location.replace("http://127.0.0.1:8000/account/login"); // 배포용 서버로 변경
             } 

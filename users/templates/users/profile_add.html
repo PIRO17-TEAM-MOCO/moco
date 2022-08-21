@@ -1,0 +1,6 @@
+{% extends 'users/account_base.html' %} {% block content %}
+<h2>추가정보를 입력해주세요</h2>
+<form method="post" action="{% url 'users:profile_add' id %}">
+  {% csrf_token %} {{form.as_p}} <button type="submit">제출</button>
+</form>
+{% endblock %}

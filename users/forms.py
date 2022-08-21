@@ -13,7 +13,7 @@ class SignupForm(UserCreationForm):
 class FindidForm(ModelForm):
     class Meta:
         model = User
-        fields = ['name', 'birth']
+        fields = ['name', 'birth', 'email']
 
 
 class ProfileForm(ModelForm):

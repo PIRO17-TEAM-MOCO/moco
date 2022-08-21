@@ -1,0 +1,16 @@
+{% extends 'users/account_base.html' %} {% block content %}
+<main>
+  <div id="social-error__container">
+    <div id="social-error__title">
+      <span>❗️ 이미 존재하는 이메일입니다 ❗️</span>
+    </div>
+    <div class="hr">
+      <hr />
+    </div>
+    <div id="social-error__desc">일반 회원으로 로그인해주세요</div>
+    <form method="get" action="{% url 'users:login' %}">
+      <button id="social-error__btn" type="submit">로그인</button>
+    </form>
+  </div>
+</main>
+{% endblock %}

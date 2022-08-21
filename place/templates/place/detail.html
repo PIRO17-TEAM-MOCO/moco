@@ -71,20 +71,20 @@
           <div>{{place.opening_time}}~{{place.closing_time}}</div>
           <div>{{place.get_wifi_display}}</div>
           <div>{{place.get_power_socket_display}}</div>
-          <div>{{place.rating}}</div>
+          <div><div style="display: none;">{{place.rating}}</div>
+          <div class="star-ratings">
+              <div class="star-ratings-fill">
+              {% for i in width %}
+                <span id="star">★</span>
+                {% endfor %}
+              </div>
+            </div> 
+          </div>     
           <div>{{place.location}} {{place.location_detail}}</div>
         </div>
+      </div>
+    </div>
 
-          <div><div class="star-ratings">
-            <div 
-              class="star-ratings-fill"
-            >
-            {% for i in width %}
-              <span id="star">★</span>
-              {% endfor %}
-            </div>
-          </div>      
-        </div>
         <hr style= "color: #BCBCBC; height:1px; width: 100%; opacity: 1;">
         <div class="content-item">
           <div class="content-item__title">후기</div>
@@ -124,11 +124,7 @@
                   value="댓글쓰기"
                 />
               </div>
-    
-          </div></div>
-          <div>{{place.location}} {{place.location_detail}}</div>
-</div>
-        </form>
+            </form>
       </div>
       <div id="main_detail__comment__contents">
         {% for comment in comments %}
@@ -170,7 +166,7 @@
         </div>
         {% endfor %}
       </div>
-    </div>
+    
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

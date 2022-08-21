@@ -57,7 +57,7 @@
             <p>{{like_post.title}}</p>
             <div class="profile-bottom__post__content">
               <p>
-                {{like_post.content|truncatechars:50}}
+                {{like_post.content|truncatechars:50|safe}}
               </p></div>
             <div class="profile-bottom__post__icon">
               <span><i class="fa-solid fa-eye"></i></i><span>{{like_post.views}}</span></span>
@@ -103,7 +103,7 @@
             <p>{{post.title}}</p>
             <div class="profile-bottom__post__content">
               <p>
-                {{post.content|truncatechars:50}}
+                {{post.content|truncatechars:50|safe}}
               </p></div>
             <div class="profile-bottom__post__icon">
               <span><i class="fa-solid fa-eye"></i></i><span>{{post.views}}</span></span>
@@ -135,7 +135,7 @@
             {% else %}
             <p>no image</p>
             {% endif %}
-            <p style="line-height: 1.5rem;">{{review.post.content|truncatechars:90}}</p>
+            <p style="line-height: 1.5rem;">{{review.post.content|truncatechars:90|safe}}</p>
           </div>
           </a>
         </div>

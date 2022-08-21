@@ -45,18 +45,9 @@
                 {% endfor %}
               </select>
             </div>
-          </div> -->
+          </div>
           <!--드롭다운 아직 연결 안돼서 일단 select box로-->
-          <div class="main_write__dropdown__select_right">
-            <select name="duration">
-              <option value selected ="default">----------</option>
-              <option value="Regular">정기</option>
-              <option value="One-Time">번개</option>
-              {% for key, value in contacts %}
-              <option value="{{ key }}">{{ value }}</option>
-              {% endfor %}
-            </select>
-            <!--<div class="main_write__top__select_title">
+          <!--<div class="main_write__top__select_title">
             <h3>모임형태</h3>
           </div>
           <div class="main_write__top__box">
@@ -75,7 +66,8 @@
               </ul>
             </div>
           </div>-->
-            <!--드롭다운 아직 연결 안돼서 일단 select box로-->
+          <!--드롭다운 아직 연결 안돼서 일단 select box로-->
+          <div class="main_write__dropdown__select_right">
             <div id="main_write__select_duration">
               모임 형태 :
               <label for="{{form.duration.id_for_label}}"></label>
@@ -86,8 +78,8 @@
                 {% endfor %}
               </select>
             </div>
-            <!--드롭다운 아직 연결 안돼서 일단 select box로-->
           </div>
+          <!--드롭다운 아직 연결 안돼서 일단 select box로-->
         </div>
         <div class="main_write__top__select_row">
           <div class="main_write__top__select_left">

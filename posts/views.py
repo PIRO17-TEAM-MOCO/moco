@@ -11,7 +11,7 @@ from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm
-from users.views import profile_valid, user_check
+from users.views import profile_valid
 import simplejson
 
 

@@ -123,7 +123,7 @@
         <!--회원탈퇴 모달 -->
         <div id="edit__btn__container">
             <div class="edit-cancel__btn">
-                <a href="">취소</a>
+                <a href="{% url 'users:profile_view' user.id %}">취소</a>
             </div>
             <div id="edit-cf__btn">
                 <a type="submit" onclick="editConfirm()">수정 완료</a>
@@ -135,8 +135,8 @@
                     <div class="modal__content">
                         <p style="margin-top:3rem; font-size: 1.3rem; font-weight: 900">프로필 수정 사항을 저장할까요?</p>
                         <div id="cf__modal__btns">
-                            <div id="signout-cc__btn">
-                            <a href="">아니요</a>
+                            <div id="edit-cc__btn">
+                                <a href="">아니요</a>
                             </div>
                             <button id="cf__modal__btn" type="submit">저장</button>
                         </div>  

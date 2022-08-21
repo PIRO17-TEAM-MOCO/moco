@@ -1,18 +1,29 @@
 {% extends 'posts/base.html' %} {% block content %}
+{% load static %}
 <div class="content">
   <div id="review__page_title">
-    <h2>모각코 후기</h2>
+    <h2 style="font-weight: 700;">모각코 후기</h2>
   </div>
   {% for review in reviews %}
   <div class="review__contents_box" onclick="location.href='{% url 'posts:detail' review.post.id %}';">
     <div class="review__contents_box__img">
-      <img src="{{review.image}}" alt="활동이미지"></img>
+      <div id="review__img__container">
+        {% if review.image %}
+        <img src="{{review.image.url}}" alt="활동이미지"></img>
+        {% else %}
+        <img src="{% static 'img/image-solid.svg' %}" alt="활동이미지"></img>
+        {% endif %}
+      </div>
     </div>
     <div class="review__contents_box__content">
       <div class="review__contents_box__user_info">
         <div class="review__contents_box__profile">
           <div class="review__contents_box__profile_img">
-            <i class="fa-solid fa-circle-user fa-3x"></i>
+            {% if user.profile_img %}
+            <img src="{{user.profile_img.url}}" alt="profile_img"></img>
+            {% else %}
+            <img src="{% static 'img/moco_symbol.png' %}" alt="profile_img"></img>
+            {% endif %}
           </div>
           <div class="review__contents_box__info">
             <div class="main_detail__contents__profile_name">

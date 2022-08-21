@@ -12,6 +12,7 @@
       >
         <div class="input">
           {% csrf_token %}
+          <!-- {{form.as_p}} -->
           <div class="input__name">
             {{ form.name.errors }}
             <lable for="{{ form.name.id_for_label }}"></lable>
@@ -31,7 +32,19 @@
               name="birth"
               required=""
               id="id_birth"
-              placeholder="생년월일"
+              placeholder="생년월일: YYYY-MM-DD 형식으로 적어주세요."
+            />
+          </div>
+          <div class="input__email">
+            {{ form.email.errors }}
+            <lable for="{{ form.email.id_for_label }}"></lable>
+            <input
+              type="email"
+              name="email"
+              maxlength="254"
+              required=""
+              id="id_email"
+              placeholder="이메일: example@test.com"
             />
           </div>
           <button id="search__btn" type="submit">아이디 찾기</button>

@@ -48,7 +48,7 @@
             <button>삭제</button>
           </form>
           {% elif not can_revise and post.activation %}
-          <button id="main_detail__top__apply_btn" type="submit">
+          <button id="main_detail__top__apply_btn" type="button" onclick="location.href='{{post.apply_link}}'">
             지원하기
           </button>
           {% else %}

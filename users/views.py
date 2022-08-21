@@ -38,6 +38,10 @@ def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
+            if User.objects.filter(email=form.cleaned_data['email']).exists():
+                print('이미 존재하는 이메일입니다.')
+                messages.error(request, '이미 존재하는 이메일입니다.')
+                return redirect('users:signup')
             user = form.save()
             auth.login(request, user,
                        backend='django.contrib.auth.backends.ModelBackend')
@@ -239,6 +243,10 @@ def profile_edit(request, id):
     if request.method == "POST":
         form = ProfileForm(request.POST)
         if form.is_valid():
+            if User.objects.filter(email=form.cleaned_data['email']).exclude(username=user.username).exists():
+                print('이미 존재하는 이메일입니다.')
+                messages.error(request, '이미 존재하는 이메일입니다.')
+                return redirect(f'/account/profile/edit/{id}')
             user.name = form.cleaned_data['name']
             user.nickname = form.cleaned_data['nickname']
             user.profile_img = form.cleaned_data['profile_img']
@@ -270,6 +278,10 @@ def profile_add(request, id):
     if request.method == "POST":
         form = ProfileForm(request.POST)
         if form.is_valid():
+            if User.objects.filter(email=form.cleaned_data['email']).exclude(username=user.username).exists():
+                print('이미 존재하는 이메일입니다.')
+                messages.error(request, '이미 존재하는 이메일입니다.')
+                return redirect(f'/account/profile/add/{id}')
             user.name = form.cleaned_data['name']
             user.nickname = form.cleaned_data['nickname']
             user.profile_img = form.cleaned_data['profile_img']

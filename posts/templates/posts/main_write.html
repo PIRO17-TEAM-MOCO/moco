@@ -1,20 +1,16 @@
 {% extends 'posts/base.html' %} {% block content %}
 <div class="content">
-  <form
-    action="{% url 'posts:write' %}"
-    method="post"
-    enctype="multipart/form-data"
-  >
-    {% csrf_token %}
-    <div id="main_write__top">
-      <div class="main_write__title">
-        <div class="main_write__title_num"><h2>1</h2></div>
-        <h2>모집 요건을 작성해주세요</h2>
-      </div>
-      <div id="main_write__top__select">
-        <div class="main_write__top__select_row">
-          <div class="main_write__dropdown__select_left">
-            <!--<div class="main_write__top__select_title">
+	<form action="{% url 'posts:write' %}" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<div id="main_write__top">
+			<div class="main_write__title">
+				<div class="main_write__title_num"><h2>1</h2></div>
+				<h2>모집 요건을 작성해주세요</h2>
+			</div>
+			<div id="main_write__top__select">
+				<div class="main_write__top__select_row">
+					<div class="main_write__dropdown__select_left">
+						<!--<div class="main_write__top__select_title">
             <h3>진행방식</h3>
           </div>
           <div class="main_write__top__box">

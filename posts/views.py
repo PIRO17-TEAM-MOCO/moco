@@ -41,12 +41,12 @@ def home(request, contact='None'):
     if (duration == "Regular") or (duration == "OneTime"):
         posts = posts.filter(duration=duration)
 
-    # 모집중 분류
-    onActive = request.GEt.get('onActive', 'None')
-    if (onActive == 'Yes'):
-        posts = posts.filter(activation=True)
-    elif (onActive == 'No'):
-        posts = posts.filter(activation=False)
+    # # 모집중 분류
+    # onActive = request.GEt.get('onActive', 'None')
+    # if (onActive == 'Yes'):
+    #     posts = posts.filter(activation=True)
+    # elif (onActive == 'No'):
+    #     posts = posts.filter(activation=False)
 
     # 정렬 실행
     sort = request.GET.get('sort', 'None')

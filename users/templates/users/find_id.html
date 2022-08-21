@@ -1,5 +1,4 @@
-{% extends 'users/base.html' %} {% block content %}
-{% load static %}
+{% extends 'users/base.html' %} {% block content %} {% load static %}
 <main>
   <div class="idsearch__container">
     <div class="idsearch__div">
@@ -61,7 +60,7 @@
       {% endfor %} {% else %}
       <div id="search__modal" class="search__result; modal-overlay">
         <div class="modal__window">
-          <div class="modal-close">x</div>
+          <div class="modal-close"><i class="fa-solid fa-xmark"></i></div>
           <div class="modal__content">
             <p style="font-size: 1rem; font-weight: 300">
               등록된 회원이 아닙니다.

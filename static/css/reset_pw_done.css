@@ -21,27 +21,38 @@ main {
   margin-top: 5rem;
 }
 
-#reset-pw-done__title {
-  font-size: 2rem;
+#reset-pw-done__title img {
+  width: 20rem;
+}
+
+#reset-pw-done__container span {
+  font-size: 1.5rem;
   font-weight: 900;
-  margin-bottom: 3rem;
+  margin-bottom: 0.5rem;
   color: black;
 }
 
-.hr {
-  margin-bottom: 3rem;
+#reset-pw-done__container .hr {
+  margin-bottom: 2rem;
 }
 
 #reset-pw-done__desc {
   width: 30rem;
+  font-size: 0.8rem;
   font-size: 1rem;
-  color: #8c8c8c;
-  font-weight: 900;
-  margin-bottom: 2rem;
-  line-height: 1.2rem;
+  color: #000;
+  font-weight: 100;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  line-height: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  flex-wrap: wrap;
+}
+
+#reset-pw-done__desc p {
+  margin-bottom: 0.5rem;
 }
 
 #social-error__btn {

@@ -1,8 +1,13 @@
-{% extends 'users/base.html' %} {% block content %}
+{% extends 'users/base.html' %} {% block content %} {% load static %}
 <main>
   <div id="reset-pw__container">
     <div id="reset-pw__title">
-      <span>비밀번호 재설정</span>
+      <img class="reset-img" src="{% static 'img/moco_logo.png' %}" />
+      <div id="reset-pw__desc">
+        <p>비밀번호를 잊어버리셨나요?</p>
+        <p>모코에 가입한 아이디와 이메일을 정확히 입력해 주세요.</p>
+        <p>이메일을 통해 비밀번호 수정 링크 메일이 발송됩니다.</p>
+      </div>
     </div>
     <div id="reset-pw__input">
       <form method="POST" id="reset__form">
@@ -18,7 +23,7 @@
             maxlength="254"
             required=""
             id="id_email"
-            placeholder="이메일"
+            placeholder="example@email.com"
           />
         </div>
         <div class="input__username">
@@ -34,11 +39,6 @@
         </div>
         <!--{{ form }}-->
         <div id="reset-pw__btn__container">
-          <div id="reset-pw__desc">
-            비밀번호를 잊어버리셨나요?<br />
-            가입하신 아이디와 이메일을 입력해 주세요.<br />
-            잠시 후 해당 이메일로 비밀번호 재설정 메일이 발송됩니다.
-          </div>
           <button id="reset-pw__btn" type="submit">전송</button>
         </div>
       </form>

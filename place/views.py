@@ -60,6 +60,7 @@ def home(request, category='None'):
         "pairs": pairs,
         "sort": sort,
         "search": search,
+        "places": places
     }
     return render(request, template_name="place/home.html", context=context)
 

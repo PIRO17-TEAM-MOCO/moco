@@ -1,5 +1,16 @@
 @import url(base.css);
 
+.back {
+  list-style: none;
+  margin-right: auto;
+  font-size: 2rem;
+  color: #8C8C8C 
+}
+
+.back i:hover {
+  color: #8C8C8C !important;
+}
+
 .wrap-vertical{
   display: flex;
   align-items: center;
@@ -301,6 +312,7 @@
   -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
   -webkit-text-stroke-width: 1.3px;
   -webkit-text-stroke-color: #2b2a29;
+  z-index: 0;
 }
 
 .star-ratings-fill {
@@ -312,9 +324,15 @@
   left: 0;
   overflow: hidden;
   -webkit-text-fill-color: gold;
+  -webkit-text-stroke-color: gold;
+}
+
+.star-ratings-fill > span{
+  padding: 0 0.08rem;
 }
 
 .star-ratings-base {
   z-index: 0;
   padding: 0;
 }
+

@@ -107,6 +107,13 @@
           <div id="main__info_div__post_left__tag">
             <ul class="main__info_li__tag_flex">
               <li>모집중</li>
+              {% for key, value in tags.items %}
+              {% if key == post.id %}
+              {% for v in value %}
+              <li>{{v}}</li>
+              {% endfor %}
+              {% endif %}
+              {% endfor %}
             </ul>
           </div>
           <div id="main__info_div__post_left__title">
@@ -141,5 +148,17 @@
     </div>
   </div>
   <script src="/static/js/post_main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const onlyActive = document.querySelector('input[id=switch]');
+    onlyActive.addEventListener('click', () => {
+      if (onlyActive.checked) {
+        console.log("true")
+      } else{
+        console.log("false")
+      }
+    })
+
+  </script>
 </div>
 {% endblock content %}

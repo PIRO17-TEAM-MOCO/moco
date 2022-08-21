@@ -56,7 +56,7 @@
               {% endif %}
           </span>
           <span>
-            <span style="margin-right: 0.5rem;"><i class="fa-solid fa-comment-dots"></i>{{place.comment_count}}</span>
+            <span style="margin-right: 0.5rem;"><i class="fa-solid fa-comment-dots"></i>{{place.comment_set.all|length}}</span>
             <span><i class="fa-regular fa-heart"></i>{{place.likes}}</span>
           </span>
         </div>

@@ -38,17 +38,18 @@
           <button id="search__btn" type="submit">아이디 찾기</button>
         </div>
       </form>
-      {% elif users %} {% for user in users %}
+      {% elif users %}
       <div id="search__modal" class="search__result; modal-overlay">
         <div class="modal__window">
           <div class="modal-close">x</div>
           <div class="modal__content">
+            {% for user in users %}
             <p style="font-size: 1rem; font-weight: 300">
               아이디는&nbsp;
               <span style="color: blue; font-weight: 900">
                 {{user.username}}
               </span>
-              &nbsp;입니다.
+              &nbsp;입니다. {% endfor %}
               <a href="{% url 'users:login' %}"
                 ><button id="backtologin__btn">
                   로그인 페이지로 돌아가기
@@ -58,7 +59,7 @@
           </div>
         </div>
       </div>
-      {% endfor %} {% else %}
+      {% else %}
       <div id="search__modal" class="search__result; modal-overlay">
         <div class="modal__window">
           <div class="modal-close">x</div>

@@ -43,6 +43,7 @@ body {
   margin: 0 auto;
   display: flex;
   justify-content: flex-start;
+  position: relative;
 }
 
 .navbar__logo {
@@ -202,6 +203,7 @@ body {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    z-index: 2;
   }
 
   .navbar__logo {

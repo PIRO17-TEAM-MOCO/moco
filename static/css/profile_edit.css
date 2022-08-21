@@ -17,7 +17,6 @@ main {
   justify-content: center;
   flex-wrap: wrap;
   font-size: 1rem;
-  margin-top: 3rem;
 }
 
 #profile-edit__container .profile-edit__title {
@@ -111,6 +110,17 @@ main {
   padding-left: 1rem;
   font-size: 1rem;
   border: 1px solid #8c8c8c;
+  appearance: none;
+}
+
+.input__edit__gender {
+  position: relative;
+}
+
+.input__edit__gender .edit__angle-down {
+  position: absolute;
+  top: 3.2rem;
+  right: 1rem;
 }
 
 .input__edit__job select {
@@ -121,6 +131,17 @@ main {
   padding-left: 1rem;
   font-size: 1rem;
   border: 1px solid #8c8c8c;
+  appearance: none;
+}
+
+.input__edit__job {
+  position: relative;
+}
+
+.input__edit__job .edit__angle-down {
+  position: absolute;
+  top: 3.2rem;
+  right: 1rem;
 }
 
 .input__edit__birthday {

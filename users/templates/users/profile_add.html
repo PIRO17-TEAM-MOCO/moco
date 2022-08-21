@@ -1,6 +1,157 @@
 {% extends 'users/account_base.html' %} {% block content %}
-<h2>추가정보를 입력해주세요</h2>
-<form method="post" action="{% url 'users:profile_add' id %}">
-  {% csrf_token %} {{form.as_p}} <button type="submit">제출</button>
-</form>
+{% load static %}
+<main>
+  <div id="profile-add__container">
+    <span class="profile-add__title">추가정보를 입력해주세요</span>
+    <form method="post" action="{% url 'users:profile_add' id %}" enctype="multipart/form-data">
+      {% csrf_token %}
+        <div class="input__add__name">
+            {{ form.name.errors }}
+            <lable for="{{ form.name.id_for_label }}"><p>이름</p></lable>
+            <input type="text" name="name" maxlength="10" required="" id="id_name" placeholder="이름을 입력하세요.">
+        </div>
+        <div class="input__add__nickname">
+            {{ form.nickname.errors }}
+            <lable for="{{ form.nickname.id_for_label }}"><p>닉네임</p></lable>
+            <input type="text" name="nickname" maxlength="20" required="" id="id_nickname" placeholder="새 닉네임을 입력하세요.">
+        </div>
+        <div class="input__add__profile_img">
+            {{ form.profile_img.errors }}
+            <lable for="{{ form.profile_img.id_for_label }}"
+            ><p>
+                프로필 사진&nbsp;<span style="color: #8c8c8c; font-size: 1rem; font-weight: 100;">(선택)</span><br /><p style="color: #8c8c8c; font-size: 0.5rem"
+                >*업로드 안할 시, MOCO에서 제공하는 기본 프로필 사진으로
+                적용됩니다.</p>
+            </p></lable
+            >
+            <input
+            type="file"
+            name="profile_img"
+            accept="image/*"
+            id="id_profile_img"
+            onchange="thumbnailImg(event);"
+            />
+            <label for="id_profile_img">
+                <div id="input__img__container">
+                    {% if user.profile_img %}
+                    <img src="{{user.profile_img.url}}" alt="profile_img"></img>
+                    {% else %}
+                    <img src="{% static 'img/moco_symbol.png' %}" alt="profile_img"></img>
+                    {% endif %}
+                    <!-- <img src="" onerror="this.style.display='none'"> -->
+                    <div id="camera__img">
+                        <i class="fa-solid fa-camera fa-2xl"></i>
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="input__add__gender">
+            {{ form.gender.errors }}
+            <lable for="{{ form.gender.id_for_label }}"><p>성별</p></lable>
+            <div class="edit__angle-down"><i class="fa-solid fa-angle-down"></i></div>
+            {{form.gender}}
+        </div>
+        <div class="input__add__job">
+            {{ form.job.errors }}
+            <lable for="{{ form.job.id_for_label }}"><p>직업</p></lable>
+            <div class="edit__angle-down"><i class="fa-solid fa-angle-down"></i></div>
+            {{form.job}}
+        </div>
+        <div>
+            {{ form.birth.errors }}
+            <lable for="{{ form.birth.id_for_label }}"><p>생년월일</p></lable>
+            <input class="input__add__birthday" type="text" name="birth" required="" id="id_birth" placeholder="YYYY-MM-DD 형식으로 적어주세요.">
+        </div>
+        <div class="input__add__desc">
+            {{ form.desc.errors }}
+            <lable for="{{ form.desc.id_for_label }}"><p>자기소개&nbsp;<span style="color: #8c8c8c">(선택)</span></p></lable>
+            <textarea name="desc" cols="40" rows="10" maxlength="100" id="id_desc" placeholder="100자 이내로 입력해주세요."></textarea>
+        </div>
+        <div class="input__add__email">
+            {{ form.email.errors }}
+            <lable for="{{ form.email.id_for_label }}"><p>이메일</p></lable>
+            <input type="email" name="email" value="{{user.email}}" maxlength="254" required="" id="id_email" placeholder="이메일 형식에 맞추어 적어주세요.">
+        </div>
+        <!-- {{form.as_p}} -->
+        <div id="profile-add__btn__container">
+          <button id="profile-add__btn" onclick="editConfirm()"ㅋ type="submit">입력 완료</button>
+        </div>
+  </form>
+</main>
+<script>
+  function thumbnailImg(event) {
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+          var img = document.createElement("img");
+          img.setAttribute("src", event.target.result);
+          document.querySelector("div#input__img__container").appendChild(img);
+        };
+
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+  //유효성 검증
+  function editConfirm() {
+        var uname = document.getElementById("id_name");
+        var nickname = document.getElementById("id_nickname")
+        var email_id = document.getElementById("id_email");
+
+        var pattern_num = /[0-9]/;	// 숫자 
+        var pattern_eng = /[a-zA-Z]/;	// 문자 
+        var pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
+        var pattern_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글체크
+
+        var unameCheck = /^(?=.*[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/;
+
+        if (!unameCheck.test(uname.value)) {
+            alert("이름은 10자 이내의 한글로 작성해주세요.");
+            uname.focus();
+            return false;
+        }
+
+        if (uname.value == "") {
+            alert("이름을 입력하세요.");
+            uname.focus();
+            return false;
+        };
+
+        if ((pattern_spc.test(nickname.value))) {
+            alert("닉네임은 특수문자를 제외하여 10자 이내로 작성해주세요.");
+            return false
+        }
+
+        // var nicknameCheck = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi
+
+        // if (!nicknameCheck.test(nickname.value)) {
+        //     alert("닉네임은 특수문자를 제외하여 10자 이내로 작성해주세요.");
+        //     nickname.focus();
+        //     return false;
+        // }
+
+        var emailCheck = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+
+        if (!emailCheck.test(email_id.value)) {
+            alert("이메일 형식에 맞춰 입력해주세요.")
+            email_id.focus();
+            return false;
+        }
+    }
+</script>
 {% endblock %}
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>프로필추가</title>
+  </head>
+  <body>
+    <h2>추가정보를 입력해주세요</h2>
+    <form method="post" action="{% url 'users:profile_add' id %}">
+      {% csrf_token %} {{form.as_p}} <button type="submit">제출</button>
+    </form>
+  </body>
+</html> -->

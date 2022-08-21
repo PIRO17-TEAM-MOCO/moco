@@ -183,7 +183,7 @@ form {
 }
 
 #main_write__content {
-  padding-bottom: 120px;
+  padding-bottom: 30px;
 }
 
 /* write 드롭 다운 메뉴 */
@@ -207,6 +207,7 @@ form {
   padding: 1em;
   cursor: pointer;
   border-radius: 5px;
+  width: 100%;
 }
 #main_write__select_duration select {
   background: white;
@@ -217,6 +218,7 @@ form {
   padding: 1em;
   cursor: pointer;
   border-radius: 5px;
+  width: 100%;
 }
 
 .main_write__caret {
@@ -308,4 +310,8 @@ form {
 
 .post_write__modal__close_btn {
   cursor: pointer;
+}
+
+.main_write__content__write_txt {
+  width: 100%;
 }

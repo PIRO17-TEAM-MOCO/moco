@@ -19,7 +19,7 @@
               <span>{{review.user.nickname}}</span>
             </div>
             <div class="main_detail__contents__profile_time">
-              <span>{{review.write_at}}</span>
+              <span>{{review.write_at|date:"Y-m-d"}}</span>
             </div>
           </div>
         </div>
@@ -35,11 +35,6 @@
       </div>
       <div class="review__contents_box__tag_row">
         <ul class="review__contents_box__tag_tags">
-          <li>오프라인</li>
-          <li>서울</li>
-          <li>백엔드</li>
-          <li>초보자</li>
-          <li>포트폴리오</li>
         </ul>
       </div>
       <div class="review__contents_box__text_lines">

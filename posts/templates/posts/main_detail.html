@@ -9,11 +9,9 @@
         <div id="main_detail__top_left__tag">
           <ul class="main_detatil__top_left__ul">
             <li id="main__detail__top_left__ul__recruit">모집중</li>
-            <li>오프라인</li>
-            <li>서울</li>
-            <li>프론트엔드</li>
-            <li>초보자</li>
-            <li>포트폴리오</li>
+            {% for tag in tags %}
+            <li id="main__detail__top_left__ul__recruit">{{tag}}</li>
+            {% endfor %}
           </ul>
         </div>
         <div id="main_detail__top__title">{{post.title}}</div>
@@ -74,10 +72,24 @@
           <div>모집완료</div>
           <form action="{% url 'posts:delete' post.id %}" method="post">
             {% csrf_token %}
-            <button>삭제</button>
+            <div id="main_detail__delete_modal_btn_2">
+              <a>삭제</a>
+            </div>
+            <div id="main_detail__delete_modal_2">
+              <div class="main_detail__delete_modal__overlay">
+                <div class="main_detail__delete_modal__content">
+                  <div class="main_detail__delete_modal__close_btn">X</div>
+                  <div class="main_detail__delete_modal__cancel_btn">다시 생각해볼게요</div>
+                  <h1>정말 삭제하시겠습니까?</h1>
+                  <button class="main_detail__delete_btn" type="submit">
+                    네, 삭제하겠습니다
+                  </button>
+                </div>
+              </div>
+            </div>
           </form>
           {% elif not can_revise and post.activation %}
-          <button id="main_detail__top__apply_btn" type="submit">
+          <button id="main_detail__top__apply_btn" type="button" onclick="location.href='{{post.apply_link}}'">
             지원하기
           </button>
           {% else %}
@@ -110,10 +122,6 @@
       <div>
         <h4>지역</h4>
         <span>{{post.location}}</span>
-      </div>
-      <div>
-        <h4>개발언어</h4>
-        <span>{{post.tag}}</span>
       </div>
     </div>
     <div id="main_detail__main__txt">{{post.content | safe}}</div>
@@ -350,39 +358,57 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <!--모집 완료 전환 모달-->
 <script>
-const comModal = document.getElementById("main_detail__complete_modal");
-const openComModal = document.getElementById("main_detail__complete_modal_btn");
-openComModal.addEventListener("click", (e) => {
-  comModal.style.display = "block";
-});
+  const comModal = document.getElementById("main_detail__complete_modal");
+  const openComModal = document.getElementById("main_detail__complete_modal_btn");
+  openComModal.addEventListener("click", (e) => {
+    comModal.style.display = "block";
+  });
 
-const closeComModal = comModal.querySelector(".main_detail__complete_modal__close_btn");
-closeComModal.addEventListener("click", (e) => {
-  comModal.style.display = "none";
-});
+  const closeComModal = comModal.querySelector(".main_detail__complete_modal__close_btn");
+  closeComModal.addEventListener("click", (e) => {
+    comModal.style.display = "none";
+  });
 
-const cancelComModal = comModal.querySelector(".main_detail__complete_modal__cancel_btn");
-cancelComModal.addEventListener("click", (e) => {
-  comModal.style.display = "none";
-});
+  const cancelComModal = comModal.querySelector(".main_detail__complete_modal__cancel_btn");
+  cancelComModal.addEventListener("click", (e) => {
+    comModal.style.display = "none";
+  });
 </script>
 
 <script>
-const delModal = document.getElementById("main_detail__delete_modal");
-const openDelModal = document.getElementById("main_detail__delete_modal_btn");
-openDelModal.addEventListener("click", (e) => {
-  delModal.style.display = "block";
-});
+  const delModal = document.getElementById("main_detail__delete_modal");
+  const openDelModal = document.getElementById("main_detail__delete_modal_btn");
+  openDelModal.addEventListener("click", (e) => {
+    delModal.style.display = "block";
+  });
 
-const closeDelModal = delModal.querySelector(".main_detail__delete_modal__close_btn");
-closeDelModal.addEventListener("click", (e) => {
-  delModal.style.display = "none";
-});
+  const closeDelModal = delModal.querySelector(".main_detail__delete_modal__close_btn");
+  closeDelModal.addEventListener("click", (e) => {
+    delModal.style.display = "none";
+  });
 
-const cancelDelModal = delModal.querySelector(".main_detail__delete_modal__cancel_btn");
-cancelDelModal.addEventListener("click", (e) => {
-  delModal.style.display = "none";
-});
+  const cancelDelModal = delModal.querySelector(".main_detail__delete_modal__cancel_btn");
+  cancelDelModal.addEventListener("click", (e) => {
+    delModal.style.display = "none";
+  });
+</script>
+
+<script>
+  const delModal2 = document.getElementById("main_detail__delete_modal_2");
+  const openDelModal2 = document.getElementById("main_detail__delete_modal_btn_2");
+  openDelModal2.addEventListener("click", (e) => {
+    delModal2.style.display = "block";
+  });
+
+  const closeDelModal2 = delModal2.querySelector(".main_detail__delete_modal__close_btn");
+  closeDelModal2.addEventListener("click", (e) => {
+    delModal2.style.display = "none";
+  });
+
+  const cancelDelModal2 = delModal2.querySelector(".main_detail__delete_modal__cancel_btn");
+  cancelDelModal2.addEventListener("click", (e) => {
+    delModal2.style.display = "none";
+  });
 </script>
 
 <script>

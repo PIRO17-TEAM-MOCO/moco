@@ -1,83 +1,74 @@
 {% extends 'posts/base.html' %} {% block content %}
 <div class="content">
-  <div id="main__introduce_div">
-    <img src="https://picsum.photos/1200/500">
-  </div>
   <div id="main__main_div">
-    <div id="main__search_div">
-      <div id="main__search_div__top">
-        <div id="search_div__top_left">
-          <div id="search_div__top_left__nav">
-            <span><a href="{% url 'posts:home' 'all' %}">전체</a></span>
-            <span><a href="{% url 'posts:home' 'offline' %}">오프라인</a></span>
-            <span><a href="{% url 'posts:home' 'online' %}">온라인</a></span>
-            <span><a href="{% url 'posts:home' 'mix' %}">혼합</a></span>
-          </div>
-          <div id="search_div__top_left__search">
-            <input
-              id="main__search_text"
-              type="text"
-              name="search"
-              placeholder="관심 모각코를 검색하세요"
-            />
-            <input
-              id="main__search_tag"
-              type="text"
-              placeholder="태그로 검색해보세요"
-            />
-          </div>
-        </div>
-        <div id="search_div__top_right">
-          <div id="search_div__top_right__switch">
-            <div class="search_div__top_right__switch_txt">
-              <p>모집중만 보기</p>
+    <form method="GET">
+      <div id="main__search_div">
+        <div id="main__search_div__top">
+          <div id="search_div__top_left">
+            <div id="search_div__top_left__nav">
+              <span><a href="{% url 'posts:home' 'all' %}">전체</a></span>
+              <span><a href="{% url 'posts:home' 'offline' %}">오프라인</a></span>
+              <span><a href="{% url 'posts:home' 'online' %}">온라인</a></span>
+              <span><a href="{% url 'posts:home' 'mix' %}">혼합</a></span>
             </div>
-            <div class="wrapper">
-              <input type="checkbox" id="switch" />
-              <label for="switch" class="switch_label">
-                <span class="onf_btn"></span>
-              </label>
+            <div id="search_div__top_left__search">
+              {% if search %}
+              <input
+                id="main__search_text"
+                type="text"
+                name="search"
+                placeholder="관심 모각코를 검색하세요"
+                value="{{ search }}"
+              />
+              <button type="submit"">검색</button>
+              {% else %}
+              <input type="text" name="search" class="main__search_text" placeholder="관심 모각코를 검색해보세요">
+              <button type="submit"">검색</button>
+              {% endif %}
+              <input
+                id="main__search_tag"
+                type="text"
+                placeholder="태그로 검색해보세요"
+              />
             </div>
           </div>
-          <div id="search_div__top_right__btn">
-            <button id="main__search_btn" type="submit">검색</button>
-          </div>
-          <div id="search_div__top_right__reset">
-            <div class="post_main__tag__reset">
-              <i class="fa-solid fa-arrows-rotate" style="color: black;"></i>
-              <input type="submit" name="reset" class="post-main__tag__reset" value="초기화">
+          <div id="search_div__top_right">
+            <div id="search_div__top_right__switch">
+              <div class="search_div__top_right__switch_txt">
+                <p>모집중만 보기</p>
+              </div>
+              <div class="wrapper">
+                <input type="checkbox" id="switch" />
+                <label for="switch" class="switch_label">
+                  <span class="onf_btn"></span>
+                </label>
+              </div>
+            </div>
+            <div id="search_div__top_right__btn">
+              <button id="main__search_btn" type="submit">검색</button>
+            </div>
+            <div id="search_div__top_right__reset">
+              <div class="post_main__tag__reset">
+                <i class="fa-solid fa-arrows-rotate" style="color: black;"></i>
+                <input type="submit" name="reset" class="post-main__tag__reset" value="초기화">
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div id="main__search_div__tag">
-        <ul class="main__search_li__tag_flex">
-          <li>프론트엔드</li>
-          <li>백엔드</li>
-          <li>서울</li>
-          <li>경기</li>
-          <li>Python</li>
-          <li>React</li>
-          <li>HTML/CSS</li>
-          <li>Javascript</li>
-          <li>Java</li>
-          <li>UX/UI</li>
-          <li>포트폴리오</li>
-          <li>취업준비</li>
-        </ul>
-      </div>
-    </div>
-    <div id="main__info_div">
-      <div id="main__info_div__top">
-        <!--코드리뷰 받고 채은이하고 수정하기
-        <div id="main__info_div__nav">
-          <span>최신순</span>
-          <span>조회순</span>
-          <span>댓글순</span>
-          <span>좋아요순</span>
+        <div id="main__search_div__tag">
+          <ul class="main__search_li__tag_flex">
+          </ul>
         </div>
-        -->
-        <form class="sort" method="GET" >
+        <div id="main__info_div__top">
+          <!--코드리뷰 받고 채은이하고 수정하기
+          <div id="main__info_div__nav">
+            <span>최신순</span>
+            <span>조회순</span>
+            <span>댓글순</span>
+            <span>좋아요순</span>
+          </div>
+          -->
+          
           <select name="sort" onchange="this.form.submit();">
             <option value="default">--정렬기준--</option>
             <option value="latest" {% if sort == "latest" %}selected{% endif %}>최신순</option>
@@ -85,27 +76,29 @@
             <option value="">댓글순</option>
             <option value="">좋아요순</option>
           </select>
-        </form>
-        <div id="main__info_div__box">
-          <!--<select name="language" class="selectbox">
-            <option value="전체" class="lang-option">전체</option>
-            <option value="정기" class="lang-option">📅 정기</option>
-            <option value="번개" class="lang-option">⚡️ 번개</option>
-          </select>-->
-          <!--이 부분 class 명 고치기-->
-          <div class="dropdown">
-            <div class="select">
-              <span class="selected">전체</span>
-              <div class="caret"></div>
+          <div id="main__info_div__box">
+            <!--<select name="language" class="selectbox">
+              <option value="전체" class="lang-option">전체</option>
+              <option value="정기" class="lang-option">📅 정기</option>
+              <option value="번개" class="lang-option">⚡️ 번개</option>
+            </select>-->
+            <!--이 부분 class 명 고치기-->
+            <div class="dropdown">
+              <div class="select">
+                <span class="selected">전체</span>
+                <div class="caret"></div>
+              </div>
+              <ul class="menu">
+                <li class="active">전체</li>
+                <li>📅 정기</li>
+                <li>⚡️ 번개</li>
+              </ul>
             </div>
-            <ul class="menu">
-              <li class="active">전체</li>
-              <li>📅 정기</li>
-              <li>⚡️ 번개</li>
-            </ul>
           </div>
         </div>
       </div>
+    </form>
+    <div id="main__info_div">
       {% for post in posts %}
       <div id="main__info_div__post" onclick="location.href='{% url 'posts:detail' post.id %}';">
         <!--이 부분 바로가기 수정하기(그냥 전체 칸 누르면 이동하도록)-->
@@ -114,11 +107,6 @@
           <div id="main__info_div__post_left__tag">
             <ul class="main__info_li__tag_flex">
               <li>모집중</li>
-              <li>오프라인</li>
-              <li>서울</li>
-              <li>프론트엔드</li>
-              <li>초보자</li>
-              <li>포트폴리오</li>
             </ul>
           </div>
           <div id="main__info_div__post_left__title">

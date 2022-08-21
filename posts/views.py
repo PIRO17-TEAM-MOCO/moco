@@ -12,6 +12,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm
 from users.views import profile_valid
+import simplejson
 
 
 @profile_valid
@@ -73,7 +74,13 @@ def write(request):
             if form.cleaned_data["number"] <= 1:
                 messages.error(request, "인원 수는 2명 이상!")
                 redirect(f"/post/write")
+            tag = form.cleaned_data["tag"]
+            tags = []
+            tagList = simplejson.loads(tag)
+            for i in range(len(tagList)):
+                tags.append(tagList[i]["value"])
             post = form.save(commit=False)
+            post.tag = tags
             post.user = request.user
             post.save()
             exp = post.user.exp
@@ -114,6 +121,14 @@ def detail(request, id):
     comments_len = len(post.comment_set.all())
     cur_user = request.user
 
+    tags = post.tag
+    tags = tags.replace(" ", "")
+    tags = tags.replace("'", "")
+    tags_len = len(tags)
+    tags = tags[1:tags_len-1]
+    tags = tags.split(",")
+    print("tags : ", tags)
+
     if post.user == request.user:  # 현재 로그인한 유저가 해당 모집글을 쓴 유저이면 can_revise가 True
         can_revise = True
     elif not cur_user.is_authenticated:
@@ -127,6 +142,7 @@ def detail(request, id):
             "review_len": reviews_len,
             "comments": all_comments,
             "comments_len": comments_len,
+            "tags": tags
         }
 
         session_cookie = id
@@ -155,6 +171,7 @@ def detail(request, id):
         "review_len": reviews_len,
         "comments": all_comments,
         "comments_len": comments_len,
+        "tags": tags
     }
 
     return render(request, template_name="posts/main_detail.html", context=context)

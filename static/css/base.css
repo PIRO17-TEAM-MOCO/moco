@@ -27,6 +27,7 @@ body {
   left: 0;
   right: 0;
   display: flex;
+  z-index: 1;
 }
 
 .navbar {
@@ -35,7 +36,7 @@ body {
   font-weight: 600;
   font-size: 1rem;
   align-items: center;
-  z-index: 999;
+  z-index: 1;
   max-width: 1200px;
   min-width: 1200px;
   width: 100%;
@@ -47,7 +48,7 @@ body {
 
 .navbar__logo {
   display: inline-flex;
-  width: 10%;
+  width: 100px;
 }
 
 .navbar__logo img {

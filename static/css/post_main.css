@@ -425,3 +425,23 @@
   display: block;
   opacity: 1;
 }
+
+/* 초기화 버튼 */
+
+.post_main__tag__reset {
+  display: flex;
+  align-items: center;
+  padding: 5px 32px;
+  margin-left: 1rem;
+}
+
+.post_main__tag__reset i {
+  position: static;
+}
+
+.post_main__tag__reset input {
+  border: none;
+  background-color: transparent;
+  margin: 0 11px;
+  padding: 0;
+}

@@ -29,7 +29,25 @@ form {
   margin-bottom: 20px;
 }
 
-.main_write__top__box_text {
+#main_write__top__box_text_number input {
+  width: 100%;
+  border: 1px solid rgb(162, 162, 162);
+  border-radius: 5px;
+  padding: 1em;
+}
+#main_write__top__box_text_location input {
+  width: 100%;
+  border: 1px solid rgb(162, 162, 162);
+  border-radius: 5px;
+  padding: 1em;
+}
+#main_write__top__box_text_link input {
+  width: 100%;
+  border: 1px solid rgb(162, 162, 162);
+  border-radius: 5px;
+  padding: 1em;
+}
+#main_write__top__box_text_tag input {
   width: 100%;
   border: 1px solid rgb(162, 162, 162);
   border-radius: 5px;
@@ -58,9 +76,6 @@ form {
 
 .main_write__top__select_title {
   font-size: 15px;
-}
-
-.main_write__top__select_title {
   margin-top: 20px;
   margin-bottom: 10px;
 }
@@ -86,6 +101,13 @@ form {
 }
 
 .main_write__tag_write__main_content_input {
+  height: 35px;
+  width: 100%;
+  border: 1px solid rgb(162, 162, 162);
+  border-radius: 5px;
+}
+
+#main_write__title_write__main_content_input input {
   height: 35px;
   width: 100%;
   border: 1px solid rgb(162, 162, 162);
@@ -138,13 +160,14 @@ form {
   padding: 10px 20px;
   margin-right: 10px;
   color: white;
+  cursor: pointer;
 }
 
 #main_write__content__btn_cancel h3 {
   font-weight: 400;
 }
 
-#main_write__content__btn_register {
+#main_write__register_modal_btn {
   border-style: none;
   background-color: #2253ff;
   border-radius: 7px;
@@ -152,6 +175,7 @@ form {
   color: white;
   margin-left: 10px;
   font-weight: 300;
+  cursor: pointer;
 }
 
 #main_write__content__btn_register h3 {
@@ -174,7 +198,17 @@ form {
   box-sizing: border-box;
 }
 
-.main_write__select {
+#main_write__select_contact select {
+  background: white;
+  border: 1px solid rgb(162, 162, 162);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  cursor: pointer;
+  border-radius: 5px;
+}
+#main_write__select_duration select {
   background: white;
   border: 1px solid rgb(162, 162, 162);
   display: flex;
@@ -241,4 +275,37 @@ form {
 [contenteditable="true"]:empty:before {
   content: attr(placeholder);
   color: gray;
+}
+
+/* 모달창 만들어주기 */
+#post_write__modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.post_write__modal__overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.post_write__modal__content {
+  border-radius: 5px;
+  background-color: white;
+  position: fixed;
+  padding: 50px 100px;
+  text-align: center;
+  width: 30%;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.post_write__modal__close_btn {
+  cursor: pointer;
 }

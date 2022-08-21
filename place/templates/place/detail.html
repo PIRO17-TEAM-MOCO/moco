@@ -20,6 +20,7 @@
             </button>
             </div>
         {% if user.is_authenticated %}
+        {% if request.user == place.user %}
         <div class="dropdown">
           <button onclick="dp_menu()" class="button"><i class="fa-solid fa-ellipsis"></i></button>
           <div style="display: none;" id="drop-content">
@@ -35,6 +36,7 @@
             </ul>
           </div>
         </div>
+        {% endif %}
         {% endif %}
     </div>
   </div>

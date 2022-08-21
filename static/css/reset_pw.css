@@ -15,12 +15,39 @@ main {
   justify-content: center;
   flex-wrap: wrap;
 }
+#reset-pw__title img {
+  width: 20rem;
+}
 
 #reset-pw__title {
   font-size: 2rem;
   font-weight: 900;
-  margin-bottom: 5rem;
+  margin-bottom: 1.5rem;
+  width: 30rem;
   color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#reset-pw__desc {
+  width: 23rem;
+  font-size: 0.8rem;
+  font-size: 1rem;
+  color: #000;
+  font-weight: 100;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  line-height: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#reset-pw__desc p {
+  margin-bottom: 0.5rem;
 }
 
 #reset-pw__container {
@@ -33,19 +60,6 @@ main {
   font-size: 1rem;
   flex-wrap: wrap;
   margin-top: 5rem;
-}
-
-#reset-pw__desc {
-  width: 30rem;
-  font-size: 0.8rem;
-  color: #000;
-  font-weight: 100;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-  line-height: 1rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
 }
 
 #reset-pw__input {
@@ -109,15 +123,15 @@ main {
 
 #reset-pw__btn {
   cursor: pointer;
-  margin-top: 2rem;
   margin-bottom: 2rem;
-  width: 20rem;
+  margin-top: 1rem;
+  width: 22rem;
   height: 4rem;
   outline: 0;
   border: 0;
   font-size: 1rem;
   border-radius: 0.5rem;
-  background-color: blue;
+  background-color: #2253ff;
   color: #fff;
   font-weight: 900;
 }

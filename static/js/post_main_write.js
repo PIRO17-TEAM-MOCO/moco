@@ -43,7 +43,7 @@ modal.addEventListener("click", (e) => {
   }
 });
 
-function postWriteForm_check() {
+/*function postWriteForm_check() {
   var contact = document.getElementById("main_write__select_contact");
   var duration = document.getElementById("main_write__select_duration");
   var number = document.getElementById("main_write__top__box_text_number");
@@ -78,9 +78,10 @@ function postWriteForm_check() {
     location.focus();
     return false;
   }
+*/
 
-  var linkCheck = /(https:\/\/)(forms\.)(gle)(\/)([a-zA-Z0-9-])*/g;
-
+//var linkCheck = /(https:\/\/)(forms\.)(gle)(\/)([a-zA-Z0-9-])*/g;//
+/*
   if (!linkCheck.test(applyLink.value)) {
     alert("구글폼 링크 형식에 맞춰 입력해주세요.");
     applyLink.focus();
@@ -105,3 +106,4 @@ function postWriteForm_check() {
     return false;
   }
 }
+*/

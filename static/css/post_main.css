@@ -10,22 +10,9 @@
 }
 
 /* 단위 다 vh로 바꾸기 */
-
-#main__introduce_div {
-  height: 300px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#main__introduce_div img {
-  width: 100%;
-  height: 100%;
-}
-
 /* main__main_div 마진에 따 화면 구성도 많이 바뀜(기존엔 272px) */
 #main__main_div {
+  margin-top: 60px;
   /* 기존에 margin 좌우 272로 했다가 padding으로 바꿨다가 일단 없앰 */
   /* width를 없애면 스크롤 문제를 해결하고 양 옆에 여백을 둘 수 있음 */
   /* 일단 지금 너무 커서 50으로 둠 */
@@ -167,6 +154,11 @@
   justify-content: space-between;
 }
 
+#main__info_div__top select {
+  height: 34px;
+  margin: 2em 0 2em;
+}
+
 #main__info_div__post {
   border: 1px solid rgb(221, 221, 221);
   display: flex;
@@ -294,9 +286,9 @@
   width: 50px;
   height: 50px;
   text-align: center;
-  margin-top: 24px;
-  margin-left: 10px;
+  margin-top: 34px;
   align-items: center;
+  z-index: 0;
 }
 #switch {
   position: absolute;
@@ -322,8 +314,8 @@
 }
 .onf_btn {
   position: absolute;
-  top: 2px;
-  left: 2px;
+  top: 0;
+  left: 1px;
   display: inline-block;
   width: 15px;
   height: 15px;
@@ -355,7 +347,7 @@
 .dropdown {
   width: 6em;
   position: relative;
-  margin: 2em;
+  margin: 2em 0 2em 2em;
 }
 
 .dropdown * {
@@ -433,6 +425,7 @@
   align-items: center;
   padding: 5px 32px;
   margin-left: 1rem;
+  margin-top: 30px;
 }
 
 .post_main__tag__reset i {

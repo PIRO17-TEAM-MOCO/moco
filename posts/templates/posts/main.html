@@ -43,9 +43,10 @@
             <button id="main__search_btn" type="submit">검색</button>
           </div>
           <div id="search_div__top_right__reset">
-            <button id="main__reset_btn">
-              <i class="fa-solid fa-arrow-rotate-left"></i><span>초기화</span>
-            </button>
+            <div class="post_main__tag__reset">
+              <i class="fa-solid fa-arrows-rotate" style="color: black;"></i>
+              <input type="submit" name="reset" class="post-main__tag__reset" value="초기화">
+            </div>
           </div>
         </div>
       </div>
@@ -142,7 +143,7 @@
               <span>김피로</span>
             </div>
             <div id="main__info_div__post_right__info_time">
-              <span>{{post.published_at}}</span>
+              <span>{{post.published_at|date:"Y-m-d"}}</span>
               <!--등록 일자 형식 수정하기-->
             </div>
           </div>

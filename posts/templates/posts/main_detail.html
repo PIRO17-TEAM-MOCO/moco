@@ -96,15 +96,19 @@
           <button>모집완료</button>
           {%endif%}
         </div>
-        <div id="main_detail__top__like">
-          <button id="{{post.id}}" onclick="post_like(this.id)">
-            좋아요
-            <span id="like_count">{{post.likes}}</span>
-        </button>
+        <div class="content-right">
+          <div id="main_detail__top__like">
+            <button id="{{post.id}}" onclick="post_like(this.id)">
+              <i id="blank" style="margin-right: 0.3rem;" class="fa-regular fa-heart"></i>
+              <span id="like_count">{{post.likes}}</span>
+          </button>
+          </div>
+        </div>
         </div>
       </div>
+
     </div>
-  </div>
+
   <div id="main_detail__main">
     <div id="main_detail__main__info">
       <div>
@@ -521,14 +525,25 @@ function post_like(id) {
         dataType: "json",
         success: function (response) { // ajax 통신이 정상적으로 완료되었을 때
             $('#like_count').html(response.like_count) //id가 like_count의 내용을 전송받은 좋아요 수로 바꾼다
+            if ($('#blank').hasClass("fa-regular fa-heart"))
+              $('#blank').removeClass("fa-regular fa-heart").addClass("fa-solid fa-heart");
+            else
+              $('#blank').removeClass("fa-solid fa-heart").addClass("fa-regular fa-heart");
             if (response.error) {
               window.location.replace("http://127.0.0.1:8000/account/login"); // 배포용 서버로 변경
             } 
         }
     })
 }
-</script>
-<script>
 
+function dp_menu(){
+      let click = document.getElementById("drop-content");
+      if(click.style.display === "none"){
+          click.style.display = "block";
+      }else{
+          click.style.display = "none";
+      }
+  }
 </script>
+
 {% endblock content%}

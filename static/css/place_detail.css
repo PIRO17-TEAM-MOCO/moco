@@ -270,3 +270,51 @@
   color: #2253ff;
   font-size: 14px;
 }
+
+/* 프로필 사진 */
+
+.content-title__img .profile_img {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-right: 0.5rem;
+}
+
+.profile_img img {
+  display: inline-block;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 80%;
+}
+
+.content-box__profile {
+  display: flex;
+  align-items: center;
+}
+
+/* 별점 */
+.star-ratings {
+  color: #aaa9a9;
+  position: relative;
+  unicode-bidi: bidi-override;
+  width: max-content;
+  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 1.3px;
+  -webkit-text-stroke-color: #2b2a29;
+}
+
+.star-ratings-fill {
+  color: #fff58c;
+  padding: 0;
+  position: relative;
+  display: flex;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  -webkit-text-fill-color: gold;
+}
+
+.star-ratings-base {
+  z-index: 0;
+  padding: 0;
+}

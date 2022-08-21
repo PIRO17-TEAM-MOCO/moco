@@ -155,6 +155,31 @@
   font-size: 1.15rem;
 }
 
+.content-right {
+  display: flex;
+  align-items: center;
+}
+
+#main_detail__top__like{
+  margin-right: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: white;
+  border-radius: 20%;
+  border: 1px solid #8C8C8C;
+}
+
+#main_detail__top__like i:hover{
+  color: #ff1d2f;
+}
+
+#main_detail__top__like .fa-regular {
+  color: #8C8C8C;
+}
+
+#main_detail__top__like .fa-solid {
+  color: #ff1d2f;
+}
+
 /* comment */
 #main_detail__comment {
   width: 100%;

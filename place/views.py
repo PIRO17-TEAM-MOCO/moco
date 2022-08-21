@@ -1,4 +1,3 @@
-from re import search
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -6,12 +5,11 @@ from django.db.models import Count, Q
 from .models import Place, PlaceImage
 from .forms import PlaceForm
 from comments.models import Comment
-from users.views import profile_valid, user_check
+from users.views import profile_valid
 
 
+@profile_valid
 def home(request, category='None'):
-    # 프로필 유효성 검사
-    user_check(request.user)
     # url에서 매개변수로 카테고리 받아옴
     # url에서 매개변수를 안 주면 'None'처리
     if category == 'all':
@@ -111,13 +109,19 @@ def detail(request, id):
         "images": images,
         "comments": all_comments,
         "comments_len": comments_len,
+        "edit_access": False,
     }
+    if place.user == request.user:
+        context['edit_access'] = True
     return render(request, template_name="place/detail.html", context=context)
 
 
 @login_required
 def update(request, id):
     place = Place.objects.get(id=id)
+    # 작성자가 아닌 사람이 수정하는 것 방지
+    if place.user != request.user:
+        return redirect(f'/place/detail/{id}')
     if request.method == "POST":
         form = PlaceForm(request.POST)
         if form.is_valid():
@@ -147,7 +151,7 @@ def update(request, id):
             "form": form,
             "id": id,
             "place": place,
-            "images": images
+            "images": images,
         }
         return render(request, template_name='place/update.html', context=context)
 
@@ -156,5 +160,8 @@ def update(request, id):
 def delete(request, id):
     if request.method == "POST":
         place = Place.objects.get(id=id)
+        # 작성자가 아닌 사람이 수정하는 것 방지
+        if place.user != request.user:
+            return redirect(f'/place/detail/{id}')
         place.delete()
         return redirect('/place')

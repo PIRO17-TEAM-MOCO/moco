@@ -84,7 +84,9 @@
       </div>
       <div>
         <h4>개발언어</h4>
-        <span>{{post.tag}}</span>
+        {% for tag in tags %}
+        <span>{{tag}}</span>
+        {% endfor %}
       </div>
     </div>
     <div id="main_detail__main__txt">{{post.content | safe}}</div>

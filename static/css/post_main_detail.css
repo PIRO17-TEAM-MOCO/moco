@@ -98,8 +98,9 @@
   padding-top: 35px;
 }
 
-#main_detail__top__like {
-  margin-top: 10px;
+#main_detail__top__like button{
+  display: flex;
+  align-items: center;
 }
 
 #main_detail__main__info {
@@ -548,4 +549,8 @@
 
 #main_detail__delete_modal_btn_2 {
   cursor: pointer;
+}
+
+.content-right #dropdown {
+  margin: 0;
 }

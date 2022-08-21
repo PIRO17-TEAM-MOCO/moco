@@ -133,6 +133,7 @@
 
 .content-box__top {
   padding: 1rem 1rem 3rem 1rem;
+  background-color: white;
 }
 
 .content-box__bottom {
@@ -142,7 +143,6 @@
 }
 
 .content-box__img {
-  background-color: #bfbfbf;
   width: 22rem;
   height: 10rem;
   border-radius: 10px 10px 0 0;
@@ -208,6 +208,11 @@
   left: 0;
   overflow: hidden;
   -webkit-text-fill-color: gold;
+  -webkit-text-stroke-color: gold;
+}
+
+.star-ratings-fill > span{
+  padding: 0 0.08rem;
 }
 
 .star-ratings-base {
@@ -229,4 +234,19 @@
   width: 100%;
   height: 100%;
   border-radius: 80%;
+}
+
+/* 페이지네이션 */
+.content-pagination {
+  margin: 4rem 0 3rem 0;
+}
+
+.content-pagination .active>.page-link {
+  background-color: #2253FF;
+  color: white;
+}
+
+.content-pagination .pagination {
+  --bs-pagination-color : #2253FF;
+  --bs-pagination-disabled-color: #8C8C8C;
 }

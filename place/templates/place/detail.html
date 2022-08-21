@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
 <div class="content">
+  <li class="back"><a target="_self" href="{% url 'place:home' %}"><i class="fa-solid fa-arrow-left"></i></a></li>
   <div class="content-top">
     <div class="content-title">
       <div class="content-title__name">{{place.name}}</div>
@@ -53,6 +54,9 @@
       <img src="{{image.image.url}}" width="500" alt="">
       {% endif %}
     {% endfor %}
+    {% if not image %}
+      <img src="{% static "img/image-solid.svg" %}" width="500" alt="no_image" ></img>
+    {% endif %}
   </div>
   <hr style= "color: #BCBCBC; height:1px; width: 100%; opacity: 1;">
     <div class="content-item">
@@ -93,7 +97,7 @@
         <hr style= "color: #BCBCBC; height:1px; width: 100%; opacity: 1;">
         <div class="content-item" style= "width:1180px;">
           <div class="content-item__title">지도</div>
-          <div id="map" style="height:400px; margin: 1.5rem 0;"></div>
+          <div id="map" style="height:400px; margin: 1.5rem 0; z-index: 0;"></div>
         </div>
     
         <div id="main_detail__comment">

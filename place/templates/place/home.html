@@ -37,6 +37,8 @@
         <div class="content-box__img">
           {% if image %}
           <img src="{{image.image.url}}"><br>
+          {% else %}
+          <img class="no_image" src="{% static "img/image-solid.svg" %}" alt="no_image" ></img>
           {% endif %}
         </div>
         <div class="content-box__top">
@@ -71,6 +73,43 @@
       </a>
       {%endfor%}
     </ul>
+  </div>
+  <div class="content-pagination">
+    <ul class="pagination justify-content-center" style="margin-top: 2rem;">
+      <!-- 이전페이지 -->
+      {% if places.has_previous %}
+      <li class="page-item">
+          <a class="page-link" href="?&page={{ places.previous_page_number }}" style="color:#2253FF;">이전</a>
+          <!-- href로 뎁스 설정 -->
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+          <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+      </li>
+      {% endif %}
+      <!-- 페이지리스트 -->
+      {% for page_number in places.paginator.page_range %}
+      {% if page_number == places.number %}
+      <li class="page-item active" aria-current="page">
+          <a class="page-link" href="?&page={{ page_number }}">{{ page_number }}</a>
+      </li>
+      {% else %}
+      <li class="page-item">
+          <a class="page-link" href="?&page={{ page_number }}">{{ page_number }}</a>
+      </li>
+      {% endif %}
+      {% endfor %}
+      <!-- 다음페이지 -->
+      {% if places.has_next %}
+      <li class="page-item">
+          <a class="page-link" href="?&page={{ places.next_page_number }}">다음</a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+          <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+      </li>
+      {% endif %}
+  </ul>
   </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

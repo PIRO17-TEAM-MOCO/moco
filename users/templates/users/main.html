@@ -9,7 +9,7 @@
             <h1>가장 쉬운 방법 'MOCO'</h1>
           </div>
           <div class="container-row__left__content">
-            <p>같이 코딩할 사람들을 찾고 리뷰를 작성할 수 있는 커뮤니티<br>MOCO와 함께 해보세요</p>
+            <p>같이 코딩할 사람들을 찾고 리뷰를 작성할 수 있는 커뮤니티<br>'MOCO'와 함께 해보세요</p>
           </div>
         </div>
         <div class="container-row__right">
@@ -47,8 +47,8 @@
         <div class="container-row__left">
           <h1>모각코 모집 & 후기</h1>
           <p>
-            모각코 모집에서는 자신의 성향에 맞는 사람들과 모임을 쉽게 찾을 수 있습니다<br>
-            모각코 후기에서는 모집완료된 모각코 게시물의 후기를 작성하고 또한 <br>
+            모각코 모집에서는 자신이 성향의 모임을 찾을 수 있습니다<br>
+            모각코 후기에서는 모집완료된 모각코 게시물의 후기를 작성하고 <br>
             다른 사람들의 후기를 열람할 수 있습니다.
           </p>
           <a href="{% url 'posts:home' %}">바로가기</a>
@@ -64,6 +64,9 @@
     <div class="container">
       <div class="container-row">
         <div class="container-row__left">
+          <img src="static/img/undraw_best_place_re_lne9.svg" alt="moco_place">
+        </div>
+        <div class="container-row__right">
           <h1>플레이스 후기</h1>
           <p>
             플레이스에서는 모각코하기 좋은 카페, 스터디룸 등의 장소를 <br>
@@ -71,9 +74,30 @@
           </p>
           <a href="{% url 'place:home' %}">바로가기</a>
         </div>
-        <div class="container-row__right">
-          <img src="static/img/undraw_best_place_re_lne9.svg" alt="moco_place">
+      </div>
+    </div>
+  </section>
+
+  <section id="notice">
+    <div class="container">
+      <div class="container-row">
+        <div class="container-row__left">
+          <h1>MOCO에 대해 더 자세히 알고 싶다면?</h1>
+          <p>📢 지금 바로 공지사항을 확인해보세요</p> 
         </div>
+        <div class="container-row__right">
+          <a href="{% url 'notice:home' %}">공지사항 바로가기</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="footer">
+    <div class="container">
+      <div class="container-row">
+        <div>010-4663-0939</div>
+        <div>mocoofficial180@gmail.com</div>
+        <div>© MOCO. 2022 All rights reserved.</div>
       </div>
     </div>
   </section>

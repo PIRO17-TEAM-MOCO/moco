@@ -1,4 +1,5 @@
 {% extends 'place/base.html' %}
+{% load static %}
 {% block content %}
 <div class="content">
   <div class="content-category"> <!--카테고리-->
@@ -8,15 +9,19 @@
     <div class="content-category__item"><a href="{% url 'place:home' 'etc' %}">그 외</a></div>
   </div>
 
-  <form method="GET">
+  <form class="place-search" method="GET">
      <!--검색-->
       <i class="fa-solid fa-magnifying-glass"></i>
       {% if search %}
-      <input value="{{ search }}" type="text" name="search" class="search__input" placeholder="관심 모각코를 검색해보세요">
-      <button type="submit"">검색</button>
+      <div class="place-search__content">
+        <input value="{{ search }}" type="text" name="search" class="search__input" placeholder="관심 모각코를 검색해보세요">
+        <button class="place-search__btn" type="submit">검색</button>
+      </div>
       {% else %}
-      <input type="text" name="search" class="search__input" placeholder="관심 모각코를 검색해보세요">
-      <button type="submit"">검색</button>
+      <div class="place-search__content">
+        <input type="text" name="search" class="search__input" placeholder="관심 모각코를 검색해보세요">
+        <button class="place-search__btn" type="submit">검색</button>
+      </div>
       {% endif %}
 		<select id="sort" name="sort" onchange="this.form.submit()">
 			<option value="default">--정렬기준--</option>
@@ -41,7 +46,15 @@
           <div class="content-box__rating">{{place.rating}}</div>
         </div>
         <div class="content-box__bottom">
-          <span><i class="fa-solid fa-circle-user"></i>{{place.user}}</span>
+          <span class="content-box__profile">
+              {% if user.profile_img %}
+              <div class="profile_img"><img src="{{user.profile_img.url}}" alt="profile_img"></img></div>
+              <div>{{place.user}}</div>
+              {% else %}
+              <div class="profile_img"><img src="{% static "img/moco_symbol.png" %}" alt="profile_img"></img></div>
+              <div>{{place.user}}</div>
+              {% endif %}
+          </span>
           <span>
             <span style="margin-right: 0.5rem;"><i class="fa-solid fa-comment-dots"></i>{{place.comment_count}}</span>
             <span><i class="fa-regular fa-heart"></i>{{place.likes}}</span>

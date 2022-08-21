@@ -20,6 +20,9 @@ from datetime import datetime
 import json
 
 
+def main(request):
+    return render(request, template_name='users/main.html')
+
 # 프로필 유효성 검사 데코레이터
 def profile_valid(func):
     def wrapper(request, **kargs):

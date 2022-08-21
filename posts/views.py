@@ -77,7 +77,6 @@ def write(request):
             tag = form.cleaned_data["tag"]
             tags = []
             tagList = simplejson.loads(tag)
-            print(tagList[0]["value"])
             for i in range(len(tagList)):
                 tags.append(tagList[i]["value"])
             post = form.save(commit=False)
@@ -123,6 +122,7 @@ def detail(request, id):
     cur_user = request.user
 
     tags = post.tag
+    tags = tags.replace(" ", "")
     tags = tags.replace("'", "")
     tags_len = len(tags)
     tags = tags[1:tags_len-1]
@@ -171,6 +171,7 @@ def detail(request, id):
         "review_len": reviews_len,
         "comments": all_comments,
         "comments_len": comments_len,
+        "tags": tags
     }
 
     return render(request, template_name="posts/main_detail.html", context=context)

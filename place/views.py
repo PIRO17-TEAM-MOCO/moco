@@ -10,12 +10,6 @@ from users.views import profile_valid
 
 @profile_valid
 def home(request, category='None'):
-    # 프로필 유효성 검사
-    # if request.user.is_authenticated:
-    #     print('로그인됨')
-    #     if request.user.birth is None:
-    #         print('정보없음')
-    #         return redirect(f'/account/profile/add/{request.user.id}')
     # url에서 매개변수로 카테고리 받아옴
     # url에서 매개변수를 안 주면 'None'처리
     if category == 'all':

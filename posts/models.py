@@ -21,8 +21,8 @@ class Post(models.Model):
     published_at = models.DateTimeField(auto_now_add=True)  # 게시일자
     location = models.CharField(max_length=20)  # 지역 -> XX시 XX구
     contact = models.CharField(max_length=10, choices=CONTACT_CHOICE)  # 온, 오프
-    number = models.IntegerField(default=2)  # 인원 -> 최소2명
-    tag = models.CharField(max_length=250, default="상관없음")  # 파이썬, 알고리즘
+    number = models.IntegerField()  # 인원 -> 최소2명
+    tag = models.CharField(max_length=50)  # 파이썬, 알고리즘
     content = models.TextField()  # 내용
     apply_link = models.CharField(max_length=100)  # 구글폼 링크가 더 길면 수정
     views = models.IntegerField(default=0)  # 조회수

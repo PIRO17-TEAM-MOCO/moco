@@ -1,0 +1,81 @@
+{% extends 'users/base.html' %} {% block content %}
+<div id="main">
+  <section id="banner">
+    <div class="container">
+      <div class="container-row">
+        <div class="container-row__left">
+          <div class="container-row__left__title">
+            <h2>💻 모각코 모집과 장소 모색을 할 수 있는</h2>
+            <h1>가장 쉬운 방법 'MOCO'</h1>
+          </div>
+          <div class="container-row__left__content">
+            <p>같이 코딩할 사람들을 찾고 리뷰를 작성할 수 있는 커뮤니티<br>MOCO와 함께 해보세요</p>
+          </div>
+        </div>
+        <div class="container-row__right">
+          <img src="static/img/undraw_team_page_re_cffb.svg" />
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="introduce">
+    <div class="container">
+      <div class="container-column">
+        <div class="container-column__top">
+          <h1>What is MOCO?</h1>
+        </div>
+        <div class="container-column__bottom">
+          <div class="container-column__bottom__left">
+            <img src="static/img/moco_logo.png" alt="moco_logo"/>
+          </div>
+          <div class="container-column__bottom__right">
+            <p>
+              MOCO는 모각코를 하고 싶은 사람들이 더욱 쉽고 편리하게<br>
+              자신과 맞는 사람들을 만날 수 있도록 도와주는 서비스입니다<br> 
+              또한 자신이 자주가는 장소를 게시하고 공유할 수 있습니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="post">
+    <div class="container">
+      <div class="container-row">
+        <div class="container-row__left">
+          <h1>모각코 모집 & 후기</h1>
+          <p>
+            모각코 모집에서는 자신의 성향에 맞는 사람들과 모임을 쉽게 찾을 수 있습니다<br>
+            모각코 후기에서는 모집완료된 모각코 게시물의 후기를 작성하고 또한 <br>
+            다른 사람들의 후기를 열람할 수 있습니다.
+          </p>
+          <a href="{% url 'posts:home' %}">바로가기</a>
+        </div>
+        <div class="container-row__right">
+          <img src="static/img/undraw_shared_workspace_re_3gsu.svg" alt="moco_post">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="place">
+    <div class="container">
+      <div class="container-row">
+        <div class="container-row__left">
+          <h1>플레이스 후기</h1>
+          <p>
+            플레이스에서는 모각코하기 좋은 카페, 스터디룸 등의 장소를 <br>
+            다른 사람과 공유할 수 있습니다.
+          </p>
+          <a href="{% url 'place:home' %}">바로가기</a>
+        </div>
+        <div class="container-row__right">
+          <img src="static/img/undraw_best_place_re_lne9.svg" alt="moco_place">
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

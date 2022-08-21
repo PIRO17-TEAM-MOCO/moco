@@ -89,6 +89,8 @@ def write(request):
     form = PostForm()
     context = {
         'form': form,
+        'contacts': Post.CONTACT_CHOICE,
+        'durations': Post.DURATION_CHOICE
     }
 
     return render(request, template_name="posts/main_write.html", context=context)
@@ -154,6 +156,7 @@ def detail(request, id):
         "comments": all_comments,
         "comments_len": comments_len,
     }
+
     return render(request, template_name="posts/main_detail.html", context=context)
 
 

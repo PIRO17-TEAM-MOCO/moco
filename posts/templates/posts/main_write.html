@@ -15,37 +15,29 @@
         <div class="main_write__top__select_row">
           <div class="main_write__dropdown__select_left">
             <!--<div class="main_write__top__select_title">
-              <h3>진행방식</h3>
-            </div>
-            <div class="main_write__top__box">
-              <div class="main_write__dropdown">
-                <div class="main_write__select">
-                  <div
-                    class="main_write__selected"
-                    contenteditable="true"
-                    placeholder="온라인/오프라인/혼합"
-                  ></div>
-                  <div class="main_write__caret"></div>
-                </div>
-                <div class="main_write__menu">
-                  <li class="main_write__active">온라인</li>
-                  <li>오프라인</li>
-                  <li>혼합</li>
-                </div>
+            <h3>진행방식</h3>
+          </div>
+          <div class="main_write__top__box">
+            <div class="main_write__dropdown">
+              <div class="main_write__select">
+                <div
+                  class="main_write__selected"
+                  contenteditable="true"
+                  placeholder="온라인/오프라인/혼합"
+                ></div>
+                <div class="main_write__caret"></div>
               </div>
-            </div>-->
+              <div class="main_write__menu">
+                <li class="main_write__active">온라인</li>
+                <li>오프라인</li>
+                <li>혼합</li>
+              </div>
+            </div>
+          </div>-->
             <!--드롭다운 아직 연결 안돼서 일단 select box로-->
-            <select name="contact">
-              <option value selected ="default" required id="id_contact">----------</option>
-              <option value="On">온라인</option>
-              <option value="Off">오프라인</option>
-              <option value="Mix">혼합</option>
-              {% for key, value in contacts %}
-              <option value="{{ key }}">{{ value }}</option>
-              {% endfor %}
-            </select>
-            <!-- <div>
+            <div id="main_write__select_contact">
               진행방식 :
+              <label for="{{form.contact.id_for_label}}"></label>
               <select name="contact">
                 <option value selected="default">----------</option>
                 {% for key, value in contacts %}
@@ -65,80 +57,63 @@
               {% endfor %}
             </select>
             <!--<div class="main_write__top__select_title">
-              <h3>모임형태</h3>
-            </div>
-            <div class="main_write__top__box">
-              <div class="main_write__dropdown">
-                <div class="main_write__select">
-                  <div
-                    class="main_write__selected"
-                    contenteditable="true"
-                    placeholder="정기/번개"
-                  ></div>
-                  <div class="main_write__caret"></div>
-                </div>
-                <ul class="main_write__menu">
-                  <li class="main_write__active">정기</li>
-                  <li>번개</li>
-                </ul>
+            <h3>모임형태</h3>
+          </div>
+          <div class="main_write__top__box">
+            <div class="main_write__dropdown">
+              <div class="main_write__select">
+                <div
+                  class="main_write__selected"
+                  contenteditable="true"
+                  placeholder="정기/번개"
+                ></div>
+                <div class="main_write__caret"></div>
               </div>
-            </div>-->
+              <ul class="main_write__menu">
+                <li class="main_write__active">정기</li>
+                <li>번개</li>
+              </ul>
+            </div>
+          </div>-->
+            <!--드롭다운 아직 연결 안돼서 일단 select box로-->
+            <div id="main_write__select_duration">
+              모임 형태 :
+              <label for="{{form.duration.id_for_label}}"></label>
+              <select name="duration">
+                <option value selected="default">----------</option>
+                {% for key, value in durations %}
+                <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+              </select>
+            </div>
             <!--드롭다운 아직 연결 안돼서 일단 select box로-->
           </div>
         </div>
         <div class="main_write__top__select_row">
           <div class="main_write__top__select_left">
-            <div class="main_write__top__select_title">
-              <h3>모집인원</h3>
-            </div>
-            <div class="main_write__top__box">
-              <input
-                type="number"
-                class="main_write__top__box_text"
-                name="number"
-                placeholder="직접 입력"
-              />
+            <div id="main_write__top__box_text_number">
+              <div for="{{ form.number.id_for_label }}">모집 인원</div>
+              {{form.number}}
             </div>
           </div>
           <div class="main_write__top__select_right">
-            <div class="main_write__top__select_title">
-              <h3>지역</h3>
-            </div>
-            <div class="main_write__top__box">
-              <input
-                type="text"
-                class="main_write__top__box_text"
-                name="location"
-                placeholder="직접 입력"
-              />
+            <div id="main_write__top__box_text_location">
+              <div for="{{ form.location.id_for_label }}">지역</div>
+              {{form.location}}
             </div>
           </div>
         </div>
         <div class="main_write__top__select_row">
           <div class="main_write__top__select_left">
-            <div class="main_write__top__select_title">
-              <h3>모집링크</h3>
-            </div>
-            <div class="main_write__top__box">
-              <input
-                type="text"
-                class="main_write__top__box_text"
-                name="apply_link"
-                placeholder="구글폼 링크를 입력해주세요"
-              />
+            <div id="main_write__top__box_text_link">
+              <div for="{{ form.apply_link.id_for_label }}">모집 링크</div>
+              {{form.apply_link}}
             </div>
           </div>
           <div class="main_write__top__select_right">
-            <div class="main_write__top__select_title">
-              <h3>개발언어(선택)</h3>
-            </div>
-            <div class="main_write__top__box">
-              <input
-                type="text"
-                class="main_write__top__box_text"
-                name="tag"
-                placeholder="직접 입력"
-              />
+            <div id="main_write__top__box_text_tag">
+              <div for="{{ form.tag.id_for_label }}">개발 언어</div>
+              {{form.tag}}
             </div>
           </div>
         </div>
@@ -151,7 +126,7 @@
       </div>
       <div class="main_write__tag_write__main">
         <div class="main_write__tag_write__main_title"><h3>태그</h3></div>
-        <div class="main_write__tag_write__main_content">
+        <div id="main_write__tag_write__main_content">
           <input
             type="text"
             class="main_write__tag__main_content_input"
@@ -166,8 +141,8 @@
         <h2>글 제목과 내용을 작성해주세요</h2>
       </div>
       <div class="main_write__tag_write__main">
-        <div >
-          <input for="{{ form.title.id_for_label }}">제목</input>
+        <div id="main_write__title_write__main_content_input">
+          <div for="{{ form.title.id_for_label }}">제목</div>
           {{ form.title }}
         </div>
         <div id="main_write__content__contents">
@@ -178,17 +153,27 @@
         </div>
       </div>
       <div id="main_write__content__btn">
-        <button type="submit" id="main_write__content__btn_cancel">
-          <h3>취소</h3>
-        </button>
-        <input
-          id="main_write__content__btn_register"
-          type="submit"
-          value="등록하기"
-        />
+        <div id="main_write__content__btn_cancel">
+          <a onclick="">취소</a>
+        </div>
+        <div id="main_write__register_modal_btn">
+          <a onclick="postWriteForm_check();">등록하기</a>
+        </div>
+        <!--여기 포스트가 잘 만들어졌다는 걸 if문으로 처리하려면 뭘 넣어야 할까-->
+      </div>
+    </div>
+    <div id="post_write__modal">
+      <div class="post_write__modal__overlay">
+        <div class="post_write__modal__content">
+          <div class="post_write__modal__close_btn">X</div>
+          <h1>글쓰기가 완료되었습니다!</h1>
+          <button class="post_write__register__complete_btn" type="button">
+            등록하기
+          </button>
+        </div>
       </div>
     </div>
   </form>
-  <script src="/static/js/post_main_write.js"></script>
 </div>
+<script src="/static/js/post_main_write.js"></script>
 {% endblock %}

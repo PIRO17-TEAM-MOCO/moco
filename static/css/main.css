@@ -1,0 +1,43 @@
+#main #banner {
+  padding: 3rem 0;
+  background-color: #2253FF;
+}
+
+#main #post {
+  padding: 3rem 0;
+  background-color: #E9F7FF;
+}
+
+#main .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  min-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+#main .container-row {
+  display: flex;
+  flex-direction: row;
+}
+
+#main .container-column {
+  display: flex;
+  flex-direction: column;
+}
+
+#main .container-column__bottom {
+  display: flex;
+  flex-direction: row;
+}
+
+#main img {
+  width: 20rem;
+}
+
+#main #place .container-row {
+  display: flex;
+  flex-direction: row-reverse;
+}

@@ -32,6 +32,7 @@ main .idsearch__div {
 }
 
 main .input {
+  font-size: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -69,23 +70,24 @@ main .input {
 
 .input__name input:focus {
   outline: none !important;
-  border: 1px solid blue;
+  border: 1px solid #2253ff;
 }
 
 .input__birth input:focus {
   outline: none !important;
-  border: 1px solid blue;
+  border: 1px solid #2253ff;
 }
 
 #search__btn {
   cursor: pointer;
   margin-top: 1rem;
+  font-size: 1.2rem;
   width: 22rem;
   height: 4rem;
   outline: 0;
   border: 0;
   border-radius: 0.5rem;
-  background-color: rgb(47, 82, 245);
+  background-color: #2253ff;
   color: #fff;
   font-weight: 900;
 }
@@ -93,13 +95,14 @@ main .input {
 #backtologin__btn {
   cursor: pointer;
   margin-top: 1rem;
+  margin-bottom: 2rem;
   width: 15rem;
   height: 3rem;
   font-size: 1rem;
   outline: 0;
   border: 0;
   border-radius: 0.5rem;
-  background-color: rgb(47, 82, 245);
+  background-color: #2253ff;
   color: #fff;
   font-weight: 100;
 }
@@ -141,7 +144,7 @@ main .input {
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   width: 25rem;
-  height: 12rem;
+  height: auto;
   position: relative;
   padding: 10px;
   margin-top: 15rem;
@@ -150,7 +153,7 @@ main .input {
 #search__modal .modal-close {
   display: inline;
   float: right;
-  padding-right: 10px;
+  padding-right: 0;
   cursor: pointer;
   color: black;
   font-weight: 100;

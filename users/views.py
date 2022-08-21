@@ -1,41 +1,36 @@
 from django.shortcuts import render, redirect
 from django.db.models.query_utils import Q
-from django.conf import settings
 from django.core.mail import send_mail, BadHeaderError
 from django.contrib import auth, messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import PasswordResetConfirmView
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, PasswordResetForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-from django.http import HttpResponse, JsonResponse
-import json
-from datetime import datetime
+from django.http import HttpResponse
+from posts.models import Post
+from place.models import Place, PlaceImage
 from .models import User
 from .forms import ProfileForm, SignupForm, FindidForm, ResetpwForm
-from posts.models import Post, Review
-from place.models import Place, PlaceImage
-
-# tag 정의
-TAG_POST = 1
-TAG_PLACE = 2
+from constants import *
+from datetime import datetime
+import json
 
 
 # 프로필 유효성 검사 데코레이터
-def profile_valid(func):          # 호출할 함수를 매개변수로 받음
-    def wrapper(request):         # 호출할 함수의 매개변수와 똑같이 지정
+def profile_valid(func):
+    def wrapper(request, **kargs):
         user = request.user
-        if user.is_authenticated: # 로그인했으면 프로필 정보 검사
-            if user.birth is None:
+        if user.is_authenticated:
+            if user.birth is None: # 소셜로그인 후 프로필을 입력하지 않았다면
                 return redirect(f'/account/profile/add/{user.id}')
             else:
-                return func(request)
+                return func(request, **kargs)
         else:
-            return func(request)
+            return func(request, **kargs)
     return wrapper
 
 
@@ -63,16 +58,16 @@ def signout(request):
         if request.user.is_authenticated:
             request.user.delete()
             auth.logout(request)
+            # '그동안 저희 서비스를 이용해주셔서 감사합니다' 페이지 만들어서 바꾸기
             return redirect('posts:home')
         else:
-            return redirect('user:signout')
+            return redirect('users:login')
     else:
         return render(request, template_name='users/signout.html')
 
 
 def login(request):
     if request.user.is_authenticated:
-            print('이미 로그인함')
             return redirect('posts:home')
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)
@@ -116,6 +111,7 @@ def find_id(request):
         if form.is_valid():
             name = form.cleaned_data['name']
             birth = form.cleaned_data['birth']
+            email = form.cleaned_data['email']
             users = User.objects.filter(name=name, birth=birth)  # 모든 user 반환
             context = {
                 'users': users,
@@ -141,11 +137,10 @@ def change_pw(request):
         if form.is_valid():
             user = form.save()
             auth.update_session_auth_hash(request, user)
-            messages.success(request, 'Password successfully changed')
-            redirect('users:change_pw')
+            # 비밀번호 변경 성공 페이지로 이동
+            return redirect('posts:home')
         else:
-            messages.error(request, 'Password not changed')
-            redirect('users:change_pw')
+            return redirect('users:change_pw')
     else:
         form = PasswordChangeForm(request.user)
         context = {
@@ -197,6 +192,7 @@ def reset_pw(request):
         return render(request, template_name='users/reset_pw.html', context=context)
 
 
+@profile_valid
 def profile_view(request, id):
     user = User.objects.get(id=id)
     birth = user.birth
@@ -234,6 +230,7 @@ def profile_view(request, id):
 
 
 @login_required
+@profile_valid
 def profile_edit(request, id):
     # 다른 사람이 프로필 수정하는 것 방지
     if id != request.user.id:
@@ -284,7 +281,6 @@ def profile_add(request, id):
             user.save()
             return redirect('posts:home')
         else:
-            print(form.errors)
             return redirect(f'/account/profile/add/{id}')
     else:
         form = ProfileForm(instance=user)

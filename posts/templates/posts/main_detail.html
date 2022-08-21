@@ -86,7 +86,7 @@
             </div>
           </form>
           {% elif not can_revise and post.activation %}
-          <button id="main_detail__top__apply_btn" type="submit">
+          <button id="main_detail__top__apply_btn" type="button" onclick="location.href='{{post.apply_link}}'">
             지원하기
           </button>
           {% else %}
@@ -122,7 +122,9 @@
       </div>
       <div>
         <h4>개발언어</h4>
-        <span>{{post.tag}}</span>
+        {% for tag in tags %}
+        <span>{{tag}}</span>
+        {% endfor %}
       </div>
     </div>
     <div id="main_detail__main__txt">{{post.content | safe}}</div>

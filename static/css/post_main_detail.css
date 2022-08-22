@@ -32,7 +32,7 @@
 #main__detail__top_left__ul__recruit_finish {
   background-color: #e8e8e8;
   color: black;
-  font-size: 13px
+  font-size: 13px;
 }
 
 /*수정 필요*/
@@ -117,10 +117,9 @@
   width: 35%;
 }
 
-
 .main_detail__top__recruit_done {
   border-radius: 5px;
-  background-color: #9D9D9D;
+  background-color: #9d9d9d;
   color: white;
   text-align: center;
   padding: 15px 10px;
@@ -149,7 +148,7 @@
 
 .main_detail__top__like .fa-solid {
   color: #ff1d2f;
-
+}
 
 /*좋아요 버튼*/
 
@@ -161,16 +160,6 @@
 #main_detail__top__apply_btn {
   height: 40px;
   width: 100%;
-  font-size: 15px;
-  background-color: #2253ff;
-  color: white;
-  border-radius: 5px;
-  border-style: none;
-}
-
-#main_detail__top__done_btn {
-  height: 40px;
-  width: 100%
   font-size: 15px;
   background-color: #2253ff;
   color: white;
@@ -645,7 +634,6 @@
 #main_detail__delete_modal_btn_2 {
   cursor: pointer;
 }
-
 
 .main_detail__delete_modal__btn_flex {
   display: flex;

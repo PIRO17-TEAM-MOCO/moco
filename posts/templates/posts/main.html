@@ -20,10 +20,8 @@
                 placeholder="관심 모각코를 검색하세요"
                 value="{{ search }}"
               />
-              <button type="submit">검색</button>
               {% else %}
               <input type="text" name="search" class="main__search_text" placeholder="관심 모각코를 검색해보세요">
-              <button type="submit">검색</button>
               {% endif %}
               <input
                 id="main__search_tag"
@@ -68,6 +66,7 @@
             <span>댓글순</span>
             <span>좋아요순</span>
           </div>
+        -->
           <select id="sort" name="sort" onchange="this.form.submit();">
             <option value="default">--정렬기준--</option>
             <option value="latest" {% if sort == "latest" %}selected{% endif %}>최신순</option>
@@ -82,6 +81,7 @@
               <option value="OneTime" class="lang-option" {% if duration == "OneTime" %}selected{% endif %}>⚡️ 번개</option>
             </select>
             <!--이 부분 class 명 고치기-->
+            {% comment %}
             <div class="dropdown">
               <div class="select">
                 <span class="selected">전체</span>
@@ -93,6 +93,7 @@
                 <li>⚡️ 번개</li>
               </ul>
             </div>
+            {% endcomment %}
           </div>
         </div>
       </div>

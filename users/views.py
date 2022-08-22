@@ -63,6 +63,7 @@ def signup(request):
             user.save()
             return redirect('posts:home')
         else:
+            print(form.errors)
             return redirect('users:signup_error')
     else:
         form = SignupForm()

@@ -302,9 +302,8 @@
 /* 프로필 사진 */
 
 .content-title__img .profile_img {
-  width: 2.5rem;
-  height: 2.5rem;
-  margin-right: 0.75rem;
+  width: 3rem;
+  height: 3rem;
 }
 
 .profile_img img {

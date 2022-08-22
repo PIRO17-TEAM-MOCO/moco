@@ -50,7 +50,7 @@ def signup(request):
             if User.objects.filter(email=form.cleaned_data['email']).exists():
                 print('이미 존재하는 이메일입니다.')
                 messages.error(request, '이미 존재하는 이메일입니다.')
-                return redirect('users:signup')
+                return redirect('users:signup_error')
             user = form.save()
             auth.login(request, user,
                        backend='django.contrib.auth.backends.ModelBackend')      

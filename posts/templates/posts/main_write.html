@@ -175,7 +175,13 @@
 			tagify.dropdown.show(e.detail.value); // 드롭다운 메뉴 보여주기
 			tagify.dropdown.hide(); // // 드롭다운 제거
 		}
+
+		$(document).ready(function () {
+    $("#id_content").summernote();
+  });
+	
 	</script>
+
 </div>
 <script src="/static/js/post_main_write.js"></script>
 {% endblock %}

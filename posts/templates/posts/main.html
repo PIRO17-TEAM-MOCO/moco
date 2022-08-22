@@ -13,6 +13,7 @@
               <span><a href="{% url 'posts:home' 'mix' %}">혼합</a></span>
             </div>
             <div id="search_div__top_left__search">
+              <i class="fa-solid fa-magnifying-glass"></i>
               {% if search %}
               <input
                 id="main__search_text"
@@ -102,6 +103,9 @@
           </div>
           <div id="main__info_div__post_left__title">
             {{post.title}}
+          </div>
+          <div id="main__info_div__post_left__content">
+            {{post.content|truncatechars:110 | safe }}
           </div>
           <div id="main__info_div__post_left__reaction">
             <i class="fa-solid fa-eye"></i>
@@ -207,6 +211,8 @@
 			tagify.dropdown.show(e.detail.value); // 드롭다운 메뉴 보여주기
 			tagify.dropdown.hide(); // // 드롭다운 제거
 		}
+
 	</script>
+
 </div>
 {% endblock content %}

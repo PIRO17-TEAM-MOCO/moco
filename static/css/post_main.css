@@ -19,12 +19,11 @@
 }
 
 #main__search_div {
-  margin-top: 20px;
+  margin-top: 10px;
   width: 100%;
 }
 
 #main__info_div {
-  margin-top: 20px;
   width: 100%;
 }
 
@@ -54,23 +53,38 @@
 }
 
 #search_div__top_left__nav span {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
 }
 
 #search_div__top_left__search {
   display: inline-block;
   width: 100%;
+  position: relative;
+}
+
+#search_div__top_left__search i {
+  position: absolute;
+  left: 1.25rem;
+  top: 28%;
 }
 
 #search_div__top_left__search input {
   height: 50px;
   width: 100%;
-  margin: 7px 0;
-  border-radius: 5px;
-  border: 1px solid rgb(141, 141, 141);
+  margin: 16px 0;
+  border-radius: 0.5rem;
+  border: 1px solid #bfbfbf;
   font-size: 16px;
-  padding: 10px;
+  padding: 1.75rem 3rem;
+}
+
+#search_div__top_left__search input:hover{
+  border-color: #2253ff;
+}
+
+#search_div__top_left__search input:active{
+  border-color: #2253ff;
 }
 
 #main__search_text {
@@ -90,6 +104,7 @@
 }
 
 #search_div__top_right__switch {
+  padding: 1rem 0 0 0;
   display: flex;
   align-items: center;
   height: 40px;
@@ -106,7 +121,7 @@
 
 #search_div__top_right__btn {
   height: 40px;
-  margin: 7px 0 0;
+  margin: 16px 0 0;
   display: flex;
   justify-content: center;
 }
@@ -126,6 +141,7 @@
 
 #main__search_div__tag {
   width: fit-content;
+  margin-top: 1.5rem;
 }
 
 #main__info_div__nav {
@@ -159,7 +175,7 @@
 
 #main__info_div__top select {
   height: 34px;
-  margin: 2em 0 2em;
+  margin: 2em 0 1.5em 0;
 }
 
 #main__info_div__post {
@@ -183,7 +199,7 @@
   display: flex;
   list-style: none;
   padding: 0;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 .main__search_li__tag_flex {
@@ -195,9 +211,9 @@
 .main__info_li__tag_flex li {
   border-radius: 5px;
   background-color: #e8e8e8;
-  font-size: 10px;
-  padding: 7px;
-  margin-right: 7px;
+  font-size: 0.75rem;
+  padding: 8px;
+  margin-right: 8px;
 }
 
 .main__search_li__tag_flex li {
@@ -213,6 +229,11 @@
   width: 70%;
 }
 
+#main__info_div__post_left__content {
+  margin: 1.25rem 0rem;
+  line-height: 1.5rem;
+}
+
 #main__info_div__post_right {
   width: 30%;
   display: flex;
@@ -220,9 +241,14 @@
   justify-content: center;
 }
 
+#main__info_div__post_right__info_time {
+  color: #8C8C8C;
+  margin-top: 0.25rem;
+}
+
 #main__info_div__post_left__title {
-  font-size: 18px;
-  margin-top: 25px;
+  font-size: 1.25rem;
+  margin-top: 1rem;
   font-weight: 700;
 }
 
@@ -250,7 +276,6 @@
 }
 
 #main__info_div__post_left__reaction {
-  margin-top: 40px;
   margin-bottom: 10px;
   width: 100%;
 }
@@ -266,7 +291,7 @@
 #main__search_btn {
   border-radius: 5px;
   border-style: none;
-  height: 50px;
+  height: 58px;
   width: 100%;
   background-color: #2253ff;
   color: white;
@@ -428,7 +453,7 @@
   align-items: center;
   padding: 5px 32px;
   margin-left: 1rem;
-  margin-top: 30px;
+  margin-top: 45px;
 }
 
 .post_main__tag__reset i {
@@ -445,14 +470,14 @@
 /* 모집 중 아이콘 */
 #main__top_left__ul__recruit {
   background-color: #2253ff;
-  border-radius: 5px;
+  border-radius: 0px;
   color: white;
 }
 
 #main__top_left__ul__recruit_finish {
-  background-color: #e8e8e8;
-  border-radius: 5px;
-  color: black;
+  background-color: #9D9D9D;
+  border-radius: 0px;
+  color: white;
 }
 
 /*main 상단 검색창 정비*/

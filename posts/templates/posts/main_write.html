@@ -9,7 +9,7 @@
     <div id="main_write__top">
       <div class="main_write__title">
         <div class="main_write__title_num"><h2>1</h2></div>
-        <h2>모집 요건을 작성해주세요</h2>
+        <h1>모집 요건을 작성해주세요</h1>
       </div>
       <div id="main_write__top__select">
         <div class="main_write__top__select_row">
@@ -36,8 +36,7 @@
           </div>-->
             <!--드롭다운 아직 연결 안돼서 일단 select box로-->
             <div id="main_write__select_contact">
-              진행방식 :
-              <label for="{{form.contact.id_for_label}}"></label>
+              <label for="{{form.contact.id_for_label}}">진행 방식</label>
               <select name="contact">
                 <option value selected="default">----------</option>
                 {% for key, value in contacts %}
@@ -69,8 +68,7 @@
           <!--드롭다운 아직 연결 안돼서 일단 select box로-->
           <div class="main_write__dropdown__select_right">
             <div id="main_write__select_duration">
-              모임 형태 :
-              <label for="{{form.duration.id_for_label}}"></label>
+              <label for="{{form.duration.id_for_label}}">모임 형태</label>
               <select name="duration">
                 <option value selected="default">----------</option>
                 {% for key, value in durations %}
@@ -84,21 +82,36 @@
         <div class="main_write__top__select_row">
           <div class="main_write__top__select_left">
             <div id="main_write__top__box_text_number">
-              <div for="{{ form.number.id_for_label }}">모집 인원</div>
+              <div
+                class="main_write__top__box_title"
+                for="{{ form.number.id_for_label }}"
+              >
+                모집 인원
+              </div>
               {{form.number}}
             </div>
           </div>
           <div class="main_write__top__select_right">
             <div id="main_write__top__box_text_location">
-              <div for="{{ form.location.id_for_label }}">지역</div>
+              <div
+                class="main_write__top__box_title"
+                for="{{ form.location.id_for_label }}"
+              >
+                지역
+              </div>
               {{form.location}}
             </div>
           </div>
         </div>
         <div class="main_write__top__select_row">
-          <div class="main_write__top__select_left">
+          <div class="main_write__top__select_all">
             <div id="main_write__top__box_text_link">
-              <div for="{{ form.apply_link.id_for_label }}">모집 링크</div>
+              <div
+                class="main_write__top__box_title"
+                for="{{ form.apply_link.id_for_label }}"
+              >
+                모집 링크
+              </div>
               {{form.apply_link}}
             </div>
           </div>
@@ -108,7 +121,7 @@
     <div id="main_write__tag">
       <div class="main_write__title">
         <div class="main_write__title_num"><h2>2</h2></div>
-        <h2>태그를 입력해주세요</h2>
+        <h1>태그를 입력해주세요</h1>
       </div>
       <div class="main_write__tag_write__main">
         <div class="main_write__tag_write__main_title"><h3>태그</h3></div>
@@ -125,16 +138,26 @@
     <div id="main_write__content">
       <div class="main_write__title">
         <div class="main_write__title_num"><h2>3</h2></div>
-        <h2>글 제목과 내용을 작성해주세요</h2>
+        <h1>글 제목과 내용을 작성해주세요</h1>
       </div>
       <div class="main_write__tag_write__main">
         <div id="main_write__title_write__main_content_input">
-          <div for="{{ form.title.id_for_label }}">제목</div>
+          <div
+            class="main_write__top__box_title"
+            for="{{ form.title.id_for_label }}"
+          >
+            제목
+          </div>
           {{ form.title }}
         </div>
         <div id="main_write__content__contents">
           <div id="main_write__content__write_txt">
-            <div for="{{form.content.id_for_label }}">내용</div>
+            <div
+              class="main_write__top__box_title"
+              for="{{form.content.id_for_label }}"
+            >
+              내용
+            </div>
             {{ form.content }}
           </div>
         </div>
@@ -152,8 +175,12 @@
     <div id="post_write__modal">
       <div class="post_write__modal__overlay">
         <div class="post_write__modal__content">
-          <div class="post_write__modal__close_btn">X</div>
+          <div class="post_write__modal__close_btn">
+            <i class="fa-solid fa-xmark fa-lg"></i>
+          </div>
           <h1>글쓰기가 완료되었습니다!</h1>
+          <h3>전원 모집 완료되면 모집완료로 전환하시는거 잊지 말아주세요🥹</h3>
+          <i class="fa-solid fa-circle-check fa-3x"></i>
           <button class="post_write__register__complete_btn" type="submit">
             등록하기
           </button>

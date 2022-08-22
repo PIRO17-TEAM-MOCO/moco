@@ -2,15 +2,19 @@
 <div class="content">
   <div id="main_detail__top">
     <div id="main_detail__top__back_btn">
-      <a href="{{ request.META.HTTP_REFERER }}"><i class="fa-solid fa-arrow-left fa-2x"></i></a>
+      <a href="{% url 'posts:home' %}"><i class="fa-solid fa-arrow-left fa-2x"></i></a>
     </div>
     <div id="main_detail__top__main">
       <div id="main_detail__top__left">
         <div id="main_detail__top_left__tag">
-          <ul class="main_detatil__top_left__ul">
+          <ul class="main_detail__top_left__ul">
+            {% if post.activation %}
             <li id="main__detail__top_left__ul__recruit">모집중</li>
+            {% else %}
+            <li id="main__detail__top_left__ul__recruit_finish">모집완료</li>
+            {% endif %}
             {% for tag in tags %}
-            <li id="main__detail__top_left__ul__recruit">{{tag}}</li>
+            <li>{{tag}}</li>
             {% endfor %}
           </ul>
         </div>
@@ -23,85 +27,102 @@
             <span>{{post.user.nickname}}</span>
           </div>
           <div id="main_detail__top__time">
-            <span>{{post.published_at|date:"Y. m. d a f" }}</span>
+            <span>{{post.published_at|date:"Y. m. d" }}</span>
           </div>
         </div>
       </div>
       <div id="main_detail__top__right">
-        <div id="main_detail__top__apply">
-          {% if can_revise and post.activation %}
-          <form action="{% url 'posts:close' post.id %}" method="post">
-            {% csrf_token %}
-            <!--모집 완료 전환 모달-->
-            <div id="main_detail__complete_modal_btn">
-              <a>모집완료로 전환</a>
-            </div>
-            <div id="main_detail__complete_modal">
-              <div class="main_detail__complete_modal__overlay">
-                <div class="main_detail__complete_modal__content">
-                  <div class="main_detail__complete_modal__close_btn">X</div>
-                  <div class="main_detail__complete_modal__cancel_btn">다시 생각해볼게요</div>
-                  <h1>모집완료로 전환하시겠습니까?</h1>
-                  <button class="main_detail__complete_btn" type="submit">
-                    네, 전환하겠습니다
-                  </button>
+        {% if can_revise and post.activation %}
+          <div id="main_detail__top__apply">          
+            <form action="{% url 'posts:close' post.id %}" method="post">
+              {% csrf_token %}
+              <!--모집 완료 전환 모달-->
+              <div id="main_detail__complete_modal_btn">
+                <a>모집완료로 전환</a>
+              </div>
+              <div id="main_detail__complete_modal">
+                <div class="main_detail__complete_modal__overlay">
+                  <div class="main_detail__complete_modal__content">
+                    <div class="main_detail__complete_modal__close_btn">
+                      <i class="fa-solid fa-xmark fa-lg"></i>
+                    </div>
+                    <h1>모집완료로 전환하시겠어요?</h1>
+                    <h3>⚠️한 번 모집 완료로 전환하면 다시 모집중으로 전환이 불가합니다⚠️</h3>
+                    <div class="main_detail__complete_modal__btn_flex">
+                      <button class="main_detail__complete_btn" type="submit">
+                        네, 전환할게요
+                      </button>
+                      <div class="main_detail__complete_modal__cancel_btn">다시 생각해볼게요</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <div class="main_detail__like_delete_revise">
+              <div class="main_detail__top__like">
+                <button id="{{post.id}}" onclick="post_like(this.id)">
+                  <i id="blank" class="fa-regular fa-heart"></i>
+                  <span id="like_count">{{post.likes}}</span>
+                </button>
+              </div>
+              <div class="main_detail__delete_revise">
+                <div class="main_detail__delete_revise__dropdown_btn">
+                  <i class="fa-solid fa-ellipsis fa-2x" style="color: #BFBFBF"></i>
+                </div>
+                <div class="main_detail__delete_revise__content">
+                  <div class="main_detail__revise_btn">
+                    <a href="{% url 'posts:update' post.id%}">수정</a>
+                  </div>
+                  <form action="{% url 'posts:delete' post.id %}" method="post">
+                    {% csrf_token %}
+                    <div id="main_detail__delete_modal_btn">
+                      <a>삭제</a>
+                    </div>
+                    <div id="main_detail__delete_modal">
+                      <div class="main_detail__delete_modal__overlay">
+                        <div class="main_detail__delete_modal__content">
+                          <div class="main_detail__delete_modal__close_btn">
+                            <i class="fa-solid fa-xmark fa-lg"></i>
+                          </div>
+                          <h1>게시글을 삭제하시겠어요?</h1>
+                          <h3>⚠️한번 삭제하면 복구가 불가합니다⚠️</h3>
+                          <div class="main_detail__delete_modal__btn_flex">
+                            <button class="main_detail__delete_btn" type="submit">
+                              삭제할게요
+                            </button>
+                            <div class="main_detail__delete_modal__cancel_btn">다시 생각해볼게요</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
-          </form>
-          <a href="{% url 'posts:update' post.id%}">수정</a>
-          <form action="{% url 'posts:delete' post.id %}" method="post">
-            {% csrf_token %}
-            <div id="main_detail__delete_modal_btn">
-              <a>삭제</a>
+          </div>
+        {% elif not can_revise and post.activation %}
+          <div id="main_detail__top__apply_2">
+            <button id="main_detail__top__apply_btn" type="button" onclick="location.href='{{post.apply_link}}'">
+              지원하기
+            </button>
+            <div class="main_detail__top__like">
+              <button id="{{post.id}}" onclick="post_like(this.id)">
+                <i id="blank" class="fa-regular fa-heart"></i>
+                <span id="like_count">{{post.likes}}</span>
+              </button>
             </div>
-            <div id="main_detail__delete_modal">
-              <div class="main_detail__delete_modal__overlay">
-                <div class="main_detail__delete_modal__content">
-                  <div class="main_detail__delete_modal__close_btn">X</div>
-                  <div class="main_detail__delete_modal__cancel_btn">다시 생각해볼게요</div>
-                  <h1>정말 삭제하시겠습니까?</h1>
-                  <button class="main_detail__delete_btn" type="submit">
-                    네, 삭제하겠습니다
-                  </button>
-                </div>
-              </div>
+          </div>
+        {% else %}
+          <div id="main_detail__top__apply_3">
+            <div class="main_detail__top__recruit_done">모집완료</div>
+            <div class="main_detail__top__like">
+              <button id="{{post.id}}" onclick="post_like(this.id)">
+                <i id="blank" class="fa-regular fa-heart"></i>
+                <span id="like_count">{{post.likes}}</span>
+              </button>
             </div>
-          </form>
-          {% elif can_revise and not post.activation %}
-          <div>모집완료</div>
-          <form action="{% url 'posts:delete' post.id %}" method="post">
-            {% csrf_token %}
-            <div id="main_detail__delete_modal_btn_2">
-              <a>삭제</a>
-            </div>
-            <div id="main_detail__delete_modal_2">
-              <div class="main_detail__delete_modal__overlay">
-                <div class="main_detail__delete_modal__content">
-                  <div class="main_detail__delete_modal__close_btn">X</div>
-                  <div class="main_detail__delete_modal__cancel_btn">다시 생각해볼게요</div>
-                  <h1>정말 삭제하시겠습니까?</h1>
-                  <button class="main_detail__delete_btn" type="submit">
-                    네, 삭제하겠습니다
-                  </button>
-                </div>
-              </div>
-            </div>
-          </form>
-          {% elif not can_revise and post.activation %}
-          <button id="main_detail__top__apply_btn" type="button" onclick="location.href='{{post.apply_link}}'">
-            지원하기
-          </button>
-          {% else %}
-          <button>모집완료</button>
-          {%endif%}
-        </div>
-        <div id="main_detail__top__like">
-          <button id="{{post.id}}" onclick="post_like(this.id)">
-            좋아요
-            <span id="like_count">{{post.likes}}</span>
-        </button>
-        </div>
+          </div>
+        {%endif%}
       </div>
     </div>
   </div>
@@ -355,6 +376,7 @@
   </div>
   {%endif%}
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <!--모집 완료 전환 모달-->
 <script>
@@ -512,23 +534,24 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script type="text/javascript">
-function post_like(id) {
-    $.ajax({
-        url: "{%url 'users:likes' 1 %}", // data를 전송할 url 입니다. post = 1
-        data: {
-            'id': id
-        }, // id 값 전송
-        dataType: "json",
-        success: function (response) { // ajax 통신이 정상적으로 완료되었을 때
-            $('#like_count').html(response.like_count) //id가 like_count의 내용을 전송받은 좋아요 수로 바꾼다
-            if (response.error) {
-              window.location.replace("http://127.0.0.1:8000/account/login"); // 배포용 서버로 변경
-            } 
-        }
-    })
-}
-</script>
-<script>
-
+  function post_like(id) {
+      $.ajax({
+          url: "{%url 'users:likes' 1 %}", // data를 전송할 url 입니다. post = 1
+          data: {
+              'id': id
+          }, // id 값 전송
+          dataType: "json",
+          success: function (response) { // ajax 통신이 정상적으로 완료되었을 때
+              $('#like_count').html(response.like_count) //id가 like_count의 내용을 전송받은 좋아요 수로 바꾼다
+              if ($('#blank').hasClass("fa-regular fa-heart"))
+                $('#blank').removeClass("fa-regular fa-heart").addClass("fa-solid fa-heart");
+              else
+                $('#blank').removeClass("fa-solid fa-heart").addClass("fa-regular fa-heart");
+              if (response.error) {
+                window.location.replace("http://127.0.0.1:8000/account/login"); // 배포용 서버로 변경
+              } 
+          }
+      })
+  }
 </script>
 {% endblock content%}

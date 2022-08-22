@@ -50,7 +50,7 @@
             <div id="search_div__top_right__reset">
               <div class="post_main__tag__reset">
                 <i class="fa-solid fa-arrows-rotate" style="color: black;"></i>
-                <input type="submit" name="reset" class="post-main__tag__reset" value="초기화">
+                <input type="submit" name="reset" class="post-main__tag__reset" value="초기화" onClick="window.location.reload()">
               </div>
             </div>
           </div>
@@ -106,7 +106,14 @@
         <div id="main__info_div__post_left">
           <div id="main__info_div__post_left__tag">
             <ul class="main__info_li__tag_flex">
-              <li>모집중</li>
+              {% if post.activation %}
+              <li id="main__top_left__ul__recruit">모집중</li>
+              {% else %}
+              <li id="main__top_left__ul__recruit_finish">모집완료</li>
+              {% endif %}
+              {% for tag in tags %}
+              <li>{{tag}}</li>
+              {% endfor %}
             </ul>
           </div>
           <div id="main__info_div__post_left__title">

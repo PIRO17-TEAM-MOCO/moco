@@ -57,6 +57,7 @@ def home(request, contact='None'):
     elif sort == "comments":
         posts = posts.annotate(comment_count=Count(
             'comment')).order_by("-comment_count")
+
     context = {
         "posts": posts,
         "sort": sort,

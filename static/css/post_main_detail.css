@@ -216,8 +216,9 @@
 }
 
 #main_detail__comment__top {
-	display: flex;
-	justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
 
 #main_detail__comment_num {
@@ -232,13 +233,14 @@
 }
 
 #main_detail__comment__btn {
-	background-color: #2253ff;
-	border-style: none;
-	border-radius: 5px;
-	color: white;
-	padding: 10px 20px;
-	font-size: 13px;
-	margin: 10px 0;
+  background-color: #2253ff;
+  border-style: none;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 10px 0;
 }
 
 #main_detail__comment__contents__profile {
@@ -284,8 +286,9 @@
 }
 
 #main_detail__review__top {
-	display: flex;
-	justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
 
 #main_detail__review__title {

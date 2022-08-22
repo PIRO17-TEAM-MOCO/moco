@@ -50,10 +50,28 @@
   margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .content-write__file {
   margin-top: 1.5rem;
+}
+
+.content-write__item select {
+  width: 100%;
+  height: 3.3rem;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  /* font-size: 1rem; */
+  border: 1px solid #bfbfbf;
+  appearance: none;
+
+}
+
+.content-write__item i{
+  position: absolute;
+  top: 60%;
+  right: 5%;
 }
 
 .content-write__item_location {
@@ -120,7 +138,7 @@
 .star-rating {
   display: flex;
   flex-direction: row-reverse;
-  font-size: 2.25rem;
+  font-size: 1.75rem !important;
   line-height: 2.5rem;
   justify-content: space-around;
   padding: 0 0.2em;
@@ -133,17 +151,19 @@
 }
 
 .star-rating label {
-  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
-  -webkit-text-stroke-width: 2.3px;
-  -webkit-text-stroke-color: #2b2a29;
+  -webkit-text-fill-color: #BFBFBF; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 2px;
   cursor: pointer;
+  -webkit-text-stroke-color: #BFBFBF;
 }
 
 .star-rating :checked ~ label {
   -webkit-text-fill-color: gold;
+  -webkit-text-stroke-color: gold;
 }
 
 .star-rating label:hover,
 .star-rating label:hover ~ label {
   -webkit-text-fill-color: gold;
+  -webkit-text-stroke-color: gold;
 }

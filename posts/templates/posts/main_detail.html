@@ -222,16 +222,31 @@
           </div>
           <div id="main_detail__comment__contents__reply">
             {% for recomment in comment.comment_set.all %}
-            <div class="main_detail__comment__contents__reply_bundle__{{recomment.id}}">
-              <div class="reply_user_name">ㄴ@{{recomment.user.nickname}}	&nbsp;</div>
-              <div class="reply_txt">{{recomment.content}}</div>
-              <div class="main_detail__recomments_revise_delete_btn">
-                <div class="main_detail__recomments_revise_btn">
-                  <button onclick="changeForm4({{recomment.id}}, '{{recomment.content}}');">수정</button>
-                </div>
-                <div class="main_detail__recomments_delete_btn">
-                  <button onclick="onClickdeleteRecmt({{recomment.id}});">삭제</button>
-                </div>
+            <div class="main_detail__comment__contents__reply_bundle__{{recomment.id}}" style="display: flex; justify-content: space-between;">
+              <div>
+                <div class="reply_user_name"><span style="font-size:1.25rem; font-weight: 600;">ㄴ </span>
+                  {{recomment.user.nickname}}
+                  <span style="color: #A2A2A2; font-size: 0.75rem;">{{recomment.published_at|date:"Y. m. d"}}</span> &nbsp;</div>
+                <div class="reply_txt">{{recomment.content}}</div>
+              </div>
+              <div>
+                <div class="main_detail__comments__contents__options">
+                  {% if recomment.user == request.user %}
+                  <div class="main_detail__comments_revise_delete_btn">
+                    <div class="main_detail__comments_dropdown_btn">
+                      <i class="fa-solid fa-ellipsis fa-lg" style="color: #BFBFBF"></i>
+                    </div>
+                    <div class="main_detail__comments_dropdown_menu">
+                      <div class="main_detail__comments_dropdown_menu_revise">
+                        <button onclick="changeForm4({{recomment.id}}, '{{recomment.content}}');">수정</button>
+                      </div>
+                      <div class="main_detail__comments_dropdown_menu_delete">
+                        <button onclick="onClickdeleteRecmt({{recomment.id}});">삭제</button>
+                      </div>
+                    </div>
+                  </div>
+                  {% endif%}
+                  </div>
               </div>
             </div>
             {% endfor%}
@@ -464,20 +479,24 @@
   // 댓글 수정
   const changeForm = (id, content) => {
     const reviseCmt = document.getElementById(`main_detail__comment__contents__txt__${id}`)
-    reviseCmt.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}<textarea type="text" name="content">${content}</textarea><input type="submit" value="등록"/><a href="{% url 'posts:detail' post.id %}">취소</a></form>`
+    reviseCmt.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}<textarea type="text" name="content">${content}</textarea>
+      <div class="comment-revise__button"><a href="{% url 'posts:detail' post.id %}">취소</a><input type="submit" value="등록"/></div></form>`
   }
 
   // 대댓글 수정
   const changeForm4 = (id, content) => {
     const reviseRecmt = document.querySelector(`.main_detail__comment__contents__reply_bundle__${id}`)
     console.log(reviseRecmt)
-    reviseRecmt.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}<textarea type="text" name="content">${content}</textarea><input type="submit" value="등록"/><a href="{% url 'posts:detail' post.id %}">취소</a></form>`
+    reviseRecmt.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}
+      <textarea type="text" name="content" style="width:100%; padding:1rem;">${content}</textarea>
+      <div style="gap:0.5rem; align-items:center; margin-top:1rem;" class="comment-revise__button"><a href="{% url 'posts:detail' post.id %}">취소</a><input type="submit" value="등록"/></div></form>`
   }
 
   // 대댓글
   const changeForm2 = (id) => {
     const reCmt = document.getElementById(`main_detail_comment_contents_reply_form__${id}`)
-    reCmt.innerHTML = `<form action="/comment/recomment/${id}" method="post">{% csrf_token %}<textarea type="text" name="content"></textarea><input type="submit" value="등록"/><a href="{% url 'posts:detail' post.id %}">취소</a></form>`
+    reCmt.innerHTML = `<form action="/comment/recomment/${id}" method="post">{% csrf_token %}<textarea type="text" name="content"></textarea>
+      <div class="comment-revise__button"><a href="{% url 'posts:detail' post.id %}">취소</a><input type="submit" value="등록"/></div></form>`
   }
 
   //대댓글 삭제

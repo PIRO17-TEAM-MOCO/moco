@@ -255,7 +255,7 @@
 
 #main_detail__comments__contents__name {
 	margin-bottom: 5px;
-	font-size: 15px;
+	font-size: 16px;
 }
 
 #main_detail__comments__contents__time {
@@ -275,7 +275,7 @@
 }
 
 #main_detail__comment__contents h1 {
-	font-size: 20px;
+	font-size: 16px;
 }
 
 #main_detail__comment__contents__tag {
@@ -754,8 +754,14 @@
 }
 
 .reply_user_name {
-	color: #2253ff;
-	font-size: 13px;
+	font-size: 16px;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.reply_txt {
+	margin: 1rem 0 1rem 1.5rem;
 }
 
 .main_detail_comment_reply_btn {
@@ -782,6 +788,7 @@
 	resize: none;
 	width: 100%;
 	height: 150px;
+	padding: 1rem;
 }
 
 .main_detail_commnet_reply_form form {
@@ -808,6 +815,12 @@
 	margin-left: 5px;
 }
 
+#main_detail__comment__contents__reply > div {
+	border-top: 1px solid #8c8c8c;
+	/* border-bottom: 1px solid #8c8c8c; */
+	padding: 2rem 0 1rem 3rem;
+}
+
 /*댓글 드롭다운 메튜 작성*/
 
 .main_detail__comments__contents__options {
@@ -827,7 +840,7 @@
 	display: block;
 }
 
-.main_detail__comments_dropdown_btn {
+.main_detail__comments_dropdown_btn, .main_detail__recomments_dropdown_btn {
 	margin-right: 10px;
 	margin-bottom: 2px;
 }
@@ -901,4 +914,9 @@
 
 .main_detail__comment__contents__reply_bundle:hover .main_detail__recomments_revise_delete_btn {
 	display: flex;
+}
+
+.comment-revise__button {
+	display: flex;
+	justify-content: flex-end;
 }

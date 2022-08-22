@@ -137,7 +137,7 @@
       </div>
       <div id="place_detail__comment__contents">
         {% for comment in comments %}
-        <div class="place_detail__comment__each__contents_div">
+        <div class="place_detail__comment__each__contents_div__{{comment.id}}">
           <div id="place_detail__comment__each__contents__{{comment.id}}">
             <div id="place_detail__comment__contents__profile">
               <div class="place_detail__comment__contetns__profile_userinfo">
@@ -185,15 +185,15 @@
             </div>
             <div id="place_detail__comment__contents__reply">
               {% for recomment in comment.comment_set.all %}
-              <div class="place_detail__comment__contents__reply_bundle">
+              <div class="place_detail__comment__contents__reply_bundle__{{recomment.id}}">
                 <div class="place_detail__reply_user_name">ㄴ@{{recomment.user.nickname}}	&nbsp;</div>
                 <div class="place_detail__reply_txt">{{recomment.content}}</div>
                 <div class="place_detail__recomments_revise_delete_btn">
                   <div class="place_detail__recomments_revise_btn">
-                    <button onclick="changeForm4Place({{comment.id}}, '{{recomment.content}}');">수정</button>
+                    <button onclick="changeForm4Place({{recomment.id}}, '{{recomment.content}}');">수정</button>
                   </div>
                   <div class="place_detail__recomments_delete_btn">
-                    <button onclick="onClickdeleteRecmtPlace({{comment.id}});">삭제</button>
+                    <button onclick="onClickdeleteRecmtPlace({{recomment.id}});">삭제</button>
                   </div>
                 </div>
               </div>
@@ -288,7 +288,9 @@ function place_like(id) {
 
   // 대댓글 수정
   const changeForm4Place = (id, content) => {
-    const reviseRecmtPlace = document.getElementById(`place_detail_comment_contents_reply_form__${id}`)
+    console.log("click")
+    const reviseRecmtPlace = document.querySelector(`.place_detail__comment__contents__reply_bundle__${id}`)
+    console.log(reviseRecmtPlace)
     reviseRecmtPlace.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}<textarea type="text" name="content">${content}</textarea><input type="submit" value="등록"/><a href="{% url 'place:detail' place.id %}">취소</a></form>`
   }
 
@@ -312,10 +314,11 @@ function place_like(id) {
   recmtDeletePlace.onreadystatechange = () => {
       if (recmtDeletePlace.readyState === XMLHttpRequest.DONE){
           if(recmtDeletePlace.status < 400){
-              const {id, len} = JSON.parse(cmtDeletePlace.response);
-              const topdomRcmtPlace = document.getElementById("place_detail__comment__contents");
-              const deletedomRcmtPlace = document.getElementById(`place_detail_comment_contents_reply_form__${id}`);
-              topdomRcmtPlace.removeChild(deletedomPlace);
+              const {id, len} = JSON.parse(recmtDeletePlace.response);
+              console.log(id, len)
+              const topdomRcmtPlace = document.getElementById("place_detail__comment__contents__reply");
+              const deletedomRcmtPlace = document.querySelector(`.place_detail__comment__contents__reply_bundle__${id}`)
+              topdomRcmtPlace.removeChild(deletedomRcmtPlace);
           }
       }
   }
@@ -335,8 +338,8 @@ function place_like(id) {
       if (cmtDeletePlace.readyState === XMLHttpRequest.DONE){
           if(cmtDeletePlace.status < 400){
               const {id, len} = JSON.parse(cmtDeletePlace.response);
-              const topdomPlace = document.getElementById("place_detail__comment__contents__reply");
-              const deletedomPlace = document.getElementById(`place_detail__comment__each__contents__${id}`);
+              const topdomPlace = document.getElementById("place_detail__comment__contents");
+              const deletedomPlace = document.querySelector(`.place_detail__comment__each__contents_div__${id}`);
               console.log(deletedomPlace)
               topdomPlace.removeChild(deletedomPlace);
               const cmtLenPlace = document.getElementById('place_detail__comment_num')

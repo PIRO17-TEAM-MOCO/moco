@@ -191,7 +191,7 @@
     </div>
     <div id="main_detail__comment__contents">
       {% for comment in comments %}
-      <div class="main_detail__comment__each__contents_div">
+      <div class="main_detail__comment__each__contents_div__{{comment.id}}">
         <div id="main_detail__comment__each__contents__{{comment.id}}">
           <div id="post_detail__comment__contents__profile">
             <div class="main_detail__comment__contetns__profile_userinfo">
@@ -581,8 +581,8 @@
       if (cmtDelete.readyState === XMLHttpRequest.DONE){
           if(cmtDelete.status < 400){
               const {id, len} = JSON.parse(cmtDelete.response);
-              const topdom = document.getElementById("main_detail__comment__contents__reply");
-              const deletedom = document.getElementById(`main_detail__comment__each__contents__${id}`);
+              const topdom = document.getElementById("main_detail__comment__contents");
+              const deletedom = document.querySelector(`.main_detail__comment__each__contents_div__${id}`);
               topdom.removeChild(deletedom);
               const cmtLen = document.getElementById('main_detail__comment_num')
               cmtLen.innerHTML = len

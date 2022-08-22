@@ -123,10 +123,10 @@
         <!--회원탈퇴 모달 -->
         <div id="edit__btn__container">
             <div class="edit-cancel__btn">
-                <a href="{% url 'users:profile_view' user.id %}">취소</a>
+                <a onclick="editCancel()">취소</a>
             </div>
             <div id="edit-cf__btn">
-                <a type="submit" onclick="editConfirm()">수정 완료</a>
+                <a onclick="editConfirm()">수정 완료</a>
             </div>
             <!-- 수정확인 모달 -->
             <div id="cf__modal" class="modal-overlay" style="display: none;">
@@ -151,6 +151,11 @@
   </div>
 </main>
 <script>
+    //수정 취소
+    function editCancel() {
+        location.href="{% url 'users:profile_view' user.id %}"
+    }
+
     // 비밀번호 변경으로 바로 가기
     function changePw() {
         location.href="{% url 'users:change_pw' %}"

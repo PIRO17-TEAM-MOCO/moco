@@ -99,7 +99,6 @@ main {
   position: absolute;
   right: 0rem;
   bottom: 0rem;
-  z-index: 1;
 }
 
 .input__edit__gender select {

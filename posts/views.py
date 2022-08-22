@@ -39,17 +39,12 @@ def home(request, contact='None'):
             Q(location__icontains=search)  # 위치
         )
 
-    tag = request.GET.get('tag', 'None')
-    # tag_len = len(tag)
-    # tag = tag[1:tag_len-1]
-    # print(tag)
-
-    if tag != 'None':
+    tag = request.GET.get('tag', '')
+    if tag != '':
         tagg = []
         tagList = simplejson.loads(tag)
         for i in range(len(tagList)):
             tagg.append(tagList[i]["value"])
-        print(tagg)
         for i in tagg:
             posts = posts.filter(Q(tag__contains=i))
 

@@ -6,8 +6,9 @@
 		</div>
 		{% if user in admin %}
 		<button type="button" class="write-btn" onclick="location.href='/notice/write'">게시물 작성</button>
+		{% endif %}
 	</div>
-	{% endif %} {% for notice in notices %}
+  {% for notice in notices %}
 	<a class="content-box__itme" href="{% url 'notice:detail' notice.id %}">
 		<div class="content-box">
 			<div class="content-box__title">{{notice.title}}</div>

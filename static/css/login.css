@@ -172,7 +172,7 @@ hr {
   margin: 0 0.5rem 0 0.5rem;
 }
 
-.login__sim__soc {
+#login .login__sim__soc {
   width: 22rem;
   display: flex;
   flex-direction: row;

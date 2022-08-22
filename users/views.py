@@ -63,6 +63,7 @@ def signup(request):
             user.save()
             return redirect('posts:home')
         else:
+            print(form.errors)
             return redirect('users:signup_error')
     else:
         form = SignupForm()
@@ -262,13 +263,13 @@ def profile_edit(request, id):
         form = ProfileForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             if User.objects.filter(email=form.cleaned_data['email']).exclude(username=user.username).exists():
-                print('이미 존재하는 이메일입니다.')
-                messages.error(request, '이미 존재하는 이메일입니다.')
-                return redirect(f'/account/profile/edit/{id}')
+                print('다른 유저의 이메일과 중복됩니다. 다른 이메일을 입력해주세요.')
+                messages.error(request, '다른 유저의 이메일과 중복됩니다. 다른 이메일을 입력해주세요.')
+                return redirect(f'/account/profile/edit/error/{id}')
             if User.objects.filter(nickname=form.cleaned_data['nickname']).exclude(username=user.username).exists():
                 print('이미 존재하는 닉네임입니다.')
                 messages.error(request, '이미 존재하는 닉네임입니다.')
-                return redirect(f'/account/profile/edit/{id}')
+                return redirect(f'/account/profile/edit/error/{id}')
             user.name = form.cleaned_data['name']
             user.nickname = form.cleaned_data['nickname']
             user.profile_img = form.cleaned_data['profile_img']
@@ -292,6 +293,21 @@ def profile_edit(request, id):
         }
         return render(request, template_name='users/profile_edit.html', context=context)
 
+def signup_error(request):
+    form = SignupForm()
+    context = {
+        'form': form,
+    }
+    return render(request, template_name='users/signup_error.html', context=context)
+
+@login_required
+@profile_valid
+def profile_edit_error(request, id):
+    form = ProfileForm()
+    context = {
+        'form': form,
+    }
+    return render(request, template_name='users/profile_edit_error.html', context=context)
 
 @login_required
 def profile_add(request, id):
@@ -303,13 +319,13 @@ def profile_add(request, id):
         form = ProfileForm(request.POST)
         if form.is_valid():
             if User.objects.filter(email=form.cleaned_data['email']).exclude(username=user.username).exists():
-                print('이미 존재하는 이메일입니다.')
-                messages.error(request, '이미 존재하는 이메일입니다.')
-                return redirect(f'/account/profile/add/{id}')
+                print('다른 유저의 이메일과 중복됩니다. 다른 이메일을 입력해주세요.')
+                messages.error(request, '다른 유저의 이메일과 중복됩니다. 다른 이메일을 입력해주세요.')
+                return redirect(f'/account/profile/add/error/{id}')
             if User.objects.filter(nickname=form.cleaned_data['nickname']).exclude(username=user.username).exists():
                 print('이미 존재하는 닉네임입니다.')
                 messages.error(request, '이미 존재하는 닉네임입니다.')
-                return redirect(f'/account/profile/add/{id}')
+                return redirect(f'/account/profile/add/error/{id}')
             user.name = form.cleaned_data['name']
             user.nickname = form.cleaned_data['nickname']
             user.profile_img = form.cleaned_data['profile_img']
@@ -330,6 +346,13 @@ def profile_add(request, id):
         }
         return render(request, template_name='users/profile_add.html', context=context)
 
+@login_required
+def profile_add_error(request, id):
+    form = ProfileForm()
+    context = {
+        'form': form,
+    }
+    return render(request, template_name='users/profile_add_error.html', context=context)
 
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'

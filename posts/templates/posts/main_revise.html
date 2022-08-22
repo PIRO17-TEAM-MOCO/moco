@@ -37,19 +37,13 @@
             <!--드롭다운 아직 연결 안돼서 일단 select box로-->
             <div id="main_write__select_contact">
               진행방식 :
-              <select id="contact" name="contact" onchange="this.form.submit();">
-                <option value="default">--------</option>
-                <option value="On" {% if sort == "latest" %}selected{% endif %}>온라인</option>
-                <option value="Off" {% if sort == "views" %}selected{% endif %}>오프라인</option>
-                <option value="Mix" {% if sort == "comments" %}selected{% endif %}>혼합</option>
-              </select>
-              <!-- <label for="{{form.contact.id_for_label}}"></label>
+              <label for="{{form.contact.id_for_label}}"></label>
               <select name="contact">
                 <option value selected="{{ key }}">{{ value }}</option>
                 {% for key, value in contacts %}
-                <option value="{{ key }}">{{ value }}</option>
+                <option value="{{ key }}" {% if post.contact == key %}selected{%endif%}>{{ value }}</option>
                 {% endfor %}
-              </select> -->
+              </select>
             </div>
           </div>
 
@@ -79,9 +73,9 @@
               모임 형태 :
               <label for="{{form.duration.id_for_label}}"></label>
               <select name="duration">
-                <option value selected="default">----------</option>
+                <option value="default">----------</option>
                 {% for key, value in durations %}
-                <option value="{{ key }}">{{ value }}</option>
+                <option value="{{ key }}" {% if post.duration == key %}selected{%endif%}>{{ value }}</option>
                 {% endfor %}
               </select>
             </div>

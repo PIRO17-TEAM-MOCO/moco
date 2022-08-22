@@ -247,6 +247,11 @@
             <div id="main_detail__review__uploadbtn">
               <h1>+</h1>
               <p>이미지를 드래그하거나 <br> 클릭해서 업로드해주세요</p>
+              {% if review.image.url %}
+              <img src="{{review.image.url}}" alt="review_image"/>
+              {% else %}
+              <img src="{{review.image.url}}" alt="review_image" onerror="this.style.display='none'"/>
+              {%endif%}
             </div>
           </label>
           <input
@@ -254,6 +259,7 @@
             name="review_image"
             id="main_detail__review__upload_file"
             accept="image/*"
+            onchange="thumbnailImg(event);"
           />
         </div>
         <textarea
@@ -575,6 +581,19 @@ function dp_menu(){
           click.style.display = "none";
       }
   }
+
+// 후기 이미지 바로 띄우기
+function thumbnailImg(event) {
+  var reader = new FileReader();
+
+  reader.onload = function(event) {
+    var img = document.createElement("img");
+    img.setAttribute("src", event.target.result);
+    document.querySelector("div#main_detail__review__uploadbtn").appendChild(img);
+  };
+
+  reader.readAsDataURL(event.target.files[0]);
+}
 </script>
 
 {% endblock content%}

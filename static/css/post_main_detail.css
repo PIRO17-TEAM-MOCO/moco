@@ -392,37 +392,39 @@
 
 #main_detail__review__contents {
   border-bottom: 1px solid rgb(162, 162, 162);
-  padding-top: 30px;
 }
 
 /* 아래 두 태그는 사용자 별 후기 다르게 표시하는 기능 */
 
 #main_detail__review__contents_mine {
   border-bottom: 1px solid rgb(162, 162, 162);
-  padding-top: 30px;
+  padding-top: 10px;
   background-color: #e9f7ff;
+  padding-bottom: 30px;
 }
 
 #main_detail__review__contents_others {
   border-bottom: 1px solid rgb(162, 162, 162);
-  padding-top: 30px;
+  padding-top: 10px;
+  padding-bottom: 30px;
 }
 
 .review__contents_box__user_info {
   width: 50%;
   display: flex;
   align-items: center;
+  margin-left: 40px;
 }
 
 .review__contents_box__profile {
   display: flex;
 }
 
-.review__contents_box__info {
+.main_detail_review__contents_box__info {
   display: inline-block;
   padding-left: 15px;
   margin-right: 20px;
-  padding-top: 5px;
+  padding-top: 53px;
 }
 
 .main_detail__contents__profile_name {
@@ -465,7 +467,6 @@
 }
 
 .main_detail__review__contents_text {
-  margin-top: 20px;
   margin-left: 20px;
 }
 
@@ -479,9 +480,6 @@
 .main_detail__review__contents_top {
   display: flex;
   justify-content: space-between;
-}
-
-.main_detail__review__contents_revise {
 }
 
 .main_detail__review__contents_revise img {
@@ -906,4 +904,127 @@
 .main_detail__comment__contents__reply_bundle:hover
   .main_detail__recomments_revise_delete_btn {
   display: flex;
+}
+
+/*리뷰 이미지 사이즈*/
+.main_detail__img_size img {
+  width: 20%;
+  height: 20%;
+  margin-left: 40px;
+}
+
+.main_detail__img_size {
+  display: flex;
+}
+
+/*리뷰 드롭다운 메튜 작성*/
+
+.main_detail__review__contents__options {
+  position: relative;
+  display: inline-flex;
+  height: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-right: 3rem;
+  margin-top: 1rem;
+}
+
+.main_detail__review__contents__options i {
+  margin-top: 23px;
+}
+
+.main_detail__review__contents__options:hover
+  .main_detail__review_dropdown_menu {
+  display: block;
+}
+
+.main_detail__review_dropdown_btn {
+  margin-right: 10px;
+  margin-bottom: 2px;
+}
+
+.main_detail__review__contents__options:hover,
+.main_detail__review_dropdown_menu_revise button:hover,
+.main_detail__review_dropdown_menu_delete button:hover {
+  color: #2253ff !important;
+}
+
+.main_detail__review__contents__options:hover
+  > .main_detail__review_dropdown_menu {
+  display: block;
+}
+
+.main_detail__review_dropdown_menu {
+  display: block;
+  text-decoration: none;
+  color: rgb(37, 37, 37);
+  font-weight: 400;
+  font-size: 0.9rem;
+  background-color: white;
+  line-height: 25px;
+  text-align: center;
+  position: absolute;
+  opacity: 0;
+  z-index: 1; /*다른 요소들보다 앞에 배치*/
+  width: 6em;
+  top: 100%;
+  padding: 0.5rem 0;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+}
+
+.main_detail__review_dropdown_menu_revise:hover {
+  background-color: #e9f7ff;
+}
+
+.main_detail__review_dropdown_menu_revise {
+  font-size: 16px;
+}
+
+.main_detail__review_dropdown_menu_delete {
+  font-size: 16px;
+}
+
+.main_detail__review_dropdown_menu_delete:hover {
+  background-color: #e9f7ff;
+}
+
+.main_detail__review__contents__options:hover
+  .main_detail__review_dropdown_menu {
+  display: block;
+  opacity: 1;
+}
+
+/*리뷰 페이지네이션 디자인*/
+.post_detail__review__page {
+  display: flex;
+  justify-content: center;
+  font-size: 25px;
+  color: #bfbfbf;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.post_detail__review__page_previous {
+  border: 1px solid #bfbfbf;
+  color: #bfbfbf;
+  padding: 5px;
+  margin-right: 12px;
+  border-radius: 5px;
+}
+
+.post_detail__review__page_next {
+  border: 1px solid #bfbfbf;
+  color: #bfbfbf;
+  padding: 5px;
+  margin-left: 12px;
+  border-radius: 5px;
+}
+
+.post_detail__review__page_next:hover {
+  border: 1px solid black;
+}
+
+.post_detail__review__page_previous:hover {
+  border: 1px solid black;
 }

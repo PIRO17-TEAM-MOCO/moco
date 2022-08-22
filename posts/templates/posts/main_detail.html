@@ -240,24 +240,24 @@
           <div id="main_detail__comment__contents__reply">
             {% for recomment in comment.comment_set.all %}
             <div class="main_detail__comment__contents__reply_bundle__{{recomment.id}}" style="display: flex; justify-content: space-between;">
-              <div>
+              <div class="main_detail__comment_contents__reply_bundle_container">
                 <div class="reply_user_name"><span style="font-size:1.25rem; font-weight: 600;">ㄴ </span>
                   {{recomment.user.nickname}}
                   <span style="color: #A2A2A2; font-size: 0.75rem;">{{recomment.published_at|date:"Y. m. d"}}</span> &nbsp;</div>
                 <div class="reply_txt">{{recomment.content}}</div>
               </div>
               <div>
-                <div class="main_detail__comments__contents__options">
+                <div class="main_detail__recomments__contents__options">
                   {% if recomment.user == request.user %}
-                  <div class="main_detail__comments_revise_delete_btn">
-                    <div class="main_detail__comments_dropdown_btn">
+                  <div class="main_detail__recomments_revise_delete_btn">
+                    <div class="main_detail__recomments_dropdown_btn">
                       <i class="fa-solid fa-ellipsis fa-lg" style="color: #BFBFBF"></i>
                     </div>
-                    <div class="main_detail__comments_dropdown_menu">
-                      <div class="main_detail__comments_dropdown_menu_revise">
+                    <div class="main_detail__recomments_dropdown_menu">
+                      <div class="main_detail__recomments_dropdown_menu_revise">
                         <button onclick="changeForm4({{recomment.id}}, '{{recomment.content}}');">수정</button>
                       </div>
-                      <div class="main_detail__comments_dropdown_menu_delete">
+                      <div class="main_detail__recomments_dropdown_menu_delete">
                         <button onclick="onClickdeleteRecmt({{recomment.id}});">삭제</button>
                       </div>
                     </div>
@@ -277,7 +277,7 @@
   <div id="main_detail__review">
     <div id="main_detail__review__top">
       <div id="main_detail__review__blank">
-        <h2>후기후기</h2>
+        <h2>후기</h2>
         <h2 id="main_detail__review_num">{{review_len}}</h2>
       </div>
       <div id="main_detail__review__rule">
@@ -522,17 +522,84 @@
   // 댓글 수정
   const changeForm = (id, content) => {
     const reviseCmt = document.getElementById(`main_detail__comment__contents__txt__${id}`)
-    reviseCmt.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}<textarea type="text" name="content">${content}</textarea>
-      <div class="comment-revise__button"><a href="{% url 'posts:detail' post.id %}">취소</a><input type="submit" value="등록"/></div></form>`
+    reviseCmt.innerHTML =
+    `<form action="/comment/revise/${id}" method="post">
+        {% csrf_token %}
+        <textarea
+          type="text"
+          name="content"
+          id="comment_input_box"
+          cols="30"
+          rows="10"
+          placeholder="댓글을 입력해주세요."
+        >${content}</textarea>
+        <div id="main_detail__comment__btnplace">
+          <a href="{% url 'posts:detail' post.id %}" style="background-color: #bfbfbf;
+  border-style: none;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 10px 0;">취소</a>
+  <input
+            type="submit"
+            id="main_detail__comment__btn_revise"
+            value="댓글 수정"
+            style="background-color: #2253ff;
+  border-style: none;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 10px 0;
+  margin-right: 10px;"
+          />
+        </div>
+      </form>`
   }
 
   // 대댓글 수정
   const changeForm4 = (id, content) => {
     const reviseRecmt = document.querySelector(`.main_detail__comment__contents__reply_bundle__${id}`)
     console.log(reviseRecmt)
-    reviseRecmt.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}
-      <textarea type="text" name="content" style="width:100%; padding:1rem;">${content}</textarea>
-      <div style="gap:0.5rem; align-items:center; margin-top:1rem;" class="comment-revise__button"><a href="{% url 'posts:detail' post.id %}">취소</a><input type="submit" value="등록"/></div></form>`
+    reviseRecmt.innerHTML = 
+    `<form action="/comment/revise/${id}" method="post">
+        {% csrf_token %}
+        <textarea
+          type="text"
+          name="content"
+          id="comment_input_box"
+          cols="30"
+          rows="10"
+          placeholder="댓글을 입력해주세요."
+        >${content}</textarea>
+        <div id="main_detail__comment__btnplace">
+          <a href="{% url 'posts:detail' post.id %}" style="background-color: #bfbfbf;
+  border-style: none;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 10px 0;">취소</a>
+  <input
+            type="submit"
+            id="main_detail__comment__btn_revise"
+            value="대댓글 수정"
+            style="background-color: #2253ff;
+  border-style: none;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 10px 0;
+  margin-right: 10px;"
+          />
+        </div>
+      </form>`
   }
 
   // 대댓글
@@ -593,34 +660,43 @@
   // 후기 수정
   const changeForm3 = (id, content) => {
     const reviseRvw = document.querySelector(`.main_detail__review__contents_content__${id}`)
-    reviseRvw.innerHTML = `<form action="/post/review/revise/${id}" method="post" enctype="multipart/form-data">
+    reviseRvw.innerHTML = 
+    `<form action="/post/review/revise/${id}" method="post" enctype="multipart/form-data" style="margin: 0 20px">
       {% csrf_token %}
-      <div class="main_detail__review__blank_box">
-        <div class="main_detail__review__filebox">
+      <div id="main_detail__review__blank_box">
+        <div id="main_detail__review__filebox">
           <label for="main_detail__review__upload_file">
-            <div class="main_detail__review__uploadbtn">
+            <div id="main_detail__review__uploadbtn">
               <h1>+</h1>
               <p>이미지를 드래그하거나 <br> 클릭해서 업로드해주세요</p>
+              {% if review.image.url %}
+              <img src="{{review.image.url}}" alt="review_image"/>
+              {% else %}
+              <img src="{{review.image.url}}" alt="review_image" onerror="this.style.display='none'"/>
+              {%endif%}
             </div>
           </label>
           <input
             type="file"
             name="review_image"
-            class="main_detail__review__upload_file"
-            accept="image/*" />
+            id="main_detail__review__upload_file"
+            accept="image/*"
+            onchange="thumbnailImg(event);"
+          />
         </div>
         <textarea
           name="review_content"
-          class="review_input_box"
+          id="review_input_box"
           cols="30"
           rows="10"
+          placeholder="후기를 입력하세요."
         >${content}</textarea>
       </div>
-      <div class="main_detail__review__btnplace">
-        <button type="submit" class="main_detail__review__btn">
-          <p>후기 작성</p>
-        </button>
+      <div id="main_detail__review__btnplace">
         <a href="{% url 'posts:detail' post.id %}">취소</a>
+        <button type="submit" id="main_detail__review__btn_revise">
+          <p>후기 수정</p>
+        </button>
       </div>
     </form>`
   }

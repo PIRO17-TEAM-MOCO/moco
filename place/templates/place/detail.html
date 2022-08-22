@@ -322,7 +322,41 @@ function place_like(id) {
   // 댓글 수정
   const changeFormPlace = (id, content) => {
     const reviseCmtPlace = document.getElementById(`place_detail__comment__contents__txt__${id}`)
-    reviseCmtPlace.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}<textarea type="text" name="content">${content}</textarea><input type="submit" value="등록"/><a href="{% url 'place:detail' place.id %}">취소</a></form>`
+    reviseCmtPlace.innerHTML = `<form action="/comment/revise/${id}" method="post">
+        {% csrf_token %}
+        <textarea
+          type="text"
+          name="content"
+          id="comment_input_box"
+          cols="30"
+          rows="10"
+          placeholder="댓글을 입력해주세요."
+        >${content}</textarea>
+        <div id="main_detail__comment__btnplace">
+          <a href="{% url 'place:detail' place.id %}" style="background-color: #bfbfbf;
+  border-style: none;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 10px 0;">취소</a>
+  <input
+            type="submit"
+            id="main_detail__comment__btn_revise"
+            value="댓글 수정"
+            style="background-color: #2253ff;
+  border-style: none;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 10px 0;
+  margin-right: 10px;"
+          />
+        </div>
+      </form>`
   }
 
   // 대댓글 수정
@@ -330,13 +364,55 @@ function place_like(id) {
     console.log("click")
     const reviseRecmtPlace = document.querySelector(`.place_detail__comment__contents__reply_bundle__${id}`)
     console.log(reviseRecmtPlace)
-    reviseRecmtPlace.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}<textarea type="text" name="content">${content}</textarea><input type="submit" value="등록"/><a href="{% url 'place:detail' place.id %}">취소</a></form>`
+    reviseRecmtPlace.innerHTML = `<form action="/comment/revise/${id}" method="post">
+        {% csrf_token %}
+        <textarea
+          type="text"
+          name="content"
+          id="comment_input_box"
+          cols="30"
+          rows="10"
+          placeholder="댓글을 입력해주세요."
+        >${content}</textarea>
+        <div id="main_detail__comment__btnplace">
+          <a href="{% url 'place:detail' place.id %}" style="background-color: #bfbfbf;
+  border-style: none;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 10px 0;">취소</a>
+  <input
+            type="submit"
+            id="main_detail__comment__btn_revise"
+            value="대댓글 수정"
+            style="background-color: #2253ff;
+  border-style: none;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 10px 0;
+  margin-right: 10px;"
+          />
+        </div>
+      </form>`
   }
 
   // 대댓글
   const changeForm2Place = (id) => {
     const reCmtPlace = document.getElementById(`place_detail_comment_contents_reply_form__${id}`)
-    reCmtPlace.innerHTML = `<form action="/comment/recomment/${id}" method="post">{% csrf_token %}<textarea type="text" name="content"></textarea><input type="submit" value="등록"/><a href="{% url 'place:detail' place.id %}">취소</a></form>`
+    reCmtPlace.innerHTML =
+      `<form action="/comment/recomment/${id}" method="post" class="place_detail_recomment_container">
+              {% csrf_token %}
+              <textarea type="text" name="content" id="comment_input_box" cols="30" rows="10" placeholder="댓글을 입력해주세요."></textarea>
+              <div id="main_detail__comment__btnplace">
+                <a href="{% url 'place:detail' place.id %}">취소</a>
+                <input type="submit" id="main_detail__comment__btn" value="대댓글 쓰기"/>
+              </div>
+            </form>`
   }
 
   //대댓글 삭제

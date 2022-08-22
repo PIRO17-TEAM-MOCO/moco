@@ -4,14 +4,14 @@
   list-style: none;
   margin-right: auto;
   font-size: 2rem;
-  color: #8C8C8C 
+  color: #8c8c8c;
 }
 
 .back i:hover {
-  color: #8C8C8C !important;
+  color: #8c8c8c !important;
 }
 
-.wrap-vertical{
+.wrap-vertical {
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -35,47 +35,48 @@
   object-position: center;
 }
 
-.dropdown{
+.dropdown {
   position: relative;
   display: inline-block;
 }
 
-#drop-content{
+#drop-content {
   position: absolute;
   background-color: white;
-  box-shadow: 0px 3px 6px -4px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 3px 6px -4px rgba(0, 0, 0, 0.12),
+    0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05);
   border-radius: 2px;
   border: none;
 }
 
-#drop-content li:nth-child(3){
+#drop-content li:nth-child(3) {
   text-decoration: none;
   padding: 1rem;
 }
 
-.option:hover{
+.option:hover {
   color: #2253ff !important;
 }
 
-#drop-content li:hover{
+#drop-content li:hover {
   color: #2253ff !important;
   background-color: #e9f7ff;
 }
 
-#drop-content .option_blank{
+#drop-content .option_blank {
   margin: 0 1rem;
   padding: 0 1rem;
 }
 
-#drop-content button { 
+#drop-content button {
   padding: 1rem;
 }
 
-.option > form > button:hover{
+.option > form > button:hover {
   color: #2253ff !important;
 }
 
-.option > a:hover{
+.option > a:hover {
   color: #2253ff !important;
 }
 
@@ -83,10 +84,10 @@
   display: flex;
   align-items: center;
   width: 100%;
-  border-bottom: 1px solid #BFBFBF;
+  border-bottom: 1px solid #bfbfbf;
 }
 
-.content-right{
+.content-right {
   display: flex;
 }
 
@@ -114,15 +115,15 @@
 
 .content-title__bar {
   margin: 0 1rem;
-  color: #8C8C8C;
+  color: #8c8c8c;
 }
 
 .content-title__published {
-  color: #8C8C8C;
+  color: #8c8c8c;
 }
 
 .content-item {
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-weight: 500;
   font-size: 1.25rem;
   margin-right: auto;
@@ -143,13 +144,13 @@
   margin-right: auto;
 }
 
-.content-item__left{
+.content-item__left {
   font-weight: 600;
   color: black;
   margin-right: 4rem;
 }
 
-.content-item__right{
+.content-item__right {
   margin-right: auto;
 }
 
@@ -171,20 +172,20 @@
   align-items: center;
 }
 
-#main_detail__top__like{
+#main_detail__top__like {
   margin-right: 1rem;
   padding: 0.75rem 1rem;
   background-color: white;
   border-radius: 20%;
-  border: 1px solid #8C8C8C;
+  border: 1px solid #8c8c8c;
 }
 
-#main_detail__top__like i:hover{
+#main_detail__top__like i:hover {
   color: #ff1d2f;
 }
 
 #main_detail__top__like .fa-regular {
-  color: #8C8C8C;
+  color: #8c8c8c;
 }
 
 #main_detail__top__like .fa-solid {
@@ -238,17 +239,6 @@
   padding: 7px 0;
 }
 
-#main_detail__comment__btn {
-  background-color: #2253ff;
-  border-style: none;
-  border-radius: 0.5rem;
-  color: white;
-  padding: 1rem 2rem;
-  font-weight: 600;
-  font-size: 0.9rem;
-  margin: 10px 0;
-}
-
 #main_detail__comment__contents__profile {
   display: flex;
   padding-bottom: 15px;
@@ -265,15 +255,17 @@
 }
 
 #main_detail__comment__contents {
-  border-top: 1px solid #BFBFBF;
-  border-bottom: 1px solid #BFBFBF;
+  border-top: 1px solid #bfbfbf;
+  border-bottom: 1px solid #bfbfbf;
   margin-bottom: 50px;
 }
 
+#place_detail__comment__contents {
+  border-top: 1px solid #bfbfbf;
+}
+
 #place_detail__comment__contents > div {
-  border-top: 1px solid #BFBFBF;
-  border-bottom: 1px solid #BFBFBF;
-  margin-bottom: 50px;
+  border-bottom: 1px solid #bfbfbf;
 }
 
 #main_detail__comment__each__contents {
@@ -298,9 +290,9 @@
   padding: 1rem 0;
 }
 
-#place_detail__comments__contents__time  {
+#place_detail__comments__contents__time {
   font-size: 0.9rem;
-  color: #8C8C8C;
+  color: #8c8c8c;
 }
 
 .place_detail__reply_txt {
@@ -352,7 +344,7 @@
   -webkit-text-stroke-color: gold;
 }
 
-.star-ratings-fill > span{
+.star-ratings-fill > span {
   padding: 0 0.08rem;
 }
 
@@ -361,3 +353,32 @@
   padding: 0;
 }
 
+/*대댓글 스타일*/
+
+.place_detail_recomment_container {
+  padding: 4rem 3rem 0 3rem;
+  background-color: #f5f5f5;
+}
+
+#main_detail__comment__btnplace a {
+  background-color: #bfbfbf;
+  border-style: none;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 10px 0;
+}
+
+#main_detail__comment__btn {
+  background-color: #2253ff;
+  border-style: none;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 10px 0;
+  margin-right: 0.5rem;
+}

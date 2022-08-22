@@ -265,7 +265,14 @@
 }
 
 #main_detail__comment__contents {
-  border-top: 1px solid rgb(162, 162, 162);
+  border-top: 1px solid #BFBFBF;
+  border-bottom: 1px solid #BFBFBF;
+  margin-bottom: 50px;
+}
+
+#place_detail__comment__contents > div {
+  border-top: 1px solid #BFBFBF;
+  border-bottom: 1px solid #BFBFBF;
   margin-bottom: 50px;
 }
 
@@ -283,6 +290,21 @@
   padding-bottom: 5px;
   color: #2253ff;
   font-size: 14px;
+}
+
+#place_detail__comment__contents__profile {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+#place_detail__comments__contents__time  {
+  font-size: 0.9rem;
+  color: #8C8C8C;
+}
+
+.place_detail__reply_txt {
+  margin: 1rem 0 1rem 2.1rem;
 }
 
 /* 프로필 사진 */

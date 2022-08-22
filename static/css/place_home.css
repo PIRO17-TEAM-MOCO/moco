@@ -272,6 +272,8 @@
 
 .place_detail__comment__contetns__profile_userinfo {
 	display: flex;
+	align-items: center;
+	gap: 0.5rem;
 }
 
 .place_detail__comments__contents__options {
@@ -285,10 +287,6 @@
 
 .place_detail__comments__contents__options:hover .place_detail__comments_dropdown_menu {
 	display: block;
-}
-
-.place_detail__comments__contents__options i {
-	margin-top: 23px;
 }
 
 .place_detail__comments__contents__options:hover,
@@ -337,15 +335,20 @@
 	box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
 }
 
+#place_detail__comments__contents__name{
+	margin-bottom: 0.25rem;
+}
+
 .place_detail_comment_reply_btn {
 	border: 1px solid #8c8c8c;
 	display: inline-block;
-	padding: 5px;
-	margin-top: 10px;
+	margin: 0.7rem 0 0.9rem 0;
 }
 
 .place_detail_comment_reply_btn button {
 	color: #8c8c8c;
+	font-size: 0.9rem;
+	padding: 0.5rem;
 }
 
 .place_detail_commnet_reply_form {
@@ -353,8 +356,7 @@
 }
 
 .place_detail__reply_user_name {
-	color: #2253ff;
-	font-size: 13px;
+	font-size: 16px;
 }
 
 .place_detail__recomments_revise_delete_btn {
@@ -370,6 +372,17 @@
 
 .place_detail__comment__contents__reply_bundle:hover .place_detail__recomments_revise_delete_btn {
 	display: flex;
+}
+
+#place_detail__comment__contents__reply > div {
+	border-top: 1px solid #BFBFBF;
+	padding: 1.5rem 0 1.5rem 3rem;
+}
+
+.place_detail__reply_top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .place_detail__recomments_revise_btn {

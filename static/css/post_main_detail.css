@@ -847,7 +847,8 @@
 }
 
 #main_detail__comment__contents__reply > div {
-	border-top: 1px solid #8c8c8c;
+	border-top: 1px solid #BFBFBF;
+	
 	/* border-bottom: 1px solid #8c8c8c; */
 	padding: 2rem 0 1rem 3rem;
 }

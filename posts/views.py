@@ -20,7 +20,6 @@ import simplejson
 def home(request, contact='None'):
     # url에서 매개변수로 컨택트 받아옴
     # url에서 매개변수를 안 주면 'None'처리
-    print(request.GET.get('tag'))
 
     if contact == 'offline':
         posts = Post.objects.filter(contact='Off')
@@ -40,10 +39,19 @@ def home(request, contact='None'):
             Q(location__icontains=search)  # 위치
         )
 
-    tag = str(request.GET.get('tag', 'None'))
-    print(tag)
+    tag = request.GET.get('tag', 'None')
+    # tag_len = len(tag)
+    # tag = tag[1:tag_len-1]
+    # print(tag)
+
     if tag != 'None':
-        posts = posts.filter(tag__icontains=tag)
+        tagg = []
+        tagList = simplejson.loads(tag)
+        for i in range(len(tagList)):
+            tagg.append(tagList[i]["value"])
+        print(tagg)
+        for i in tagg:
+            posts = posts.filter(Q(tag__contains=i))
 
     # 기간별 필터링 실행
     duration = request.GET.get('duration', 'None')

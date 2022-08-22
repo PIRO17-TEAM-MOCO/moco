@@ -212,7 +212,7 @@ main {
 .edit-cancel__btn {
   cursor: pointer;
   width: 9rem;
-  height: 4rem;
+  height: 3.4rem;
   outline: 0;
   border: 0;
   font-size: 1rem;
@@ -229,7 +229,7 @@ main {
 #edit-cf__btn {
   cursor: pointer;
   width: 20rem;
-  height: 4rem;
+  height: 3.4rem;
   outline: 0;
   border: 0;
   font-size: 1rem;
@@ -455,7 +455,7 @@ main {
 
 #cf__modal__btn {
   cursor: pointer;
-  width: 10rem;
+  width: 9rem;
   height: 3.4rem;
   outline: 0;
   border: 0;

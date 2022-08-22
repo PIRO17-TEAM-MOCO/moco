@@ -57,12 +57,12 @@
         </div>
         <div class="content-box__bottom">
           <span class="content-box__profile">
-              {% if user.profile_img %}
-              <div class="profile_img"><img src="{{user.profile_img.url}}" alt="profile_img"></img></div>
-              <div>{{place.user}}</div>
+              {% if place.user.profile_img %}
+              <div class="profile_img"><img src="{{place.user.profile_img.url}}" alt="profile_img"></img></div>
+              <div>{{place.user.nickname}}</div>
               {% else %}
               <div class="profile_img"><img src="{% static "img/moco_symbol.png" %}" alt="profile_img"></img></div>
-              <div>{{place.user}}</div>
+              <div>{{place.user.nickname}}</div>
               {% endif %}
           </span>
           <span>

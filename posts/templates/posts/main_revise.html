@@ -1,7 +1,7 @@
 {% extends 'posts/base.html' %} {% block content %}
 <div class="content">
   <form
-    action="{% url 'posts:write' %}"
+    action="{% url 'posts:update' post.id %}"
     method="post"
     enctype="multipart/form-data"
   >
@@ -39,13 +39,14 @@
               진행방식 :
               <label for="{{form.contact.id_for_label}}"></label>
               <select name="contact">
-                <option value selected="default">----------</option>
+                <option value selected="{{ key }}">{{ value }}</option>
                 {% for key, value in contacts %}
-                <option value="{{ key }}">{{ value }}</option>
+                <option value="{{ key }}" {% if post.contact == key %}selected{%endif%}>{{ value }}</option>
                 {% endfor %}
               </select>
             </div>
           </div>
+
           <!--드롭다운 아직 연결 안돼서 일단 select box로-->
           <!--<div class="main_write__top__select_title">
             <h3>모임형태</h3>
@@ -72,9 +73,9 @@
               모임 형태 :
               <label for="{{form.duration.id_for_label}}"></label>
               <select name="duration">
-                <option value selected="default">----------</option>
+                <option value="default">----------</option>
                 {% for key, value in durations %}
-                <option value="{{ key }}">{{ value }}</option>
+                <option value="{{ key }}" {% if post.duration == key %}selected{%endif%}>{{ value }}</option>
                 {% endfor %}
               </select>
             </div>
@@ -119,6 +120,13 @@
             placeholder="태그를 입력해주세요"
             name="tag"
           />
+        </div>
+        <div class="main__search_div__tag">
+          <ul class="main__search_li__tag_flex">
+            {% for otag in origin_tag %}
+            <li>{{otag}}</li>
+            {% endfor %}
+          </ul>
         </div>
       </div>
     </div>

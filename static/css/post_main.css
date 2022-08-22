@@ -12,7 +12,7 @@
 /* 단위 다 vh로 바꾸기 */
 /* main__main_div 마진에 따 화면 구성도 많이 바뀜(기존엔 272px) */
 #main__main_div {
-  margin-top: 60px;
+  width: 100%;
   /* 기존에 margin 좌우 272로 했다가 padding으로 바꿨다가 일단 없앰 */
   /* width를 없애면 스크롤 문제를 해결하고 양 옆에 여백을 둘 수 있음 */
   /* 일단 지금 너무 커서 50으로 둠 */
@@ -20,17 +20,18 @@
 
 #main__search_div {
   margin-top: 20px;
+  width: 100%;
 }
 
 #main__info_div {
   margin-top: 20px;
+  width: 100%;
 }
 
 #main__search_div__top {
   display: flex;
   height: 160px;
   width: 100%;
-  flex-direction: column;
 }
 
 #search_div__top_right {
@@ -69,6 +70,7 @@
   border-radius: 5px;
   border: 1px solid rgb(141, 141, 141);
   font-size: 16px;
+  padding: 10px;
 }
 
 #main__search_text {

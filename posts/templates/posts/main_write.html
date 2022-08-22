@@ -1,16 +1,20 @@
 {% extends 'posts/base.html' %} {% block content %}
 <div class="content">
-	<form action="{% url 'posts:write' %}" method="post" enctype="multipart/form-data">
-		{% csrf_token %}
-		<div id="main_write__top">
-			<div class="main_write__title">
-				<div class="main_write__title_num"><h2>1</h2></div>
-				<h2>모집 요건을 작성해주세요</h2>
-			</div>
-			<div id="main_write__top__select">
-				<div class="main_write__top__select_row">
-					<div class="main_write__dropdown__select_left">
-						<!--<div class="main_write__top__select_title">
+  <form
+    action="{% url 'posts:write' %}"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    {% csrf_token %}
+    <div id="main_write__top">
+      <div class="main_write__title">
+        <div class="main_write__title_num"><h2>1</h2></div>
+        <h1>모집 요건을 작성해주세요</h1>
+      </div>
+      <div id="main_write__top__select">
+        <div class="main_write__top__select_row">
+          <div class="main_write__dropdown__select_left">
+            <!--<div class="main_write__top__select_title">
             <h3>진행방식</h3>
           </div>
           <div class="main_write__top__box">
@@ -30,20 +34,19 @@
               </div>
             </div>
           </div>-->
-						<!--드롭다운 아직 연결 안돼서 일단 select box로-->
-						<div id="main_write__select_contact">
-							진행방식 :
-							<label for="{{form.contact.id_for_label}}"></label>
-							<select name="contact">
-								<option value selected="default">----------</option>
-								{% for key, value in contacts %}
-								<option value="{{ key }}">{{ value }}</option>
-								{% endfor %}
-							</select>
-						</div>
-					</div>
-					<!--드롭다운 아직 연결 안돼서 일단 select box로-->
-					<!--<div class="main_write__top__select_title">
+            <!--드롭다운 아직 연결 안돼서 일단 select box로-->
+            <div id="main_write__select_contact">
+              <label for="{{form.contact.id_for_label}}">진행 방식</label>
+              <select name="contact">
+                <option value selected="default">----------</option>
+                {% for key, value in contacts %}
+                <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <!--드롭다운 아직 연결 안돼서 일단 select box로-->
+          <!--<div class="main_write__top__select_title">
             <h3>모임형태</h3>
           </div>
           <div class="main_write__top__box">
@@ -62,163 +65,203 @@
               </ul>
             </div>
           </div>-->
-					<!--드롭다운 아직 연결 안돼서 일단 select box로-->
-					<div class="main_write__dropdown__select_right">
-						<div id="main_write__select_duration">
-							모임 형태 :
-							<label for="{{form.duration.id_for_label}}"></label>
-							<select name="duration">
-								<option value selected="default">----------</option>
-								{% for key, value in durations %}
-								<option value="{{ key }}">{{ value }}</option>
-								{% endfor %}
-							</select>
-						</div>
-					</div>
-					<!--드롭다운 아직 연결 안돼서 일단 select box로-->
-				</div>
-				<div class="main_write__top__select_row">
-					<div class="main_write__top__select_left">
-						<div id="main_write__top__box_text_number">
-							<div for="{{ form.number.id_for_label }}">모집 인원</div>
-							{{form.number}}
-						</div>
-					</div>
-					<div class="main_write__top__select_right">
-						<div id="main_write__top__box_text_location">
-							<div for="{{ form.location.id_for_label }}">지역</div>
-							{{form.location}}
-						</div>
-					</div>
-				</div>
-				<div class="main_write__top__select_row">
-					<div class="main_write__top__select_left">
-						<div id="main_write__top__box_text_link">
-							<div for="{{ form.apply_link.id_for_label }}">모집 링크</div>
-							{{form.apply_link}}
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div id="main_write__tag">
-			<div class="main_write__title">
-				<div class="main_write__title_num"><h2>2</h2></div>
-				<h2>태그를 입력해주세요</h2>
-			</div>
-			<div class="main_write__tag_write__main">
-				<div class="main_write__tag_write__main_title"><h3>태그</h3></div>
-				<div id="main_write__tag_write__main_content">
-					<input type="text" class="main_write__tag__main_content_input" placeholder="태그를 입력해주세요" name="tag" />
-				</div>
-			</div>
-		</div>
-		<div id="main_write__content">
-			<div class="main_write__title">
-				<div class="main_write__title_num"><h2>3</h2></div>
-				<h2>글 제목과 내용을 작성해주세요</h2>
-			</div>
-			<div class="main_write__tag_write__main">
-				<div id="main_write__title_write__main_content_input">
-					<div for="{{ form.title.id_for_label }}">제목</div>
-					{{ form.title }}
-				</div>
-				<div id="main_write__content__contents">
-					<div id="main_write__content__write_txt">
-						<div for="{{form.content.id_for_label }}">내용</div>
-						{{ form.content }}
-					</div>
-				</div>
-			</div>
-			<div id="main_write__content__btn">
-				<div id="main_write__content__btn_cancel">
-					<a onclick="">취소</a>
-				</div>
-				<div id="main_write__register_modal_btn">
-					<a>등록하기</a>
-				</div>
-				<!--여기 포스트가 잘 만들어졌다는 걸 if문으로 처리하려면 뭘 넣어야 할까-->
-			</div>
-		</div>
-		<div id="post_write__modal">
-			<div class="post_write__modal__overlay">
-				<div class="post_write__modal__content">
-					<div class="post_write__modal__close_btn">X</div>
-					<h1>글쓰기가 완료되었습니다!</h1>
-					<button class="post_write__register__complete_btn" type="submit">등록하기</button>
-				</div>
-			</div>
-		</div>
-	</form>
-	<script src="/static/js/post_main_write.js"></script>
-	<script>
-		let inputElm = document.querySelector('input[name=tag]');
+          <!--드롭다운 아직 연결 안돼서 일단 select box로-->
+          <div class="main_write__dropdown__select_right">
+            <div id="main_write__select_duration">
+              <label for="{{form.duration.id_for_label}}">모임 형태</label>
+              <select name="duration">
+                <option value selected="default">----------</option>
+                {% for key, value in durations %}
+                <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <!--드롭다운 아직 연결 안돼서 일단 select box로-->
+        </div>
+        <div class="main_write__top__select_row">
+          <div class="main_write__top__select_left">
+            <div id="main_write__top__box_text_number">
+              <div
+                class="main_write__top__box_title"
+                for="{{ form.number.id_for_label }}"
+              >
+                모집 인원
+              </div>
+              {{form.number}}
+            </div>
+          </div>
+          <div class="main_write__top__select_right">
+            <div id="main_write__top__box_text_location">
+              <div
+                class="main_write__top__box_title"
+                for="{{ form.location.id_for_label }}"
+              >
+                지역
+              </div>
+              {{form.location}}
+            </div>
+          </div>
+        </div>
+        <div class="main_write__top__select_row">
+          <div class="main_write__top__select_all">
+            <div id="main_write__top__box_text_link">
+              <div
+                class="main_write__top__box_title"
+                for="{{ form.apply_link.id_for_label }}"
+              >
+                모집 링크
+              </div>
+              {{form.apply_link}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="main_write__tag">
+      <div class="main_write__title">
+        <div class="main_write__title_num"><h2>2</h2></div>
+        <h1>태그를 입력해주세요</h1>
+      </div>
+      <div class="main_write__tag_write__main">
+        <div class="main_write__tag_write__main_title"><h3>태그</h3></div>
+        <div id="main_write__tag_write__main_content">
+          <input
+            type="text"
+            class="main_write__tag__main_content_input"
+            placeholder="태그를 입력해주세요"
+            name="tag"
+          />
+        </div>
+      </div>
+    </div>
+    <div id="main_write__content">
+      <div class="main_write__title">
+        <div class="main_write__title_num"><h2>3</h2></div>
+        <h1>글 제목과 내용을 작성해주세요</h1>
+      </div>
+      <div class="main_write__tag_write__main">
+        <div id="main_write__title_write__main_content_input">
+          <div
+            class="main_write__top__box_title"
+            for="{{ form.title.id_for_label }}"
+          >
+            제목
+          </div>
+          {{ form.title }}
+        </div>
+        <div id="main_write__content__contents">
+          <div id="main_write__content__write_txt">
+            <div
+              class="main_write__top__box_title"
+              for="{{form.content.id_for_label }}"
+            >
+              내용
+            </div>
+            {{ form.content }}
+          </div>
+        </div>
+      </div>
+      <div id="main_write__content__btn">
+        <div id="main_write__content__btn_cancel">
+          <a onclick="">취소</a>
+        </div>
+        <div id="main_write__register_modal_btn">
+          <a>등록하기</a>
+        </div>
+        <!--여기 포스트가 잘 만들어졌다는 걸 if문으로 처리하려면 뭘 넣어야 할까-->
+      </div>
+    </div>
+    <div id="post_write__modal">
+      <div class="post_write__modal__overlay">
+        <div class="post_write__modal__content">
+          <div class="post_write__modal__close_btn">
+            <i class="fa-solid fa-xmark fa-lg"></i>
+          </div>
+          <h1>글쓰기가 완료되었습니다!</h1>
+          <h3>전원 모집 완료되면 모집완료로 전환하시는거 잊지 말아주세요🥹</h3>
+          <i class="fa-solid fa-circle-check fa-3x"></i>
+          <button class="post_write__register__complete_btn" type="submit">
+            등록하기
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <script src="/static/js/post_main_write.js"></script>
+  <script>
+    let inputElm = document.querySelector("input[name=tag]");
 
-		// initialize Tagify
-		var tagify = new Tagify(inputElm);
+    // initialize Tagify
+    var tagify = new Tagify(inputElm);
 
-		// tagify 전용 이벤트 리스터. 참조 : https://github.com/yairEO/tagify#events
-		tagify
-			.on('add', onAddTag) // 태그가 추가되면
-			.on('remove', onRemoveTag) // 태그가 제거되면
-			.on('input', onInput) // 태그가 입력되고 있을 경우
-			.on('invalid', onInvalidTag) // 허용되지 않는 태그일 경우
-			.on('click', onTagClick) // 해시 태그 블럭을 클릭할 경우
-			.on('focus', onTagifyFocusBlur) // 포커스 될 경우
-			.on('blur', onTagifyFocusBlur) // 반대로 포커스를 잃을 경우
+    // tagify 전용 이벤트 리스터. 참조 : https://github.com/yairEO/tagify#events
+    tagify
+      .on("add", onAddTag) // 태그가 추가되면
+      .on("remove", onRemoveTag) // 태그가 제거되면
+      .on("input", onInput) // 태그가 입력되고 있을 경우
+      .on("invalid", onInvalidTag) // 허용되지 않는 태그일 경우
+      .on("click", onTagClick) // 해시 태그 블럭을 클릭할 경우
+      .on("focus", onTagifyFocusBlur) // 포커스 될 경우
+      .on("blur", onTagifyFocusBlur) // 반대로 포커스를 잃을 경우
 
-			.on('edit:start', onTagEdit) // 입력된 태그 수정을 할 경우
+      .on("edit:start", onTagEdit) // 입력된 태그 수정을 할 경우
 
-			.on('dropdown:hide dropdown:show', (e) => console.log(e.type)) // 드롭다운 메뉴가 사라질경우
-			.on('dropdown:select', onDropdownSelect); // 드롭다운 메뉴에서 아이템을 선택할 경우
+      .on("dropdown:hide dropdown:show", (e) => console.log(e.type)) // 드롭다운 메뉴가 사라질경우
+      .on("dropdown:select", onDropdownSelect); // 드롭다운 메뉴에서 아이템을 선택할 경우
 
-		// tagify 전용 이벤트 리스너 제거 할떄
-		tagify.off('add', onAddTag);
+    // tagify 전용 이벤트 리스너 제거 할떄
+    tagify.off("add", onAddTag);
 
-		// 이벤트 리스너 콜백 메소드
-		function onAddTag(e) {
-			console.log('onAddTag: ', e.detail);
-			console.log('original input value: ', inputElm.value);
-		}
+    // 이벤트 리스너 콜백 메소드
+    function onAddTag(e) {
+      console.log("onAddTag: ", e.detail);
+      console.log("original input value: ", inputElm.value);
+    }
 
-		// tag remvoed callback
-		function onRemoveTag(e) {
-			console.log('onRemoveTag:', e.detail, 'tagify instance value:', tagify.value);
-		}
+    // tag remvoed callback
+    function onRemoveTag(e) {
+      console.log(
+        "onRemoveTag:",
+        e.detail,
+        "tagify instance value:",
+        tagify.value
+      );
+    }
 
-		function onTagEdit(e) {
-			console.log('onTagEdit: ', e.detail);
-		}
+    function onTagEdit(e) {
+      console.log("onTagEdit: ", e.detail);
+    }
 
-		// invalid tag added callback
-		function onInvalidTag(e) {
-			console.log('onInvalidTag: ', e.detail);
-		}
+    // invalid tag added callback
+    function onInvalidTag(e) {
+      console.log("onInvalidTag: ", e.detail);
+    }
 
-		// invalid tag added callback
-		function onTagClick(e) {
-			console.log(e.detail);
-			console.log('onTagClick: ', e.detail);
-		}
+    // invalid tag added callback
+    function onTagClick(e) {
+      console.log(e.detail);
+      console.log("onTagClick: ", e.detail);
+    }
 
-		function onTagifyFocusBlur(e) {
-			console.log(e.type, 'event fired');
-		}
+    function onTagifyFocusBlur(e) {
+      console.log(e.type, "event fired");
+    }
 
-		function onDropdownSelect(e) {
-			console.log('onDropdownSelect: ', e.detail);
-		}
+    function onDropdownSelect(e) {
+      console.log("onDropdownSelect: ", e.detail);
+    }
 
-		function onInput(e) {
-			console.log('onInput: ', e.detail);
+    function onInput(e) {
+      console.log("onInput: ", e.detail);
 
-			tagify.loading(true); // 태그 입력하는데 우측에 loader 애니메이션 추가
-			tagify.loading(false); // loader 애니메이션 제거
+      tagify.loading(true); // 태그 입력하는데 우측에 loader 애니메이션 추가
+      tagify.loading(false); // loader 애니메이션 제거
 
-			tagify.dropdown.show(e.detail.value); // 드롭다운 메뉴 보여주기
-			tagify.dropdown.hide(); // // 드롭다운 제거
-		}
-	</script>
+      tagify.dropdown.show(e.detail.value); // 드롭다운 메뉴 보여주기
+      tagify.dropdown.hide(); // // 드롭다운 제거
+    }
+  </script>
 </div>
 <script src="/static/js/post_main_write.js"></script>
 {% endblock %}

@@ -20,15 +20,16 @@
                 placeholder="관심 모각코를 검색하세요"
                 value="{{ search }}"
               />
-              <button type="submit"">검색</button>
+              <button type="submit">검색</button>
               {% else %}
               <input type="text" name="search" class="main__search_text" placeholder="관심 모각코를 검색해보세요">
-              <button type="submit"">검색</button>
+              <button type="submit">검색</button>
               {% endif %}
               <input
                 id="main__search_tag"
                 type="text"
                 placeholder="태그로 검색해보세요"
+                name="tag"
               />
             </div>
           </div>
@@ -38,7 +39,7 @@
                 <p>모집중만 보기</p>
               </div>
               <div class="wrapper">
-                <input type="checkbox" id="switch" />
+                <input type="checkbox" id="switch" name="onActive" onchange="this.form.submit();" {% if onActive == "on" %}checked{%endif%}/>
                 <label for="switch" class="switch_label">
                   <span class="onf_btn"></span>
                 </label>
@@ -50,7 +51,7 @@
             <div id="search_div__top_right__reset">
               <div class="post_main__tag__reset">
                 <i class="fa-solid fa-arrows-rotate" style="color: black;"></i>
-                <input type="submit" name="reset" class="post-main__tag__reset" value="초기화">
+                <input type="submit" name="reset" class="post-main__tag__reset" value="초기화" onClick="window.location.reload()">
               </div>
             </div>
           </div>
@@ -67,21 +68,19 @@
             <span>댓글순</span>
             <span>좋아요순</span>
           </div>
-          -->
-          
-          <select name="sort" onchange="this.form.submit();">
+          <select id="sort" name="sort" onchange="this.form.submit();">
             <option value="default">--정렬기준--</option>
             <option value="latest" {% if sort == "latest" %}selected{% endif %}>최신순</option>
             <option value="views" {% if sort == "views" %}selected{% endif %}>조회순</option>
-            <option value="">댓글순</option>
-            <option value="">좋아요순</option>
+            <option value="comments" {% if sort == "comments" %}selected{% endif %}>댓글순</option>
+            <option value="likes" {% if sort == "likes" %}selected{% endif %}>좋아요순</option>
           </select>
           <div id="main__info_div__box">
-            <!--<select name="language" class="selectbox">
-              <option value="전체" class="lang-option">전체</option>
-              <option value="정기" class="lang-option">📅 정기</option>
-              <option value="번개" class="lang-option">⚡️ 번개</option>
-            </select>-->
+            <select name="duration" class="selectbox" onchange="this.form.submit();">
+              <option value="all" class="lang-option">전체</option>
+              <option value="Regular" class="lang-option" {% if duration == "Regular" %}selected{% endif %}>📅 정기</option>
+              <option value="OneTime" class="lang-option" {% if duration == "OneTime" %}selected{% endif %}>⚡️ 번개</option>
+            </select>
             <!--이 부분 class 명 고치기-->
             <div class="dropdown">
               <div class="select">
@@ -106,14 +105,18 @@
         <div id="main__info_div__post_left">
           <div id="main__info_div__post_left__tag">
             <ul class="main__info_li__tag_flex">
-              <li>모집중</li>
+              {% if post.activation %}
+              <li id="main__top_left__ul__recruit">모집중</li>
+              {% else %}
+              <li id="main__top_left__ul__recruit_finish">모집완료</li>
+              {% endif %}
               {% for key, value in tags.items %}
               {% if key == post.id %}
               {% for v in value %}
               <li>{{v}}</li>
               {% endfor %}
               {% endif %}
-              {% endfor %}
+              {% endfor %}  
             </ul>
           </div>
           <div id="main__info_div__post_left__title">
@@ -149,16 +152,73 @@
   </div>
   <script src="/static/js/post_main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script>
-    const onlyActive = document.querySelector('input[id=switch]');
-    onlyActive.addEventListener('click', () => {
-      if (onlyActive.checked) {
-        console.log("true")
-      } else{
-        console.log("false")
-      }
-    })
+	<script>
+		let inputElm = document.querySelector('input[id=main__search_tag]');
 
-  </script>
+		// initialize Tagify
+		var tagify = new Tagify(inputElm);
+
+		// tagify 전용 이벤트 리스터. 참조 : https://github.com/yairEO/tagify#events
+		tagify
+			.on('add', onAddTag) // 태그가 추가되면
+			.on('remove', onRemoveTag) // 태그가 제거되면
+			.on('input', onInput) // 태그가 입력되고 있을 경우
+			.on('invalid', onInvalidTag) // 허용되지 않는 태그일 경우
+			.on('click', onTagClick) // 해시 태그 블럭을 클릭할 경우
+			.on('focus', onTagifyFocusBlur) // 포커스 될 경우
+			.on('blur', onTagifyFocusBlur) // 반대로 포커스를 잃을 경우
+
+			.on('edit:start', onTagEdit) // 입력된 태그 수정을 할 경우
+
+			.on('dropdown:hide dropdown:show', (e) => console.log(e.type)) // 드롭다운 메뉴가 사라질경우
+			.on('dropdown:select', onDropdownSelect); // 드롭다운 메뉴에서 아이템을 선택할 경우
+
+		// tagify 전용 이벤트 리스너 제거 할떄
+		tagify.off('add', onAddTag);
+
+		// 이벤트 리스너 콜백 메소드
+		function onAddTag(e) {
+			console.log('onAddTag: ', e.detail);
+			console.log('original input value: ', inputElm.value);
+		}
+
+		// tag remvoed callback
+		function onRemoveTag(e) {
+			console.log('onRemoveTag:', e.detail, 'tagify instance value:', tagify.value);
+		}
+
+		function onTagEdit(e) {
+			console.log('onTagEdit: ', e.detail);
+		}
+
+		// invalid tag added callback
+		function onInvalidTag(e) {
+			console.log('onInvalidTag: ', e.detail);
+		}
+
+		// invalid tag added callback
+		function onTagClick(e) {
+			console.log(e.detail);
+			console.log('onTagClick: ', e.detail);
+		}
+
+		function onTagifyFocusBlur(e) {
+			console.log(e.type, 'event fired');
+		}
+
+		function onDropdownSelect(e) {
+			console.log('onDropdownSelect: ', e.detail);
+		}
+
+		function onInput(e) {
+			console.log('onInput: ', e.detail);
+
+			tagify.loading(true); // 태그 입력하는데 우측에 loader 애니메이션 추가
+			tagify.loading(false); // loader 애니메이션 제거
+
+			tagify.dropdown.show(e.detail.value); // 드롭다운 메뉴 보여주기
+			tagify.dropdown.hide(); // // 드롭다운 제거
+		}
+	</script>
 </div>
 {% endblock content %}

@@ -25,9 +25,14 @@
 
 .write-btn {
   border: 1px solid #8C8C8C;
-  border-radius: 0.75rem;
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
+  border-radius: 0.5rem;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.write-btn:hover{
+  background-color: #FAFAFA;
 }
 
 .content-box {
@@ -55,3 +60,4 @@
   font-size: 0.9rem;
   color: #8C8C8C;
 }
+

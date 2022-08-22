@@ -30,6 +30,7 @@
   display: flex;
   height: 160px;
   width: 100%;
+  flex-direction: column;
 }
 
 #search_div__top_right {
@@ -437,4 +438,29 @@
   background-color: transparent;
   margin: 0 11px;
   padding: 0;
+}
+
+/* 모집 중 아이콘 */
+#main__top_left__ul__recruit {
+  background-color: #2253ff;
+  border-radius: 5px;
+  color: white;
+}
+
+#main__top_left__ul__recruit_finish {
+  background-color: #e8e8e8;
+  border-radius: 5px;
+  color: black;
+}
+
+/*main 상단 검색창 정비*/
+
+.main__search_div__top_firstline {
+  width: 100%;
+}
+.main__search_div__top_secondline {
+  width: 100%;
+}
+.main__search_div__top_thirdline {
+  width: 100%;
 }

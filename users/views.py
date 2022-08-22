@@ -216,21 +216,23 @@ def profile_view(request, id):
     age = today.year - birth.year + 1 # 나이 구하기
     pairs_my = []
     for place in user.place_set.all() :
+        width = [0] * place.rating
         images = PlaceImage.objects.filter(place=place)
         if images:
             image = images[0]
         else:
             image = None
-        pair = [place, image]
+        pair = [place, image, width]
         pairs_my.append(pair)
     pairs_like = []
     for place in user.like_places.all() :
+        width = [0] * place.rating
         images = PlaceImage.objects.filter(place=place)
         if images:
             image = images[0]
         else:
             image = None
-        pair = [place, image]
+        pair = [place, image, width]
         pairs_like.append(pair)
 
     context = {

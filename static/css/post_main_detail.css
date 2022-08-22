@@ -25,23 +25,33 @@
 
 #main__detail__top_left__ul__recruit {
   background-color: #2253ff;
-  border-radius: 0;
   color: white;
+  font-size: 13px;
+}
+
+#main__detail__top_left__ul__recruit_finish {
+  background-color: #e8e8e8;
+  color: black;
+  font-size: 13px
 }
 
 /*수정 필요*/
 
 #main_detail__top__right {
-  width: 80px;
+  width: 20%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
 }
 
 #main_detail__top__left {
-  width: 1000px;
+  width: 70%;
 }
 /* 수정 필요 */
+
+#main_detail__top__back_btn {
+  margin-bottom: 20px;
+}
 
 #main_detail__top__back_btn i {
   margin-top: 0;
@@ -53,17 +63,18 @@
   justify-content: space-between;
 }
 
-.main_detatil__top_left__ul {
+.main_detail__top_left__ul {
   display: flex;
   list-style: none;
   padding: 0;
-  margin-top: 25px;
+  margin-top: 15px;
+  margin-bottom: 20px;
 }
 
-.main_detatil__top_left__ul li {
+.main_detail__top_left__ul li {
   border-radius: 5px;
-  background-color: rgb(221, 221, 221);
-  font-size: 10px;
+  background-color: #e8e8e8;
+  font-size: 13px;
   padding: 10px;
   margin-right: 10px;
 }
@@ -81,9 +92,6 @@
   margin-bottom: 25px;
 }
 
-#main_detail__top__img {
-  padding: 0 0 0 10px;
-}
 #main_detail__top__name {
   padding: 0 10px;
   font-size: 15px;
@@ -96,12 +104,54 @@
 
 #main_detail__top__apply {
   padding-top: 35px;
+  width: 70%;
 }
 
-#main_detail__top__like button{
-  display: flex;
-  align-items: center;
+#main_detail__top__apply_2 {
+  padding-top: 35px;
+  width: 35%;
 }
+
+#main_detail__top__apply_3 {
+  padding-top: 35px;
+  width: 35%;
+}
+
+
+.main_detail__top__recruit_done {
+  border-radius: 5px;
+  background-color: #9D9D9D;
+  color: white;
+  text-align: center;
+  padding: 15px 10px;
+  font-size: 13px;
+}
+/*좋아요 버튼*/
+
+.main_detail__top__like {
+  margin-top: 10px;
+  margin-right: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #8c8c8c;
+  width: 100%;
+  text-align: center;
+}
+
+.main_detail__top__like i:hover {
+  color: #ff1d2f;
+}
+
+.main_detail__top__like .fa-regular {
+  color: #8c8c8c;
+}
+
+.main_detail__top__like .fa-solid {
+  color: #ff1d2f;
+
+
+/*좋아요 버튼*/
 
 #main_detail__main__info {
   padding-bottom: 30px;
@@ -110,7 +160,7 @@
 
 #main_detail__top__apply_btn {
   height: 40px;
-  width: 80px;
+  width: 100%;
   font-size: 15px;
   background-color: #2253ff;
   color: white;
@@ -120,27 +170,12 @@
 
 #main_detail__top__done_btn {
   height: 40px;
-  width: 80px;
+  width: 100%
   font-size: 15px;
   background-color: #2253ff;
   color: white;
   border-radius: 5px;
   border-style: none;
-}
-
-#main_detail__top__like_btn {
-  display: flex;
-  align-items: center;
-  background-color: white;
-  border-radius: 5px;
-  border: 1px solid rgb(162, 162, 162);
-  height: 40px;
-  justify-content: space-around;
-  width: 80px;
-}
-
-#main_detail__top__like_btn p {
-  font-size: 20px;
 }
 
 #main_detail__main__info div {
@@ -479,22 +514,60 @@
   border-radius: 5px;
   background-color: white;
   position: fixed;
-  padding: 50px 100px;
+  padding: 20px 0 30px;
   text-align: center;
-  width: 30%;
+  width: 35%;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.main_detail__complete_modal__content h1 {
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.main_detail__complete_modal__content h3 {
+  font-size: 13px;
+  margin-bottom: 30px;
 }
 
 .main_detail__complete_modal__close_btn {
   cursor: pointer;
+  position: relative;
+  right: -45%;
+  margin-bottom: 20px;
 }
 
 .main_detail__complete_modal__cancel_btn {
   cursor: pointer;
+  border-radius: 5px;
+  background-color: #bfbfbf;
+  color: white;
+  padding: 10px;
+  margin-left: 4px;
+}
+
+.main_detail__complete_modal__btn_flex button {
+  border-radius: 5px;
+  background-color: #2253ff;
+  color: white;
+  padding: 10px;
+  margin-right: 4px;
 }
 
 #main_detail__complete_modal_btn {
   cursor: pointer;
+  border-radius: 5px;
+  background: #2253ff;
+  color: white;
+  padding: 15px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.main_detail__complete_modal__btn_flex {
+  display: flex;
+  justify-content: center;
 }
 
 /* 삭제 모달창 만들어주기 */
@@ -529,18 +602,40 @@
   border-radius: 5px;
   background-color: white;
   position: fixed;
-  padding: 50px 100px;
+  padding: 20px 0 30px;
   text-align: center;
-  width: 30%;
+  width: 40%;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.main_detail__delete_modal__content i {
+  margin-bottom: 30px;
+}
+
+.main_detail__delete_modal__content h1 {
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.main_detail__delete_modal__content h3 {
+  font-size: 13px;
+  margin-bottom: 40px;
 }
 
 .main_detail__delete_modal__close_btn {
   cursor: pointer;
+  position: relative;
+  right: -40%;
 }
 
 .main_detail__delete_modal__cancel_btn {
   cursor: pointer;
+  background-color: #bfbfbf;
+  color: white;
+  padding: 13px 10px;
+  border-radius: 5px;
+  margin-left: 5px;
+  font-size: 15px;
 }
 
 #main_detail__delete_modal_btn {
@@ -549,6 +644,102 @@
 
 #main_detail__delete_modal_btn_2 {
   cursor: pointer;
+}
+
+
+.main_detail__delete_modal__btn_flex {
+  display: flex;
+  justify-content: center;
+}
+
+.main_detail__delete_modal__content button {
+  background-color: #2253ff;
+  padding: 13px 10px;
+  color: white;
+  border-radius: 5px;
+  margin-right: 5px;
+  font-size: 15px;
+}
+
+.main_detail__delete_modal__content button:hover {
+  color: black;
+}
+
+.main_detail__delete_modal__cancel_btn:hover {
+  color: black;
+}
+
+/* 좋아요, 수정, 삭제 묶음(모집완료 전환 전 - 작성자 시각 */
+.main_detail__like_delete_revise {
+  display: flex;
+  justify-content: end;
+}
+
+.main_detail__delete_revise {
+  position: relative;
+  display: inline-flex;
+  height: 100%;
+  align-items: center;
+}
+
+.main_detail__delete_revise i {
+  margin-top: 23px;
+}
+
+.main_detail__delete_revise__content {
+  display: none;
+  position: absolute;
+  font-size: 17px;
+  opacity: 0;
+  z-index: 1; /*다른 요소들보다 앞에 배치*/
+  width: 4em;
+  top: 100%;
+  padding: 0.5rem 0;
+  background-color: white;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+}
+
+.main_detail__delete_revise:hover .main_detail__delete_revise__content {
+  display: block;
+}
+
+.main_detail__delete_revise__dropdown_btn {
+  margin-right: 10px;
+  margin-bottom: 2px;
+}
+
+.main_detail__delete_revise:hover,
+.main_detail__revise_btn a:hover,
+#main_detail__delete_modal_btn a:hover {
+  color: #2253ff !important;
+}
+
+.main_detail__delete_revise:hover > .main_detail__delete_revise__content {
+  display: block;
+}
+
+.main_detail__delete_revise__content {
+  display: block;
+  text-decoration: none;
+  color: rgb(37, 37, 37);
+  font-weight: 400;
+  font-size: 0.9rem;
+  background-color: white;
+  line-height: 25px;
+  text-align: center;
+}
+
+.main_detail__revise_btn:hover {
+  background-color: #e9f7ff;
+}
+
+#main_detail__delete_modal_btn:hover {
+  background-color: #e9f7ff;
+}
+
+.main_detail__delete_revise:hover .main_detail__delete_revise__content {
+  display: block;
+  opacity: 1;
 }
 
 .content-right #dropdown {

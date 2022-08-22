@@ -48,3 +48,8 @@
   border-radius: 0.5rem;
   margin: 0 0.5rem;
 }
+
+.content-write textarea {
+  width: 100%;
+  height: 20rem;
+}

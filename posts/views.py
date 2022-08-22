@@ -20,6 +20,8 @@ import simplejson
 def home(request, contact='None'):
     # url에서 매개변수로 컨택트 받아옴
     # url에서 매개변수를 안 주면 'None'처리
+    print(request.GET.get('tag'))
+
     if contact == 'offline':
         posts = Post.objects.filter(contact='Off')
     elif contact == 'online':
@@ -37,17 +39,26 @@ def home(request, contact='None'):
             Q(user__nickname__exact=search) |  # 글쓴이(닉네임 정확히 일치해야함)
             Q(location__icontains=search)  # 위치
         )
+
+    tag = str(request.GET.get('tag', 'None'))
+    print(tag)
+    if tag != 'None':
+        posts = posts.filter(tag__icontains=tag)
+
     # 기간별 필터링 실행
     duration = request.GET.get('duration', 'None')
+
     if (duration == "Regular") or (duration == "OneTime"):
         posts = posts.filter(duration=duration)
 
-    # if (onActive == 'Yes'):
-    #     posts = posts.filter(activation=True)
-    # elif (onActive == 'No'):
-    #     posts = posts.filter(activation=True or False)
+    onActive = request.GET.get('onActive', 'None')
 
-        # 정렬 실행
+    if (onActive == "on"):
+        posts = posts.filter(activation=True)
+    elif (onActive == "off"):
+        posts = posts.filter(activation=True or False)
+
+    # 정렬 실행
     sort = request.GET.get('sort', 'None')
     if sort == "latest":
         posts = posts.order_by("-published_at")
@@ -56,6 +67,9 @@ def home(request, contact='None'):
     elif sort == "comments":
         posts = posts.annotate(comment_count=Count(
             'comment')).order_by("-comment_count")
+    elif sort == "likes":
+        posts = posts.order_by("-likes")
+
     tags_all = {}
     for i in posts:
         tags = i.tag
@@ -70,13 +84,15 @@ def home(request, contact='None'):
         "posts": posts,
         "sort": sort,
         "duration": duration,
+        "onActive": onActive,
         "tags": tags_all
     }
+
     return render(request, template_name="posts/main.html", context=context)
 
 
-@login_required
-@profile_valid
+@ login_required
+@ profile_valid
 def write(request):
     if request.method == "POST":
         form = PostForm(request.POST)

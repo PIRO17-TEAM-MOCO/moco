@@ -1,131 +1,195 @@
 {% extends 'place/base.html' %} {% block content %}
 <div class="content">
-<form action="{% url 'place:update' id %}" method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  <div id="content-write">
-    <div class="content-write__title">
-      <div class="content-write__title_num"><h2>1</h2></div>
-      <h2>사진을 업로드해주세요</h2>
-    </div>
-    <div class="content-write__file">
-      <h3 style="margin-top: 1rem;">수정</h3>
-      <input type="file" name="place_images" accept="image/*" multiple >
-    </div>
-  </div>
-  <div id="content-write">
-    <div class="content-write__title">
-      <div class="content-write__title_num"><h2>2</h2></div>
-      <h2>상호명과 위치를 작성해주세요</h2>
-    </div>
-    <div class="content-write__item">
-      {{ form.name.errors }}
-      <div for="{{ form.name.id_for_label }}">상호명</div>
-      {{ form.name }}
-    </div>
-    <div class="content-write__item">
-      <div for="id_location">위치</div>
-      <div class="content-write__item_location">
-        <input type="text" name="location" id="sample5_address" placeholder="주소" value="{{place.location}}">
-        <input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+  <form
+    action="{% url 'place:update' id %}"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    {% csrf_token %}
+    <div id="content-write">
+      <div class="content-write__title">
+        <div class="content-write__title_num"><h2>1</h2></div>
+        <h2>사진을 업로드해주세요</h2>
       </div>
-      <div><input type="text" name="location_detail" id="sample5_address" placeholder="상세 정보를 입력해주세요 (선택)" value="{{place.location_detail}}"></div>
+      <div class="content-write__file">
+        <h3 style="margin-top: 1rem">수정</h3>
+        <input type="file" name="place_images" accept="image/*" multiple />
+      </div>
     </div>
-  </div>
-  <div id="content-write">
-    <div class="content-write__title">
-      <div class="content-write__title_num"><h2>3</h2></div>
-      <h2>구체적인 정보를 작성해주세요</h2>
-    </div>
-    <div class="content-write__two">
-      <div class="content-write__item">
-        {{ form.category.errors }}
-        <div for="{{ form.category.id_for_label }}">장소 분류</div>
-        {{ form.category }}
+    <div id="content-write">
+      <div class="content-write__title">
+        <div class="content-write__title_num"><h2>2</h2></div>
+        <h2>상호명과 위치를 작성해주세요</h2>
       </div>
       <div class="content-write__item">
-        {{ form.wifi.errors }}
-        <div for="{{ form.wifi_time.id_for_label }}">와이파이</div>
-        {{ form.wifi }}
-      </div>
-    </div>
-    <div class="content-write__two">
-      <div class="content-write__item">
-        {{ form.opening_time.errors }}
-        <div for="{{ form.opening_time.id_for_label }}">오픈 시간</div>
-        {{ form.opening_time }}
+        {{ form.name.errors }}
+        <div for="{{ form.name.id_for_label }}">상호명</div>
+        {{ form.name }}
       </div>
       <div class="content-write__item">
-        {{ form.closing_time.errors }}
-        <div for="{{ form.closing_time.id_for_label }}">마감 시간</div>
-        {{ form.closing_time }}
+        <div for="id_location">위치</div>
+        <div class="content-write__item_location">
+          <input
+            type="text"
+            name="location"
+            id="sample5_address"
+            placeholder="주소"
+            value="{{place.location}}"
+          />
+          <input
+            type="button"
+            onclick="sample5_execDaumPostcode()"
+            value="주소 검색"
+          /><br />
+        </div>
+        <div>
+          <input
+            type="text"
+            name="location_detail"
+            id="sample5_address"
+            placeholder="상세 정보를 입력해주세요 (선택)"
+            value="{{place.location_detail}}"
+          />
+        </div>
       </div>
     </div>
-    <div class="content-write__two">
+    <div id="content-write">
+      <div class="content-write__title">
+        <div class="content-write__title_num"><h2>3</h2></div>
+        <h2>구체적인 정보를 작성해주세요</h2>
+      </div>
+      <div class="content-write__two">
+        <div class="content-write__item">
+          {{ form.category.errors }}
+          <div for="{{ form.category.id_for_label }}">장소 분류</div>
+          {{ form.category }}
+          <i class="fa-solid fa-angle-down"></i>
+        </div>
+        <div class="content-write__item">
+          {{ form.wifi.errors }}
+          <div for="{{ form.wifi_time.id_for_label }}">와이파이</div>
+          {{ form.wifi }}
+          <i class="fa-solid fa-angle-down"></i>
+        </div>
+      </div>
+      <div class="content-write__two">
+        <div class="content-write__item">
+          {{ form.opening_time.errors }}
+          <div for="{{ form.opening_time.id_for_label }}">오픈 시간</div>
+          {{ form.opening_time }}
+        </div>
+        <div class="content-write__item">
+          {{ form.closing_time.errors }}
+          <div for="{{ form.closing_time.id_for_label }}">마감 시간</div>
+          {{ form.closing_time }}
+        </div>
+      </div>
+      <div class="content-write__two">
+        <div class="content-write__item">
+          {{ form.power_socket.errors }}
+          <div for="{{ form.power_socket.id_for_label }}">콘센트</div>
+          {{ form.power_socket }}
+          <i class="fa-solid fa-angle-down"></i>
+        </div>
+        <div class="content-write__item">
+          {{ form.rating.errors }}
+          <div for="{{ form.rating.id_for_label }}">별점</div>
+          <div class="star-rating space-x-4 mx-auto">
+            <input
+              type="radio"
+              id="5-stars"
+              name="rating"
+              value="5"
+              v-model="ratings"
+            />
+            <label for="5-stars" class="star pr-4">★</label>
+            <input
+              type="radio"
+              id="4-stars"
+              name="rating"
+              value="4"
+              v-model="ratings"
+            />
+            <label for="4-stars" class="star">★</label>
+            <input
+              type="radio"
+              id="3-stars"
+              name="rating"
+              value="3"
+              v-model="ratings"
+            />
+            <label for="3-stars" class="star">★</label>
+            <input
+              type="radio"
+              id="2-stars"
+              name="rating"
+              value="2"
+              v-model="ratings"
+            />
+            <label for="2-stars" class="star">★</label>
+            <input
+              type="radio"
+              id="1-star"
+              name="rating"
+              value="1"
+              v-model="ratings"
+            />
+            <label for="1-star" class="star">★</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="content-write">
+      <div class="content-write__title">
+        <div class="content-write__title_num"><h2>4</h2></div>
+        <h2>후기를 작성해주세요</h2>
+      </div>
       <div class="content-write__item">
-        {{ form.power_socket.errors }}
-        <div for="{{ form.power_socket.id_for_label }}">콘센트</div>
-        {{ form.power_socket }}
-      </div>
-      <div class="content-write__item">
-        {{ form.rating.errors }}
-        <div for="{{ form.rating.id_for_label }}">별점</div>
-        {{ form.rating }}
+        {{ form.content.errors }}
+        <div for="{{ form.content.id_for_label }}">후기</div>
+        {{ form.content}}
       </div>
     </div>
-  </div>
-  <div id="content-write">
-    <div class="content-write__title">
-      <div class="content-write__title_num"><h2>4</h2></div>
-      <h2>후기를 작성해주세요</h2>
+    <div class="content-write__btn">
+      <input type="button" value="취소" onclick="back()" />
+      <input type="submit" value="등록하기" />
     </div>
-    <div class="content-write__item">
-      {{ form.content.errors }}
-      <div for="{{ form.content.id_for_label }}">후기</div>
-      {{ form.content}}
-    </div>
-  </div>
-  <div class="content-write__btn">
-    <input type="button" value="취소" onclick="back()" />
-    <input type="submit" value="등록하기" />
-  </div>
   </form>
 </div>
-  <script>
-    const back = () => {
-      window.history.back();
-    }
+<script>
+  const back = () => {
+    window.history.back();
+  };
 
-    // 지도
-    var geocoder = new kakao.maps.services.Geocoder();
+  // 지도
+  var geocoder = new kakao.maps.services.Geocoder();
 
-    function sample5_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                var addr = data.address; // 최종 주소 변수
+  function sample5_execDaumPostcode() {
+    new daum.Postcode({
+      oncomplete: function (data) {
+        var addr = data.address; // 최종 주소 변수
 
-                // 주소 정보를 해당 필드에 넣는다.
-                document.getElementById("sample5_address").value = addr;
-                // 주소로 상세 정보를 검색
-                geocoder.addressSearch(data.address, function(results, status) {
-                    // 정상적으로 검색이 완료됐으면
-                    if (status === daum.maps.services.Status.OK) {
+        // 주소 정보를 해당 필드에 넣는다.
+        document.getElementById("sample5_address").value = addr;
+        // 주소로 상세 정보를 검색
+        geocoder.addressSearch(data.address, function (results, status) {
+          // 정상적으로 검색이 완료됐으면
+          if (status === daum.maps.services.Status.OK) {
+            var result = results[0]; //첫번째 결과의 값을 활용
 
-                        var result = results[0]; //첫번째 결과의 값을 활용
-
-                        // 해당 주소에 대한 좌표를 받아서
-                        var coords = new daum.maps.LatLng(result.y, result.x);
-                        // 지도를 보여준다.
-                        mapContainer.style.display = "block";
-                        map.relayout();
-                        // 지도 중심을 변경한다.
-                        map.setCenter(coords);
-                        // 마커를 결과값으로 받은 위치로 옮긴다.
-                        marker.setPosition(coords)
-                    }
-                });
-            }
-        }).open();
-    }
-
-  </script>
+            // 해당 주소에 대한 좌표를 받아서
+            var coords = new daum.maps.LatLng(result.y, result.x);
+            // 지도를 보여준다.
+            mapContainer.style.display = "block";
+            map.relayout();
+            // 지도 중심을 변경한다.
+            map.setCenter(coords);
+            // 마커를 결과값으로 받은 위치로 옮긴다.
+            marker.setPosition(coords);
+          }
+        });
+      },
+    }).open();
+  }
+</script>
 {% endblock content %}

@@ -1,28 +1,28 @@
-const dropdowns = document.querySelectorAll(".main_write__dropdown");
+const dropdowns = document.querySelectorAll('.main_write__dropdown');
 dropdowns.forEach((dropdown) => {
-  const select = dropdown.querySelector(".main_write__select");
-  const caret = dropdown.querySelector(".main_write__caret");
-  const menu = dropdown.querySelector(".main_write__menu");
-  const options = dropdown.querySelectorAll(".main_write__menu li");
-  const selected = dropdown.querySelector(".main_write__selected");
+	const select = dropdown.querySelector('.main_write__select');
+	const caret = dropdown.querySelector('.main_write__caret');
+	const menu = dropdown.querySelector('.main_write__menu');
+	const options = dropdown.querySelectorAll('.main_write__menu li');
+	const selected = dropdown.querySelector('.main_write__selected');
 
-  select.addEventListener("click", () => {
-    select.classList.toggle("main_write__select-clicked");
-    caret.classList.toggle("main_write__caret-rotate");
-    menu.classList.toggle("main_write__menu-open");
-  });
-  options.forEach((option) => {
-    option.addEventListener("click", () => {
-      selected.innerText = option.innerText;
-      select.classList.remove("main_write__select-clicked");
-      caret.classList.remove("main_write__caret-rotate");
-      menu.classList.remove("main_write__menu-open");
-      options.forEach((option) => {
-        option.classList.remove("main_write__active");
-      });
-      option.classList.add("main_write__active");
-    });
-  });
+	select.addEventListener('click', () => {
+		select.classList.toggle('main_write__select-clicked');
+		caret.classList.toggle('main_write__caret-rotate');
+		menu.classList.toggle('main_write__menu-open');
+	});
+	options.forEach((option) => {
+		option.addEventListener('click', () => {
+			selected.innerText = option.innerText;
+			select.classList.remove('main_write__select-clicked');
+			caret.classList.remove('main_write__caret-rotate');
+			menu.classList.remove('main_write__menu-open');
+			options.forEach((option) => {
+				option.classList.remove('main_write__active');
+			});
+			option.classList.add('main_write__active');
+		});
+	});
 });
 
 const modal = document.getElementById("post_write__modal");
@@ -43,7 +43,7 @@ modal.addEventListener("click", (e) => {
   }
 });
 
-function postWriteForm_check() {
+/*function postWriteForm_check() {
   var contact = document.getElementById("main_write__select_contact");
   var duration = document.getElementById("main_write__select_duration");
   var number = document.getElementById("main_write__top__box_text_number");
@@ -78,9 +78,10 @@ function postWriteForm_check() {
     location.focus();
     return false;
   }
+*/
 
-  var linkCheck = /(https:\/\/)(forms\.)(gle)(\/)([a-zA-Z0-9-])*/g;
-
+//var linkCheck = /(https:\/\/)(forms\.)(gle)(\/)([a-zA-Z0-9-])*/g;//
+/*
   if (!linkCheck.test(applyLink.value)) {
     alert("구글폼 링크 형식에 맞춰 입력해주세요.");
     applyLink.focus();
@@ -105,3 +106,4 @@ function postWriteForm_check() {
     return false;
   }
 }
+*/

@@ -1,0 +1,104 @@
+{% extends 'users/base.html' %} {% block content %}
+{% load static %}
+<main>
+  <!-- 뒷배경 -->
+  <div id="profile-edit__container">
+    <span class="profile-edit__title">프로필 수정</span>
+    <form method="post" action="{% url 'users:profile_edit' user.id %}" enctype="multipart/form-data" onkeyPress="if (event.keyCode==13){return false;}">
+      {% csrf_token %}
+        <div class="input__edit__name">
+            {{ form.name.errors }}
+            <lable for="{{ form.name.id_for_label }}"><p>이름</p></lable>
+            <input
+            type="text"
+            name="name"
+            value="{{user.name}}"
+            maxlength="10"
+            required=""
+            id="id_name"
+            placeholder="이름을 입력하세요."
+            />
+            <input type="text" style="display: none;" />
+        </div>
+        <div class="input__edit__nickname">
+            {{ form.nickname.errors }}
+            <lable for="{{ form.nickname.id_for_label }}"><p>닉네임</p></lable>
+            <input
+            type="text"
+            name="nickname"
+            value="{{user.nickname}}"
+            maxlength="10"
+            required=""
+            id="id_nickname"
+            placeholder="새 닉네임을 입력하세요."
+            />
+        </div>
+        <div class="input__edit__profile_img">
+            {{ form.profile_img.errors }}
+            <lable for="{{ form.profile_img.id_for_label }}"
+            ><p>
+                프로필 사진&nbsp;<span style="color: #8c8c8c; font-size: 1rem; font-weight: 100;">(선택)</span><br /><p style="color: #8c8c8c; font-size: 0.5rem"
+                >*업로드 안할 시, MOCO에서 제공하는 기본 프로필 사진으로
+                적용됩니다.</p>
+            </p></lable
+            >
+            <input
+            type="file"
+            name="profile_img"
+            accept="image/*"
+            id="id_profile_img"
+            onchange="thumbnailImg(event);"
+            />
+            <label for="id_profile_img">
+                <div id="input__img__container">
+                    {% if user.profile_img %}
+                    <img src="{{user.profile_img.url}}" alt="profile_img"></img>
+                    {% else %}
+                    <img src="{% static 'img/moco_symbol.png' %}" alt="profile_img"></img>
+                    {% endif %}
+                    <!-- <img src="" onerror="this.style.display='none'"> -->
+                </div>
+            </label>
+        </div>
+        <div class="input__edit__gender">
+            {{ form.gender.errors }}
+            <lable for="{{ form.gender.id_for_label }}"><p>성별</p></lable>
+            <div class="edit__angle-down"><i class="fa-solid fa-angle-down"></i></div>
+            {{form.gender}}
+        </div>
+        <div class="input__edit__job">
+            {{ form.job.errors }}
+            <lable for="{{ form.job.id_for_label }}"><p>직업</p></lable>
+            <div class="edit__angle-down"><i class="fa-solid fa-angle-down"></i></div>
+            {{form.job}}
+        </div>
+        <!-- 뒷배경 -->
+  <div id="edit-email-err__modal" class="modal-overlay">
+    <div class="modal__window">
+      <div class="modal__content">
+        <p style="margin: 3rem 0 2rem 0; font-size: 1.3rem; font-weight: 900">
+          정상적으로 프로필이 수정되지 않았습니다. 🤔 
+        </p>
+        {% if messages %} {% for message in messages %}
+        <p style="font-size: 1rem; font-weight: 300">❗️ {{message.message}} ❗️</p>
+        {% endfor %} {% else %}
+        <p style="font-size: 1rem; font-weight: 300">
+          ❗️ 다른 유저와 중복된 이메일입니다. 다른 이메일을 입력해주세요. ❗️
+        </p>
+        <p style="font-size: 1rem; font-weight: 300">
+          ❗️ 이미 존재하는 닉네임입니다. ❗️
+        </p>
+        {% endif %}
+
+        <div id="edit-email-err__btns">
+          <div id="edit-email-err__btn">
+            <a href="{% url 'users:profile_edit' user.id %}"
+              >프로필 수정 마저하기</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

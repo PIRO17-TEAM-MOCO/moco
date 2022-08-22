@@ -18,7 +18,7 @@ main .login__container {
   justify-content: center;
   font-size: 2rem;
   flex-wrap: wrap;
-  margin-top: 5rem;
+  margin-top: 2rem;
 }
 
 main .login__nor {
@@ -172,7 +172,7 @@ hr {
   margin: 0 0.5rem 0 0.5rem;
 }
 
-.login__sim__soc {
+#login .login__sim__soc {
   width: 22rem;
   display: flex;
   flex-direction: row;

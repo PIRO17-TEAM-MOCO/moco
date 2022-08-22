@@ -2,12 +2,19 @@
 {% load static %}
 {% block content %}
 <div class="content">
+  <li class="back"><a target="_self" href="{% url 'place:home' %}"><i class="fa-solid fa-arrow-left"></i></a></li>
   <div class="content-top">
     <div class="content-title">
       <div class="content-title__name">{{place.name}}</div>
       <div class="content-title__info">
-        <span class="content-title__img"><i class="fa-solid fa-circle-user"></i></span>
-        <span class="content-title__location">{{place.user}}</span>
+        <span class="content-title__img">
+          {% if place.user.profile_img %}
+          <div class="profile_img"><img src="{{place.user.profile_img.url}}" alt="profile_img"></img></div>
+          {% else %}
+          <div class="profile_img"><img src="{% static "img/moco_symbol.png" %}" alt="profile_img"></img></div>
+          {% endif %}
+        </span>
+        <span class="content-title__nickname">{{place.user.nickname}}</span>
         <span class="content-title__bar">|</span>
         <span class="content-title__published">{{place.published_at|date:"Y. m. d" }}</span>
       </div>
@@ -15,8 +22,13 @@
     <div class="content-right">
             <div id="main_detail__top__like">
               <button id="{{place.id}}" onclick="place_like(this.id)">
-                <i id="blank" class="fa-regular fa-heart"></i>
+                {% if like_user %}
+                <i id="blank" class="fa-solid fa-heart"></i> <!-- 빨간색 채워져 있는 하트-->
                 <span id="like_count">{{place.likes}}</span>
+                {% else %}
+                <i id="blank" class="fa-regular fa-heart"></i> <!--비어있는 하트-->
+                <span id="like_count">{{place.likes}}</span>
+                {% endif %}
             </button>
             </div>
         {% if user.is_authenticated %}
@@ -47,6 +59,9 @@
       <img src="{{image.image.url}}" width="500" alt="">
       {% endif %}
     {% endfor %}
+    {% if flag_image == False %}
+      <img src="{% static "img/image-solid.svg" %}" width="500" alt="no_image" ></img>
+    {% endif %}
   </div>
   <hr style= "color: #BCBCBC; height:1px; width: 100%; opacity: 1;">
     <div class="content-item">
@@ -65,95 +80,170 @@
           <div>{{place.opening_time}}~{{place.closing_time}}</div>
           <div>{{place.get_wifi_display}}</div>
           <div>{{place.get_power_socket_display}}</div>
-          <div>{{place.rating}}</div>
+          <div><div style="display: none;">{{place.rating}}</div>
+          <div class="star-ratings">
+              <div class="star-ratings-fill">
+              {% for i in width %}
+                <span id="star">★</span>
+                {% endfor %}
+              </div>
+            </div> 
+          </div>     
           <div>{{place.location}} {{place.location_detail}}</div>
         </div>
-      </div>      
-    </div>
-    <hr style= "color: #BCBCBC; height:1px; width: 100%; opacity: 1;">
-    <div class="content-item">
-      <div class="content-item__title">후기</div>
-      <div class="content-item__content">{{place.content | safe }}</div>
-    </div>
-    <hr style= "color: #BCBCBC; height:1px; width: 100%; opacity: 1;">
-    <div class="content-item" style= "width:1180px;">
-      <div class="content-item__title">지도</div>
-      <div id="map" style="height:400px; margin: 1.5rem 0;"></div>
+      </div>
     </div>
 
-    <div id="main_detail__comment">
-      <div id="main_detail__comment__top">
-        <div id="main_detail__comment__blank">
-          <h2>댓글</h2>
-          <h2 id="main_detail__comment_num">{{comments_len}}</h2>
+        <hr style= "color: #BCBCBC; height:1px; width: 100%; opacity: 1;">
+        <div class="content-item">
+          <div class="content-item__title">후기</div>
+          <div class="content-item__content">{{place.content | safe }}</div>
         </div>
-        <div id="main_detail__comment__rule">
-          <span>300자 이내 작성</span>
+        <hr style= "color: #BCBCBC; height:1px; width: 100%; opacity: 1;">
+        <div class="content-item" style= "width:1180px;">
+          <div class="content-item__title">지도</div>
+          <div id="map" style="height:400px; margin: 1.5rem 0; z-index: 0;"></div>
         </div>
-      </div>
-      <div id="main_detail__comment__blank_box">
-        <form action="{% url 'comments:write-place' place.id %}" method="post">
-          {% csrf_token %}
-          <textarea
-            type="text"
-            name="content"
-            id="comment_input_box"
-            cols="30"
-            rows="10"
-            placeholder="댓글을 입력해주세요."
-          ></textarea>
-          <div id="main_detail__comment__btnplace">
-            <input
-              type="submit"
-              id="main_detail__comment__btn"
-              value="댓글쓰기"
-            />
+    
+        <div id="main_detail__comment">
+          <div id="main_detail__comment__top">
+            <div id="main_detail__comment__blank">
+              <h2>댓글</h2>
+              <h2 id="main_detail__comment_num">{{comments_len}}</h2>
+            </div>
+            <div id="main_detail__comment__rule">
+              <span>300자 이내 작성</span>
+            </div>
           </div>
-        </form>
+          <div id="main_detail__comment__blank_box">
+            <form action="{% url 'comments:write-place' place.id %}" method="post">
+              {% csrf_token %}
+              <textarea
+                type="text"
+                name="content"
+                id="comment_input_box"
+                cols="30"
+                rows="10"
+                placeholder="댓글을 입력해주세요."
+              ></textarea>
+              <div id="main_detail__comment__btnplace">
+                <input
+                  type="submit"
+                  id="main_detail__comment__btn"
+                  value="댓글쓰기"
+                />
+              </div>
+            </form>
       </div>
-      <div id="main_detail__comment__contents">
+      <div id="place_detail__comment__contents">
         {% for comment in comments %}
-        <div id="main_detail__comment__each__contents__{{comment.id}}">
-          <div id="main_detail__comment__contents__profile">
-            <div id="main_detail__comment__contents__img">
-              {% if comment.user.profile_img %}
-              <img src="{{comment.user.profile_img.url}}" width="45px" alt="profile_img"></img>
-              {% else %}
-              <img src="{% static "img/moco_symbol.png" %}" width="45px" alt="profile_img"></img>
-              {% endif %}
-            </div>
-            <div id="main_detail__comments__contents__info">
-              <div id="main_detail__comments__contents__name">
-                <span>{{comment.user.nickname}}</span>
+        <div class="place_detail__comment__each__contents_div__{{comment.id}}">
+          <div id="place_detail__comment__each__contents__{{comment.id}}">
+            <div id="place_detail__comment__contents__profile">
+              <div class="place_detail__comment__contetns__profile_userinfo">
+                <div id="place_detail__comment__contents__img">
+                  {% if comment.user.profile_img %}
+                  <img src="{{comment.user.profile_img.url}}" width="45px" alt="profile_img"></img>
+                  {% else %}
+                  <img src="/static/img/moco_symbol.png" width="45px" alt="profile_img"></img>
+                  {% endif %}
+                </div>
+                <div id="place_detail__comments__contents__info">
+                  <div id="place_detail__comments__contents__name">
+                    <span>{{comment.user.nickname}}</span>
+                  </div>
+                  <div id="place_detail__comments__contents__time">
+                    <span>{{comment.published_at|date:"Y. m. d" }}</span>
+                  </div>
+                </div>
               </div>
-              <div id="main_detail__comments__contents__time">
-                <span>2022-07-28</span>
+              <div class="place_detail__comments__contents__options">
+                {% if comment.user == request.user %}
+                <div>
+                  <div class="place_detail__comments_dropdown_btn">
+                    <i class="fa-solid fa-ellipsis fa-lg" style="color: #BFBFBF"></i>
+                  </div>
+                  <div class="place_detail__comments_dropdown_menu">
+                    <div class="place_detail__comments_dropdown_menu_revise">
+                      <button onclick="changeFormPlace({{comment.id}}, '{{comment.content}}');">수정</button>
+                    </div>
+                    <div class="place_detail__comments_dropdown_menu_delete">
+                      <button onclick="onClickdeletePlace({{comment.id}});">삭제</button>
+                    </div>
+                  </div>
+                </div>
+                {% endif%}
               </div>
             </div>
+            <div id="place_detail__comment__contents__txt__{{comment.id}}">
+              <h1>{{comment.content}}</h1>
+            </div>
+            <div class="place_detail_comment_reply_btn">
+              <button onclick="changeForm2Place({{comment.id}});">답글</button>
+            </div>
+            <br />
+            <div class="place_detail_commnet_reply_form">
+              <div id="place_detail_comment_contents_reply_form__{{comment.id}}"></div>
+            </div>
+            <div id="place_detail__comment__contents__reply">
+              {% for recomment in comment.comment_set.all %}
+              <div class="place_detail__comment__contents__reply_bundle__{{recomment.id}}">
+                <div class="place_detail__reply_top">
+                  <div class="place_detail__comment__contetns__profile_userinfo">
+                    <span style="font-size:1.25rem; font-weight: 600;">ㄴ </span>
+                    <div id="place_detail__comment__contents__img">
+                      {% if comment.user.profile_img %}
+                      <img src="{{comment.user.profile_img.url}}" width="45px" alt="profile_img"></img>
+                      {% else %}
+                      <img src="/static/img/moco_symbol.png" width="45px" alt="profile_img"></img>
+                      {% endif %}
+                    </div>
+                    <div id="place_detail__comments__contents__info">
+                      <div id="place_detail__comments__contents__name">
+                        <span>{{comment.user.nickname}}</span>
+                      </div>
+                      <div id="place_detail__comments__contents__time">
+                        <span>{{comment.published_at|date:"Y. m. d" }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="place_detail__comments__contents__options">
+                    {% if recomment.user == request.user %}
+                    <div class="place_detail__comments_revise_delete_btn">
+                      <div class="place_detail__comments_dropdown_btn">
+                        <i class="fa-solid fa-ellipsis fa-lg" style="color: #BFBFBF"></i>
+                      </div>
+                      <div class="place_detail__comments_dropdown_menu">
+                        <div class="place_detail__comments_dropdown_menu_revise">
+                          <button onclick="changeForm4Place({{recomment.id}}, '{{recomment.content}}');">수정</button>
+                        </div>
+                        <div class="place_detail__comments_dropdown_menu_delete">
+                          <button onclick="onClickdeleteRecmtPlace({{recomment.id}});">삭제</button>
+                        </div>
+                      </div>
+                    </div>
+                    {% endif%}
+                  </div>
+                </div>
+                <div class="place_detail__reply_txt">{{recomment.content}}</div>
+                
+                <!-- <div class="place_detail__recomments_revise_delete_btn">                 
+                  <div class="place_detail__recomments_revise_btn">
+                    <button onclick="changeForm4Place({{recomment.id}}, '{{recomment.content}}');">수정</button>
+                  </div>
+                  <div class="place_detail__recomments_delete_btn">
+                    <button onclick="onClickdeleteRecmtPlace({{recomment.id}});">삭제</button>
+                  </div>
+                </div> -->
+              </div>
+              {% endfor%}
+            </div>
           </div>
-          <div id="main_detail__comment__contents__txt__{{comment.id}}">
-            <span>{{comment.content}}</span>
-          </div>
-          <div id="main_detail__comment__contents__reply">
-            <!-- 답글 테스트로 여기 위치 -->
-            {% for recomment in comment.comment_set.all %}
-            <div>{{recomment.content}}</div>
-            {% endfor%}
-            <div id="main_detail_comment_contents_reply_form__{{comment.id}}"></div>
-            
-          </div>
-          {% if comment.user == request.user %}
-          <button onclick="changeForm({{comment.id}}, '{{comment.content}}');">수정</button>
-          <button onclick="onClickdelete({{comment.id}})">삭제</button> 
-          {% endif%}
-          <button onclick="changeForm2({{comment.id}});">답글</button>
-          <br />
         </div>
+        
         {% endfor %}
       </div>
-    </div>
-
-</div>
+  </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
   function dp_menu(){
@@ -203,42 +293,7 @@
     
   const sp = document.getElementById('main_detail__comment__contents__txt')
   let idd = null;
-  
-  const changeForm = (id, content) => {
-    idd = id;
-    const revise = document.getElementById(`main_detail__comment__contents__txt__${id}`)
-    revise.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}<textarea type="text" name="content">${content}</textarea><input type="submit" value="등록"/><a href="{% url 'place:detail' place.id %}">취소</a></form>`
-  }
 
-  const changeForm2 = (id) => {
-    const recomt = document.getElementById(`main_detail_comment_contents_reply_form__${id}`)
-    recomt.innerHTML = `<form action="/comment/recomment/${id}" method="post">{% csrf_token %}<textarea type="text" name="content"></textarea><input type="submit" value="등록"/><a href="{% url 'place:detail' place.id %}">취소</a></form>`
-  }
-
-  const requestDelete = new XMLHttpRequest();
-
-  const onClickdelete = (id) => {
-      const url = "/comment/delete";
-      requestDelete.open("POST",url,true);
-      requestDelete.setRequestHeader(
-          "Content-Type",
-          "application/x-www-form-urlencoded"
-      );
-      requestDelete.send(JSON.stringify({'id':id}));
-  }
-
-  requestDelete.onreadystatechange = () => {
-      if (requestDelete.readyState === XMLHttpRequest.DONE){
-          if(requestDelete.status < 400){
-              const {id, len} = JSON.parse(requestDelete.response);
-              const topdom = document.getElementById("main_detail__comment__contents");
-              const deletedom = document.getElementById(`main_detail__comment__each__contents__${id}`);
-              topdom.removeChild(deletedom);
-              const cmtLen = document.getElementById('main_detail__comment_num')
-              cmtLen.innerHTML = len
-          }
-      }
-  }
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
@@ -263,4 +318,76 @@ function place_like(id) {
     })
 }
 </script>
+<script>
+  // 댓글 수정
+  const changeFormPlace = (id, content) => {
+    const reviseCmtPlace = document.getElementById(`place_detail__comment__contents__txt__${id}`)
+    reviseCmtPlace.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}<textarea type="text" name="content">${content}</textarea><input type="submit" value="등록"/><a href="{% url 'place:detail' place.id %}">취소</a></form>`
+  }
+
+  // 대댓글 수정
+  const changeForm4Place = (id, content) => {
+    console.log("click")
+    const reviseRecmtPlace = document.querySelector(`.place_detail__comment__contents__reply_bundle__${id}`)
+    console.log(reviseRecmtPlace)
+    reviseRecmtPlace.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}<textarea type="text" name="content">${content}</textarea><input type="submit" value="등록"/><a href="{% url 'place:detail' place.id %}">취소</a></form>`
+  }
+
+  // 대댓글
+  const changeForm2Place = (id) => {
+    const reCmtPlace = document.getElementById(`place_detail_comment_contents_reply_form__${id}`)
+    reCmtPlace.innerHTML = `<form action="/comment/recomment/${id}" method="post">{% csrf_token %}<textarea type="text" name="content"></textarea><input type="submit" value="등록"/><a href="{% url 'place:detail' place.id %}">취소</a></form>`
+  }
+
+  //대댓글 삭제
+  const recmtDeletePlace = new XMLHttpRequest();
+  const onClickdeleteRecmtPlace = (id) => {
+      const url = "/comment/delete";
+      recmtDeletePlace.open("POST",url,true);
+      recmtDeletePlace.setRequestHeader(
+          "Content-Type",
+          "application/x-www-form-urlencoded"
+      );
+      recmtDeletePlace.send(JSON.stringify({'id':id}));
+  }
+  recmtDeletePlace.onreadystatechange = () => {
+      if (recmtDeletePlace.readyState === XMLHttpRequest.DONE){
+          if(recmtDeletePlace.status < 400){
+              const {id, len} = JSON.parse(recmtDeletePlace.response);
+              console.log(id, len)
+              const topdomRcmtPlace = document.getElementById("place_detail__comment__contents__reply");
+              const deletedomRcmtPlace = document.querySelector(`.place_detail__comment__contents__reply_bundle__${id}`)
+              topdomRcmtPlace.removeChild(deletedomRcmtPlace);
+              const cmtLen = document.getElementById('main_detail__comment_num')
+              cmtLen.innerHTML = len
+          }
+      }
+  }
+
+  // 댓글 삭제
+  const cmtDeletePlace = new XMLHttpRequest();
+  const onClickdeletePlace = (id) => {
+      const url = "/comment/delete";
+      cmtDeletePlace.open("POST",url,true);
+      cmtDeletePlace.setRequestHeader(
+          "Content-Type",
+          "application/x-www-form-urlencoded"
+      );
+      cmtDeletePlace.send(JSON.stringify({'id':id}));
+  }
+  cmtDeletePlace.onreadystatechange = () => {
+      if (cmtDeletePlace.readyState === XMLHttpRequest.DONE){
+          if(cmtDeletePlace.status < 400){
+              const {id, len} = JSON.parse(cmtDeletePlace.response);
+              const topdomPlace = document.getElementById("place_detail__comment__contents");
+              const deletedomPlace = document.querySelector(`.place_detail__comment__each__contents_div__${id}`);
+              console.log(deletedomPlace)
+              topdomPlace.removeChild(deletedomPlace);
+              const cmtLen = document.getElementById('main_detail__comment_num')
+              cmtLen.innerHTML = len
+          }
+      }
+  }
+</script>
+
 {% endblock %}

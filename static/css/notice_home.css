@@ -4,7 +4,12 @@
   margin-bottom: 20px;
   transition: all 0.3s;
   cursor: pointer;
+  width: 100%;
 }
+
+.content-box__itme > div{
+  width: 100%;
+} 
 
 .content-box__itme:hover {
   box-shadow: 0px 4px 10px 2px rgba(171, 186, 189, 0.2);
@@ -17,17 +22,24 @@
   align-items: center;
   width: 100%;
   margin-bottom: 1rem;
+  align-items: center;
 }
 
 .content-top__count {
   font-size: 1.1rem;
+  margin-right: auto;
 }
 
 .write-btn {
   border: 1px solid #8C8C8C;
-  border-radius: 0.75rem;
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
+  border-radius: 0.5rem;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.write-btn:hover{
+  background-color: #FAFAFA;
 }
 
 .content-box {
@@ -55,3 +67,4 @@
   font-size: 0.9rem;
   color: #8C8C8C;
 }
+

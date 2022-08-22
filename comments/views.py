@@ -9,8 +9,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
 
-# Create your views here.
-
 @login_required
 def write_post(request, id):
     if request.method == 'POST':
@@ -63,10 +61,6 @@ def revise(request, id):
         content = request.POST["content"]
         comment = Comment.objects.get(id=id)
         Comment.objects.filter(id=id).update(content=content)
-        # data = {
-        #     'id': id,
-        #     'content': content,
-        # }
         if comment.tag == Comment.TAG_POST:
             post = comment.post
             post.save()
@@ -79,8 +73,6 @@ def revise(request, id):
             notice = comment.notice
             notice.save()
             return redirect(f"/notice/detail/{notice.id}")
-        # print(data)
-        # return JsonResponse(data)
 
 
 @csrf_exempt
@@ -112,7 +104,6 @@ def delete(request):
         'id': comment_id,
         'len': length
     }
-    print(data)
     return JsonResponse(data)
 
 
@@ -121,9 +112,6 @@ def recomment(request, id):
     if request.method == 'POST':
         pnt_id = id
         content = request.POST["content"]
-    # req = json.loads(request.body)
-    # pnt_id = req['id']
-    # content = req['content']
         user = request.user
         pnt_comment = Comment.objects.get(id=pnt_id)
         tag = pnt_comment.tag

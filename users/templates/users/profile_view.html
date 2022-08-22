@@ -1,5 +1,6 @@
 {% extends 'users/base.html' %} {% block content %}
 {% load static %}
+{% load mathfilters %}
 <div class="content">
   <div class="profile-top">
     <div class="profile-top__top">
@@ -21,7 +22,10 @@
             {% endif %}
           </div>
         </div>
-        <div class="profile-top__level"><p>Lv.7(임시)</p></div>
+        <div class="profile-top__level">
+          <div class="profile-top__level__left">Lv. <span style="color: #2253FF; ">{{user.exp|intdiv:100}}</span></div>
+          <div class="profile-top__level__right"></div>
+        </div>
       </div>
     </div>
     <div class="profile-top__bottom">
@@ -57,7 +61,7 @@
             <p>{{like_post.title}}</p>
             <div class="profile-bottom__post__content">
               <p>
-                {{like_post.content|truncatechars:50}}
+                {{like_post.content|truncatechars:50|safe}}
               </p></div>
             <div class="profile-bottom__post__icon">
               <span><i class="fa-solid fa-eye"></i></i><span>{{like_post.views}}</span></span>
@@ -68,18 +72,26 @@
         </div>
         {% endfor %}
         <!--좋아요 누른 플레이스-->
-        {% for place, image in pairs_like %}
+        {% for place, image, width in pairs_like %}
         <div class="profile-bottom__place">
           <a class="profile-bottom__item" href="{% url 'place:detail' place.id %}" >
-            {% if image %} <!--게시물-->
             <div class="profile-bottom__place__img">
+              {% if image %} <!--게시물-->
               <img src="{{image.image.url}}"><br>
+              {% else %}
+              <img class="no_image" src="{% static "img/image-solid.svg" %}" alt="no_image" ></img>
+              {% endif %}
             </div>
-            {% endif %}
             <div class="profile-bottom__place__info">
               <p>{{place.name}}</p>
               <div class="profile-bottom__place__location"><i class="fa-solid fa-location-dot"></i><span>{{place.location}}</span></div>
-              <div>{{place.rating}}</div>
+              <div class="content-box__rating"><div class="star-ratings">
+                <div class="star-ratings-fill">
+                {% for i in width %}
+                  <span>★</span>
+                  {% endfor %}
+                </div>
+              </div></div>
             </div>
           </a>
         </div>
@@ -103,7 +115,7 @@
             <p>{{post.title}}</p>
             <div class="profile-bottom__post__content">
               <p>
-                {{post.content|truncatechars:50}}
+                {{post.content|truncatechars:50|safe}}
               </p></div>
             <div class="profile-bottom__post__icon">
               <span><i class="fa-solid fa-eye"></i></i><span>{{post.views}}</span></span>
@@ -135,7 +147,7 @@
             {% else %}
             <p>no image</p>
             {% endif %}
-            <p style="line-height: 1.5rem;">{{review.post.content|truncatechars:90}}</p>
+            <p style="line-height: 1.5rem;">{{review.post.content|truncatechars:90|safe}}</p>
           </div>
           </a>
         </div>
@@ -147,42 +159,32 @@
     <div class="profile-bottom__list">
       <h2>📍 플레이스 후기</h2>
       <div class="profile-bottom__list_4">
-        {% for place, image in pairs_my %}
+        {% for place, image ,width in pairs_my %}
         <div class="profile-bottom__place">
           <a class="profile-bottom__item" href="{% url 'place:detail' place.id %}" >
-            {% if image %} <!--게시물-->
             <div class="profile-bottom__place__img">
-              <img src="{{image.image.url}}"><br>
-            </div>
+            {% if image %} <!--게시물-->
+            <img src="{{image.image.url}}"><br>
+            {% else %}
+            <img class="no_image" src="{% static "img/image-solid.svg" %}" alt="no_image" ></img>
             {% endif %}
+            </div>
             <div class="profile-bottom__place__info">
               <p>{{place.name}}</p>
               <div class="profile-bottom__place__location"><i class="fa-solid fa-location-dot"></i><span>{{place.location}}</span></div>
-              <div>{{place.rating}}</div>
+              <div class="content-box__rating"><div class="star-ratings">
+                <div class="star-ratings-fill">
+                {% for i in width %}
+                  <span>★</span>
+                  {% endfor %}
+                </div>
+              </div></div>
             </div>
           </a>
         </div>
         {% endfor %}
       </div>
     </div>
-
-    <!--     
-      <h2>📍 플레이스 후기</h2>
-      {% for place, image in pairs_my %}
-      <div class="profile-bottom__place">
-        <a class="content-box__itme" href="{% url 'place:detail' place.id %}" >
-          {% if image %}
-          <div class="content-box__img">
-            <img src="{{image.image.url}}"><br>
-          </div>
-          {% endif %}
-          <h2>{{place.name}}</h2>
-          <div><i class="fa-solid fa-location-dot"></i><span>{{place.location}}</span></div>
-          <div>{{place.rating}}</div>
-        </a>
-      </div>
-      {% endfor %}
-    </div> -->
   </div>
 </div>
 {% endblock %}

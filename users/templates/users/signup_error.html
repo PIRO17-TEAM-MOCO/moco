@@ -1,4 +1,4 @@
-{% extends 'users/account_base.html' %} {% block content %}
+{% extends 'users/base.html' %} {% block content %}
 <main>
     <!-- 뒷배경 -->
     <form
@@ -81,17 +81,6 @@
         </div>
       </div>
     </div>
-    <div class="signup__sim">
-      <hr noshade />
-      <span>간편 회원가입</span>
-      <hr noshade />
-    </div>
-    <div class="signup__sim__soc">
-      <button>구글</button>
-      <button>네이버</button>
-      <button>카카오</button>
-      <button>깃허브</button>
-    </div>
     <!-- 뒷배경 -->
   <div id="signup__err__modal" class="modal-overlay">
     <div class="modal__window">
@@ -102,16 +91,24 @@
         <p style="font-size: 1rem; font-weight: 900">
           다음 부분을 확인해주세요!
         </p>
+        {% if messages %}
+        {% for message in messages %}
+        <p style="font-size: 1rem; font-weight: 300">
+          1) {{message.message}}
+        </p>
+        {% endfor %}
+        {% else %}
         <p style="font-size: 1rem; font-weight: 300">
           1) 아이디와 비번이 유사하지 않게 작성해주세요.
         </p>
         <p style="font-size: 1rem; font-weight: 300">
           2) 위 항목이 아니라면 기존에 있는 아이디로 가입한 유저가 존재합니다.
         </p>
+        {% endif %}
 
         <div id="signup-err__btns">
           <div id="signup-err__btn">
-            <a onclick="history.go(-1)">회원가입 페이지로 돌아가기</a>
+            <a href="{% url 'users:signup' %}">회원가입 페이지로 돌아가기</a>
           </div>
         </div>
       </div>

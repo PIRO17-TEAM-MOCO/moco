@@ -5,11 +5,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico/favicon-32x32.png' %}"/>
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
     <link rel="stylesheet" href="{% static 'css/main.css' %}" />
     <link rel="stylesheet" href="{% static 'css/profile_view.css' %}" />
     <link rel="stylesheet" href="{%static 'css/login.css' %}" />
     <link rel="stylesheet" href="{%static 'css/signup.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/signup_error.css' %}" />
     <link rel="stylesheet" href="{%static 'css/find_id.css' %}" />
     <link rel="stylesheet" href="{%static 'css/register.css' %}" />
     <link rel="stylesheet" href="{%static 'css/change_pw.css' %}" />
@@ -19,8 +21,11 @@
     <link rel="stylesheet" href="{%static 'css/reset_pw_complete.css' %}" />
     <link rel="stylesheet" href="{%static 'css/find_pw.css' %}" />
     <link rel="stylesheet" href="{%static 'css/profile_edit.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/profile_edit_error.css' %}" />
     <link rel="stylesheet" href="{%static 'css/profile_add.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/profile_add_error.css' %}" />
     <link rel="stylesheet" href="{%static 'css/signout.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/social_error.css' %}" />
     <script
       src="https://kit.fontawesome.com/f0c26c0bfa.js"
       crossorigin="anonymous"
@@ -39,7 +44,7 @@
   <body>
     <div class="wrap">
       <nav class="navbar">
-        <a class="navbar__logo" href="{% url 'posts:home' %}">
+        <a class="navbar__logo" href="{% url 'users:main' %}">
           <img src="{% static "img/moco_logo.png" %}" alt="profile_img"></img>
         </a>
 
@@ -51,8 +56,8 @@
               <li><a href="{% url 'posts:review_home' %}">모각코 후기</a></li>
             </ul>
           </li>
-          <li><a href="{% url 'place:home' %}">플레이스</a></li>
-          <li><a href="{% url 'notice:home' %}">공지사항</a></li>
+          <li class="base__dropdown"><a href="{% url 'place:home' %}">플레이스</a></li>
+          <li class="base__dropdown"><a href="{% url 'notice:home' %}">공지사항</a></li>
         </ul>
 
         <ul class="navbar__shortcut">
@@ -68,10 +73,8 @@
             <span class="base__profile_dropbtn">
               {% if user.profile_img %}
               <div class="profile_img"><img src="{{user.profile_img.url}}" alt="profile_img"></img></div>
-              <!-- <div class="profile_img_icon"><i class="fa-solid fa-caret-down"></i></div> -->
               {% else %}
               <div class="profile_img"><img src="{% static "img/moco_symbol.png" %}" alt="profile_img"></img></div>
-              <!-- <div class="profile_img_icon"><i class="fa-solid fa-caret-down"></i></div> -->
               {% endif %}
             </span>
             <ul class="base__dropmenu">

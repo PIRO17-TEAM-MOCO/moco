@@ -61,7 +61,7 @@ main {
   display: none;
 }
 
-#input__img__container {
+#input__img__add__container {
   width: 13rem;
   height: 13rem;
   border: 1px solid rgb(200, 200, 200);
@@ -76,7 +76,7 @@ main {
   position: relative;
 }
 
-#input__img__container img {
+#input__img__add__container img {
   position: absolute;
   object-fit: cover;
   top: 0;
@@ -86,7 +86,7 @@ main {
   border-radius: 13rem;
 }
 
-#camera__img {
+#camera__add__img {
   display: flex;
   flex-direction: row;
   justify-content: center;

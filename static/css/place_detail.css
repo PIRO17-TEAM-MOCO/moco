@@ -1,5 +1,16 @@
 @import url(base.css);
 
+.back {
+  list-style: none;
+  margin-right: auto;
+  font-size: 2rem;
+  color: #8C8C8C 
+}
+
+.back i:hover {
+  color: #8C8C8C !important;
+}
+
 .wrap-vertical{
   display: flex;
   align-items: center;
@@ -192,7 +203,7 @@
 
 #main_detail__comment__rule {
   color: rgb(162, 162, 162);
-  padding-top: 35px;
+  /* padding-top: 35px; */
 }
 
 #comment_input_box {
@@ -212,6 +223,8 @@
 #main_detail__comment__top {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 #main_detail__comment_num {
@@ -228,10 +241,11 @@
 #main_detail__comment__btn {
   background-color: #2253ff;
   border-style: none;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   color: white;
-  padding: 10px 20px;
-  font-size: 13px;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
   margin: 10px 0;
 }
 
@@ -251,7 +265,14 @@
 }
 
 #main_detail__comment__contents {
-  border-top: 1px solid rgb(162, 162, 162);
+  border-top: 1px solid #BFBFBF;
+  border-bottom: 1px solid #BFBFBF;
+  margin-bottom: 50px;
+}
+
+#place_detail__comment__contents > div {
+  border-top: 1px solid #BFBFBF;
+  border-bottom: 1px solid #BFBFBF;
   margin-bottom: 50px;
 }
 
@@ -270,3 +291,73 @@
   color: #2253ff;
   font-size: 14px;
 }
+
+#place_detail__comment__contents__profile {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+#place_detail__comments__contents__time  {
+  font-size: 0.9rem;
+  color: #8C8C8C;
+}
+
+.place_detail__reply_txt {
+  margin: 1rem 0 1rem 2.1rem;
+}
+
+/* 프로필 사진 */
+
+.content-title__img .profile_img {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-right: 0.75rem;
+}
+
+.profile_img img {
+  display: inline-block;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 80%;
+}
+
+.content-box__profile {
+  display: flex;
+  align-items: center;
+}
+
+/* 별점 */
+.star-ratings {
+  color: #aaa9a9;
+  position: relative;
+  unicode-bidi: bidi-override;
+  width: max-content;
+  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 1.3px;
+  -webkit-text-stroke-color: #2b2a29;
+  z-index: 0;
+}
+
+.star-ratings-fill {
+  color: #fff58c;
+  padding: 0;
+  position: relative;
+  display: flex;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  -webkit-text-fill-color: gold;
+  -webkit-text-stroke-color: gold;
+}
+
+.star-ratings-fill > span{
+  padding: 0 0.08rem;
+}
+
+.star-ratings-base {
+  z-index: 0;
+  padding: 0;
+}
+

@@ -99,7 +99,6 @@ main {
   position: absolute;
   right: 0rem;
   bottom: 0rem;
-  z-index: 1;
 }
 
 .input__edit__gender select {
@@ -435,10 +434,29 @@ main {
   margin-left: 0.5rem;
 }
 
+#edit-cc__btn {
+  cursor: pointer;
+  width: 9rem;
+  height: 3.4rem;
+  outline: 0;
+  border: 0;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  background-color: #bfbfbf;
+  color: #fff;
+  font-weight: 900;
+  margin-left: 3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1rem;
+}
+
 #cf__modal__btn {
   cursor: pointer;
   width: 10rem;
-  height: 4rem;
+  height: 3.4rem;
   outline: 0;
   border: 0;
   font-size: 1rem;

@@ -1,6 +1,44 @@
 {% extends 'users/account_base.html' %} {% block content %}
 {% load static %}
-<main>
+{% static 'img/naver_login.png' as naver_button %}
+{% static 'img/google_login.png' as google_button %}
+{% static 'img/kakao_login.png' as kakao_button %}
+{% static 'img/github_login.png' as github_button %}
+<main id="signup">
+  <div class="signup-top">
+    <div class="signup__sim">
+      <hr noshade />
+      <span>간편 회원가입</span>
+      <hr noshade />
+    </div>
+{% load socialaccount %} {% providers_media_js %}
+    <div class="login__sim__soc" style="margin-bottom: 5rem;">
+      <div>
+        <form method="post" action="{% provider_login_url 'google' %}">
+          {% csrf_token %}
+          <button type="submit"><img src="{{ google_button }}" height="42" width="152"></button>
+          <!-- <button type="submit">구글</button> -->
+        </form>
+        <form method="post" action="{% provider_login_url 'kakao' %}">
+          {% csrf_token %}
+          <button type="submit"><img src="{{ kakao_button }}" height="40" width="150"></button>
+          <!-- <button type="submit">카카오</button> -->
+        </form>
+      </div>
+      <div>
+        <form method="post" action="{% provider_login_url 'naver' %}">
+          {% csrf_token %}
+          <button type="submit"><img src="{{ naver_button }}" height="40" width="152" style="padding-bottom: 0.1rem;"></button>
+          <!-- <button type="submit">네이버</button> -->
+        </form>
+        <form method="post" action="{% provider_login_url 'github' %}">
+          {% csrf_token %}
+          <button type="submit"><img src="{{ github_button }}" height="40" width="152"></button>
+          <!-- <button type="submit">깃허브</button> -->
+        </form>
+      </div>
+    </div>
+  </div>
   <form
       action="{% url 'users:signup' %}"
       method="post"
@@ -33,7 +71,7 @@
             <input type="password" name="password2" autocomplete="new-password" required="" id="id_password2" placeholder="비밀번호 (확인)">
           </div>
       </div>
-      <button id="signup__1st__btn" onclick="signup1Function()">다음</button>
+      <button type="button" id="signup__1st__btn" onclick="signup1Function()">다음</button>
       <div id="sub__reg__menu">
         회원가입 시, MOCO가 제공하는 서비스를 모두 이용하실 수 있습니다. MOCO의
         <button id="openBtn1">서비스 이용약관</button>,
@@ -409,17 +447,9 @@
           </div>
         </div>
       </div>
-      <div class="signup__sim">
-        <hr noshade />
-        <span>간편 회원가입</span>
-        <hr noshade />
-      </div>
-      <div class="signup__sim__soc">
-        <button>구글</button>
-        <button>네이버</button>
-        <button>카카오</button>
-        <button>깃허브</button>
-      </div>
+      
+
+      
       
     </div>
   </div>

@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MOCO</title>
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico/favicon-32x32.png' %}"/>
     <link rel="stylesheet" href="{%static 'css/base.css' %}" />
     <!-- <link rel="stylesheet" href="{%static 'css/account_base.css' %}" /> -->
     <link rel="stylesheet" href="{%static 'css/login.css' %}" />
@@ -37,7 +38,7 @@
   <body>
     <div class="wrap">
       <nav class="navbar">
-        <a class="navbar__logo" href="{% url 'posts:home' %}">
+        <a class="navbar__logo" href="{% url 'users:main' %}">
           <img src="{% static "img/moco_logo.png" %}" alt="profile_img"></img>
         </a>
 

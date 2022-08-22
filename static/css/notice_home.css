@@ -22,10 +22,12 @@
   align-items: center;
   width: 100%;
   margin-bottom: 1rem;
+  align-items: center;
 }
 
 .content-top__count {
   font-size: 1.1rem;
+  margin-right: auto;
 }
 
 .write-btn {

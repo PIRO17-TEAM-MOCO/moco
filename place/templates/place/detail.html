@@ -135,49 +135,76 @@
               </div>
             </form>
       </div>
-      <div id="main_detail__comment__contents">
+      <div id="place_detail__comment__contents">
         {% for comment in comments %}
-        <div id="main_detail__comment__each__contents__{{comment.id}}">
-          <div id="main_detail__comment__contents__profile">
-            <div id="main_detail__comment__contents__img">
-              {% if comment.user.profile_img %}
-              <img src="{{comment.user.profile_img.url}}" width="45px" alt="profile_img"></img>
-              {% else %}
-              <img src="{% static "img/moco_symbol.png" %}" width="45px" alt="profile_img"></img>
-              {% endif %}
-            </div>
-            <div id="main_detail__comments__contents__info">
-              <div id="main_detail__comments__contents__name">
-                <span>{{comment.user.nickname}}</span>
+        <div class="place_detail__comment__each__contents_div">
+          <div id="place_detail__comment__each__contents__{{comment.id}}">
+            <div id="place_detail__comment__contents__profile">
+              <div class="place_detail__comment__contetns__profile_userinfo">
+                <div id="place_detail__comment__contents__img">
+                  {% if comment.user.profile_img %}
+                  <img src="{{comment.user.profile_img.url}}" width="45px" alt="profile_img"></img>
+                  {% else %}
+                  <img src="/static/img/moco_symbol.png" width="45px" alt="profile_img"></img>
+                  {% endif %}
+                </div>
+                <div id="place_detail__comments__contents__info">
+                  <div id="place_detail__comments__contents__name">
+                    <span>{{comment.user.nickname}}</span>
+                  </div>
+                  <div id="place_detail__comments__contents__time">
+                    <span>{{comment.published_at|date:"Y. m. d" }}</span>
+                  </div>
+                </div>
               </div>
-              <div id="main_detail__comments__contents__time">
-                <span>2022-07-28</span>
+              <div class="place_detail__comments__contents__options">
+                {% if comment.user == request.user %}
+                <div class="place_detail__comments_dropdown_btn">
+                  <i class="fa-solid fa-ellipsis fa-lg" style="color: #BFBFBF"></i>
+                </div>
+                <div class="place_detail__comments_dropdown_menu">
+                  <div class="place_detail__comments_dropdown_menu_revise">
+                    <button onclick="changeFormPlace({{comment.id}}, '{{comment.content}}');">수정</button>
+                  </div>
+                  <div class="place_detail__comments_dropdown_menu_delete">
+                    <button onclick="onClickdeletePlace({{comment.id}});">삭제</button>
+                  </div>
+                </div>
+                {% endif%}
               </div>
             </div>
+            <div id="place_detail__comment__contents__txt__{{comment.id}}">
+              <h1>{{comment.content}}</h1>
+            </div>
+            <div class="place_detail_comment_reply_btn">
+              <button onclick="changeForm2Place({{comment.id}});">답글</button>
+            </div>
+            <br />
+            <div class="place_detail_commnet_reply_form">
+              <div id="place_detail_comment_contents_reply_form__{{comment.id}}"></div>
+            </div>
+            <div id="place_detail__comment__contents__reply">
+              {% for recomment in comment.comment_set.all %}
+              <div class="place_detail__comment__contents__reply_bundle">
+                <div class="place_detail__reply_user_name">ㄴ@{{recomment.user.nickname}}	&nbsp;</div>
+                <div class="place_detail__reply_txt">{{recomment.content}}</div>
+                <div class="place_detail__recomments_revise_delete_btn">
+                  <div class="place_detail__recomments_revise_btn">
+                    <button onclick="changeForm4Place({{comment.id}}, '{{recomment.content}}');">수정</button>
+                  </div>
+                  <div class="place_detail__recomments_delete_btn">
+                    <button onclick="onClickdeleteRecmtPlace({{comment.id}});">삭제</button>
+                  </div>
+                </div>
+              </div>
+              {% endfor%}
+            </div>
           </div>
-          <div id="main_detail__comment__contents__txt__{{comment.id}}">
-            <span>{{comment.content}}</span>
-          </div>
-          <div id="main_detail__comment__contents__reply">
-            <!-- 답글 테스트로 여기 위치 -->
-            {% for recomment in comment.comment_set.all %}
-            <div>{{recomment.content}}</div>
-            {% endfor%}
-            <div id="main_detail_comment_contents_reply_form__{{comment.id}}"></div>
-            
-          </div>
-          {% if comment.user == request.user %}
-          <button onclick="changeForm({{comment.id}}, '{{comment.content}}');">수정</button>
-          <button onclick="onClickdelete({{comment.id}})">삭제</button> 
-          {% endif%}
-          <button onclick="changeForm2({{comment.id}});">답글</button>
-          <br />
         </div>
+        
         {% endfor %}
       </div>
-    
-
-</div>
+  </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
   function dp_menu(){
@@ -227,42 +254,7 @@
     
   const sp = document.getElementById('main_detail__comment__contents__txt')
   let idd = null;
-  
-  const changeForm = (id, content) => {
-    idd = id;
-    const revise = document.getElementById(`main_detail__comment__contents__txt__${id}`)
-    revise.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}<textarea type="text" name="content">${content}</textarea><input type="submit" value="등록"/><a href="{% url 'place:detail' place.id %}">취소</a></form>`
-  }
 
-  const changeForm2 = (id) => {
-    const recomt = document.getElementById(`main_detail_comment_contents_reply_form__${id}`)
-    recomt.innerHTML = `<form action="/comment/recomment/${id}" method="post">{% csrf_token %}<textarea type="text" name="content"></textarea><input type="submit" value="등록"/><a href="{% url 'place:detail' place.id %}">취소</a></form>`
-  }
-
-  const requestDelete = new XMLHttpRequest();
-
-  const onClickdelete = (id) => {
-      const url = "/comment/delete";
-      requestDelete.open("POST",url,true);
-      requestDelete.setRequestHeader(
-          "Content-Type",
-          "application/x-www-form-urlencoded"
-      );
-      requestDelete.send(JSON.stringify({'id':id}));
-  }
-
-  requestDelete.onreadystatechange = () => {
-      if (requestDelete.readyState === XMLHttpRequest.DONE){
-          if(requestDelete.status < 400){
-              const {id, len} = JSON.parse(requestDelete.response);
-              const topdom = document.getElementById("main_detail__comment__contents");
-              const deletedom = document.getElementById(`main_detail__comment__each__contents__${id}`);
-              topdom.removeChild(deletedom);
-              const cmtLen = document.getElementById('main_detail__comment_num')
-              cmtLen.innerHTML = len
-          }
-      }
-  }
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
@@ -287,4 +279,71 @@ function place_like(id) {
     })
 }
 </script>
+<script>
+  // 댓글 수정
+  const changeFormPlace = (id, content) => {
+    const reviseCmtPlace = document.getElementById(`place_detail__comment__contents__txt__${id}`)
+    reviseCmtPlace.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}<textarea type="text" name="content">${content}</textarea><input type="submit" value="등록"/><a href="{% url 'place:detail' place.id %}">취소</a></form>`
+  }
+
+  // 대댓글 수정
+  const changeForm4Place = (id, content) => {
+    const reviseRecmtPlace = document.getElementById(`place_detail_comment_contents_reply_form__${id}`)
+    reviseRecmtPlace.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}<textarea type="text" name="content">${content}</textarea><input type="submit" value="등록"/><a href="{% url 'place:detail' place.id %}">취소</a></form>`
+  }
+
+  // 대댓글
+  const changeForm2Place = (id) => {
+    const reCmtPlace = document.getElementById(`place_detail_comment_contents_reply_form__${id}`)
+    reCmtPlace.innerHTML = `<form action="/comment/recomment/${id}" method="post">{% csrf_token %}<textarea type="text" name="content"></textarea><input type="submit" value="등록"/><a href="{% url 'place:detail' place.id %}">취소</a></form>`
+  }
+
+  //대댓글 삭제
+  const recmtDeletePlace = new XMLHttpRequest();
+  const onClickdeleteRecmtPlace = (id) => {
+      const url = "/comment/delete";
+      recmtDeletePlace.open("POST",url,true);
+      recmtDeletePlace.setRequestHeader(
+          "Content-Type",
+          "application/x-www-form-urlencoded"
+      );
+      recmtDeletePlace.send(JSON.stringify({'id':id}));
+  }
+  recmtDeletePlace.onreadystatechange = () => {
+      if (recmtDeletePlace.readyState === XMLHttpRequest.DONE){
+          if(recmtDeletePlace.status < 400){
+              const {id, len} = JSON.parse(cmtDeletePlace.response);
+              const topdomRcmtPlace = document.getElementById("place_detail__comment__contents");
+              const deletedomRcmtPlace = document.getElementById(`place_detail_comment_contents_reply_form__${id}`);
+              topdomRcmtPlace.removeChild(deletedomPlace);
+          }
+      }
+  }
+
+  // 댓글 삭제
+  const cmtDeletePlace = new XMLHttpRequest();
+  const onClickdeletePlace = (id) => {
+      const url = "/comment/delete";
+      cmtDeletePlace.open("POST",url,true);
+      cmtDeletePlace.setRequestHeader(
+          "Content-Type",
+          "application/x-www-form-urlencoded"
+      );
+      cmtDeletePlace.send(JSON.stringify({'id':id}));
+  }
+  cmtDeletePlace.onreadystatechange = () => {
+      if (cmtDeletePlace.readyState === XMLHttpRequest.DONE){
+          if(cmtDeletePlace.status < 400){
+              const {id, len} = JSON.parse(cmtDeletePlace.response);
+              const topdomPlace = document.getElementById("place_detail__comment__contents__reply");
+              const deletedomPlace = document.getElementById(`place_detail__comment__each__contents__${id}`);
+              console.log(deletedomPlace)
+              topdomPlace.removeChild(deletedomPlace);
+              const cmtLenPlace = document.getElementById('place_detail__comment_num')
+              cmtLenPlace.innerHTML = len
+          }
+      }
+  }
+</script>
+
 {% endblock %}

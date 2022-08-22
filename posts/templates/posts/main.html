@@ -108,8 +108,13 @@
             <span>{{post.views}}</span>
             <i class="fa-solid fa-comment-dots"></i>
             <span>{{post.comment_set.all|length}}</span>
-            <i class="fa-solid fa-heart"></i>
-            <span>{{post.likes}}</span>
+            {% if post.user in post.like_users.all %}
+              <i id="blank" class="fa-solid fa-heart"></i> <!-- 채워져 있는 하트-->
+              <span id="like_count">{{post.likes}}</span>
+              {% else %}
+              <i id="blank" class="fa-regular fa-heart"></i> <!--비어있는 하트-->
+              <span id="like_count">{{post.likes}}</span>
+              {% endif %}
           </div>
         </div>
         <div id="main__info_div__post_right">

@@ -15,11 +15,11 @@ main {
   flex-direction: column-reverse;
 }
 
-#signup .signup-top{
+#signup #signup-top {
   margin: 0 auto;
 }
 
-#signup .login__sim__soc{
+#signup .login__sim__soc {
   display: flex;
   justify-content: center;
 }
@@ -123,6 +123,7 @@ main .input {
 #signup__1st__btn {
   cursor: pointer;
   margin-top: 1rem;
+  font-size: 1.3rem;
   width: 22rem;
   height: 4rem;
   outline: 0;

@@ -5,7 +5,7 @@
 {% static 'img/kakao_login.png' as kakao_button %}
 {% static 'img/github_login.png' as github_button %}
 <main id="signup">
-  <div class="signup-top">
+  <div id="signup-top">
     <div class="signup__sim">
       <hr noshade />
       <span>간편 회원가입</span>
@@ -597,6 +597,7 @@
   }*/
   const div1st = document.getElementById("signup__1st__container");
   const div2nd = document.getElementById("signup__2nd__container");
+  const div_soc_log = document.getElementById("signup-top");
   div2nd.style.display = "none";
 
   function signup1Function() {
@@ -668,6 +669,7 @@
       div2nd.style.display = "none";
     } else {
       div1st.style.display = "none";
+      div_soc_log.style.display = "none";
       div2nd.style.display = "flex";
     }
   }

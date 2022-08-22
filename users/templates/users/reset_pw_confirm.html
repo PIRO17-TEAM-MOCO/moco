@@ -1,84 +1,60 @@
 {% extends 'users/base.html' %} {% block content %}
 <main>
-  <!--Password Reset Confirm-->
-  <div id="reset-pw-cf__container">
-    <div id="reset-pw-cf__title">
-      <span>비밀번호 재설정</span>
-    </div>
-    <hr class="hr" />
-    <p style="font-weight: 900; margin-bottom: 1rem">
-      새 비밀번호를 입력해 주세요.
-    </p>
-    <form method="POST">
-      {% csrf_token %}
-      <div class="input__reset__pw">
-        {{ form.new_password1.errors }}
-        <lable for="{{ form.new_password1.id_for_label }}"
-          ><p>새 비밀번호</p></lable
-        >
-        <input
-          type="password"
-          name="new_password1"
-          autocomplete="new-password"
-          required=""
-          id="id_new_password1"
-          placeholder="새 비밀번호"
-        />
-      </div>
-      <div class="input__reset__pw">
-        {{ form.new_password2.errors }}
-        <lable for="{{ form.new_password2.id_for_label }}"
-          ><p>새 비밀번호 (확인)</p></lable
-        >
-        <input
-          type="password"
-          name="new_password2"
-          autocomplete="new-password"
-          required=""
-          id="id_new_password2"
-          placeholder="새 비밀번호 (확인)"
-        />
-      </div>
-      <!--{{ form }}-->
-      <div id="reset-pw-cf__btn__container">
-        <button onclick="resetPwForm()" id="reset-pw-cf__btn">저장</button>
-      </div>
-    </form>
-  </div>
+	<!--Password Reset Confirm-->
+	<div id="reset-pw-cf__container">
+		<div id="reset-pw-cf__title">
+			<span>비밀번호 재설정</span>
+		</div>
+		<hr class="hr" />
+		<p style="font-weight: 900; margin-bottom: 1rem">새 비밀번호를 입력해 주세요.</p>
+		<form method="POST">
+			{% csrf_token %}
+			<div class="input__reset__pw">
+				{{ form.new_password1.errors }}
+				<lable for="{{ form.new_password1.id_for_label }}"><p>새 비밀번호</p></lable>
+				<input type="password" name="new_password1" autocomplete="new-password" required="" id="id_new_password1" placeholder="새 비밀번호" />
+			</div>
+			<div class="input__reset__pw">
+				{{ form.new_password2.errors }}
+				<lable for="{{ form.new_password2.id_for_label }}"><p>새 비밀번호 (확인)</p></lable>
+				<input type="password" name="new_password2" autocomplete="new-password" required="" id="id_new_password2" placeholder="새 비밀번호 (확인)" />
+			</div>
+			<!--{{ form }}-->
+			<div id="reset-pw-cf__btn__container">
+				<button onclick="resetPwForm()" id="reset-pw-cf__btn">저장</button>
+			</div>
+		</form>
+	</div>
 </main>
 <script>
-  function resetPwForm() {
-    var newpwd1 = document.getElementById("id_new_password1");
-    var newpwd2 = document.getElementById("id_new_password2");
+	function resetPwForm() {
+		var newpwd1 = document.getElementById('id_new_password1');
+		var newpwd2 = document.getElementById('id_new_password2');
 
-    var pattern_num = /[0-9]/; // 숫자
-    var pattern_eng = /[a-zA-Z]/; // 문자
-    var pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
-    var pattern_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글체크
+		var pattern_num = /[0-9]/; // 숫자
+		var pattern_eng = /[a-zA-Z]/; // 문자
+		var pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
+		var pattern_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글체크
 
-    var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+		var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
 
-    if (!pwdCheck.test(newpwd1.value)) {
-      alert(
-        "비밀번호는 영문자+숫자+특수문자 조합으로 8~15자리 사용해야 합니다."
-      );
-      newpwd1.focus();
-      return false;
-    }
+		if (!pwdCheck.test(newpwd1.value)) {
+			alert('비밀번호는 영문자+숫자+특수문자 조합으로 8~15자리 사용해야 합니다.');
+			newpwd1.focus();
+			return false;
+		}
 
-    if (!pwdCheck.test(newpwd2.value)) {
-      alert(
-        "비밀번호는 영문자+숫자+특수문자 조합으로 8~15자리 사용해야 합니다."
-      );
-      newpwd1.focus();
-      return false;
-    }
+		if (!pwdCheck.test(newpwd2.value)) {
+			alert('비밀번호는 영문자+숫자+특수문자 조합으로 8~15자리 사용해야 합니다.');
+			newpwd1.focus();
+			return false;
+		}
 
-    if (newpwd1.value !== newpwd2.value) {
-      alert("비밀번호가 일치하지 않습니다.");
-      newpwd2.focus();
-      return false;
-    }
-  }
+		if (newpwd1.value !== newpwd2.value) {
+			alert('비밀번호가 일치하지 않습니다.');
+			newpwd2.focus();
+			return false;
+		}
+	}
 </script>
 {% endblock %}

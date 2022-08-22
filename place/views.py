@@ -10,8 +10,7 @@ from users.views import profile_valid
 
 @profile_valid
 def home(request, category='None'):
-    # url에서 매개변수로 카테고리 받아옴
-    # url에서 매개변수를 안 주면 'None'처리
+    # contact filtering (url로 매개변수 받아옴 => 없다면 None)
     if category == 'all':
         places = Place.objects.all()
     elif category == 'cafe':
@@ -22,15 +21,17 @@ def home(request, category='None'):
         places = Place.objects.filter(category='Etc')
     else:
         places = Place.objects.all()
-    # search했다면 필터링 실행
+
+    # search filtering
     search = request.GET.get('search', None)
     if search != None:
         places = places.filter(
-            Q(name__icontains = search) | #제목
-            Q(content__icontains = search) | #내용
-            Q(user__nickname__exact = search) | #글쓴이(닉네임 정확히 일치해야함)
-            Q(location__icontains = search) #위치
-            )
+            Q(name__icontains=search) |
+            Q(content__icontains=search) |
+            Q(user__nickname__exact=search) |  # 글쓴이(닉네임 정확히 일치해야함)
+            Q(location__icontains=search)
+        )
+
     # sort는 html에서 받아옴
     sort = request.GET.get('sort', 'None')
     if sort == "latest":
@@ -40,11 +41,12 @@ def home(request, category='None'):
     elif sort == "comment":
         places = places.annotate(comment_count=Count('comment'))
         places = places.order_by("-comment_count")
+
     # 페이지네이터 적용
     paginator = Paginator(places, 6)
     page = request.GET.get('page', 1)
     places = paginator.get_page(page)
-    # 플레이스와 해당 이미지를 묶어서 context로 보내줌
+
     pairs = []
     for place in places:
         images = PlaceImage.objects.filter(place=place)
@@ -90,7 +92,6 @@ def write(request):
 
             return redirect('/place')
         else:
-            # print(form.is_valid())
             return redirect('place:write')
     else:
         form = PlaceForm()
@@ -130,7 +131,7 @@ def detail(request, id):
 @login_required
 def update(request, id):
     place = Place.objects.get(id=id)
-    # 작성자가 아닌 사람이 수정하는 것 방지
+
     if place.user != request.user:
         return redirect(f'/place/detail/{id}')
     if request.method == "POST":
@@ -147,7 +148,7 @@ def update(request, id):
             place.rating = form.cleaned_data['rating']
             place.content = form.cleaned_data['content']
             place.save()
-        # 기존 이미지는 연결 해제하고 새로운 이미지 업로드
+
         imgs = request.FILES.getlist('place_images')
         if imgs:
             place.placeimage_set.clear()
@@ -173,7 +174,7 @@ def update(request, id):
 def delete(request, id):
     if request.method == "POST":
         place = Place.objects.get(id=id)
-        # 작성자가 아닌 사람이 수정하는 것 방지
+
         if place.user != request.user:
             return redirect(f'/place/detail/{id}')
         place.delete()

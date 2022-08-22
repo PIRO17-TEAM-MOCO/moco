@@ -43,7 +43,6 @@
           <div id="main_detail__top__apply">          
             <form action="{% url 'posts:close' post.id %}" method="post">
               {% csrf_token %}
-              <!--모집 완료 전환 모달-->
               <div id="main_detail__complete_modal_btn">
                 <a>모집완료로 전환</a>
               </div>
@@ -425,7 +424,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<!--모집 완료 전환 모달-->
 <script>
   const comModal = document.getElementById("main_detail__complete_modal");
   const openComModal = document.getElementById("main_detail__complete_modal_btn");
@@ -547,10 +545,7 @@
 
   // 후기 수정
   const changeForm3 = (id, content) => {
-    console.log(id)
-    console.log(content)
     const reviseRvw = document.querySelector(`.main_detail__review__contents_content__${id}`)
-    console.log(reviseRvw);
     reviseRvw.innerHTML = `<form action="/post/review/revise/${id}" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="main_detail__review__blank_box">

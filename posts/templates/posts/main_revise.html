@@ -121,10 +121,13 @@
             name="tag"
           />
         </div>
-        <div>임시로 여기에 확인</div>
-        {% for otag in origin_tag %}
-        <span>{{otag}}</span>
-        {%endfor%}
+        <div class="main__search_div__tag">
+          <ul class="main__search_li__tag_flex">
+            {% for otag in origin_tag %}
+            <li>{{otag}}</li>
+            {% endfor %}
+          </ul>
+        </div>
       </div>
     </div>
     <div id="main_write__content">

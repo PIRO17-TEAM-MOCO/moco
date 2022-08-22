@@ -47,6 +47,8 @@ def home(request, contact='None'):
             tagg.append(tagList[i]["value"])
         for i in tagg:
             posts = posts.filter(Q(tag__contains=i))
+            tag_for_show = tagg
+            tagg = []
 
     # 기간별 필터링 실행
     duration = request.GET.get('duration', 'None')
@@ -88,7 +90,8 @@ def home(request, contact='None'):
         "sort": sort,
         "duration": duration,
         "onActive": onActive,
-        "tags": tags_all
+        "tags": tags_all,
+        "tag_for_show": tag_for_show
     }
 
     return render(request, template_name="posts/main.html", context=context)

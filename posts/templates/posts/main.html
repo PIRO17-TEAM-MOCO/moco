@@ -56,6 +56,9 @@
         </div>
         <div id="main__search_div__tag">
           <ul class="main__search_li__tag_flex">
+            {% for stag in tag_for_show %}
+            <li>{{stag}}</li>
+            {%endfor%}
           </ul>
         </div>
         <div id="main__info_div__top">

@@ -52,13 +52,15 @@ def home(request, category='None'):
             image = images[0]
         else:
             image = None
-        pair = [place, image]
+        width = [0] * place.rating
+        pair = [place, image, width]
         pairs.append(pair)
 
     context = {
         "pairs": pairs,
         "sort": sort,
         "search": search,
+        "places": places
     }
     return render(request, template_name="place/home.html", context=context)
 
@@ -103,13 +105,14 @@ def detail(request, id):
     images = PlaceImage.objects.filter(place=place)
     all_comments = place.comment_set.all().filter(cmt_class=Comment.CMT_PARENT)
     comments_len = len(place.comment_set.all())
-
+    width = [0] * place.rating
     context = {
         "place": place,
         "images": images,
         "comments": all_comments,
         "comments_len": comments_len,
         "edit_access": False,
+        "width": width,
     }
     if place.user == request.user:
         context['edit_access'] = True

@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.forms',
     'django_summernote',
     'debug_toolbar',
+    'mathfilters',
     'users',
     'posts',
     'place',

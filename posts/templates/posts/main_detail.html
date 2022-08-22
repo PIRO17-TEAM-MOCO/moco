@@ -125,7 +125,6 @@
         {%endif%}
       </div>
     </div>
-  </div>
   <div id="main_detail__main">
     <div id="main_detail__main__info">
       <div>
@@ -534,24 +533,34 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script type="text/javascript">
-  function post_like(id) {
-      $.ajax({
-          url: "{%url 'users:likes' 1 %}", // data를 전송할 url 입니다. post = 1
-          data: {
-              'id': id
-          }, // id 값 전송
-          dataType: "json",
-          success: function (response) { // ajax 통신이 정상적으로 완료되었을 때
-              $('#like_count').html(response.like_count) //id가 like_count의 내용을 전송받은 좋아요 수로 바꾼다
-              if ($('#blank').hasClass("fa-regular fa-heart"))
-                $('#blank').removeClass("fa-regular fa-heart").addClass("fa-solid fa-heart");
-              else
-                $('#blank').removeClass("fa-solid fa-heart").addClass("fa-regular fa-heart");
-              if (response.error) {
-                window.location.replace("http://127.0.0.1:8000/account/login"); // 배포용 서버로 변경
-              } 
-          }
-      })
+function post_like(id) {
+    $.ajax({
+        url: "{%url 'users:likes' 1 %}", // data를 전송할 url 입니다. post = 1
+        data: {
+            'id': id
+        }, // id 값 전송
+        dataType: "json",
+        success: function (response) { // ajax 통신이 정상적으로 완료되었을 때
+            $('#like_count').html(response.like_count) //id가 like_count의 내용을 전송받은 좋아요 수로 바꾼다
+            if ($('#blank').hasClass("fa-regular fa-heart"))
+              $('#blank').removeClass("fa-regular fa-heart").addClass("fa-solid fa-heart");
+            else
+              $('#blank').removeClass("fa-solid fa-heart").addClass("fa-regular fa-heart");
+            if (response.error) {
+              window.location.replace("http://127.0.0.1:8000/account/login"); // 배포용 서버로 변경
+            } 
+        }
+    })
+}
+
+function dp_menu(){
+      let click = document.getElementById("drop-content");
+      if(click.style.display === "none"){
+          click.style.display = "block";
+      }else{
+          click.style.display = "none";
+      }
   }
 </script>
+
 {% endblock content%}

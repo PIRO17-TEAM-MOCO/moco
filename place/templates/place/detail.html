@@ -2,11 +2,18 @@
 {% load static %}
 {% block content %}
 <div class="content">
+  <li class="back"><a target="_self" href="{% url 'place:home' %}"><i class="fa-solid fa-arrow-left"></i></a></li>
   <div class="content-top">
     <div class="content-title">
       <div class="content-title__name">{{place.name}}</div>
       <div class="content-title__info">
-        <span class="content-title__img"><i class="fa-solid fa-circle-user"></i></span>
+        <span class="content-title__img">
+          {% if user.profile_img %}
+            <div class="profile_img"><img src="{{user.profile_img.url}}" alt="profile_img"></img></div>
+            {% else %}
+            <div class="profile_img"><img src="{% static "img/moco_symbol.png" %}" alt="profile_img"></img></div>
+            {% endif %}
+        </span>
         <span class="content-title__location">{{place.user}}</span>
         <span class="content-title__bar">|</span>
         <span class="content-title__published">{{place.published_at|date:"Y. m. d" }}</span>
@@ -47,6 +54,9 @@
       <img src="{{image.image.url}}" width="500" alt="">
       {% endif %}
     {% endfor %}
+    {% if not image %}
+      <img src="{% static "img/image-solid.svg" %}" width="500" alt="no_image" ></img>
+    {% endif %}
   </div>
   <hr style= "color: #BCBCBC; height:1px; width: 100%; opacity: 1;">
     <div class="content-item">
@@ -65,51 +75,60 @@
           <div>{{place.opening_time}}~{{place.closing_time}}</div>
           <div>{{place.get_wifi_display}}</div>
           <div>{{place.get_power_socket_display}}</div>
-          <div>{{place.rating}}</div>
+          <div><div style="display: none;">{{place.rating}}</div>
+          <div class="star-ratings">
+              <div class="star-ratings-fill">
+              {% for i in width %}
+                <span id="star">★</span>
+                {% endfor %}
+              </div>
+            </div> 
+          </div>     
           <div>{{place.location}} {{place.location_detail}}</div>
         </div>
-      </div>      
-    </div>
-    <hr style= "color: #BCBCBC; height:1px; width: 100%; opacity: 1;">
-    <div class="content-item">
-      <div class="content-item__title">후기</div>
-      <div class="content-item__content">{{place.content | safe }}</div>
-    </div>
-    <hr style= "color: #BCBCBC; height:1px; width: 100%; opacity: 1;">
-    <div class="content-item" style= "width:1180px;">
-      <div class="content-item__title">지도</div>
-      <div id="map" style="height:400px; margin: 1.5rem 0;"></div>
+      </div>
     </div>
 
-    <div id="main_detail__comment">
-      <div id="main_detail__comment__top">
-        <div id="main_detail__comment__blank">
-          <h2>댓글</h2>
-          <h2 id="main_detail__comment_num">{{comments_len}}</h2>
+        <hr style= "color: #BCBCBC; height:1px; width: 100%; opacity: 1;">
+        <div class="content-item">
+          <div class="content-item__title">후기</div>
+          <div class="content-item__content">{{place.content | safe }}</div>
         </div>
-        <div id="main_detail__comment__rule">
-          <span>300자 이내 작성</span>
+        <hr style= "color: #BCBCBC; height:1px; width: 100%; opacity: 1;">
+        <div class="content-item" style= "width:1180px;">
+          <div class="content-item__title">지도</div>
+          <div id="map" style="height:400px; margin: 1.5rem 0; z-index: 0;"></div>
         </div>
-      </div>
-      <div id="main_detail__comment__blank_box">
-        <form action="{% url 'comments:write-place' place.id %}" method="post">
-          {% csrf_token %}
-          <textarea
-            type="text"
-            name="content"
-            id="comment_input_box"
-            cols="30"
-            rows="10"
-            placeholder="댓글을 입력해주세요."
-          ></textarea>
-          <div id="main_detail__comment__btnplace">
-            <input
-              type="submit"
-              id="main_detail__comment__btn"
-              value="댓글쓰기"
-            />
+    
+        <div id="main_detail__comment">
+          <div id="main_detail__comment__top">
+            <div id="main_detail__comment__blank">
+              <h2>댓글</h2>
+              <h2 id="main_detail__comment_num">{{comments_len}}</h2>
+            </div>
+            <div id="main_detail__comment__rule">
+              <span>300자 이내 작성</span>
+            </div>
           </div>
-        </form>
+          <div id="main_detail__comment__blank_box">
+            <form action="{% url 'comments:write-place' place.id %}" method="post">
+              {% csrf_token %}
+              <textarea
+                type="text"
+                name="content"
+                id="comment_input_box"
+                cols="30"
+                rows="10"
+                placeholder="댓글을 입력해주세요."
+              ></textarea>
+              <div id="main_detail__comment__btnplace">
+                <input
+                  type="submit"
+                  id="main_detail__comment__btn"
+                  value="댓글쓰기"
+                />
+              </div>
+            </form>
       </div>
       <div id="main_detail__comment__contents">
         {% for comment in comments %}
@@ -151,7 +170,7 @@
         </div>
         {% endfor %}
       </div>
-    </div>
+    
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

@@ -48,7 +48,7 @@
             />
           </div>
           <div id="change__btn__container">
-            <button onclick="history.go(-1)" id="cancel-pw__btn">취소</button>
+            <button onclick="backtoProfile()" id="cancel-pw__btn">취소</button>
             <button
               onclick="changeform_check()"
               type="submit"
@@ -93,6 +93,10 @@
       newpwd1.focus();
       return false;
     }
+  }
+
+  function backtoProfile() {
+    location.href = "{% url 'users:profile_edit' user.id %}";
   }
 </script>
 {% endblock %}

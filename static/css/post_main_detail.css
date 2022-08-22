@@ -117,6 +117,7 @@
   width: 35%;
 }
 
+
 .main_detail__top__recruit_done {
   border-radius: 5px;
   background-color: #9D9D9D;
@@ -148,7 +149,7 @@
 
 .main_detail__top__like .fa-solid {
   color: #ff1d2f;
-}
+
 
 /*좋아요 버튼*/
 
@@ -645,6 +646,7 @@
   cursor: pointer;
 }
 
+
 .main_detail__delete_modal__btn_flex {
   display: flex;
   justify-content: center;
@@ -738,4 +740,8 @@
 .main_detail__delete_revise:hover .main_detail__delete_revise__content {
   display: block;
   opacity: 1;
+}
+
+.content-right #dropdown {
+  margin: 0;
 }

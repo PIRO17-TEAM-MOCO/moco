@@ -1,4 +1,5 @@
 from email import contentmanager
+from inspect import TPFLAGS_IS_ABSTRACT
 from django.shortcuts import redirect, render
 from .models import Post, Review
 from comments.models import Comment
@@ -41,14 +42,12 @@ def home(request, contact='None'):
     if (duration == "Regular") or (duration == "OneTime"):
         posts = posts.filter(duration=duration)
 
-    # 모집중 분류
-    # onActive = request.GEt.get('onActive', 'None')
     # if (onActive == 'Yes'):
     #     posts = posts.filter(activation=True)
     # elif (onActive == 'No'):
-    #     posts = posts.filter(activation=False)
+    #     posts = posts.filter(activation=True or False)
 
-    # 정렬 실행
+        # 정렬 실행
     sort = request.GET.get('sort', 'None')
     if sort == "latest":
         posts = posts.order_by("-published_at")
@@ -57,11 +56,22 @@ def home(request, contact='None'):
     elif sort == "comments":
         posts = posts.annotate(comment_count=Count(
             'comment')).order_by("-comment_count")
+            
+    tags_all = {}
+    for i in posts:
+        tags = i.tag
+        tags = tags.replace(" ", "")
+        tags = tags.replace("'", "")
+        tags_len = len(tags)
+        tags = tags[1:tags_len-1]
+        tags = tags.split(",")
+        tags_all[i.id] = tags
 
     context = {
         "posts": posts,
         "sort": sort,
         "duration": duration,
+        "tags": tags_all
     }
     return render(request, template_name="posts/main.html", context=context)
 
@@ -128,7 +138,6 @@ def detail(request, id):
     tags_len = len(tags)
     tags = tags[1:tags_len-1]
     tags = tags.split(",")
-    print("tags : ", tags)
 
     if post.user == request.user:  # 현재 로그인한 유저가 해당 모집글을 쓴 유저이면 can_revise가 True
         can_revise = True

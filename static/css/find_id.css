@@ -45,7 +45,7 @@ main .input {
   border-radius: 0.5rem;
   margin-top: 2.5rem;
   margin-bottom: 0.5rem;
-  padding-left: 2rem;
+  padding-left: 1rem;
   border: 1px solid #8c8c8c;
 }
 
@@ -58,8 +58,9 @@ main .input {
   width: 22rem;
   height: 4rem;
   border-radius: 0.5rem;
-  padding-left: 2rem;
+  padding-left: 1rem;
   border: 1px solid #8c8c8c;
+  margin-bottom: 0.5rem;
 }
 
 .input__birth input::placeholder {
@@ -76,6 +77,14 @@ main .input {
 .input__birth input:focus {
   outline: none !important;
   border: 1px solid #2253ff;
+}
+
+.idsearch__container .input__email input {
+  width: 22rem;
+  height: 4rem;
+  border-radius: 0.5rem;
+  padding-left: 1rem;
+  border: 1px solid #8c8c8c;
 }
 
 #search__btn {

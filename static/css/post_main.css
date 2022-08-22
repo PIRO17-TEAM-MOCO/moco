@@ -344,7 +344,7 @@
 
 /* 정기, 번개 드롭박스 css */
 
-.dropdown {
+#main__main_div .dropdown {
   width: 6em;
   position: relative;
   margin: 2em 0 2em 2em;

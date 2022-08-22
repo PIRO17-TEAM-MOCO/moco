@@ -236,6 +236,8 @@ def update(request, id):
         "form": form,
         "id": id,
         "post": post,
+        'contacts': Post.CONTACT_CHOICE,
+        'durations': Post.DURATION_CHOICE
     }
 
     return render(request, template_name="posts/main_revise.html", context=context)

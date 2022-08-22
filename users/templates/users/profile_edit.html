@@ -1,9 +1,9 @@
-{% extends 'users/account_base.html' %} {% block content %}
+{% extends 'users/base.html' %} {% block content %}
 {% load static %}
 <main>
   <div id="profile-edit__container">
     <span class="profile-edit__title">프로필 수정</span>
-    <form method="post" action="{% url 'users:profile_edit' id %}" enctype="multipart/form-data" onsubmit="return false">
+    <form method="post" action="{% url 'users:profile_edit' id %}" enctype="multipart/form-data" onkeyPress="if (event.keyCode==13){return false;}">
       {% csrf_token %}
         <div class="input__edit__name">
             {{ form.name.errors }}
@@ -55,7 +55,6 @@
                     {% else %}
                     <img src="{% static 'img/moco_symbol.png' %}" alt="profile_img"></img>
                     {% endif %}
-                    <!-- <img src="" onerror="this.style.display='none'"> -->
                     <div id="camera__img">
                         <i class="fa-solid fa-camera fa-2xl"></i>
                     </div>
@@ -106,27 +105,6 @@
                 <a href="{% url 'users:signout' %}"><span style="color: red;">회원탈퇴</span></a>
             </div>
         </div>
-        <!-- 회원탈퇴 모달-->
-        <!-- <div id="signout__modal" class="modal-overlay" style="display: none;">
-            <div class="modal__window">
-                <div class="modal-close">x</div>
-                <div class="modal__content">
-                    <p style="margin-top:3rem; font-size: 1.3rem; font-weight: 900">MOCO에서 탈퇴하시겠어요?</p>
-                    <p style="font-size: 1rem; font-weight: 300">
-                    ⚠️회원 탈퇴시, 계정과 관련된 모든 정보가 삭제되며 복구할 수 없습니다⚠️ 
-                    </p>
-                    <div id="signout__modal__btns">
-                        <div id="signout-cc__btn">
-                        <a href="">아니요</a>
-                        </div>
-                        <div id="signout-cf__btn">
-                            <a onclick="signoutCf()">탈퇴하기</a>
-                        </div>
-                    </div>  
-                </div>
-              </div>
-        </div> -->
-        <!--회원탈퇴 모달 -->
         <div id="edit__btn__container">
             <div class="edit-cancel__btn">
                 <a onclick="editCancel()">취소</a>
@@ -137,7 +115,7 @@
             <!-- 수정확인 모달 -->
             <div id="cf__modal" class="modal-overlay" style="display: none;">
                 <div class="modal__window">
-                    <div class="modal-close">x</div>
+                    <div class="modal-close"><i class="fa-solid fa-xmark"></i></div>
                     <div class="modal__content">
                         <p style="margin-top:3rem; font-size: 1.3rem; font-weight: 900">프로필 수정 사항을 저장할까요?</p>
                         <div id="cf__modal__btns">
@@ -151,8 +129,6 @@
             </div>
             <!-- 수정확인 모달 -->
         </div>
-      <!--{{form.as_p}}
-      <button type="submit">제출</button>-->
     </form>
   </div>
 </main>
@@ -166,30 +142,6 @@
     function changePw() {
         location.href="{% url 'users:change_pw' %}"
     }
-
-    // 모달 이벤트 - 탈퇴하기
-    // const modal = document.getElementById("signout__modal")
-    // const btnModal = document.getElementById("signout__btn")
-    // btnModal.addEventListener("click", e => {
-    //     modal.style.display = "flex"
-    // })
-
-    // const closeBtn = modal.querySelector(".modal-close")
-    // closeBtn.addEventListener("click", e => {
-    //     modal.style.display = "none"
-    // })
-
-    // const ccBtn = modal.querySelector("#signout-cc__btn")
-    // ccBtn.addEventListener("click", e => {
-    //     modal.style.display = "none"
-    // })
-
-    // modal.addEventListener("click", e => {
-    //     const evTarget = e.target
-    //     if(evTarget.classList.contains("modal-overlay")) {
-    //         modal.style.display = "none"
-    //     }
-    // })
 
     // 프로필 이미지 미리보기
     function thumbnailImg(event) {
@@ -214,6 +166,12 @@
 
         var dup_email = document.getElementById("dup_email")
         console.log(dup_email)
+
+        if (dup_email.value !== null ) {
+            alert("이미 존재하는 이메일입니다.");
+            email_id.focus();
+            return false
+        }
 
         var uname = document.getElementById("id_name");
         var nickname = document.getElementById("id_nickname")
@@ -278,8 +236,6 @@
         }
     })
 
-    function submitCf() {
-        submit
-    }
+    form.submit()
 </script>
 {% endblock %}

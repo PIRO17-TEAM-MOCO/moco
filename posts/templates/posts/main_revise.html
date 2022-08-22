@@ -39,7 +39,7 @@
               진행방식 :
               <label for="{{form.contact.id_for_label}}"></label>
               <select name="contact">
-                <option value selected="{{ key }}">{{ value }}</option>
+                <option value="default">----------</option>
                 {% for key, value in contacts %}
                 <option value="{{ key }}" {% if post.contact == key %}selected{%endif%}>{{ value }}</option>
                 {% endfor %}

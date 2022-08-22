@@ -59,7 +59,7 @@
       <img src="{{image.image.url}}" width="500" alt="">
       {% endif %}
     {% endfor %}
-    {% if not image %}
+    {% if flag_image == False %}
       <img src="{% static "img/image-solid.svg" %}" width="500" alt="no_image" ></img>
     {% endif %}
   </div>

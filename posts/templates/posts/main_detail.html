@@ -178,37 +178,65 @@
     </div>
     <div id="main_detail__comment__contents">
       {% for comment in comments %}
-      <div id="main_detail__comment__each__contents__{{comment.id}}">
-        <div id="main_detail__comment__contents__profile">
-          <div id="main_detail__comment__contents__img">
-            <i class="fa-solid fa-circle-user fa-2x"></i>
-            <img src="{{review.user.profile_img}}" alt="profile_img"></img>
-          </div>
-          <div id="main_detail__comments__contents__info">
-            <div id="main_detail__comments__contents__name">
-              <span>{{comment.user.nickname}}</span>
+      <div class="main_detail__comment__each__contents_div">
+        <div id="main_detail__comment__each__contents__{{comment.id}}">
+          <div id="post_detail__comment__contents__profile">
+            <div class="main_detail__comment__contetns__profile_userinfo">
+              <div id="main_detail__comment__contents__img">
+                <i class="fa-solid fa-circle-user fa-2x"></i>
+              </div>
+              <div id="main_detail__comments__contents__info">
+                <div id="main_detail__comments__contents__name">
+                  <span>{{comment.user.nickname}}</span>
+                </div>
+                <div id="main_detail__comments__contents__time">
+                  <span>{{comment.published_at|date:"Y. m. d" }}</span>
+                </div>
+              </div>
             </div>
-            <div id="main_detail__comments__contents__time">
-              <span>{{comment.published_at|date:"Y. m. d" }}</span>
+            <div class="main_detail__comments__contents__options">
+              {% if comment.user == request.user %}
+              <div class="main_detail__comments_dropdown_btn">
+                <i class="fa-solid fa-ellipsis fa-lg" style="color: #BFBFBF"></i>
+              </div>
+              <div class="main_detail__comments_dropdown_menu">
+                <div class="main_detail__comments_dropdown_menu_revise">
+                  <button onclick="changeForm({{comment.id}}, '{{comment.content}}');">수정</button>
+                </div>
+                <div class="main_detail__comments_dropdown_menu_delete">
+                  <button onclick="onClickdelete({{comment.id}});">삭제</button>
+                </div>
+              </div>
+              {% endif%}
             </div>
           </div>
+          <div id="main_detail__comment__contents__txt__{{comment.id}}">
+            <h1>{{comment.content}}</h1>
+          </div>
+          <div class="main_detail_comment_reply_btn">
+            <button onclick="changeForm2({{comment.id}});">답글</button>
+          </div>
+          <br />
+          <div class="main_detail_commnet_reply_form">
+            <div id="main_detail_comment_contents_reply_form__{{comment.id}}"></div>
+          </div>
+          <div id="main_detail__comment__contents__reply">
+            {% for recomment in comment.comment_set.all %}
+            <div class="main_detail__comment__contents__reply_bundle">
+              <div class="reply_user_name">ㄴ@{{recomment.user.nickname}}	&nbsp;</div>
+              <div class="reply_txt">{{recomment.content}}</div>
+              <div class="main_detail__recomments_revise_delete_btn">
+                <div class="main_detail__recomments_revise_btn">
+                  <button onclick="changeForm4({{comment.id}}, '{{recomment.content}}');">수정</button>
+                </div>
+                <div class="main_detail__recomments_delete_btn">
+                  <button onclick="onClickdeleteRecmt({{comment.id}});">삭제</button>
+                </div>
+              </div>
+            </div>
+            {% endfor%}
+          </div>
         </div>
-        <div id="main_detail__comment__contents__txt__{{comment.id}}">
-          <span>{{comment.content}}</span>
-        </div>
-        <div class="main_detail__comment__contents__reply">
-          {% for recomment in comment.comment_set.all %}
-          <div>@{{recomment.user.nickname}}{{recomment.content}}</div>
-          {% endfor%}
-          <div id="main_detail_comment_contents_reply_form__{{comment.id}}"></div>
-          
-        </div>
-        {% if comment.user == request.user %}
-        <button onclick="changeForm({{comment.id}}, '{{comment.content}}');">수정</button>
-        <button onclick="onClickdelete({{comment.id}});">삭제</button> 
-        {% endif%}
-        <button onclick="changeForm2({{comment.id}});">답글</button>
-        <br />
       </div>
       
       {% endfor %}
@@ -288,7 +316,7 @@
             {%endif%}
           </div>
           <div class="main_detail__review__contents_revise">
-            <img src="/static/img/dots.png" alt="" />
+            <i class="fa-solid fa-ellipsis fa-2x" style="color: #BFBFBF"></i>
             {% if review.user == request.user %}
             <button onclick="changeForm3({{review.id}}, '{{review.content}}');">수정</button>
             <button onclick="onClickdelete2({{review.id}})">삭제</button>
@@ -337,7 +365,7 @@
             {%endif%}
           </div>
           <div class="main_detail__review__contents_revise">
-            <img src="/static/img/dots.png" alt="" />
+            <i class="fa-solid fa-ellipsis fa-2x" style="color: #BFBFBF"></i>
             {% if review.user == request.user %}
             <button onclick="changeForm3({{review.id}}, '{{review.content}}');">수정</button>
             <button onclick="onClickdelete2({{review.id}})">삭제</button>
@@ -439,10 +467,38 @@
     reviseCmt.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}<textarea type="text" name="content">${content}</textarea><input type="submit" value="등록"/><a href="{% url 'posts:detail' post.id %}">취소</a></form>`
   }
 
+  // 대댓글 수정
+  const changeForm4 = (id, content) => {
+    const reviseRecmt = document.getElementById(`main_detail_comment_contents_reply_form__${id}`)
+    reviseRecmt.innerHTML = `<form action="/comment/revise/${id}" method="post">{% csrf_token %}<textarea type="text" name="content">${content}</textarea><input type="submit" value="등록"/><a href="{% url 'posts:detail' post.id %}">취소</a></form>`
+  }
+
   // 대댓글
   const changeForm2 = (id) => {
     const reCmt = document.getElementById(`main_detail_comment_contents_reply_form__${id}`)
     reCmt.innerHTML = `<form action="/comment/recomment/${id}" method="post">{% csrf_token %}<textarea type="text" name="content"></textarea><input type="submit" value="등록"/><a href="{% url 'posts:detail' post.id %}">취소</a></form>`
+  }
+
+  //대댓글 삭제
+  const recmtDelete = new XMLHttpRequest();
+  const onClickdeleteRecmt = (id) => {
+      const url = "/comment/delete";
+      recmtDelete.open("POST",url,true);
+      recmtDelete.setRequestHeader(
+          "Content-Type",
+          "application/x-www-form-urlencoded"
+      );
+      recmtDelete.send(JSON.stringify({'id':id}));
+  }
+  recmtDelete.onreadystatechange = () => {
+      if (recmtDelete.readyState === XMLHttpRequest.DONE){
+          if(recmtDelete.status < 400){
+              const {id, len} = JSON.parse(cmtDelete.response);
+              const topdomRcmt = document.getElementById("main_detail__comment__contents");
+              const deletedomRcmt = document.getElementById(`main_detail_comment_contents_reply_form__${id}`);
+              topdomRcmt.removeChild(deletedom);
+          }
+      }
   }
 
   // 댓글 삭제
@@ -460,7 +516,7 @@
       if (cmtDelete.readyState === XMLHttpRequest.DONE){
           if(cmtDelete.status < 400){
               const {id, len} = JSON.parse(cmtDelete.response);
-              const topdom = document.getElementById("main_detail__comment__contents");
+              const topdom = document.getElementById("main_detail__comment__contents__reply");
               const deletedom = document.getElementById(`main_detail__comment__each__contents__${id}`);
               topdom.removeChild(deletedom);
               const cmtLen = document.getElementById('main_detail__comment_num')

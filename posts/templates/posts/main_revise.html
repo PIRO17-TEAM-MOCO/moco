@@ -1,7 +1,7 @@
 {% extends 'posts/base.html' %} {% block content %}
 <div class="content">
   <form
-    action="{% url 'posts:write' %}"
+    action="{% url 'posts:update' %}"
     method="post"
     enctype="multipart/form-data"
   >
@@ -119,6 +119,9 @@
             placeholder="태그를 입력해주세요"
             name="tag"
           />
+        </div>
+        <div class="main_revise__tag_taginput">
+          <ul class="main_revise__tag_list"></ul>
         </div>
       </div>
     </div>

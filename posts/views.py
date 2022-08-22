@@ -30,8 +30,8 @@ def home(request, contact='None'):
     else:
         posts = Post.objects.all()
     # search했다면 필터링 실행
-    search = request.GET.get('search', 'None')
-    if search != 'None':
+    search = request.GET.get('search', None)
+    if search != None:
         posts = posts.filter(
             Q(title__icontains=search) |  # 제목
             Q(content__icontains=search) |  # 내용
@@ -40,6 +40,7 @@ def home(request, contact='None'):
         )
 
     tag = request.GET.get('tag', '')
+    tag_for_show = []
     if tag != '':
         tagg = []
         tagList = simplejson.loads(tag)
@@ -47,9 +48,10 @@ def home(request, contact='None'):
             tagg.append(tagList[i]["value"])
         for i in tagg:
             posts = posts.filter(Q(tag__contains=i))
+            print(tagg)
             tag_for_show = tagg
             tagg = []
-
+    print(tag_for_show)
     # 기간별 필터링 실행
     duration = request.GET.get('duration', 'None')
 
@@ -91,6 +93,7 @@ def home(request, contact='None'):
         "duration": duration,
         "onActive": onActive,
         "tags": tags_all,
+        "search": search,
         "tag_for_show": tag_for_show
     }
 

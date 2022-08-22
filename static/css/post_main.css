@@ -438,3 +438,16 @@
   margin: 0 11px;
   padding: 0;
 }
+
+/* 모집 중 아이콘 */
+#main__top_left__ul__recruit {
+  background-color: #2253ff;
+  border-radius: 5px;
+  color: white;
+}
+
+#main__top_left__ul__recruit_finish {
+  background-color: #e8e8e8;
+  border-radius: 5px;
+  color: black;
+}

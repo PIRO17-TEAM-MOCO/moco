@@ -213,31 +213,46 @@ def detail(request, id):
 @login_required
 def update(request, id):
     post = Post.objects.get(id=id)
+
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
             post.title = form.cleaned_data["title"]
             post.location = form.cleaned_data["location"]
-            post.contact = form.cleaned_data["contacts"]
+            post.contact = form.cleaned_data["contact"]
             if form.cleaned_data["number"] <= 1:
                 messages.error(request, "인원 수는 2명 이상!")
                 redirect(f"/post/update/{id}")
             post.number = form.cleaned_data["number"]
-            post.tag = form.cleaned_data["tag"]
+            tag = form.cleaned_data["tag"]
+            if tag != None:
+                tags = []
+                tagList = simplejson.loads(tag)
+                for i in range(len(tagList)):
+                    tags.append(tagList[i]["value"])
+                post.tag = tags
             post.content = form.cleaned_data["content"]
             post.apply_link = form.cleaned_data["apply_link"]
-            post.duration = form.cleaned_data["durations"]
+            post.duration = form.cleaned_data["duration"]
             post.save()
 
             return redirect(f"/post/detail/{id}")
 
     form = PostForm(instance=post)
+    origin_tag = post.tag
+    origin_tag_len = len(origin_tag)
+    origin_tag = origin_tag[1:origin_tag_len-1]
+    origin_tag = origin_tag.replace(' ', '')
+    origin_tag = origin_tag.replace("'", '')
+    origin_tag = origin_tag.split(',')
+
     context = {
         "form": form,
         "id": id,
         "post": post,
         'contacts': Post.CONTACT_CHOICE,
-        'durations': Post.DURATION_CHOICE
+        'durations': Post.DURATION_CHOICE,
+        'origin_tag': origin_tag
     }
 
     return render(request, template_name="posts/main_revise.html", context=context)
@@ -260,7 +275,7 @@ def close(request, id):
         return redirect(f"/post/detail/{id}")
 
 
-@profile_valid
+@ profile_valid
 def review_home(request):
     all_reviews = Review.objects.all()
     paginator = Paginator(all_reviews, 5)
@@ -273,7 +288,7 @@ def review_home(request):
     return render(request, template_name="reviews/review.html", context=context)
 
 
-@login_required
+@ login_required
 def review_write(request, id):
     if request.method == "POST":
         print("file : ", request.FILES)
@@ -288,7 +303,7 @@ def review_write(request, id):
         return redirect(f"/post/detail/{id}")
 
 
-@login_required
+@ login_required
 def review_revise(request, id):
     revised_review = Review.objects.get(id=id)
     if request.method == "POST":
@@ -314,7 +329,7 @@ def review_revise(request, id):
     return render(request, template_name="reviews/review_revise.html", context=context)
 
 
-@csrf_exempt
+@ csrf_exempt
 def review_delete(request):
     req = json.loads(request.body)
     review_id = req['id']

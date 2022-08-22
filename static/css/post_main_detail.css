@@ -79,6 +79,10 @@
   margin-right: 10px;
 }
 
+#main_detail__top__img .profile_img {
+  margin: 0 !important;
+}
+
 #main_detail__top__title {
   font-size: 24px;
   margin-top: 10px;

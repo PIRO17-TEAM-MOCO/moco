@@ -253,6 +253,7 @@
 
 .main_detail__comment__contetns__profile_userinfo {
   display: flex;
+}
 
 #main_detail__comments__contents__info {
 	display: inline-block;

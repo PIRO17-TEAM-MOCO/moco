@@ -24,17 +24,20 @@ def main(request):
     return render(request, template_name='users/main.html')
 
 # 프로필 유효성 검사 데코레이터
+
+
 def profile_valid(func):
     def wrapper(request, **kargs):
         user = request.user
         if user.is_authenticated:
-            if user.birth is None: # 소셜로그인 후 프로필을 입력하지 않았다면
+            if user.birth is None:  # 소셜로그인 후 프로필을 입력하지 않았다면
                 return redirect(f'/account/profile/add/{user.id}')
             else:
                 return func(request, **kargs)
         else:
             return func(request, **kargs)
     return wrapper
+
 
 def signup_error(request):
     form = SignupForm()
@@ -43,27 +46,25 @@ def signup_error(request):
     }
     return render(request, template_name='users/signup_error.html', context=context)
 
+
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             if User.objects.filter(email=form.cleaned_data['email']).exists():
-                print('이미 존재하는 이메일입니다.')
                 messages.error(request, '이미 존재하는 이메일입니다.')
                 return redirect('users:signup_error')
             if User.objects.filter(nickname=form.cleaned_data['nickname']).exists():
-                print('이미 존재하는 닉네임입니다.')
                 messages.error(request, '이미 존재하는 닉네임입니다.')
                 return redirect('users:signup_error')
             user = form.save()
             auth.login(request, user,
-                       backend='django.contrib.auth.backends.ModelBackend')      
+                       backend='django.contrib.auth.backends.ModelBackend')
             if request.FILES.get('profile_img'):
                 user.profile_img = request.FILES.get('profile_img')
             user.save()
             return redirect('posts:home')
         else:
-            print(form.errors)
             return redirect('users:signup_error')
     else:
         form = SignupForm()
@@ -89,7 +90,7 @@ def signout(request):
 
 def login(request):
     if request.user.is_authenticated:
-            return redirect('posts:home')
+        return redirect('posts:home')
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)
         next = request.POST.get("next")
@@ -218,9 +219,9 @@ def profile_view(request, id):
     user = User.objects.get(id=id)
     birth = user.birth
     today = datetime.now().date()
-    age = today.year - birth.year + 1 # 나이 구하기
+    age = today.year - birth.year + 1  # 나이 구하기
     pairs_my = []
-    for place in user.place_set.all() :
+    for place in user.place_set.all():
         width = [0] * place.rating
         images = PlaceImage.objects.filter(place=place)
         if images:
@@ -230,7 +231,7 @@ def profile_view(request, id):
         pair = [place, image, width]
         pairs_my.append(pair)
     pairs_like = []
-    for place in user.like_places.all() :
+    for place in user.like_places.all():
         width = [0] * place.rating
         images = PlaceImage.objects.filter(place=place)
         if images:
@@ -241,11 +242,11 @@ def profile_view(request, id):
         pairs_like.append(pair)
 
     context = {
-    'user': user,
-    'age': age,
-    'edit_access': False,
-    'pairs_my': pairs_my,
-    'pairs_like': pairs_like
+        'user': user,
+        'age': age,
+        'edit_access': False,
+        'pairs_my': pairs_my,
+        'pairs_like': pairs_like
     }
     if request.user == user:
         context['edit_access'] = True
@@ -255,7 +256,6 @@ def profile_view(request, id):
 @login_required
 @profile_valid
 def profile_edit(request, id):
-    # 다른 사람이 프로필 수정하는 것 방지
     if id != request.user.id:
         return redirect(f'/account/profile/{id}')
     user = User.objects.get(id=id)
@@ -263,11 +263,9 @@ def profile_edit(request, id):
         form = ProfileForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             if User.objects.filter(email=form.cleaned_data['email']).exclude(username=user.username).exists():
-                print('이미 존재하는 이메일입니다.')
                 messages.error(request, '이미 존재하는 이메일입니다.')
                 return redirect(f'/account/profile/edit/{id}')
             if User.objects.filter(nickname=form.cleaned_data['nickname']).exclude(username=user.username).exists():
-                print('이미 존재하는 닉네임입니다.')
                 messages.error(request, '이미 존재하는 닉네임입니다.')
                 return redirect(f'/account/profile/edit/{id}')
             user.name = form.cleaned_data['name']
@@ -283,7 +281,6 @@ def profile_edit(request, id):
             user.save()
             return redirect(f'/account/profile/{id}')
         else:
-            print(form.errors)
             return redirect(f'/account/profile/edit/{id}')
     else:
         form = ProfileForm(instance=user)
@@ -304,11 +301,9 @@ def profile_add(request, id):
         form = ProfileForm(request.POST)
         if form.is_valid():
             if User.objects.filter(email=form.cleaned_data['email']).exclude(username=user.username).exists():
-                print('이미 존재하는 이메일입니다.')
                 messages.error(request, '이미 존재하는 이메일입니다.')
                 return redirect(f'/account/profile/add/{id}')
             if User.objects.filter(nickname=form.cleaned_data['nickname']).exclude(username=user.username).exists():
-                print('이미 존재하는 닉네임입니다.')
                 messages.error(request, '이미 존재하는 닉네임입니다.')
                 return redirect(f'/account/profile/add/{id}')
             user.name = form.cleaned_data['name']
@@ -339,7 +334,7 @@ def is_ajax(request):
 def likes(request, tag):
     if is_ajax(request):
         error = False
-        # 로그인 안 했으면 로그인 창으로 이동
+
         if not request.user.is_authenticated:
             error = True
             context = {
@@ -375,7 +370,7 @@ def likes(request, tag):
         else:
             place.like_users.add(user)
             place.likes += 1
-            place.save()  
+            place.save()
         context = {
             'like_count': place.likes,
             'error': error,

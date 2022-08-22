@@ -46,12 +46,11 @@ def home(request, contact='None'):
         tagList = simplejson.loads(tag)
         for i in range(len(tagList)):
             tagg.append(tagList[i]["value"])
+            print("tagg = ", tagg)
+        tag_for_show = tagg
         for i in tagg:
             posts = posts.filter(Q(tag__contains=i))
-            print(tagg)
-            tag_for_show = tagg
             tagg = []
-    print(tag_for_show)
     # 기간별 필터링 실행
     duration = request.GET.get('duration', 'None')
 

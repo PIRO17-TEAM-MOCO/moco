@@ -343,8 +343,12 @@ def review_revise(request, id):
 def review_delete(request):
     req = json.loads(request.body)
     review_id = req['id']
+    review = Review.objects.get(id=review_id)
+    post = review.post
     Review.objects.filter(id=review_id).delete()
+    length = len(post.review_set.all())
     data = {
         'id': review_id,
+        'len': length
     }
     return JsonResponse(data)

@@ -545,26 +545,31 @@
       <div class="comment-revise__button"><a href="{% url 'posts:detail' post.id %}">취소</a><input type="submit" value="등록"/></div></form>`
                           }
 
-                          //대댓글 삭제
-                          const recmtDelete = new XMLHttpRequest();
-                          const onClickdeleteRecmt = (id) => {
-                            const url = "/comment/delete";
-                            recmtDelete.open("POST", url, true);
-                            recmtDelete.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                            recmtDelete.send(JSON.stringify({'id': id}));
-                          }
-                          recmtDelete.onreadystatechange = () => {
-                            if (recmtDelete.readyState === XMLHttpRequest.DONE) {
-                              if (recmtDelete.status < 400) {
-                                const {id, len} = JSON.parse(recmtDelete.response);
-                                const topdomRcmt = document.getElementById("main_detail__comment__contents__reply");
-                                console.log(topdomRcmt)
-                                const deletedomRcmt = document.querySelector(`.main_detail__comment__contents__reply_bundle__${id}`)
-                                console.log(deletedomRcmt)
-                                topdomRcmt.removeChild(deletedomRcmt);
-                              }
-                            }
-                          }
+  //대댓글 삭제
+  const recmtDelete = new XMLHttpRequest();
+  const onClickdeleteRecmt = (id) => {
+      const url = "/comment/delete";
+      recmtDelete.open("POST",url,true);
+      recmtDelete.setRequestHeader(
+          "Content-Type",
+          "application/x-www-form-urlencoded"
+      );
+      recmtDelete.send(JSON.stringify({'id':id}));
+  }
+  recmtDelete.onreadystatechange = () => {
+      if (recmtDelete.readyState === XMLHttpRequest.DONE){
+          if(recmtDelete.status < 400){
+              const {id, len} = JSON.parse(recmtDelete.response);
+              const topdomRcmt = document.getElementById("main_detail__comment__contents__reply");
+              console.log(topdomRcmt)
+              const deletedomRcmt = document.querySelector(`.main_detail__comment__contents__reply_bundle__${id}`)
+              console.log(deletedomRcmt)
+              topdomRcmt.removeChild(deletedomRcmt);
+              const cmtLen = document.getElementById('main_detail__comment_num')
+              cmtLen.innerHTML = len
+          }
+      }
+  }
 
                           // 댓글 삭제
                           const cmtDelete = new XMLHttpRequest();

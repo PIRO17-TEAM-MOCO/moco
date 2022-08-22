@@ -319,6 +319,8 @@ function place_like(id) {
               const topdomRcmtPlace = document.getElementById("place_detail__comment__contents__reply");
               const deletedomRcmtPlace = document.querySelector(`.place_detail__comment__contents__reply_bundle__${id}`)
               topdomRcmtPlace.removeChild(deletedomRcmtPlace);
+              const cmtLen = document.getElementById('main_detail__comment_num')
+              cmtLen.innerHTML = len
           }
       }
   }
@@ -342,8 +344,8 @@ function place_like(id) {
               const deletedomPlace = document.querySelector(`.place_detail__comment__each__contents_div__${id}`);
               console.log(deletedomPlace)
               topdomPlace.removeChild(deletedomPlace);
-              const cmtLenPlace = document.getElementById('place_detail__comment_num')
-              cmtLenPlace.innerHTML = len
+              const cmtLen = document.getElementById('main_detail__comment_num')
+              cmtLen.innerHTML = len
           }
       }
   }

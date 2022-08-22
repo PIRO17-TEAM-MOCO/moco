@@ -68,7 +68,6 @@
             <span>좋아요순</span>
           </div>
           -->
-          
           <select name="sort" onchange="this.form.submit();">
             <option value="default">--정렬기준--</option>
             <option value="latest" {% if sort == "latest" %}selected{% endif %}>최신순</option>
@@ -106,24 +105,18 @@
         <div id="main__info_div__post_left">
           <div id="main__info_div__post_left__tag">
             <ul class="main__info_li__tag_flex">
-<!--여기 충돌났는데 일단 뭔지 몰라서 두 개 다 유지 시켜놓음 확인 후 처리하려고 함-->
               {% if post.activation %}
               <li id="main__top_left__ul__recruit">모집중</li>
               {% else %}
               <li id="main__top_left__ul__recruit_finish">모집완료</li>
               {% endif %}
-              {% for tag in tags %}
-              <li>{{tag}}</li>
-<!--여기 충돌났는데 일단 뭔지 몰라서 두 개 다 유지 시켜놓음 확인 후 처리하려고 함-->
-              <li>모집중</li>
               {% for key, value in tags.items %}
               {% if key == post.id %}
               {% for v in value %}
               <li>{{v}}</li>
               {% endfor %}
               {% endif %}
-<!--여기 충돌났는데 일단 뭔지 몰라서 두 개 다 유지 시켜놓음 확인 후 처리하려고 함-->
-              {% endfor %}
+              {% endfor %}  
             </ul>
           </div>
           <div id="main__info_div__post_left__title">
@@ -168,7 +161,6 @@
         console.log("false")
       }
     })
-
   </script>
 </div>
 {% endblock content %}

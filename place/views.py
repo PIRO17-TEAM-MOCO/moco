@@ -60,7 +60,7 @@ def home(request, category='None'):
         "pairs": pairs,
         "sort": sort,
         "search": search,
-        "places": places
+        "places": places,
     }
     return render(request, template_name="place/home.html", context=context)
 
@@ -99,7 +99,6 @@ def write(request):
         }
         return render(request, template_name="place/write.html", context=context)
 
-
 def detail(request, id):
     place = Place.objects.get(id=id)
     images = PlaceImage.objects.filter(place=place)
@@ -107,8 +106,12 @@ def detail(request, id):
     comments_len = len(place.comment_set.all())
     width = [0] * place.rating
     like_user = False
+    flag_image = False
     if request.user in place.like_users.all():
         like_user = True
+    for image in images:
+        if image.place == place:
+            flag_image = True
     context = {
         "place": place,
         "images": images,
@@ -117,6 +120,7 @@ def detail(request, id):
         "edit_access": False,
         "width": width,
         "like_user": like_user,
+        "flag_image": flag_image
     }
     if place.user == request.user:
         context['edit_access'] = True

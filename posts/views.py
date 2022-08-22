@@ -161,6 +161,11 @@ def detail(request, id):
     tags_len = len(tags)
     tags = tags[1:tags_len-1]
     tags = tags.split(",")
+    # 좋아유 누른 유저 체크
+    like_user = False
+    if request.user in post.like_users.all():
+        print('좋아요 눌렀습니다.')
+        like_user = True
 
     if post.user == request.user:  # 현재 로그인한 유저가 해당 모집글을 쓴 유저이면 can_revise가 True
         can_revise = True
@@ -175,7 +180,8 @@ def detail(request, id):
             "review_len": reviews_len,
             "comments": all_comments,
             "comments_len": comments_len,
-            "tags": tags
+            "tags": tags,
+            "like_user": like_user,
         }
 
         session_cookie = id
@@ -204,7 +210,8 @@ def detail(request, id):
         "review_len": reviews_len,
         "comments": all_comments,
         "comments_len": comments_len,
-        "tags": tags
+        "tags": tags,
+        "like_user": like_user,
     }
 
     return render(request, template_name="posts/main_detail.html", context=context)

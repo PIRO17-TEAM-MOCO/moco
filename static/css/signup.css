@@ -10,8 +10,21 @@ main {
   margin-top: 5rem;
 }
 
+#signup {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+#signup .signup-top{
+  margin: 0 auto;
+}
+
+#signup .login__sim__soc{
+  display: flex;
+  justify-content: center;
+}
+
 main #signup__1st__container {
-  width: 50rem;
   height: auto;
   display: flex;
   flex-direction: row;
@@ -334,7 +347,6 @@ hr {
 /*2nd signup step*/
 /*2nd signup step*/
 main #signup__2nd__container {
-  width: 50rem;
   height: auto;
   display: flex;
   flex-direction: row;

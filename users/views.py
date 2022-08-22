@@ -260,7 +260,6 @@ def profile_edit(request, id):
             if User.objects.filter(email=form.cleaned_data['email']).exclude(username=user.username).exists():
                 print('이미 존재하는 이메일입니다.')
                 messages.error(request, '이미 존재하는 이메일입니다.')
-                return redirect(f'/account/profile/edit/{id}')
             user.name = form.cleaned_data['name']
             user.nickname = form.cleaned_data['nickname']
             user.profile_img = form.cleaned_data['profile_img']

@@ -3,7 +3,7 @@
 <main>
   <div id="profile-edit__container">
     <span class="profile-edit__title">프로필 수정</span>
-    <form method="post" action="{% url 'users:profile_edit' id %}" enctype="multipart/form-data">
+    <form method="post" action="{% url 'users:profile_edit' id %}" enctype="multipart/form-data" onsubmit="return false">
       {% csrf_token %}
         <div class="input__edit__name">
             {{ form.name.errors }}
@@ -17,6 +17,7 @@
             id="id_name"
             placeholder="이름을 입력하세요."
             />
+            <input type="text" style="display: none;" />
         </div>
         <div class="input__edit__nickname">
             {{ form.nickname.errors }}
@@ -85,6 +86,11 @@
         </div>
         <div class="input__edit__email">
             {{ form.email.errors }}
+            {% if messages %}
+            {% for message in messages %}
+            <input type="hidden" value="{{ message.message }}" id="dup_email">
+            {% endfor %}
+            {% endif %}
             <lable for="{{ form.email.id_for_label }}"><p>이메일</p></lable>
             <input type="email" name="email" value="{{user.email}}" maxlength="254" required="" id="id_email" placeholder="이메일 형식에 맞추어 적어주세요.">
         </div>
@@ -138,7 +144,7 @@
                             <div id="edit-cc__btn">
                                 <a href="">아니요</a>
                             </div>
-                            <button id="cf__modal__btn" type="submit">저장</button>
+                            <button id="cf__modal__btn" onclick="submitCf()" type="submit">저장</button>
                         </div>  
                     </div>
                 </div>
@@ -185,25 +191,6 @@
     //     }
     // })
 
-    //모달 이벤트 - 수정완료
-    const cfmodal = document.getElementById("cf__modal")
-    const cfbtnModal = document.getElementById("edit-cf__btn")
-    cfbtnModal.addEventListener("click", e => {
-        cfmodal.style.display = "flex"
-    })
-
-    const cfcloseBtn = cfmodal.querySelector(".modal-close")
-    cfcloseBtn.addEventListener("click", e => {
-        cfmodal.style.display = "none"
-    })
-
-    cfmodal.addEventListener("click", e => {
-        const evTarget = e.target
-        if(evTarget.classList.contains("modal-overlay")) {
-            cfmodal.style.display = "none"
-        }
-    })
-
     // 프로필 이미지 미리보기
     function thumbnailImg(event) {
         var reader = new FileReader();
@@ -224,6 +211,10 @@
 
     //유효성 검증
     function editConfirm() {
+
+        var dup_email = document.getElementById("dup_email")
+        console.log(dup_email)
+
         var uname = document.getElementById("id_name");
         var nickname = document.getElementById("id_nickname")
         var email_id = document.getElementById("id_email");
@@ -238,6 +229,7 @@
         if (!unameCheck.test(uname.value)) {
             alert("이름은 10자 이내의 한글로 작성해주세요.");
             uname.focus();
+            location.href="{% url 'users:profile_edit' user.id %}"
             return false;
         }
 
@@ -252,13 +244,11 @@
             return false
         }
 
-        // var nicknameCheck = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi
-
-        // if (!nicknameCheck.test(nickname.value)) {
-        //     alert("닉네임은 특수문자를 제외하여 10자 이내로 작성해주세요.");
-        //     nickname.focus();
-        //     return false;
-        // }
+        if (email_id.value == "") {
+            alert("이메일 주소를 입력하세요.");
+            email_id.focus();
+            return false;
+        }
 
         var emailCheck = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 
@@ -267,6 +257,29 @@
             email_id.focus();
             return false;
         }
+    }
+
+    //모달 이벤트 - 수정완료
+    const cfmodal = document.getElementById("cf__modal")
+    const cfbtnModal = document.getElementById("edit-cf__btn")
+    cfbtnModal.addEventListener("click", e => {
+        cfmodal.style.display = "flex"
+    })
+
+    const cfcloseBtn = cfmodal.querySelector(".modal-close")
+    cfcloseBtn.addEventListener("click", e => {
+        cfmodal.style.display = "none"
+    })
+
+    cfmodal.addEventListener("click", e => {
+        const evTarget = e.target
+        if(evTarget.classList.contains("modal-overlay")) {
+            cfmodal.style.display = "none"
+        }
+    })
+
+    function submitCf() {
+        submit
     }
 </script>
 {% endblock %}

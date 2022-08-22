@@ -1,4 +1,5 @@
 {% extends 'posts/base.html' %} {% block content %}
+{% load static %}
 <div class="content">
   <div id="main__main_div">
     <form method="GET">
@@ -56,7 +57,9 @@
         </div>
         <div id="main__search_div__tag">
           <ul class="main__search_li__tag_flex">
-            <li>dddddd</li>
+            {% for stag in tag_for_show %}
+            <li>{{stag}}</li>
+            {%endfor%} 
           </ul>
         </div>
         <div id="main__info_div__top">
@@ -136,11 +139,17 @@
         </div>
         <div id="main__info_div__post_right">
           <div id="main__info_div__post_right__img">
-            <i class="fa-solid fa-circle-user fa-2x"></i>
+            <span class="content-title__img">
+              {% if post.user.profile_img %}
+              <div class="profile_img"><img src="{{post.user.profile_img.url}}" alt="profile_img"></img></div>
+              {% else %}
+              <div class="profile_img"><img src="{% static "img/moco_symbol.png" %}" alt="profile_img"></img></div>
+              {% endif %}
+            </span>
           </div>
           <div id="main__info_div__post_right__info">
             <div id="main__info_div__post_right__info_name">
-              <span>김피로</span>
+              <span>{{post.user.nickname}}</span>
             </div>
             <div id="main__info_div__post_right__info_time">
               <span>{{post.published_at|date:"Y-m-d"}}</span>

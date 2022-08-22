@@ -106,6 +106,9 @@ def detail(request, id):
     all_comments = place.comment_set.all().filter(cmt_class=Comment.CMT_PARENT)
     comments_len = len(place.comment_set.all())
     width = [0] * place.rating
+    like_user = False
+    if request.user in place.like_users.all():
+        like_user = True
     context = {
         "place": place,
         "images": images,
@@ -113,6 +116,7 @@ def detail(request, id):
         "comments_len": comments_len,
         "edit_access": False,
         "width": width,
+        "like_user": like_user,
     }
     if place.user == request.user:
         context['edit_access'] = True

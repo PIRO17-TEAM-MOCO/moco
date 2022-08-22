@@ -13,7 +13,7 @@
 			<div class="content-box__title">{{notice.title}}</div>
 			<p class="content-box__content">{{notice.content|truncatechars:182}}</p>
 			<div class="content-box__bottom">
-				<span class="content-box__user">{{notice.user}}</span>
+				<span class="content-box__user">{{notice.user.nickname}}</span>
 				<span class="content-box__pub">{{notice.published_at|date:"Y. m. d" }}</span>
 			</div>
 		</div>

@@ -181,12 +181,12 @@
           <div id="main_detail__main__txt">{{post.content | safe}}</div>
         </div>
         <div id="main_detail__comment">
-          <div id="main_detail__comment__top">
+          <div id="post_detail__comment__top">
             <div id="main_detail__comment__blank">
               <h2>댓글</h2>
               <h2 id="main_detail__comment_num">{{comments_len}}</h2>
             </div>
-            <div id="main_detail__comment__rule">
+            <div id="post_detail__comment__rule">
               <span>300자 이내 작성</span>
             </div>
           </div>
@@ -260,17 +260,17 @@
                             <div class="reply_txt">{{recomment.content}}</div>
                           </div>
                           <div>
-                            <div class="main_detail__comments__contents__options">
+                            <div class="main_detail__recomments__contents__options">
                               {% if recomment.user == request.user %}
-                                <div class="main_detail__comments_revise_delete_btn">
-                                  <div class="main_detail__comments_dropdown_btn">
+                                <div class="main_detail__recomments_revise_delete_btn">
+                                  <div class="main_detail__recomments_dropdown_btn">
                                     <i class="fa-solid fa-ellipsis fa-lg" style="color: #BFBFBF"></i>
                                   </div>
-                                  <div class="main_detail__comments_dropdown_menu">
-                                    <div class="main_detail__comments_dropdown_menu_revise">
+                                  <div class="main_detail__recomments_dropdown_menu">
+                                    <div class="main_detail__recomments_dropdown_menu_revise">
                                       <button onclick="changeForm4({{recomment.id}}, '{{recomment.content}}');">수정</button>
                                     </div>
-                                    <div class="main_detail__comments_dropdown_menu_delete">
+                                    <div class="main_detail__recomments_dropdown_menu_delete">
                                       <button onclick="onClickdeleteRecmt({{recomment.id}});">삭제</button>
                                     </div>
                                   </div>
@@ -290,7 +290,7 @@
                 <div id="main_detail__review">
                   <div id="main_detail__review__top">
                     <div id="main_detail__review__blank">
-                      <h2>후기후기</h2>
+                      <h2>후기</h2>
                       <h2 id="main_detail__review_num">{{review_len}}</h2>
                     </div>
                     <div id="main_detail__review__rule">
@@ -314,7 +314,7 @@
                               {%endif%}
                             </div>
                           </label>
-                          <input type="file" name="review_image" class="main_detail__review__upload_file" accept="image/*" onchange="thumbnailImg(event);"/>
+                          <input type="file" name="review_image" id="main_detail__review__upload_file" accept="image/*" onchange="thumbnailImg(event);"/>
                         </div>
                         <textarea name="review_content" id="review_input_box" cols="30" rows="10" placeholder="후기를 입력하세요."></textarea>
                       </div>
@@ -327,6 +327,7 @@
                     <div id="main_detail__review__contents">
                       {% for review in reviews %}
                         {% if review.user == request.user %}
+                        <div id="main_detail__review__contents_mine">
                           <div id="main_detail__review__contents_mine__{{review.id}}">
                             <div id="main_detail__review__each__contents__{{review.id}}">
                               <div class="main_detail__review__contents_top">
@@ -386,6 +387,7 @@
                                   </div>
                                 </div>
                               </div>
+                            </div>
                             {% else %}
                               <div id="main_detail__review__contents_others">
                                 <div id="main_detail__review__each__contents__{{review.id}}">
@@ -453,11 +455,11 @@
                               {% if reviews.has_previous %}
                                 <a href="?page={{reviews.previous_page_number}}" class="post_detail__review__page_previous">이전</a>
                               {% endif %}
-
+                            
                               {% for p in reviews.paginator.page_range %}
                                 <a href="?page={{p}}" class="mx-1">{{p}}</a>
                               {% endfor %}
-
+                                        
                               {% if reviews.has_next %}
                                 <a href="?page={{reviews.next_page_number}}" class="post_detail__review__page_next">다음</a>
                               {% endif %}

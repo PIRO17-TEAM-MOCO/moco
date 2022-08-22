@@ -120,7 +120,7 @@
 .content-box__list {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   grid-gap: 35px;
   gap: 59px;
   flex-wrap: wrap;
@@ -129,6 +129,8 @@
 .content-box__itme {
   border: 1px solid #bfbfbf;
   border-radius: 10px;
+  background-color: white;
+  filter: drop-shadow(0 4px 10px rgba(26,28,29,.06));
 }
 
 .content-box__top {
@@ -140,12 +142,14 @@
   padding: 1rem;
   display: flex;
   align-items: center;
+  border-top: 1px solid #bfbfbf;
 }
 
 .content-box__img {
   width: 22rem;
   height: 10rem;
   border-radius: 10px 10px 0 0;
+  overflow: hidden;
 }
 
 .content-box__img img {
@@ -154,6 +158,12 @@
   overflow: hidden;
   object-fit: cover;
   border-radius: 10px 10px 0 0;
+  overflow: hidden;
+  transition: all 0.3s linear;
+}
+
+.content-box__img img:hover {
+  transform: scale(1.06);
 }
 
 .content-box__name {

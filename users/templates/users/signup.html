@@ -422,6 +422,7 @@
       {% load socialaccount %} {% providers_media_js %}
       <div class="login__sim__soc" style="margin-bottom: 5rem;">
         <div>
+          <form action=""></form>
           <form method="post" action="{% provider_login_url 'google' %}">
             {% csrf_token %}
             <button type="submit"><img src="{{ google_button }}" height="42" width="152"></button>

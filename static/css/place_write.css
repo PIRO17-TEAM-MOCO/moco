@@ -18,6 +18,10 @@
   padding: 1rem;
 }
 
+.content-write__item input:hover {
+  border-color: #2253ff;
+}
+
 .content-write__title_num {
   height: 30px;
   width: 30px;

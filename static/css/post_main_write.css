@@ -24,9 +24,9 @@ form {
 }
 
 .main_write__title h1 {
-  font-weight: 700;
-  font-size: 30px;
-  margin-top: 6px;
+	font-weight: 700;
+	font-size: 1.3rem;
+	margin-top: 6px;
 }
 
 .main_write__top__select_row {
@@ -114,20 +114,20 @@ form {
 }
 
 .main_write__title_num {
-  height: 40px;
-  width: 40px;
-  background-color: #2253ff;
-  border-radius: 100px;
-  color: white;
-  display: flex;
-  justify-content: center;
-  margin-right: 15px;
-  margin-top: 3px;
+	height: 29px;
+	width: 29px;
+	background-color: #2253ff;
+	border-radius: 100px;
+	color: white;
+	display: flex;
+	justify-content: center;
+	margin-right: 15px;
+	margin-top: 3px;
 }
 
 .main_write__title_num h2 {
-  font-size: 30px;
-  padding-top: 3px;
+	font-size: 1.3rem;
+	padding-top: 3px;
 }
 
 .main_write__title h2 {
@@ -270,6 +270,18 @@ form {
 #main_write__select_duration label {
   margin-bottom: 20px;
   font-weight: 600;
+}
+
+#main_write__top label {
+	font-size: 1.1rem;
+}
+
+.main_write__top__box_title {
+	font-size: 1.1rem;
+}
+
+.main_write__tag_write__main_title h3 {
+	font-size: 1.1rem;
 }
 
 #main_write__select_duration select:hover {

@@ -43,6 +43,10 @@
 	margin-right: 1rem;
 }
 
+.search__input:hover {
+	border-color: #2253ff;
+}
+
 .place-search__btn {
 	flex-basis: 100px;
 	flex-grow: 1;

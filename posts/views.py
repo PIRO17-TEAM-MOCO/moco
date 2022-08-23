@@ -74,6 +74,8 @@ def home(request, contact='None'):
             'comment')).order_by("-comment_count")
     elif sort == "likes":
         posts = posts.order_by("-likes")
+    else:
+        posts = posts.order_by("-published_at")
 
     # show searching tags
     tags_all = {}
@@ -85,8 +87,6 @@ def home(request, contact='None'):
         tags = tags[1:tags_len-1]
         tags = tags.split(",")
         tags_all[i.id] = tags
-
-    posts = posts.order_by("-published_at")
 
     context = {
         "posts": posts,

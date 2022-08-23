@@ -41,8 +41,8 @@ def home(request, category='None'):
     elif sort == "comment":
         places = places.annotate(comment_count=Count('comment'))
         places = places.order_by("-comment_count")
-
-    places = places.order_by("-published_at")
+    else:
+        places = places.order_by("-published_at")
     # 페이지네이터 적용
     paginator = Paginator(places, 6)
     page = request.GET.get('page', 1)

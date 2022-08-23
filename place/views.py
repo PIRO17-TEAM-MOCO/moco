@@ -42,6 +42,7 @@ def home(request, category='None'):
         places = places.annotate(comment_count=Count('comment'))
         places = places.order_by("-comment_count")
 
+    places = places.order_by("-published_at")
     # 페이지네이터 적용
     paginator = Paginator(places, 6)
     page = request.GET.get('page', 1)
@@ -99,6 +100,7 @@ def write(request):
             'form': form,
         }
         return render(request, template_name="place/write.html", context=context)
+
 
 def detail(request, id):
     place = Place.objects.get(id=id)

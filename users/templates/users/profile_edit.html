@@ -37,7 +37,7 @@
             <lable for="{{ form.profile_img.id_for_label }}"
             ><p>
                 프로필 사진&nbsp;<span style="color: #8c8c8c; font-size: 1rem; font-weight: 100;">(선택)</span><br /><p style="color: #8c8c8c; font-size: 0.5rem"
-                >*업로드 안할 시, MOCO에서 제공하는 기본 프로필 사진으로
+                >*업로드 하지 않으면 MOCO에서 제공하는 기본 프로필 사진이
                 적용됩니다.</p>
             </p></lable
             >
@@ -47,7 +47,7 @@
             accept="image/*"
             id="id_profile_img"
             onchange="thumbnailImg(event);"
-            />
+            ></input>
             <label for="id_profile_img">
                 <div id="input__img__container">
                     {% if user.profile_img %}
@@ -164,15 +164,6 @@
     //유효성 검증
     function editConfirm() {
 
-        var dup_email = document.getElementById("dup_email")
-        console.log(dup_email)
-
-        if (dup_email.value !== null ) {
-            alert("이미 존재하는 이메일입니다.");
-            email_id.focus();
-            return false
-        }
-
         var uname = document.getElementById("id_name");
         var nickname = document.getElementById("id_nickname")
         var email_id = document.getElementById("id_email");
@@ -236,6 +227,5 @@
         }
     })
 
-    form.submit()
 </script>
 {% endblock %}

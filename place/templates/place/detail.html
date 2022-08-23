@@ -8,11 +8,13 @@
       <div class="content-title__name">{{place.name}}</div>
       <div class="content-title__info">
         <span class="content-title__img">
-          {% if place.user.profile_img %}
-          <div class="profile_img"><img src="{{place.user.profile_img.url}}" alt="profile_img"></img></div>
-          {% else %}
-          <div class="profile_img"><img src="{% static "img/moco_symbol.png" %}" alt="profile_img"></img></div>
-          {% endif %}
+          <a href="{% url 'users:profile_view' place.user.id %}">
+            {% if place.user.profile_img %}
+            <div class="profile_img"><img src="{{place.user.profile_img.url}}" alt="profile_img"></img></div>
+            {% else %}
+            <div class="profile_img"><img src="{% static "img/moco_symbol.png" %}" alt="profile_img"></img></div>
+            {% endif %}
+          </a>
         </span>
         <span class="content-title__nickname">{{place.user.nickname}}</span>
         <span class="content-title__bar">|</span>

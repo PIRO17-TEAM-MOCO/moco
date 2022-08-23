@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import PostForm
 from users.views import profile_valid
 import simplejson
+from django.utils.html import strip_tags
 
 
 @profile_valid
@@ -88,6 +89,9 @@ def home(request, contact='None'):
         tags = tags.split(",")
         tags_all[i.id] = tags
 
+    for post in posts:
+        post.content = strip_tags(post.content)
+
     context = {
         "posts": posts,
         "sort": sort,
@@ -125,6 +129,7 @@ def write(request):
             user.save()
             return redirect(f"/post/detail/{post.id}")
         else:
+            print("form is not valid")
             return redirect("/post/write")
 
     form = PostForm()

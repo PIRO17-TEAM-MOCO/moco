@@ -1,0 +1,59 @@
+main {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-family: "Noto Sans", "Noto Sans KR";
+  margin-top: 5rem;
+}
+
+#reset-pw-com__container {
+  width: 50rem;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  flex-wrap: wrap;
+  margin-top: 5rem;
+}
+
+#reset-pw-com__title {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 5rem;
+  color: black;
+}
+
+.hr {
+  margin-bottom: 3rem;
+}
+
+#reset-pw-com__desc {
+  width: 30rem;
+  font-size: 1rem;
+  color: #000;
+  font-weight: 100;
+  margin-bottom: 1rem;
+  line-height: 1.2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#backtologin__btn {
+  cursor: pointer;
+  margin-top: 1rem;
+  width: 15rem;
+  height: 3rem;
+  font-size: 1rem;
+  outline: 0;
+  border: 0;
+  border-radius: 0.5rem;
+  background-color: rgb(47, 82, 245);
+  color: #fff;
+  font-weight: 100;
+}

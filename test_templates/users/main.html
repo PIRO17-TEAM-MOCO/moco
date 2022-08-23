@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>메인</title>
+  </head>
+  <body>
+    <h2>임시페이지</h2>
+    {% if me.is_authenticated %}
+    <h4>아이디: {{me.username}}</h4>
+    <h4>이름: {{me.name}}</h4>
+    <h4>닉네임: {{me.nickname}}</h4>
+    <a href="{% url 'users:logout' %}">로그아웃</a>
+    <a href="{% url 'users:profile_view' me.id %}">프로필</a>
+    {% else %}
+    <a href="{% url 'users:login' %}">로그인</a>
+    <a href="{% url 'users:signup' %}">회원가입</a>
+    <a href="{% url 'users:find_id' %}">아이디찾기</a>
+    {% endif %}
+    <h3>유저목록</h3>
+    {% for user in users %}
+    <a href="{% url 'users:profile_view' user.id %}">{{user.nickname}}</a>
+    {% endfor %}
+  </body>
+</html>

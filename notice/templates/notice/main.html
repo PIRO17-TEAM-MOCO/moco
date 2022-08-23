@@ -1,0 +1,24 @@
+{% extends 'notice/base.html' %} {% block content %}
+<div class="content">
+	<div class="content-top">
+		<div class="content-top__count">
+			<p>총 <span style="color:#2253FF;">{{count}}</span>건</p>
+		</div>
+		{% if user in admin %}
+		<button type="button" class="write-btn" onclick="location.href='/notice/write'">게시물 작성</button>
+		{% endif %}
+	</div>
+  {% for notice in notices %}
+	<a class="content-box__itme" href="{% url 'notice:detail' notice.id %}">
+		<div class="content-box">
+			<div class="content-box__title">{{notice.title}}</div>
+			<p class="content-box__content">{{notice.content|truncatechars:182}}</p>
+			<div class="content-box__bottom">
+				<span class="content-box__user">{{notice.user.nickname}}</span>
+				<span class="content-box__pub">{{notice.published_at|date:"Y. m. d" }}</span>
+			</div>
+		</div>
+	</a>
+	{% endfor %}
+</div>
+{% endblock %}

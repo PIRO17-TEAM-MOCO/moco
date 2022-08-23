@@ -1,0 +1,118 @@
+{% extends 'users/base.html' %} {% block content %}
+<main>
+    <!-- 뒷배경 -->
+    <form
+    action="{% url 'users:signup' %}"
+    method="post"
+    enctype="multipart/form-data"
+  >
+  {% csrf_token %}
+<div id="signup__1st__container">
+  <div class="signup__1st__nor">
+    <span>회원가입</span>
+    <div class="input">
+        <div class="input__reg__id">
+          {{ form.username.errors }}
+          <lable for="{{ form.username.id_for_label }}"><p style="margin-top: 2.5rem">아이디</p></lable>
+          <input type="text" name="username" minlength="5" maxlength="20" autofocus="" required="" id="id_username" placeholder="아이디">
+        </div>
+        <div class="input__email">
+          {{ form.email.errors }}
+          <lable for="{{ form.username.id_for_label }}"><p>이메일</p></lable>
+          <input type="email" name="email" maxlength="254" required="" id="id_email" placeholder="example@email.com">
+        </div>
+        <div class="input__reg__pw">
+          {{ form.password1.errors }}
+          <lable for="{{ form.password1.id_for_label }}"><p>비밀번호</p></label>
+            <input type="password" name="password1" autocomplete="new-password" required="" id="id_password1" placeholder="비밀번호">
+        </div>
+        <p>비밀번호&nbsp;<span style="color: #8c8c8c">(확인)</span></p>
+        <div class="input__reg__pw">
+          {{ form.password2.errors }}
+          <lable for="{{ form.password2.id_for_label }}"></lable>
+          <input type="password" name="password2" autocomplete="new-password" required="" id="id_password2" placeholder="비밀번호 (확인)">
+        </div>
+    </div>
+    <button id="signup__1st__btn" onclick="signup1Function()">다음</button>
+    <div id="sub__reg__menu">
+      회원가입 시, MOCO가 제공하는 서비스를 모두 이용하실 수 있습니다. MOCO의
+      <button id="openBtn1">서비스 이용약관</button>,
+      <button id="openBtn2">개인정보취급방침</button>에 동의합니다.
+      <input type="checkbox" id="input__reg__cb"/>
+      <label for="input__reg__cb"></label>
+    </div>
+    <div id="signup__modal-1" class="modal-overlay" style="display: none;">
+      <div class="modal__window">
+        <div class="modal__title">
+          <h3>서비스 이용약관</h3>
+        </div>
+        <div class="modal-close">X</div>
+        <div class="modal__content">
+          여우별 감사합니다 아슬라 컴퓨터 바나나 나비잠 사과 아슬라 나래
+          감사합니다 비나리 책방 아리아 아슬라 나비잠 아리아 노트북 감사합니다
+          별빛 늘품 미리내 로운 노트북 우리는 도르레 아련 함초롱하다 도서관
+          바람꽃 바람꽃 예그리나 늘품 미리내 미쁘다 노트북 우리는 나래 옅구름
+          산들림 아리아 예그리나 여우별 감사합니다 여우별 도르레 함초롱하다
+          아슬라 우리는 소솜 감사합니다. 옅구름 산들림 다솜 도서 감사합니다
+          가온해 나래 가온해 곰다시 그루잠 컴퓨터 나비잠 도담도담 달볓 도서
+          아름드리 사과 도서관 함초롱하다 아름드리 노트북 비나리 포도 나비잠
+          감사합니다 바나나 곰다시 로운 여우비 옅구름 도서관 책방 포도 노트북
+          별빛 바나나 컴퓨터 도담도담 달볓 도르레 감사합니다 이플 비나리
+        </div>
+      </div>
+    </div>
+    <div id="signup__modal-2" class="modal-overlay" style="display: none;">
+      <div class="modal__window">
+        <div class="modal__title">
+          <h3>개인정보취급방침</h3>
+        </div>
+        <div class="modal-close">X</div>
+        <div class="modal__content">
+          여우별 감사합니다 아슬라 컴퓨터 바나나 나비잠 사과 아슬라 나래
+          감사합니다 비나리 책방 아리아 아슬라 나비잠 아리아 노트북 감사합니다
+          별빛 늘품 미리내 로운 노트북 우리는 도르레 아련 함초롱하다 도서관
+          바람꽃 바람꽃 예그리나 늘품 미리내 미쁘다 노트북 우리는 나래 옅구름
+          산들림 아리아 예그리나 여우별 감사합니다 여우별 도르레 함초롱하다
+          아슬라 우리는 소솜 감사합니다. 옅구름 산들림 다솜 도서 감사합니다
+          가온해 나래 가온해 곰다시 그루잠 컴퓨터 나비잠 도담도담 달볓 도서
+          아름드리 사과 도서관 함초롱하다 아름드리 노트북 비나리 포도 나비잠
+          감사합니다 바나나 곰다시 로운 여우비 옅구름 도서관 책방 포도 노트북
+          별빛 바나나 컴퓨터 도담도담 달볓 도르레 감사합니다 이플 비나리
+        </div>
+      </div>
+    </div>
+    <!-- 뒷배경 -->
+  <div id="signup__err__modal" class="modal-overlay">
+    <div class="modal__window">
+      <div class="modal__content">
+        <p style="margin-top: 3rem; font-size: 1.3rem; font-weight: 900">
+          😭정상적으로 회원가입되지 않았습니다.😭
+        </p>
+        <p style="font-size: 1rem; font-weight: 900">
+          다음 부분을 확인해주세요!
+        </p>
+        {% if messages %}
+        {% for message in messages %}
+        <p style="font-size: 1rem; font-weight: 300">
+          1) {{message.message}}
+        </p>
+        {% endfor %}
+        {% else %}
+        <p style="font-size: 1rem; font-weight: 300">
+          1) 아이디와 비번이 유사하지 않게 작성해주세요.
+        </p>
+        <p style="font-size: 1rem; font-weight: 300">
+          2) 위 항목이 아니라면 기존에 있는 아이디로 가입한 유저가 존재합니다.
+        </p>
+        {% endif %}
+
+        <div id="signup-err__btns">
+          <div id="signup-err__btn">
+            <a href="{% url 'users:signup' %}">회원가입 페이지로 돌아가기</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

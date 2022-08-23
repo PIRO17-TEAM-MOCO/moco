@@ -1,0 +1,48 @@
+{% extends 'users/base.html' %} {% block content %} {% load static %}
+<main>
+  <div id="reset-pw__container">
+    <div id="reset-pw__title">
+      <img class="reset-img" src="{% static 'img/moco_logo.png' %}" />
+      <div id="reset-pw__desc">
+        <p>비밀번호를 잊어버리셨나요?</p>
+        <p>모코에 가입한 아이디와 이메일을 정확히 입력해 주세요.</p>
+        <p>이메일을 통해 비밀번호 수정 링크 메일이 발송됩니다.</p>
+      </div>
+    </div>
+    <div id="reset-pw__input">
+      <form method="POST" id="reset__form">
+        {% csrf_token %}
+
+        <div class="input__email">
+          {{ form.email.errors }}
+          <lable for="{{ form.email.id_for_label }}"><p>이메일</p></lable>
+          <input
+            type="email"
+            name="email"
+            autocomplete="email"
+            maxlength="254"
+            required=""
+            id="id_email"
+            placeholder="example@email.com"
+          />
+        </div>
+        <div class="input__username">
+          {{ form.username.errors }}
+          <lable for="{{ form.username.id_for_label }}"><p>아이디</p></lable>
+          <input
+            type="text"
+            name="username"
+            required=""
+            id="id_username"
+            placeholder="아이디"
+          />
+        </div>
+        <!--{{ form }}-->
+        <div id="reset-pw__btn__container">
+          <button id="reset-pw__btn" type="submit">전송</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+{% endblock %}

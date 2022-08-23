@@ -1,0 +1,20 @@
+{% extends 'users/base.html' %} {% block content %} {% load static %}
+<main>
+  <div id="reset-pw-done__container">
+    <div id="reset-pw-done__title">
+      <img class="reset-img" src="{% static 'img/reset-pw__letter.png' %}" />
+    </div>
+    <div class="hr">
+      <hr />
+    </div>
+    <span>비밀번호 재설정 메일 발송 완료</span>
+    <div id="reset-pw-done__desc">
+      <p>비밀번호 재설정을 위한 메일이 발송되었습니다.</p>
+      <p>30분 내에 비밀번호를 재설정해주세요.</p>
+      <p>
+        메일을 받지 못했다면 이메일 주소와 스팸 폴더를 다시 확인해 주세요.📬
+      </p>
+    </div>
+  </div>
+</main>
+{% endblock %}

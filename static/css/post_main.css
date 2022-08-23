@@ -1,0 +1,497 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 10px 0 10px;
+  margin: 0 auto;
+}
+
+/* 단위 다 vh로 바꾸기 */
+/* main__main_div 마진에 따 화면 구성도 많이 바뀜(기존엔 272px) */
+#main__main_div {
+  width: 100%;
+  /* 기존에 margin 좌우 272로 했다가 padding으로 바꿨다가 일단 없앰 */
+  /* width를 없애면 스크롤 문제를 해결하고 양 옆에 여백을 둘 수 있음 */
+  /* 일단 지금 너무 커서 50으로 둠 */
+}
+
+#main__search_div {
+  margin-top: 10px;
+  width: 100%;
+}
+
+#main__info_div {
+  width: 100%;
+}
+
+#main__search_div__top {
+  display: flex;
+  height: 160px;
+  width: 100%;
+}
+
+#search_div__top_right {
+  /*width: 234px;*/
+  width: 22%;
+}
+
+#search_div__top_left {
+  /*width: 1126px;*/
+  width: 76%;
+  margin-right: 2%;
+}
+
+#search_div__top_left__nav {
+  display: flex;
+  height: 40px;
+  max-width: 35%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#search_div__top_left__nav span {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+#search_div__top_left__search {
+  display: inline-block;
+  width: 100%;
+  position: relative;
+}
+
+#search_div__top_left__search i {
+  position: absolute;
+  left: 1.25rem;
+  top: 28%;
+}
+
+#search_div__top_left__search input {
+  height: 50px;
+  width: 100%;
+  margin: 16px 0;
+  border-radius: 0.5rem;
+  border: 1px solid #bfbfbf;
+  font-size: 16px;
+  padding: 1.75rem 3rem;
+}
+
+#search_div__top_left__search input:hover {
+  border-color: #2253ff;
+}
+
+#search_div__top_left__search input:active {
+  border-color: #2253ff;
+}
+
+#main__search_text {
+  background-position: 13px center;
+  background-size: 30px;
+  background-repeat: no-repeat;
+}
+
+#main__search_tag {
+  background-image: url(/static/img/tag.png);
+  background-position: 13px center;
+  background-size: 30px;
+  background-repeat: no-repeat;
+  text-indent: 50px;
+}
+
+#search_div__top_right__switch {
+  padding: 1rem 0 0 0;
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+
+.search_div__top_right__switch_txt p {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.search_div__top_right__switch_txt {
+  width: 1000px;
+}
+
+#search_div__top_right__btn {
+  height: 40px;
+  margin: 16px 0 0;
+  display: flex;
+  justify-content: center;
+}
+
+#search_div__top_right__reset {
+  height: 40px;
+  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#search_div__top_right__reset span {
+  font-size: 18px;
+  margin-left: 5px;
+}
+
+#main__search_div__tag {
+  width: fit-content;
+  margin-top: 1.5rem;
+}
+
+#main__info_div__nav {
+  display: flex;
+  height: 60px;
+  justify-content: space-between;
+  align-items: center;
+  width: 25%;
+}
+
+#main__info_div__nav span {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+#main__info_div__box {
+  display: flex;
+  align-items: center;
+  margin-left: 0;
+}
+
+#info_div__select_box {
+  width: 83px;
+  height: 32px;
+}
+
+#main__info_div__top {
+  display: flex;
+  justify-content: space-between;
+}
+
+#main__info_div__top select {
+  height: 34px;
+  margin: 2em 0 1.5em 0;
+}
+
+#main__info_div__post {
+  border: 1px solid rgb(221, 221, 221);
+  display: flex;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+#main__info_div__post:hover {
+  box-shadow: 0px 4px 10px 2px rgba(171, 186, 189, 0.2);
+  transform: translateY(-1%);
+}
+
+/* 셀렉트 박스 고치고 https://velog.io/@ewaterbin/CSS-.-%EC%85%80%EB%A0%89%ED%8A%B8-%EB%B0%95%EC%8A%A4%EB%A5%BC-%EA%B5%AC%ED%98%84%ED%95%98%EB%A9%B0-%EB%B4%89%EC%B0%A9%ED%95%9C-%EB%82%9C%EA%B4%80%EB%93%A4, 
+나머지 채우기(220804) */
+
+.main__info_li__tag_flex {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.main__search_li__tag_flex {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.main__info_li__tag_flex li {
+  border-radius: 5px;
+  background-color: #e8e8e8;
+  font-size: 0.75rem;
+  padding: 8px;
+  margin-right: 8px;
+}
+
+.main__search_li__tag_flex li {
+  border-radius: 5px;
+  background-color: #e8e8e8;
+  font-size: 15px;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+#main__info_div__post_left {
+  margin-left: 20px;
+  width: 70%;
+}
+
+#main__info_div__post_left__content {
+  max-height: 50px;
+  margin: 0 0 2rem 0;
+  line-height: 1.5rem;
+  /* overflow: hidden;
+  max-height: 50px; */
+  white-space: pre-line;
+  word-break: break-all;
+}
+
+#main__info_div__post_right {
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#main__info_div__post_right__info_time {
+  color: #8c8c8c;
+  margin-top: 0.25rem;
+}
+
+#main__info_div__post_left__title {
+  font-size: 1.25rem;
+  margin-top: 1rem;
+  font-weight: 700;
+}
+
+#main__info_div__post_left__txt {
+  font-size: 15px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+#main__info_div__post_left__txt p {
+  line-height: 25px;
+}
+
+#main__info_div__post_left__reaction i {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+  color: rgb(110, 110, 110);
+}
+
+#main__info_div__post_left__reaction span {
+  margin-right: 12px;
+  font-size: 15px;
+  color: rgb(110, 110, 110);
+}
+
+#main__info_div__post_left__reaction {
+  margin-bottom: 10px;
+  width: 100%;
+  padding-top: 20px;
+}
+
+#main__info_div__post_right__info {
+  margin-left: 20px;
+}
+
+#main__info_div__post_right__img {
+  margin-left: 40px;
+}
+
+#main__search_btn {
+  border-radius: 5px;
+  border-style: none;
+  height: 58px;
+  width: 100%;
+  background-color: #2253ff;
+  color: white;
+  font-size: 18px;
+}
+
+#main__reset_btn {
+  border-style: none;
+  background-color: #fff;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+#main__search_reset {
+  border-style: none;
+}
+
+/*스위치 구현 파트*/
+.wrapper {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  margin-top: 34px;
+  align-items: center;
+  z-index: 0;
+}
+#switch {
+  position: absolute;
+  /* hidden */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.switch_label {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  width: 40px;
+  height: 19px;
+  background: #fff;
+  border: 2px solid #2253ff;
+  border-radius: 20px;
+  transition: 0.2s;
+}
+.switch_label:hover {
+  background: #fff;
+}
+.onf_btn {
+  position: absolute;
+  top: 0;
+  left: 1px;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 20px;
+  background: #2253ff;
+  transition: 0.2s;
+}
+
+/* checking style */
+#switch:checked + .switch_label {
+  background: #2253ff;
+  border: 2px solid #2253ff;
+}
+
+#switch:checked + .switch_label:hover {
+  background: #2253ff;
+}
+
+/* move */
+#switch:checked + .switch_label .onf_btn {
+  left: 23px;
+  background: #fff;
+  box-shadow: 1px 2px 3px #00000020;
+}
+/* 여기까지 스위치 구현 */
+
+/* 정기, 번개 드롭박스 css */
+
+#main__main_div .dropdown {
+  width: 6em;
+  position: relative;
+  margin: 2em 0 2em 2em;
+}
+
+.dropdown * {
+  box-sizing: border-box;
+}
+
+.select {
+  background: white;
+  border: 1px solid rgb(221, 221, 221);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em;
+  cursor: pointer;
+}
+
+.caret {
+  width: 0;
+  height: 0;
+  display: inline-block;
+  vertical-align: middle;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid;
+  transition: 0.3s;
+}
+
+.caret-rotate {
+  transform: rotate(180deg);
+}
+
+.menu {
+  list-style: none;
+  padding: 0.2em 0.5em;
+  background: white;
+  border-radius: 0.5em;
+  color: #9fa5b5;
+  position: absolute;
+  top: 3em;
+  left: 50%;
+  width: 100%;
+  transform: translateX(-50%);
+  opacity: 0;
+  display: none;
+  transition: 0.2s;
+  z-index: 1;
+  border: 1px solid rgb(221, 221, 221);
+}
+
+.menu li {
+  padding: 0.7em 0.5em;
+  margin: 0.3em 0;
+  border-radius: 0.5em;
+  cursor: pointer;
+  color: black;
+}
+
+.menu li:hover {
+  background: #e9f7ff;
+}
+
+.menu .active {
+  background: #e9f7ff;
+}
+
+.menu-open {
+  display: block;
+  opacity: 1;
+}
+
+/* 초기화 버튼 */
+
+.post_main__tag__reset {
+  display: flex;
+  align-items: center;
+  padding: 5px 32px;
+  margin-left: 1rem;
+  margin-top: 45px;
+}
+
+.post_main__tag__reset i {
+  position: static;
+}
+
+.post_main__tag__reset input {
+  border: none;
+  background-color: transparent;
+  margin: 0 11px;
+  padding: 0;
+}
+
+/* 모집 중 아이콘 */
+#main__top_left__ul__recruit {
+  background-color: #2253ff;
+  border-radius: 0px;
+  color: white;
+}
+
+#main__top_left__ul__recruit_finish {
+  background-color: #9d9d9d;
+  border-radius: 0px;
+  color: white;
+}
+
+/*main 상단 검색창 정비*/
+
+.main__search_div__top_firstline {
+  width: 100%;
+}
+.main__search_div__top_secondline {
+  width: 100%;
+}
+.main__search_div__top_thirdline {
+  width: 100%;
+}

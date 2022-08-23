@@ -1,0 +1,190 @@
+{% extends 'users/base.html' %} {% block content %}
+{% load static %}
+{% load mathfilters %}
+<div class="content">
+  <div class="profile-top">
+    <div class="profile-top__top">
+      <div class="profile-top__left">
+        {% if user.profile_img %}
+        <img src="{{user.profile_img.url}}" alt="profile_img"></img>
+        {% else %}
+        <img src="{% static "img/moco_symbol.png" %}" alt="profile_img"></img>
+        {% endif %}
+      </div>
+      <div class="profile-top__right">
+        <div class="profile-top__edit">
+          <div>
+            <h1>{{user.nickname}}</h1>
+          </div>
+          <div>
+            {% if edit_access %}
+            <a href="{% url 'users:profile_edit' user.id %}">프로필수정</a>
+            {% endif %}
+          </div>
+        </div>
+        <div class="profile-top__level">
+          <div class="profile-top__level__left">Lv. <span style="color: #2253FF; ">{{user.exp|intdiv:100}}</span></div>
+          <div class="profile-top__level__right"></div>
+        </div>
+      </div>
+    </div>
+    <div class="profile-top__bottom">
+      <div class="profile-top__info">
+        <h2>기본정보</h2>
+        <div class="profile-top__info__list">
+          <div><span>나이</span><span>{{age}}</span></div>
+          <div><span>직업</span><span>{{user.get_job_display}}</span></div>
+          <div><span>성별</span><span>{{user.get_gender_display}}</span></div>
+        </div>
+      </div>
+      <div class="profile-top__desc">
+        <h2>소개</h2>
+        <p>{{user.desc}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-bottom">
+    {% if edit_access %}
+    <div class="profile-bottom__list">
+      <h2>❤️ 좋아요</h2>
+      <div class="profile-bottom__list_1">
+        <!--좋아요 누른 모집글-->
+        {% for like_post in user.like_posts.all %}
+        <div class="profile-bottom__post">
+        <a class="profile-bottom__item" href="{% url 'posts:detail' like_post.id %}">
+            {% if like_post.activation == True %}
+            <span class="activation_ing">모집중</span>
+            {% else %}
+            <span class="activation_over">모집완료</span>
+            {% endif %}
+            <p>{{like_post.title}}</p>
+            <div class="profile-bottom__post__content">
+              <p>
+                {{like_post.content|truncatechars:50|safe}}
+              </p></div>
+            <div class="profile-bottom__post__icon">
+              <span><i class="fa-solid fa-eye"></i></i><span>{{like_post.views}}</span></span>
+              <span><i class="fa-regular fa-heart fa-lg"></i><span>{{like_post.likes}}</span></span>
+              <span><i class="fa-solid fa-comment-dots"></i>{{like_post.comment_set.count}}</span>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+        <!--좋아요 누른 플레이스-->
+        {% for place, image, width in pairs_like %}
+        <div class="profile-bottom__place">
+          <a class="profile-bottom__item" href="{% url 'place:detail' place.id %}" >
+            <div class="profile-bottom__place__img">
+              {% if image %} <!--게시물-->
+              <img src="{{image.image.url}}"><br>
+              {% else %}
+              <img class="no_image" src="{% static "img/image-solid.svg" %}" alt="no_image" ></img>
+              {% endif %}
+            </div>
+            <div class="profile-bottom__place__info">
+              <p>{{place.name}}</p>
+              <div class="profile-bottom__place__location"><i class="fa-solid fa-location-dot"></i><span>{{place.location}}</span></div>
+              <div class="content-box__rating"><div class="star-ratings">
+                <div class="star-ratings-fill">
+                {% for i in width %}
+                  <span>★</span>
+                  {% endfor %}
+                </div>
+              </div></div>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+    </div>
+    </div>
+    {% endif %}
+
+    <!--작성한 모각코 모집글-->
+    <div class="profile-bottom__list">
+      <h2>💻 작성한 모각코 모집글</h2>
+      <div class="profile-bottom__list_2">
+        {% for post in user.post_set.all %}
+        <div class="profile-bottom__post">
+        <a class="profile-bottom__item" href="{% url 'posts:detail' post.id %}">
+            {% if post.activation == True %}
+            <span class="activation_ing">모집중</span>
+            {% else %}
+            <span class="activation_over">모집완료</span>
+            {% endif %}
+            <p>{{post.title}}</p>
+            <div class="profile-bottom__post__content">
+              <p>
+                {{post.content|truncatechars:50|safe}}
+              </p></div>
+            <div class="profile-bottom__post__icon">
+              <span><i class="fa-solid fa-eye"></i></i><span>{{post.views}}</span></span>
+              <span><i class="fa-regular fa-heart fa-lg"></i><span>{{post.likes}}</span></span>
+              <span><i class="fa-solid fa-comment-dots"></i>{{post.comment_set.count}}</span>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!--작성한 모각코 후기-->
+    <div class="profile-bottom__list">
+      <h2>✏️ 작성한 모각코 후기</h2>
+      <div class="profile-bottom__list_3">
+        {% for review in user.review_set.all %}
+        <div class="profile-bottom__review">
+        <a class="profile-bottom__item" href="{% url 'posts:detail' review.post.id %}">
+          {% if review.user == review.post.user %}
+          <span class="auth_host">주최자</span>
+          {% else %}
+          <span class="auth_guest">참여자</span>
+          {% endif %}
+          <p class="profile-bottom__review__title">{{review.post.title}}</p>
+          <div class="profile-bottom__review__bottom">
+            {% if review.image %}
+            <img src="{{review.image.url}}" />
+            {% else %}
+            <p>no image</p>
+            {% endif %}
+            <p style="line-height: 1.5rem;">{{review.post.content|truncatechars:90|safe}}</p>
+          </div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!--작성한 플레이스 후기-->
+    <div class="profile-bottom__list">
+      <h2>📍 플레이스 후기</h2>
+      <div class="profile-bottom__list_4">
+        {% for place, image ,width in pairs_my %}
+        <div class="profile-bottom__place">
+          <a class="profile-bottom__item" href="{% url 'place:detail' place.id %}" >
+            <div class="profile-bottom__place__img">
+            {% if image %} <!--게시물-->
+            <img src="{{image.image.url}}"><br>
+            {% else %}
+            <img class="no_image" src="{% static "img/image-solid.svg" %}" alt="no_image" ></img>
+            {% endif %}
+            </div>
+            <div class="profile-bottom__place__info">
+              <p>{{place.name}}</p>
+              <div class="profile-bottom__place__location"><i class="fa-solid fa-location-dot"></i><span>{{place.location}}</span></div>
+              <div class="content-box__rating"><div class="star-ratings">
+                <div class="star-ratings-fill">
+                {% for i in width %}
+                  <span>★</span>
+                  {% endfor %}
+                </div>
+              </div></div>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

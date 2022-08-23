@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>프로필</title>
+  </head>
+  <body>
+    <h2>프로필페이지</h2>
+    {% if tag %}
+    <a href="{% url 'users:profile_edit' user.id %}">프로필수정</a>
+    {% endif %}
+    <p>사진:{{user.profile_img}}</p>
+    <p>닉네임:{{user.nickname}}</p>
+    <p>나이:{{age}}</p>
+    <p>직업:{{user.job}}</p>
+    <p>성별:{{user.gender}}</p>
+    <p>소개:{{user.desc}}</p>
+  </body>
+</html>

@@ -1,0 +1,193 @@
+#main h1 {
+  font-weight: 600;
+  font-size: 1.75rem;
+}
+
+#main h2 {
+  font-size: 1.25rem;
+  margin: 0 0 0.75rem 0;
+}
+
+#main p {
+  line-height: 1.5rem;
+}
+
+#main .container {
+  display: flex;
+  justify-content: center;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+#main .container-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#main .container-column {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+}
+
+#main .container-column__bottom {
+  display: flex;
+  flex-direction: row;
+}
+
+#main img {
+  width: 25rem;
+}
+
+#main #banner {
+  padding: 4rem 0;
+  background-color: #2253FF;
+  color: white;
+}
+
+#main #banner .container-row {
+  width: 80%;
+  justify-content: space-between;
+}
+
+#main #banner p{
+  color: #E9F7FF;
+}
+
+#main #banner .container-row__left__title{
+  margin-bottom: 6rem;
+}
+
+#main #introduce, #main #post, #main #place {
+  padding: 4rem 0;
+}
+
+#main #introduce .container-column__top {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+#main #introduce .container-column__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#main #post {
+  background-color: #E9F7FF;
+}
+
+#main #post h1, #main #place h1{
+  margin-bottom: 2rem;
+}
+
+#main a{
+  background-color: white;
+  border: 1px solid #2253FF;
+  border-radius: 0.5rem;
+  color: #2253FF;
+  padding: 0.75rem 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+#main a:hover{
+  background-color: #FAFAFA;
+  color: #2253FF !important; 
+}
+
+#main #post p, #main #place p{
+  margin-bottom: 2rem;
+}
+
+#main #post .container-row {
+  justify-content: space-between;
+  width: 75%;
+}
+
+#main #place .container-row {
+  justify-content: space-between;
+  width: 75%;
+}
+
+#main #notice {
+  padding: 4rem 0;
+  background-color: #E9F7FF;
+}
+
+#main #notice .container-row {
+  justify-content: space-between;
+  width: 75%;
+}
+
+#main #notice h1 {
+  margin-bottom: 1rem;
+}
+
+#main #footer {
+  padding: 4rem 0;
+  background-color: white;
+}
+
+#main #footer .container-row {
+  color: #BFBFBF;
+  justify-content: space-between;
+  width: 75%;
+}
+
+/* 반응형 */
+@media screen and (max-width: 1024px) {
+  #main .container-row, #main .container-column__bottom  {
+    flex-direction: column;
+  }
+
+  #main .container-row__left {
+    margin-bottom: 2rem;
+  }
+
+  #main #banner .container-row__left__title{
+    margin-bottom: 3rem;
+  }
+
+  #main #banner .container-row__left__content{
+    margin-bottom: 1rem;
+  }
+
+  #main #place .container-row  {
+    flex-direction: column-reverse;
+  }
+
+}
+
+/* 애니메이션 */
+#main #banner .container-row__right img{
+  animation: up-down 1.4s infinite ease-in-out alternate;
+}
+
+@keyframes up-down{
+  from{
+    transform: translatey(0px);
+  }
+  to{
+    transform: translatey(-20px);
+  }
+}
+
+#main #banner .container-row__left, #main #introduce .container-column {
+  animation: fadeInUp 1s;
+  transition-delay: 1s;
+}
+
+@keyframes fadeInUp {
+  0% {
+      opacity: 0;
+      transform: translate3d(0, 50%, 0);
+  }
+  to {
+      opacity: 1;
+      transform: translateZ(0);
+  }
+}

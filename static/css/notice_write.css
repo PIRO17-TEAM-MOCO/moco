@@ -1,0 +1,55 @@
+.content-write__title {
+  color: black;
+  font-weight: 700;
+  font-size: 2rem;
+  width: 100%;
+  border-bottom: 1px solid #BFBFBF;
+  padding: 2rem 0;
+}
+
+.content-write {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.content-write input{
+  width: 100%;
+  border: 1px solid #BFBFBF;
+  border-radius: 10px;
+  padding: 1rem 1rem;
+}
+
+.content-write div {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+#main_write__content__btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+#main_write__content__btn button {
+  padding: 1rem 2rem;
+  background-color: #BFBFBF;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  margin: 0 0.5rem;
+}
+
+#main_write__content__btn input {
+  padding: 1rem 2rem;
+  background-color: #2253FF;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  margin: 0 0.5rem;
+}
+
+.content-write textarea {
+  width: 100%;
+  height: 20rem;
+}

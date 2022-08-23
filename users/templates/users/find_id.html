@@ -1,0 +1,116 @@
+{% extends 'users/base.html' %} {% block content %} {% load static %}
+<main>
+	<div class="idsearch__container">
+		<div class="idsearch__div">
+			{% if form %}
+			<span>아이디 찾기</span>
+
+      <form
+        action="{% url 'users:find_id' %}"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <div class="input">
+          {% csrf_token %}
+          <!-- {{form.as_p}} -->
+          <div class="input__name">
+            {{ form.name.errors }}
+            <lable for="{{ form.name.id_for_label }}"></lable>
+            <input
+              type="text"
+              name="name"
+              required
+              id="id_name"
+              placeholder="이름"
+            />
+          </div>
+          <div class="input__birth">
+            {{ form.birth.errors }}
+            <lable for="{{ form.birth.id_for_label }}"></lable>
+            <input
+              type="text"
+              name="birth"
+              required=""
+              id="id_birth"
+              placeholder="생년월일: YYYY-MM-DD 형식으로 적어주세요."
+            />
+          </div>
+          <div class="input__email">
+            {{ form.email.errors }}
+            <lable for="{{ form.email.id_for_label }}"></lable>
+            <input
+              type="email"
+              name="email"
+              maxlength="254"
+              required=""
+              id="id_email"
+              placeholder="이메일: example@test.com"
+            />
+          </div>
+          <button id="search__btn" type="submit">아이디 찾기</button>
+        </div>
+      </form>
+      {% elif users %}
+      <div id="search__modal" class="search__result; modal-overlay">
+        <div class="modal__window">
+          <div class="modal-close"><i class="fa-solid fa-xmark"></i></div>
+          <div class="modal__content">
+            {% for user in users %}
+            <p style="font-size: 1rem; font-weight: 300">
+              아이디는&nbsp;
+              <span style="color: blue; font-weight: 900">
+                {{user.username}}
+              </span>
+              &nbsp;입니다. {% endfor %}
+              <a href="{% url 'users:login' %}"
+                ><button id="backtologin__btn">
+                  로그인 페이지로 돌아가기
+                </button></a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <div id="search__modal" class="search__result; modal-overlay">
+        <div class="modal__window">
+          <div class="modal-close"><i class="fa-solid fa-xmark"></i></div>
+          <div class="modal__content">
+            <p style="font-size: 1rem; font-weight: 300">
+              등록된 회원이 아닙니다.
+              <a href="{% url 'users:login' %}"
+                ><button id="backtologin__btn">
+                  로그인 페이지로 돌아가기
+                </button></a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+
+			{% endif %}
+		</div>
+	</div>
+</main>
+<script>
+	const modal = document.getElementById('search__modal');
+	const btnModal = document.getElementById('backtologin__btn');
+	btnModal.addEventListener('click', (e) => {
+		modal.style.display = 'flex';
+	});
+
+	const closeBtn = modal.querySelector('.modal-close');
+	closeBtn.addEventListener('click', (e) => {
+		modal.style.display = 'none';
+		location.replace("{% url 'users:find_id' %}");
+	});
+
+	modal.addEventListener('click', (e) => {
+		const evTarget = e.target;
+		if (evTarget.classList.contains('modal-overlay')) {
+			modal.style.display = 'none';
+			location.replace("{% url 'users:find_id' %}");
+		}
+	});
+</script>
+{% endblock %}

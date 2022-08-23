@@ -113,7 +113,7 @@
             <span>{{post.views}}</span>
             <i class="fa-solid fa-comment-dots"></i>
             <span>{{post.comment_set.all|length}}</span>
-            {% if post.user in post.like_users.all %}
+            {% if request.user in post.like_users.all %}
               <i id="blank" class="fa-solid fa-heart"></i> <!-- 채워져 있는 하트-->
               <span id="like_count">{{post.likes}}</span>
               {% else %}

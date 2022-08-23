@@ -64,6 +64,7 @@ def home(request, category='None'):
         "sort": sort,
         "search": search,
         "places": places,
+        "user": request.user,
     }
     return render(request, template_name="place/home.html", context=context)
 

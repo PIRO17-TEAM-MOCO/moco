@@ -136,7 +136,7 @@ def find_id(request):
             name = form.cleaned_data['name']
             birth = form.cleaned_data['birth']
             email = form.cleaned_data['email']
-            users = User.objects.filter(name=name, birth=birth)  # 모든 user 반환
+            users = User.objects.filter(name=name, birth=birth, email=email)  # 모든 user 반환
             context = {
                 'users': users,
             }
@@ -191,7 +191,7 @@ def reset_pw(request):
                     c = {
                         "email": user.email,
                         # local: '127.0.0.1:8000', prod: '?' // settings.HOSTNAME 후에 사용
-                        'domain': '127.0.0.1:8000',
+                        'domain': 'ec2-3-34-125-211.ap-northeast-2.compute.amazonaws.com',
                         'site_name': 'MOCO',
                         # MTE4
                         "uid": urlsafe_base64_encode(force_bytes(user.pk)),

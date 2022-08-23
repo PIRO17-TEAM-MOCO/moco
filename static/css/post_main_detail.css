@@ -406,9 +406,11 @@
   border-style: none;
   border-radius: 5px;
   color: white;
-  padding: 10px 20px;
-  font-size: 13px;
+  padding: 16px 32px;
+  font-size: 0.9rem;
   margin: 10px 0;
+  font-weight: 600;
+  margin-right: 0.5rem;
 }
 
 #main_detail__review__btn_revise {
@@ -742,10 +744,11 @@
 .main_detail__delete_modal__content h1 {
   font-weight: 600;
   margin-bottom: 30px;
+  font-size: 20px;
 }
 
 .main_detail__delete_modal__content h3 {
-  font-size: 13px;
+  font-size: 16px;
   margin-bottom: 40px;
 }
 
@@ -1222,4 +1225,20 @@
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
+}
+
+/*페이지네이션*/
+
+.content-pagination {
+  margin: 4rem 0 3rem 0;
+}
+
+.content-pagination .active > .page-link {
+  background-color: #2253ff;
+  color: white;
+}
+
+.content-pagination .pagination {
+  --bs-pagination-color: #2253ff;
+  --bs-pagination-disabled-color: #8c8c8c;
 }

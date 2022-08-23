@@ -86,6 +86,8 @@ def home(request, contact='None'):
         tags = tags.split(",")
         tags_all[i.id] = tags
 
+    posts = posts.order_by("-published_at")
+
     context = {
         "posts": posts,
         "sort": sort,

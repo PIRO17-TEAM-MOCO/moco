@@ -377,8 +377,12 @@
                                       </div>
                                       <div class="main_detail__review_dropdown_menu">
                                         <div class="main_detail__review_dropdown_menu_revise">
-                                          <button onclick="changeForm3({{review.id}}, '{{review.content}}');">수정</button>
-                                        </div>
+                                          {% if review.image %}
+                                          <button onclick="changeForm3({{review.id}}, '{{review.content}}', '{{review.image.url}}');">수정</button>
+                                          {% else %}
+                                          <button onclick="changeForm3({{review.id}}, '{{review.content}}', '');">수정</button>
+                                          {% endif %}
+                                    </div>
                                         <div class="main_detail__review_dropdown_menu_delete">
                                           <button onclick="onClickdelete2({{review.id}})">삭제</button>
                                         </div>
@@ -437,7 +441,11 @@
                                           </div>
                                           <div class="main_detail__review_dropdown_menu">
                                             <div class="main_detail__review_dropdown_menu_revise">
-                                              <button onclick="changeForm3({{review.id}}, '{{review.content}}');">수정</button>
+                                              {% if review.image.url %}
+                                              <button onclick="changeForm3({{review.id}}, '{{review.content}}', '{{review.image.url}}');">수정</button>
+                                              {% else %}
+                                              <button onclick="changeForm3({{review.id}}, '{{review.content}}', '');">수정</button>
+                                              {% endif %}
                                             </div>
                                             <div class="main_detail__review_dropdown_menu_delete">
                                               <button onclick="onClickdelete2({{review.id}})">삭제</button>
@@ -463,6 +471,8 @@
                             </div>
                             <div class="post_detail__review__page">
                               {% if reviews.has_previous %}
+                                <a href="?page={{reviews.previous_page_number}}" class="post_detail__review__page_previous">이전</a>
+                              {% else %}
                                 <a href="?page={{reviews.previous_page_number}}" class="post_detail__review__page_previous">이전</a>
                               {% endif %}
 
@@ -662,42 +672,70 @@
                           }
 
                           // 후기 수정
-                          const changeForm3 = (id, content) => {
+                          const changeForm3 = (id, content, imgurl) => {
+                            console.log(imgurl)
                             const reviseRvw = document.querySelector(`.main_detail__review__contents_content__${id}`)
-    
-    reviseRvw.innerHTML = 
-    `<form action="/post/review/revise/${id}" method="post" enctype="multipart/form-data" style="margin: 0 20px">
-      {% csrf_token %}
-      <div id="main_detail__review__blank_box">
-        <div id="main_detail__review__filebox">
-          {% if review.image.url %}
-          <img src="{{review.image.url}}" alt="review_image"/>
-          {% else %}
-          <img src="/static/img/image-solid.svg" alt="review_image"/>
-          {%endif%}
-          <input
-            type="file"
-            name="review_image"
-            class="main_detail__review__upload_file"
-            accept="image/*"
-
-          />
+    if(imgurl != '') {
+      reviseRvw.innerHTML = 
+      `<form action="/post/review/revise/${id}" method="post" enctype="multipart/form-data" style="margin: 0 20px">
+        {% csrf_token %}
+        <div id="main_detail__review__blank_box">
+          <div id="main_detail__review__filebox">
+            <img src="${imgurl}" style="width: 90%; height: 90%; margin-bottom: 10px;"/>
+            <input
+              type="file"
+              name="review_image"
+              class="main_detail__review__upload_file"
+              accept="image/*"
+            />
+          </div>
+          <textarea
+            name="review_content"
+            id="review_input_box"
+            cols="30"
+            rows="10"
+            placeholder="후기를 입력하세요."
+          >${content}</textarea>
         </div>
-        <textarea
-          name="review_content"
-          id="review_input_box"
-          cols="30"
-          rows="10"
-          placeholder="후기를 입력하세요."
-        >${content}</textarea>
-      </div>
-      <div id="main_detail__review__btnplace">
-        <a href="{% url 'posts:detail' post.id %}">취소</a>
-        <button type="submit" id="main_detail__review__btn_revise">
-          <p>후기 수정</p>
-        </button>
-      </div>
-    </form>`
+        <div id="main_detail__review__btnplace">
+          <a href="{% url 'posts:detail' post.id %}">취소</a>
+          <button type="submit" id="main_detail__review__btn_revise">
+            <p>후기 수정</p>
+          </button>
+        </div>
+      </form>`  
+    }
+    else {
+      reviseRvw.innerHTML = 
+      `<form action="/post/review/revise/${id}" method="post" enctype="multipart/form-data" style="margin: 0 20px">
+        {% csrf_token %}
+        <div id="main_detail__review__blank_box">
+          <div id="main_detail__review__filebox">
+            <img src="/static/img/image-solid.svg" style="width: 90%; height: 90%;"/>
+            <input
+              type="file"
+              name="review_image"
+              class="main_detail__review__upload_file"
+              accept="image/*"
+            />
+          </div>
+          <textarea
+            name="review_content"
+            id="review_input_box"
+            cols="30"
+            rows="10"
+            placeholder="후기를 입력하세요."
+          >${content}</textarea>
+        </div>
+        <div id="main_detail__review__btnplace">
+          <a href="{% url 'posts:detail' post.id %}">취소</a>
+          <button type="submit" id="main_detail__review__btn_revise">
+            <p>후기 수정</p>
+          </button>
+        </div>
+      </form>`
+  
+    }
                           }
 
                           // 후기 삭제

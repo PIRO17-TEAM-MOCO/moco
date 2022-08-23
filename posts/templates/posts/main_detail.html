@@ -314,7 +314,7 @@
                               {%endif%}
                             </div>
                           </label>
-                          <input type="file" name="review_image" class="main_detail__review__upload_file" accept="image/*" onchange="thumbnailImg(event);"/>
+                          <input type="file" name="review_image" id="main_detail__review__upload_file" accept="image/*" onchange="thumbnailImg(event);"/>
                         </div>
                         <textarea name="review_content" id="review_input_box" cols="30" rows="10" placeholder="후기를 입력하세요."></textarea>
                       </div>
@@ -378,7 +378,7 @@
                                     {% if review.image %}
                                       <img src="{{review.image.url}}"/>
                                     {% else %}
-                                      <img src="/static/img/tag.png" alt="">
+                                    <img src="/static/img/image-solid.svg" alt="no_image" ></img>
                                     {% endif %}
                                     <div class="main_detail__review__contents_text">
                                       {{review.content}}
@@ -436,9 +436,9 @@
                                       </div>
                                       <div class="main_detail__review__contents_content__{{review.id}} main_detail__img_size">
                                         {% if review.image %}
-                                          <img src="{{review.image.url}}"/>
+                                        <img src="{{review.image.url}}"/>
                                         {% else %}
-                                          <img src="/static/img/tag.png" alt="">
+                                        <img src="/static/img/image-solid.svg" alt="no_image" ></img>
                                         {% endif %}
                                         <div class="main_detail__review__contents_text">
                                           {{review.content}}
@@ -658,22 +658,17 @@
       {% csrf_token %}
       <div id="main_detail__review__blank_box">
         <div id="main_detail__review__filebox">
-          <label for="main_detail__review__upload_file">
-            <div id="main_detail__review__uploadbtn">
-              <h1>+</h1>
-              <p>이미지를 드래그하거나 <br> 클릭해서 업로드해주세요</p>
-              {% if review.image.url %}
-              <img src="{{review.image.url}}" alt="review_image"/>
-              {% else %}
-              <img src="{{review.image.url}}" alt="review_image" onerror="this.style.display='none'"/>
-              {%endif%}
-            </div>
-          </label>
+          {% if review.image.url %}
+          <img src="{{review.image.url}}" alt="review_image"/>
+          {% else %}
+          <img src="/static/img/image-solid.svg" alt="review_image"/>
+          {%endif%}
           <input
             type="file"
             name="review_image"
             class="main_detail__review__upload_file"
             accept="image/*"
+
           />
         </div>
         <textarea

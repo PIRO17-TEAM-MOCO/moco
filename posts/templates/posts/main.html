@@ -105,7 +105,7 @@
             {{post.title}}
           </div>
           <div id="main__info_div__post_left__content">
-            {{post.content|truncatechars:110 |truncatechars_html:10 | safe }}
+            {{post.content|truncatechars:110|striptags}}
           </div>
           <div id="main__info_div__post_left__reaction">
             <i class="fa-solid fa-eye"></i>
@@ -212,7 +212,7 @@
 			tagify.dropdown.hide(); // // 드롭다운 제거
 		}
 
-	</script>
+    </script>
 
 </div>
 {% endblock content %}

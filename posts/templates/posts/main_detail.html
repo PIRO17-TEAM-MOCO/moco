@@ -251,12 +251,24 @@
                       {% for recomment in comment.comment_set.all %}
                         <div class="main_detail__comment__contents__reply_bundle__{{recomment.id}}" style="display: flex; justify-content: space-between;">
                           <div>
-                            <div class="reply_user_name">
-                              <span style="font-size:1.25rem; font-weight: 600;">ㄴ
-                              </span>
-                              {{recomment.user.nickname}}
-                              <span style="color: #A2A2A2; font-size: 0.75rem;">{{recomment.published_at|date:"Y. m. d"}}</span>
-                              &nbsp;</div>
+                            <div class="main_detail__comment__contetns__profile_userinfo">
+                              <span style="font-size:1.25rem; font-weight: 600;">ㄴ</span>
+                              <div id="main_detail__comment__contents__img">
+                                {% if recomment.user.profile_img %}
+                                  <img src="{{comment.user.profile_img.url}}" width="45px" alt="profile_img"></img>
+                                {% else %}
+                                  <img src="/static/img/moco_symbol.png" width="45px" alt="profile_img"></img>
+                                {% endif %}
+                              </div>
+                              <div id="main_detail__comments__contents__info">
+                                <div id="main_detail__comments__contents__name">
+                                  <span>{{recomment.user.nickname}}</span>
+                                </div>
+                                <div id="main_detail__comments__contents__time">
+                                  <span>{{recomment.published_at|date:"Y. m. d" }}</span>
+                                </div>
+                              </div>
+                            </div>
                             <div class="reply_txt">{{recomment.content}}</div>
                           </div>
                           <div>

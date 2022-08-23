@@ -15,11 +15,11 @@
 
 #main_detail__main {
   display: inline-block;
-  margin-top: 30px;
   width: 100%;
 }
 
 #main_detail__comment {
+	margin: 5rem 0;
   width: 100%;
 }
 
@@ -59,7 +59,6 @@
 
 #main_detail__top__main {
   display: flex;
-  border-bottom: 1px solid rgb(164, 164, 164);
   justify-content: space-between;
 }
 
@@ -92,8 +91,7 @@
 #main_detail__top__profile {
   display: flex;
   align-items: center;
-  margin-top: 15px;
-  margin-bottom: 25px;
+  margin: 15px 0;
 }
 
 #main_detail__top__name {
@@ -157,8 +155,10 @@
 /*좋아요 버튼*/
 
 #main_detail__main__info {
-  padding-bottom: 30px;
-  border-bottom: 1px solid rgb(164, 164, 164);
+  border-top: 1px solid #BFBFBF;
+  border-bottom: 1px solid #BFBFBF;
+	font-size: 20px;
+	padding: 1.75rem 0;
 }
 
 #main_detail__top__apply_btn {
@@ -174,15 +174,16 @@
 #main_detail__main__info div {
   display: flex;
   height: 40px;
+	align-items: center;
 }
 
 #main_detail__main__info h4 {
-  width: 100px;
-  color: rgb(113, 113, 113);
+  width: 140px;
+	font-weight: 600;
 }
 
 #main_detail__main__info span {
-  font-weight: 700;
+  
 }
 
 #main_detail__main__txt {
@@ -194,6 +195,8 @@
 #main_detail__comment__blank {
   display: flex;
   border-top: 50px;
+	font-weight: 600;
+	font-size: 1.25rem;
 }
 
 #post_detail__comment__rule {
@@ -203,7 +206,7 @@
 }
 
 #comment_input_box {
-  padding: 0;
+  padding: 0rem;
   width: 100%;
   height: 10em;
   border: 1px solid rgb(162, 162, 162);
@@ -288,6 +291,7 @@
 
 .main_detail__comment__contetns__profile_userinfo {
   display: flex;
+	align-items: center;
 }
 
 #main_detail__comments__contents__info {
@@ -406,8 +410,9 @@
   border-style: none;
   border-radius: 5px;
   color: white;
-  padding: 10px 20px;
-  font-size: 13px;
+  padding: 16px 32px;
+  font-size: 0.9rem;
+	font-weight: 600;
   margin: 10px 0;
 }
 
@@ -425,6 +430,8 @@
 #main_detail__review__blank {
   display: flex;
   border-top: 50px;
+	font-weight: 600;
+	font-size: 1.25rem;
 }
 
 #main_detail__review__blank_box {
@@ -621,6 +628,10 @@
 
 #main_detail__comment__contents__reply {
   margin-top: 0px;
+}
+
+#main_detail__comment__contents__reply .main_detail__comments_revise_delete_btn{
+  position: relative;
 }
 
 /* 모집 완료 모달창 만들어주기 */
@@ -962,8 +973,7 @@
   position: relative;
   display: inline-flex;
   height: 100%;
-  align-items: center;
-  display: flex;
+  align-items: flex-start;
   justify-content: center;
 }
 
@@ -1006,7 +1016,7 @@
   opacity: 0;
   z-index: 1; /*다른 요소들보다 앞에 배치*/
   width: 4em;
-  top: 100%;
+  top: %;
   padding: 0.5rem 0;
   box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
 }
@@ -1018,6 +1028,7 @@
 .main_detail__comments_dropdown_menu_delete:hover {
   background-color: #e9f7ff;
 }
+
 
 .main_detail__comments__contents__options:hover
   .main_detail__comments_dropdown_menu {
@@ -1120,8 +1131,7 @@
   align-items: center;
   display: flex;
   justify-content: center;
-  margin-right: 3rem;
-  margin-top: 1rem;
+  margin-right: 1rem;
 }
 
 .main_detail__review__contents__options i {
@@ -1161,7 +1171,7 @@
   position: absolute;
   opacity: 0;
   z-index: 1; /*다른 요소들보다 앞에 배치*/
-  width: 6em;
+  width: 4em;
   top: 100%;
   padding: 0.5rem 0;
   box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
@@ -1173,10 +1183,12 @@
 
 .main_detail__review_dropdown_menu_revise {
   font-size: 16px;
+	padding: 0.25rem 0;
 }
 
 .main_detail__review_dropdown_menu_delete {
   font-size: 16px;
+	padding: 0.25rem 0;
 }
 
 .main_detail__review_dropdown_menu_delete:hover {

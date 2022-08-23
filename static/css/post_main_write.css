@@ -25,7 +25,7 @@ form {
 
 .main_write__title h1 {
 	font-weight: 700;
-	font-size: 30px;
+	font-size: 1.3rem;
 	margin-top: 6px;
 }
 
@@ -114,8 +114,8 @@ form {
 }
 
 .main_write__title_num {
-	height: 40px;
-	width: 40px;
+	height: 29px;
+	width: 29px;
 	background-color: #2253ff;
 	border-radius: 100px;
 	color: white;
@@ -126,7 +126,7 @@ form {
 }
 
 .main_write__title_num h2 {
-	font-size: 30px;
+	font-size: 1.3rem;
 	padding-top: 3px;
 }
 

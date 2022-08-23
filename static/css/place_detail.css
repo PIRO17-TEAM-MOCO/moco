@@ -194,12 +194,15 @@
 
 /* comment */
 #main_detail__comment {
+  margin: 5rem 0;
   width: 100%;
 }
 
 #main_detail__comment__blank {
   display: flex;
   border-top: 50px;
+  font-weight: 600;
+  font-size: 1.25rem;
 }
 
 #main_detail__comment__rule {
@@ -208,7 +211,7 @@
 }
 
 #comment_input_box {
-  padding: 0;
+  padding: 0rem;
   width: 100%;
   height: 10em;
   border: 1px solid rgb(162, 162, 162);

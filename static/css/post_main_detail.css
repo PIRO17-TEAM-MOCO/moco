@@ -30,7 +30,7 @@
 }
 
 #main__detail__top_left__ul__recruit_finish {
-  background-color: #9D9D9D;
+  background-color: #9d9d9d;
   color: black;
   font-size: 13px;
 }
@@ -513,14 +513,14 @@
 
 /* 아래 두 태그는 사용자 별 후기 다르게 표시하는 기능 */
 
-#main_detail__review__contents_mine {
+.main_detail__review__contents_mine {
   border-bottom: 1px solid rgb(162, 162, 162);
   padding-top: 10px;
   background-color: #e9f7ff;
   padding-bottom: 30px;
 }
 
-#main_detail__review__contents_others {
+.main_detail__review__contents_others {
   border-bottom: 1px solid rgb(162, 162, 162);
   padding-top: 10px;
   padding-bottom: 30px;

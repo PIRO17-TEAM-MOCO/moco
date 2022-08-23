@@ -532,11 +532,6 @@
   align-items: center;
 }
 
-#main_detail__review__contents_others {
-  border-bottom: 1px solid rgb(162, 162, 162);
-  padding-top: 30px;
-}
-
 .review__contents_box__profile {
   display: flex;
   margin-left: 40px;
@@ -1103,7 +1098,7 @@
 /*리뷰 이미지 사이즈*/
 .main_detail__img_size img {
   width: 20%;
-  height: 20%;
+  height: 195px;
 }
 
 .main_detail__img_size {

@@ -100,9 +100,6 @@ body {
   display: inline-flex;
   height: 100%;
   align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
 .base__dropdown_not {

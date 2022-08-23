@@ -19,7 +19,7 @@
 }
 
 #main_detail__comment {
-	margin: 5rem 0;
+  margin: 5rem 0;
   width: 100%;
 }
 
@@ -155,10 +155,10 @@
 /*좋아요 버튼*/
 
 #main_detail__main__info {
-  border-top: 1px solid #BFBFBF;
-  border-bottom: 1px solid #BFBFBF;
-	font-size: 20px;
-	padding: 1.75rem 0;
+  border-top: 1px solid #bfbfbf;
+  border-bottom: 1px solid #bfbfbf;
+  font-size: 20px;
+  padding: 1.75rem 0;
 }
 
 #main_detail__top__apply_btn {
@@ -174,29 +174,30 @@
 #main_detail__main__info div {
   display: flex;
   height: 40px;
-	align-items: center;
+  align-items: center;
 }
 
 #main_detail__main__info h4 {
   width: 140px;
-	font-weight: 600;
+  font-weight: 600;
 }
 
 #main_detail__main__info span {
-  
 }
 
 #main_detail__main__txt {
   margin-top: 30px;
   margin-bottom: 30px;
   line-height: 30px;
+  white-space: pre-line;
+  word-break: break-all;
 }
 
 #main_detail__comment__blank {
   display: flex;
   border-top: 50px;
-	font-weight: 600;
-	font-size: 1.25rem;
+  font-weight: 600;
+  font-size: 1.25rem;
 }
 
 #post_detail__comment__rule {
@@ -291,7 +292,7 @@
 
 .main_detail__comment__contetns__profile_userinfo {
   display: flex;
-	align-items: center;
+  align-items: center;
 }
 
 #main_detail__comments__contents__info {
@@ -431,8 +432,8 @@
 #main_detail__review__blank {
   display: flex;
   border-top: 50px;
-	font-weight: 600;
-	font-size: 1.25rem;
+  font-weight: 600;
+  font-size: 1.25rem;
 }
 
 #main_detail__review__blank_box {
@@ -626,7 +627,8 @@
   margin-top: 0px;
 }
 
-#main_detail__comment__contents__reply .main_detail__comments_revise_delete_btn{
+#main_detail__comment__contents__reply
+  .main_detail__comments_revise_delete_btn {
   position: relative;
 }
 
@@ -1026,7 +1028,6 @@
   background-color: #e9f7ff;
 }
 
-
 .main_detail__comments__contents__options:hover
   .main_detail__comments_dropdown_menu {
   display: block;
@@ -1180,12 +1181,12 @@
 
 .main_detail__review_dropdown_menu_revise {
   font-size: 16px;
-	padding: 0.25rem 0;
+  padding: 0.25rem 0;
 }
 
 .main_detail__review_dropdown_menu_delete {
   font-size: 16px;
-	padding: 0.25rem 0;
+  padding: 0.25rem 0;
 }
 
 .main_detail__review_dropdown_menu_delete:hover {

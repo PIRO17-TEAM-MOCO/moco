@@ -272,6 +272,18 @@ form {
 	font-weight: 600;
 }
 
+#main_write__top label {
+	font-size: 1.1rem;
+}
+
+.main_write__top__box_title {
+	font-size: 1.1rem;
+}
+
+.main_write__tag_write__main_title h3 {
+	font-size: 1.1rem;
+}
+
 #main_write__select_duration select:hover {
 	border: 1px solid #2253ff;
 }

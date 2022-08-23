@@ -973,7 +973,6 @@
   display: inline-flex;
   height: 100%;
   align-items: flex-start;
-  justify-content: center;
 }
 
 .main_detail__comments__contents__options i {
@@ -1015,7 +1014,7 @@
   opacity: 0;
   z-index: 1; /*다른 요소들보다 앞에 배치*/
   width: 4em;
-  top: %;
+  top: 100%;
   padding: 0.5rem 0;
   box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
 }
@@ -1128,7 +1127,6 @@
   height: 50%;
   align-items: center;
   display: flex;
-  justify-content: center;
   margin-right: 1rem;
 }
 

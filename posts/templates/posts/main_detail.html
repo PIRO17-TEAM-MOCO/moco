@@ -347,7 +347,7 @@
                                 <div class="post_review__contents_box__user_info">
                                   <div class="review__contents_box__profile">
                                     <div class="review__contents_box__profile_img">
-                                      {% if user.profile_img %}
+                                      {% if review.user.profile_img %}
                                         <img src="{{review.user.profile_img.url}}" alt="profile_img"></img>
                                       {% else %}
                                         <img src="/static/img/moco_symbol.png" alt="profile_img"></img>
@@ -411,8 +411,8 @@
                                     <div class="review__contents_box__user_info">
                                       <div class="review__contents_box__profile">
                                         <div class="review__contents_box__profile_img">
-                                          {% if user.profile_img %}
-                                            <img src="{{user.profile_img.url}}" alt="profile_img"></img>
+                                          {% if review.user.profile_img %}
+                                            <img src="{{review.user.profile_img.url}}" alt="profile_img"></img>
                                           {% else %}
                                             <img src="/static/img/moco_symbol.png" alt="profile_img"></img>
                                           {% endif %}

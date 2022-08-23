@@ -67,7 +67,7 @@
           </span>
           <span>
             <span style="margin-right: 0.5rem;"><i class="fa-solid fa-comment-dots"></i>{{place.comment_set.all|length}}</span>
-              {% if place.user in place.like_users.all %}
+              {% if user in place.like_users.all %}
               <i id="blank" class="fa-solid fa-heart"></i> <!-- 빨간색 채워져 있는 하트-->
               <span id="like_count">{{place.likes}}</span>
               {% else %}

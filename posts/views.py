@@ -99,7 +99,8 @@ def home(request, contact='None'):
         "onActive": onActive,
         "tags": tags_all,
         "search": search,
-        "tag_for_show": tag_for_show
+        "tag_for_show": tag_for_show,
+        "user": request.user,
     }
 
     return render(request, template_name="posts/main.html", context=context)

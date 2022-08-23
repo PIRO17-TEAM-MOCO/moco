@@ -13,8 +13,8 @@
               <span><a href="{% url 'posts:home' 'mix' %}">혼합</a></span>
             </div>
             <div id="search_div__top_left__search">
-              <i class="fa-solid fa-magnifying-glass"></i>
               {% if search %}
+              <i class="fa-solid fa-magnifying-glass"></i>
               <input
                 id="main__search_text"
                 type="text"
@@ -23,6 +23,7 @@
                 value="{{ search }}"
               />
               {% else %}
+              <i class="fa-solid fa-magnifying-glass"></i>
               <input type="text" name="search" class="main__search_text" placeholder="관심 모각코를 검색해보세요">
               {% endif %}
               <input
@@ -51,7 +52,7 @@
             <div id="search_div__top_right__reset">
               <div class="post_main__tag__reset">
                 <i class="fa-solid fa-arrows-rotate" style="color: black;"></i>
-                <input type="submit" name="reset" class="post-main__tag__reset" value="초기화" onClick="window.location.reload()">
+                <input type="reset" name="reset" class="post-main__tag__reset" value="초기화" onClick="location.href='/post'">
               </div>
             </div>
           </div>

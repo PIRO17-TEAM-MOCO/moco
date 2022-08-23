@@ -230,9 +230,11 @@
 }
 
 #main__info_div__post_left__content {
-  height: 50px;
+  max-height: 50px;
   margin: 1.25rem 0rem;
   line-height: 1.5rem;
+  /* overflow: hidden;
+  max-height: 50px; */
 }
 
 #main__info_div__post_right {

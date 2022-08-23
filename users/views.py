@@ -314,7 +314,7 @@ def profile_add(request, id):
         return redirect(f'/account/profile/{id}')
     user = User.objects.get(id=id)
     if request.method == "POST":
-        form = ProfileForm(request.POST)
+        form = ProfileForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             if User.objects.filter(email=form.cleaned_data['email']).exclude(username=user.username).exists():
                 print('다른 유저의 이메일과 중복됩니다. 다른 이메일을 입력해주세요.')
@@ -331,6 +331,8 @@ def profile_add(request, id):
             user.job = form.cleaned_data['job']
             user.desc = form.cleaned_data['desc']
             user.email = form.cleaned_data['email']
+            if request.FILES.get('profile_img'):
+                user.profile_img = request.FILES.get('profile_img')
             user.save()
             return redirect('posts:home')
         else:

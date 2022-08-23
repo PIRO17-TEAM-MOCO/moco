@@ -106,6 +106,7 @@ def home(request, contact='None'):
 def write(request):
     if request.method == "POST":
         form = PostForm(request.POST)
+        print(form)
         if form.is_valid():
             if form.cleaned_data["number"] <= 1:
                 messages.error(request, "인원 수는 2명 이상!")
@@ -125,6 +126,7 @@ def write(request):
             user.save()
             return redirect(f"/post/detail/{post.id}")
         else:
+            print("form is not valid")
             return redirect("/post/write")
 
     form = PostForm()

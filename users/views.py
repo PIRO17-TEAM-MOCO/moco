@@ -134,7 +134,7 @@ def find_id(request):
             name = form.cleaned_data['name']
             birth = form.cleaned_data['birth']
             email = form.cleaned_data['email']
-            users = User.objects.filter(name=name, birth=birth)  # 모든 user 반환
+            users = User.objects.filter(name=name, birth=birth, email=email)  # 모든 user 반환
             context = {
                 'users': users,
             }

@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import PostForm
 from users.views import profile_valid
 import simplejson
+from django.utils.html import strip_tags
 
 
 @profile_valid
@@ -88,6 +89,9 @@ def home(request, contact='None'):
         tags = tags.split(",")
         tags_all[i.id] = tags
 
+    for post in posts:
+        post.content = strip_tags(post.content)
+
     context = {
         "posts": posts,
         "sort": sort,
@@ -106,7 +110,6 @@ def home(request, contact='None'):
 def write(request):
     if request.method == "POST":
         form = PostForm(request.POST)
-        print(form)
         if form.is_valid():
             if form.cleaned_data["number"] <= 1:
                 messages.error(request, "인원 수는 2명 이상!")

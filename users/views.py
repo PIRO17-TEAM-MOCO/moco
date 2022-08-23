@@ -20,9 +20,6 @@ from datetime import datetime
 import json
 
 
-def main(request):
-    return render(request, template_name='users/main.html')
-
 # 프로필 유효성 검사 데코레이터
 
 
@@ -37,6 +34,11 @@ def profile_valid(func):
         else:
             return func(request, **kargs)
     return wrapper
+
+
+@profile_valid
+def main(request):
+    return render(request, template_name='users/main.html')
 
 
 def signup_error(request):
@@ -271,7 +273,8 @@ def profile_edit(request, id):
                 return redirect(f'/account/profile/edit/error/{id}')
             user.name = form.cleaned_data['name']
             user.nickname = form.cleaned_data['nickname']
-            user.profile_img = form.cleaned_data['profile_img']
+            if form.cleaned_data['profile_img']:
+                user.profile_img = form.cleaned_data['profile_img']
             user.gender = form.cleaned_data['gender']
             user.birth = form.cleaned_data['birth']
             user.job = form.cleaned_data['job']
@@ -291,12 +294,14 @@ def profile_edit(request, id):
         }
         return render(request, template_name='users/profile_edit.html', context=context)
 
+
 def signup_error(request):
     form = SignupForm()
     context = {
         'form': form,
     }
     return render(request, template_name='users/signup_error.html', context=context)
+
 
 @login_required
 @profile_valid
@@ -306,6 +311,7 @@ def profile_edit_error(request, id):
         'form': form,
     }
     return render(request, template_name='users/profile_edit_error.html', context=context)
+
 
 @login_required
 def profile_add(request, id):
@@ -345,6 +351,7 @@ def profile_add(request, id):
         }
         return render(request, template_name='users/profile_add.html', context=context)
 
+
 @login_required
 def profile_add_error(request, id):
     form = ProfileForm()
@@ -352,6 +359,7 @@ def profile_add_error(request, id):
         'form': form,
     }
     return render(request, template_name='users/profile_add_error.html', context=context)
+
 
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'

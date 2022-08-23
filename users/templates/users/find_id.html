@@ -1,9 +1,9 @@
 {% extends 'users/base.html' %} {% block content %} {% load static %}
 <main>
-  <div class="idsearch__container">
-    <div class="idsearch__div">
-      {% if form %}
-      <span>아이디 찾기</span>
+	<div class="idsearch__container">
+		<div class="idsearch__div">
+			{% if form %}
+			<span>아이디 찾기</span>
 
       <form
         action="{% url 'users:find_id' %}"
@@ -88,29 +88,29 @@
         </div>
       </div>
 
-      {% endif %}
-    </div>
-  </div>
+			{% endif %}
+		</div>
+	</div>
 </main>
 <script>
-  const modal = document.getElementById("search__modal");
-  const btnModal = document.getElementById("backtologin__btn");
-  btnModal.addEventListener("click", (e) => {
-    modal.style.display = "flex";
-  });
+	const modal = document.getElementById('search__modal');
+	const btnModal = document.getElementById('backtologin__btn');
+	btnModal.addEventListener('click', (e) => {
+		modal.style.display = 'flex';
+	});
 
-  const closeBtn = modal.querySelector(".modal-close");
-  closeBtn.addEventListener("click", (e) => {
-    modal.style.display = "none";
-    location.replace("{% url 'users:find_id' %}");
-  });
+	const closeBtn = modal.querySelector('.modal-close');
+	closeBtn.addEventListener('click', (e) => {
+		modal.style.display = 'none';
+		location.replace("{% url 'users:find_id' %}");
+	});
 
-  modal.addEventListener("click", (e) => {
-    const evTarget = e.target;
-    if (evTarget.classList.contains("modal-overlay")) {
-      modal.style.display = "none";
-      location.replace("{% url 'users:find_id' %}");
-    }
-  });
+	modal.addEventListener('click', (e) => {
+		const evTarget = e.target;
+		if (evTarget.classList.contains('modal-overlay')) {
+			modal.style.display = 'none';
+			location.replace("{% url 'users:find_id' %}");
+		}
+	});
 </script>
 {% endblock %}

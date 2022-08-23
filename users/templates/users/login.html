@@ -1,134 +1,130 @@
-{% extends 'users/base.html' %} {% block content %}
-{% load static %}
-{% static 'img/naver_login.png' as naver_button %}
-{% static 'img/google_login.png' as google_button %}
-{% static 'img/kakao_login.png' as kakao_button %}
-{% static 'img/github_login.png' as github_button %}
-<main id="login">
-	<div class="login__container">
-		<div class="login__nor">
-			<span>MOCO</span>
-			<form action="{% url 'users:login' %}" method="post" enctype="multipart/form-data">
-				{% csrf_token %}
-				<div class="input">
-					<div class="input__id">
-						{{ form.username.errors }}
-						<lable for="{{ form.username.id_for_label }}"></lable>
-						<input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username" placeholder="아이디" />
-					</div>
-					<div class="input__pw">
-						{{ form.password.errors }}
-						<lable for="{{ form.password.id_for_label }}"></lable>
-						<input type="password" name="password" autocomplete="current-password" required="" id="id_password" placeholder="비밀번호" />
-					</div>
-					<div class="align__cb">
-						<input type="checkbox" id="input__cb" name="input__cb" />
-						<label for="input__cb"></label>
-						<span>아이디 저장</span>
-					</div>
-					<input type="hidden" name="next" value="{{ next }}" />
-					<button id="login__btn">로그인</button>
-				</div>
-			</form>
-			<div id="sub__menu">
-				<a href="{% url 'users:find_id' %}">아이디 찾기&nbsp;&nbsp;</a> |
-				<a href="{% url 'users:reset_pw' %}">&nbsp;비밀번호 재설정&nbsp;&nbsp;</a>
-				|
-				<a href="{% url 'users:signup' %}">&nbsp;&nbsp;회원가입</a>
-			</div>
-
-      <div class="login__sim">
-        <hr noshade />
-        <span>간편 로그인</span>
-        <hr noshade />
-      </div>
-      {% load socialaccount %} {% providers_media_js %}
-      <div class="login__sim__soc">
-        <div>
-          <form method="post" action="{% provider_login_url 'google' %}">
-            {% csrf_token %}
-            <button type="submit"><img src="{{ google_button }}" height="42" width="152"></button>
-            <!-- <button type="submit">구글</button> -->
-          </form>
-          <form method="post" action="{% provider_login_url 'kakao' %}">
-            {% csrf_token %}
-            <button type="submit"><img src="{{ kakao_button }}" height="40" width="150"></button>
-            <!-- <button type="submit">카카오</button> -->
-          </form>
+{% extends 'users/base.html' %}
+{% block content %}
+  {% load static %}
+  {% static 'img/naver_login.png' as naver_button %}
+  {% static 'img/google_login.png' as google_button %}
+  {% static 'img/kakao_login.png' as kakao_button %}
+  {% static 'img/github_login.png' as github_button %}
+  <main id="login">
+    <div class="login__container">
+      <div class="login__nor">
+        <span>MOCO</span>
+        <form action="{% url 'users:login' %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="input">
+            <div class="input__id">
+              {{ form.username.errors }}
+              <lable for="{{ form.username.id_for_label }}"></lable>
+              <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username" placeholder="아이디"/>
+            </div>
+            <div class="input__pw">
+              {{ form.password.errors }}
+              <lable for="{{ form.password.id_for_label }}"></lable>
+              <input type="password" name="password" autocomplete="current-password" required="" id="id_password" placeholder="비밀번호"/>
+            </div>
+            <div class="align__cb">
+              <input type="checkbox" id="input__cb" name="input__cb"/>
+              <label for="input__cb"></label>
+              <span>아이디 저장</span>
+            </div>
+            <input type="hidden" name="next" value="{{ next }}"/>
+            <button id="login__btn">로그인</button>
+          </div>
+        </form>
+        <div id="sub__menu">
+          <a href="{% url 'users:find_id' %}">아이디 찾기&nbsp;&nbsp;</a>
+          |
+          <a href="{% url 'users:reset_pw' %}">&nbsp;비밀번호 재설정&nbsp;&nbsp;</a>
+          |
+          <a href="{% url 'users:signup' %}">&nbsp;&nbsp;회원가입</a>
         </div>
-        <div>
-          <form method="post" action="{% provider_login_url 'naver' %}">
-            {% csrf_token %}
-            <button type="submit"><img src="{{ naver_button }}" height="40" width="152" style="padding-bottom: 0.1rem;"></button>
-            <!-- <button type="submit">네이버</button> -->
-          </form>
-          <form method="post" action="{% provider_login_url 'github' %}">
-            {% csrf_token %}
-            <button type="submit"><img src="{{ github_button }}" height="40" width="152"></button>
-            <!-- <button type="submit">깃허브</button> -->
-          </form>
+
+        <div class="login__sim">
+          <hr noshade="noshade"/>
+          <span>간편 로그인</span>
+          <hr noshade="noshade"/>
+        </div>
+        {% load socialaccount %}
+        {% providers_media_js %}
+        <div class="login__sim__soc">
+          <div>
+            <form method="post" action="{% provider_login_url 'google' %}">
+              {% csrf_token %}
+              <button type="submit"><img src="{{ google_button }}" height="42" width="152"/></button>
+            </form>
+            <form method="post" action="{% provider_login_url 'kakao' %}">
+              {% csrf_token %}
+              <button type="submit"><img src="{{ kakao_button }}" height="40" width="150"/></button>
+            </form>
+          </div>
+          <div>
+            <form method="post" action="{% provider_login_url 'naver' %}">
+              {% csrf_token %}
+              <button type="submit"><img src="{{ naver_button }}" height="40" width="152" style="padding-bottom: 0.1rem"/></button>
+            </form>
+            <form method="post" action="{% provider_login_url 'github' %}">
+              {% csrf_token %}
+              <button type="submit"><img src="{{ github_button }}" height="40" width="152"/></button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</main>
-<script>
-	$(document).ready(function () {
-		// 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
-		var key = getCookie('key');
-		$('#id_username').val(key);
+  </main>
+  <script>
+    // 아이디 저장
+    $(document).ready(function () {
+      var key = getCookie('key');
+      $('#id_username').val(key);
 
-		// 그 전에 ID를 저장해서 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
-		if ($('#id_username').val() != '') {
-			$('#input__cb').attr('checked', true); // ID 저장하기를 체크 상태로 두기.
-		}
+      if ($('#id_username').val() != '') {
+        $('#input__cb').attr('checked', true);
+      }
 
-		$('#input__cb').change(function () {
-			// 체크박스에 변화가 있다면,
-			if ($('#input__cb').is(':checked')) {
-				// ID 저장하기 체크했을 때,
-				setCookie('key', $('#id_username').val(), 7); // 7일 동안 쿠키 보관
-			} else {
-				// ID 저장하기 체크 해제 시,
-				deleteCookie('key');
-			}
-		});
+      $('#input__cb').change(function () {
+        if ($('#input__cb').is(':checked')) {
+          setCookie('key', $('#id_username').val(), 7);
+        } else {
+          deleteCookie('key');
+        }
+      });
 
-		// ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장.
-		$('#id_username').keyup(function () {
-			// ID 입력 칸에 ID를 입력할 때,
-			if ($('#input__cb').is(':checked')) {
-				// ID 저장하기를 체크한 상태라면,
-				setCookie('key', $('#id_username').val(), 7); // 7일 동안 쿠키 보관
-			}
-		});
-	});
+      $('#id_username').keyup(function () {
+        if ($('#input__cb').is(':checked')) {
+          setCookie('key', $('#id_username').val(), 7);
+        }
+      });
+    });
 
-	function setCookie(cookieName, value, exdays) {
-		var exdate = new Date();
-		exdate.setDate(exdate.getDate() + exdays);
-		var cookieValue = escape(value) + (exdays == null ? '' : '; expires=' + exdate.toGMTString());
-		document.cookie = cookieName + '=' + cookieValue;
-	}
+    function setCookie(cookieName, value, exdays) {
+      var exdate = new Date();
+      exdate.setDate(exdate.getDate() + exdays);
+      var cookieValue = escape(value) + (
+        exdays == null
+        ? ''
+        : '; expires=' + exdate.toGMTString());
+      document.cookie = cookieName + '=' + cookieValue;
+    }
 
-	function deleteCookie(cookieName) {
-		var expireDate = new Date();
-		expireDate.setDate(expireDate.getDate() - 1);
-		document.cookie = cookieName + '= ' + '; expires=' + expireDate.toGMTString();
-	}
+    function deleteCookie(cookieName) {
+      var expireDate = new Date();
+      expireDate.setDate(expireDate.getDate() - 1);
+      document.cookie = cookieName + '= ' + '; expires=' + expireDate.toGMTString();
+    }
 
-	function getCookie(cookieName) {
-		cookieName = cookieName + '=';
-		var cookieData = document.cookie;
-		var start = cookieData.indexOf(cookieName);
-		var cookieValue = '';
-		if (start != -1) {
-			start += cookieName.length;
-			var end = cookieData.indexOf(';', start);
-			if (end == -1) end = cookieData.length;
-			cookieValue = cookieData.substring(start, end);
-		}
-		return unescape(cookieValue);
-	}
-</script>
+    function getCookie(cookieName) {
+      cookieName = cookieName + '=';
+      var cookieData = document.cookie;
+      var start = cookieData.indexOf(cookieName);
+      var cookieValue = '';
+      if (start != -1) {
+        start += cookieName.length;
+        var end = cookieData.indexOf(';', start);
+        if (end == -1) 
+          end = cookieData.length;
+        cookieValue = cookieData.substring(start, end);
+      }
+      return unescape(cookieValue);
+    }
+  </script>
 {% endblock %}

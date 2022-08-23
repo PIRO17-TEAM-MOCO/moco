@@ -18,9 +18,7 @@ import simplejson
 
 @profile_valid
 def home(request, contact='None'):
-    # url에서 매개변수로 컨택트 받아옴
-    # url에서 매개변수를 안 주면 'None'처리
-
+    # contact filtering (url로 매개변수 받아옴 => 없다면 None)
     if contact == 'offline':
         posts = Post.objects.filter(contact='Off')
     elif contact == 'online':
@@ -29,16 +27,18 @@ def home(request, contact='None'):
         posts = Post.objects.filter(contact='Mix')
     else:
         posts = Post.objects.all()
-    # search했다면 필터링 실행
+
+    # search filtering
     search = request.GET.get('search', None)
     if search != None:
         posts = posts.filter(
-            Q(title__icontains=search) |  # 제목
-            Q(content__icontains=search) |  # 내용
-            Q(user__nickname__exact=search) |  # 글쓴이(닉네임 정확히 일치해야함)
-            Q(location__icontains=search)  # 위치
+            Q(title__icontains=search) |
+            Q(content__icontains=search) |
+            Q(user__nickname__exact=search) |  # 글쓴이는 닉네임 정확히 일치해야함
+            Q(location__icontains=search)
         )
 
+    # tag filtering
     tag = request.GET.get('tag', '')
     tag_for_show = []
     if tag != '':
@@ -46,25 +46,24 @@ def home(request, contact='None'):
         tagList = simplejson.loads(tag)
         for i in range(len(tagList)):
             tagg.append(tagList[i]["value"])
-            print("tagg = ", tagg)
         tag_for_show = tagg
         for i in tagg:
             posts = posts.filter(Q(tag__contains=i))
             tagg = []
-    # 기간별 필터링 실행
-    duration = request.GET.get('duration', 'None')
 
+    # duration filtering
+    duration = request.GET.get('duration', 'None')
     if (duration == "Regular") or (duration == "OneTime"):
         posts = posts.filter(duration=duration)
 
+    # active filtering
     onActive = request.GET.get('onActive', 'None')
-
     if (onActive == "on"):
         posts = posts.filter(activation=True)
     elif (onActive == "off"):
         posts = posts.filter(activation=True or False)
 
-    # 정렬 실행
+    # sorting
     sort = request.GET.get('sort', 'None')
     if sort == "latest":
         posts = posts.order_by("-published_at")
@@ -75,7 +74,10 @@ def home(request, contact='None'):
             'comment')).order_by("-comment_count")
     elif sort == "likes":
         posts = posts.order_by("-likes")
+    else:
+        posts = posts.order_by("-published_at")
 
+    # show searching tags
     tags_all = {}
     for i in posts:
         tags = i.tag
@@ -123,8 +125,6 @@ def write(request):
             user.save()
             return redirect(f"/post/detail/{post.id}")
         else:
-            print(form.errors)
-            print(form.non_field_errors())
             return redirect("/post/write")
 
     form = PostForm()
@@ -140,6 +140,7 @@ def write(request):
 def detail(request, id):
     post = Post.objects.get(id=id)
 
+    # review pagination
     all_reviews = post.review_set.all()
     paginator = Paginator(all_reviews, 5)
     page = request.GET.get('page', 1)
@@ -147,6 +148,7 @@ def detail(request, id):
 
     all_comments = post.comment_set.all().filter(cmt_class=Comment.CMT_PARENT)
 
+    # for cookie expire
     tomorrow = datetime.now() + timedelta(days=1)
     tomorrow = datetime.replace(tomorrow, hour=0, minute=0, second=0)
     expires = datetime.strftime(tomorrow, "%a, %d-%b-%Y %H:%M:%S GMT")
@@ -155,19 +157,21 @@ def detail(request, id):
     comments_len = len(post.comment_set.all())
     cur_user = request.user
 
+    # show tags
     tags = post.tag
     tags = tags.replace(" ", "")
     tags = tags.replace("'", "")
     tags_len = len(tags)
     tags = tags[1:tags_len-1]
     tags = tags.split(",")
-    # 좋아유 누른 유저 체크
+
+    # 좋아요 누른 유저 체크
     like_user = False
     if request.user in post.like_users.all():
-        print('좋아요 눌렀습니다.')
         like_user = True
 
-    if post.user == request.user:  # 현재 로그인한 유저가 해당 모집글을 쓴 유저이면 can_revise가 True
+    # 현재 로그인한 유저가 해당 모집글을 쓴 유저이면 can_revise가 True(수정, 삭제, 모집 완료 가능)
+    if post.user == request.user:
         can_revise = True
     elif not cur_user.is_authenticated:
         can_revise = False
@@ -175,7 +179,7 @@ def detail(request, id):
         can_revise = False
         context = {
             "post": post,
-            'can_revise': can_revise,   # can_revise가 True면 수정, 삭제, 모집 완료로 전환 가능
+            'can_revise': can_revise,
             "reviews": reviews,
             "review_len": reviews_len,
             "comments": all_comments,
@@ -184,6 +188,7 @@ def detail(request, id):
             "like_user": like_user,
         }
 
+        # views(하루에 한번, 작성자 제외)
         session_cookie = id
         cookie_name = F'post_views:{session_cookie}'
         response = render(
@@ -246,6 +251,8 @@ def update(request, id):
             return redirect(f"/post/detail/{id}")
 
     form = PostForm(instance=post)
+
+    # 기존 tag show
     origin_tag = post.tag
     origin_tag_len = len(origin_tag)
     origin_tag = origin_tag[1:origin_tag_len-1]
@@ -298,7 +305,6 @@ def review_home(request):
 @ login_required
 def review_write(request, id):
     if request.method == "POST":
-        print("file : ", request.FILES)
         img = request.FILES.get('review_image')
         content = request.POST['review_content']
         user = request.user
@@ -314,7 +320,6 @@ def review_write(request, id):
 def review_revise(request, id):
     revised_review = Review.objects.get(id=id)
     if request.method == "POST":
-        print("file_update : ", request.FILES)
         revised_review.user = request.user
         revised_review.content = request.POST['review_content']
         revised_review.post = Review.objects.get(id=id).post
@@ -340,8 +345,12 @@ def review_revise(request, id):
 def review_delete(request):
     req = json.loads(request.body)
     review_id = req['id']
+    review = Review.objects.get(id=review_id)
+    post = review.post
     Review.objects.filter(id=review_id).delete()
+    length = len(post.review_set.all())
     data = {
         'id': review_id,
+        'len': length
     }
     return JsonResponse(data)

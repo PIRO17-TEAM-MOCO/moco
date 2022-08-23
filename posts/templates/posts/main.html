@@ -14,6 +14,7 @@
             </div>
             <div id="search_div__top_left__search">
               {% if search %}
+              <i class="fa-solid fa-magnifying-glass"></i>
               <input
                 id="main__search_text"
                 type="text"
@@ -22,6 +23,7 @@
                 value="{{ search }}"
               />
               {% else %}
+              <i class="fa-solid fa-magnifying-glass"></i>
               <input type="text" name="search" class="main__search_text" placeholder="관심 모각코를 검색해보세요">
               {% endif %}
               <input
@@ -50,7 +52,7 @@
             <div id="search_div__top_right__reset">
               <div class="post_main__tag__reset">
                 <i class="fa-solid fa-arrows-rotate" style="color: black;"></i>
-                <input type="submit" name="reset" class="post-main__tag__reset" value="초기화" onClick="window.location.reload()">
+                <input type="reset" name="reset" class="post-main__tag__reset" value="초기화" onClick="location.href='/post'">
               </div>
             </div>
           </div>
@@ -63,14 +65,6 @@
           </ul>
         </div>
         <div id="main__info_div__top">
-          <!--코드리뷰 받고 채은이하고 수정하기
-          <div id="main__info_div__nav">
-            <span>최신순</span>
-            <span>조회순</span>
-            <span>댓글순</span>
-            <span>좋아요순</span>
-          </div>
-        -->
           <select id="sort" name="sort" onchange="this.form.submit();">
             <option value="default">--정렬기준--</option>
             <option value="latest" {% if sort == "latest" %}selected{% endif %}>최신순</option>
@@ -84,20 +78,6 @@
               <option value="Regular" class="lang-option" {% if duration == "Regular" %}selected{% endif %}>📅 정기</option>
               <option value="OneTime" class="lang-option" {% if duration == "OneTime" %}selected{% endif %}>⚡️ 번개</option>
             </select>
-            <!--이 부분 class 명 고치기-->
-            {% comment %}
-            <div class="dropdown">
-              <div class="select">
-                <span class="selected">전체</span>
-                <div class="caret"></div>
-              </div>
-              <ul class="menu">
-                <li class="active">전체</li>
-                <li>📅 정기</li>
-                <li>⚡️ 번개</li>
-              </ul>
-            </div>
-            {% endcomment %}
           </div>
         </div>
       </div>
@@ -105,8 +85,6 @@
     <div id="main__info_div">
       {% for post in posts %}
       <div id="main__info_div__post" onclick="location.href='{% url 'posts:detail' post.id %}';">
-        <!--이 부분 바로가기 수정하기(그냥 전체 칸 누르면 이동하도록)-->
-        <!--수정은 했는데 링크 부분에 빨간 줄 해결하기-->
         <div id="main__info_div__post_left">
           <div id="main__info_div__post_left__tag">
             <ul class="main__info_li__tag_flex">
@@ -127,14 +105,21 @@
           <div id="main__info_div__post_left__title">
             {{post.title}}
           </div>
+          <div id="main__info_div__post_left__content">
+            {{post.content|truncatechars:110|striptags}}
+          </div>
           <div id="main__info_div__post_left__reaction">
             <i class="fa-solid fa-eye"></i>
             <span>{{post.views}}</span>
             <i class="fa-solid fa-comment-dots"></i>
             <span>{{post.comment_set.all|length}}</span>
-            <!--역참조-->
-            <i class="fa-solid fa-heart"></i>
-            <span>{{post.likes}}</span>
+            {% if post.user in post.like_users.all %}
+              <i id="blank" class="fa-solid fa-heart"></i> <!-- 채워져 있는 하트-->
+              <span id="like_count">{{post.likes}}</span>
+              {% else %}
+              <i id="blank" class="fa-regular fa-heart"></i> <!--비어있는 하트-->
+              <span id="like_count">{{post.likes}}</span>
+              {% endif %}
           </div>
         </div>
         <div id="main__info_div__post_right">
@@ -153,7 +138,6 @@
             </div>
             <div id="main__info_div__post_right__info_time">
               <span>{{post.published_at|date:"Y-m-d"}}</span>
-              <!--등록 일자 형식 수정하기-->
             </div>
           </div>
         </div>
@@ -168,8 +152,6 @@
 
 		// initialize Tagify
 		var tagify = new Tagify(inputElm);
-
-		// tagify 전용 이벤트 리스터. 참조 : https://github.com/yairEO/tagify#events
 		tagify
 			.on('add', onAddTag) // 태그가 추가되면
 			.on('remove', onRemoveTag) // 태그가 제거되면
@@ -230,6 +212,8 @@
 			tagify.dropdown.show(e.detail.value); // 드롭다운 메뉴 보여주기
 			tagify.dropdown.hide(); // // 드롭다운 제거
 		}
-	</script>
+
+    </script>
+
 </div>
 {% endblock content %}

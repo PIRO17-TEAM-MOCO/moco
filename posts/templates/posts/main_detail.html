@@ -28,7 +28,7 @@
               <span class="content-title__img">
                 {% if post.user.profile_img %}
                   <div class="profile_img">
-                    <img src="{{post.user.profile_img.url}}" alt="profile_img"></img>
+                    <a href="{% url 'users:profile_view' post.user.id %}"><img src="{{post.user.profile_img.url}}" alt="profile_img"></img></a>
                   </div>
                 {% else %}
                   <div class="profile_img">

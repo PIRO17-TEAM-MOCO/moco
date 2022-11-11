@@ -194,18 +194,18 @@
                   <div class="place_detail__comment__contetns__profile_userinfo">
                     <span style="font-size:1.25rem; font-weight: 600;">ㄴ </span>
                     <div id="place_detail__comment__contents__img">
-                      {% if comment.user.profile_img %}
-                      <img src="{{comment.user.profile_img.url}}" width="45px" alt="profile_img"></img>
+                      {% if recomment.user.profile_img %}
+                      <img src="{{recomment.user.profile_img.url}}" width="45px" alt="profile_img"></img>
                       {% else %}
                       <img src="/static/img/moco_symbol.png" width="45px" alt="profile_img"></img>
                       {% endif %}
                     </div>
                     <div id="place_detail__comments__contents__info">
                       <div id="place_detail__comments__contents__name">
-                        <span>{{comment.user.nickname}}</span>
+                        <span>{{recomment.user.nickname}}</span>
                       </div>
                       <div id="place_detail__comments__contents__time">
-                        <span>{{comment.published_at|date:"Y. m. d" }}</span>
+                        <span>{{recomment.published_at|date:"Y. m. d" }}</span>
                       </div>
                     </div>
                   </div>

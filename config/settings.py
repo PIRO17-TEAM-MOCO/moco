@@ -32,12 +32,8 @@ if env_path.exists():
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-ALLOWED_HOSTS = [
-    '.ec2-3-34-125-211.ap-northeast-2.compute.amazonaws.com',
-    '.moco-community.com',
-]
+DEBUG = True
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -52,7 +48,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.forms',
     'django_summernote',
-    'debug_toolbar',
     'mathfilters',
     'users',
     'posts',
@@ -80,8 +75,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-     'debug_toolbar.middleware.DebugToolbarMiddleware', 
+    'django.middleware.clickjacking.XFrameOptionsMiddleware', 
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -152,9 +146,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = []
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
 
 
@@ -216,6 +212,3 @@ SOCIALACCOUNT_PROVIDERS = {
         },
     }
 }
-
-# 디버그 툴바
-INTERNAL_IPS = ('127.0.0.1',)

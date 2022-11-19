@@ -3,7 +3,7 @@ Description=uWSGI service
 After=syslog.target
  
 [Service]
-ExecStart=/srv/moco/venv/bin/uwsgi -i /srv/moco/config/uwsgi/moco.ini
+ExecStart=/home/ubuntu/myvenv/bin/uwsgi -i /srv/moco/config/uwsgi/moco.ini
  
 Restart=always
 KillSignal=SIGQUIT

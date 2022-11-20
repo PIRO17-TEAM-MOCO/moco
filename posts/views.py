@@ -47,6 +47,7 @@ def home(request, contact='None'):
         )
 
     # tag filtering
+    q=Q()
     tag = request.GET.get('tag', '')
     search_tag_list = []
     if tag != '':
@@ -54,7 +55,8 @@ def home(request, contact='None'):
         for tag_index in range(len(tags_list)):
             search_tag_list.append(tags_list[tag_index]["value"])
         for search_tag in search_tag_list:
-            posts = posts.filter(Q(tag__contains=search_tag))
+            q.add(Q(tag__contains="'"+search_tag+"'"), q.OR)
+        posts = posts.filter(q)
 
     # duration filtering
     duration = request.GET.get('duration', 'None')

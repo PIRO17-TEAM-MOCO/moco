@@ -40,18 +40,15 @@ def write_place(request, id):
 @csrf_exempt
 @login_required
 def revise(request, id):
-    if request.method == 'POST':
-        content = request.POST["content"]
-        comment = Comment.objects.get(id=id)
-        Comment.objects.filter(id=id).update(content=content)
-        if comment.tag == Comment.TAG_POST:
-            temp = comment.post
-            temp_name = POST_NAME
-        elif comment.tag == Comment.TAG_PLACE:
-            temp = comment.place
-            temp_name = PLACE_NAME
-        temp.save()
-        return redirect(f"/{temp_name}/detail/{temp.id}")
+    req = json.loads(request.body)
+    comment_id = id
+    comment_content = req['content']
+    Comment.objects.filter(id=comment_id).update(content=comment_content)
+    data = {
+        'id': comment_id,
+        'content':comment_content
+    }
+    return JsonResponse(data)
 
 
 @csrf_exempt

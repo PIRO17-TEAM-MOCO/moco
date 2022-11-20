@@ -247,6 +247,7 @@
       </div>
   </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cb7ccec687e9ae05def0b343b1f55486&libraries=services"></script>
 <script>
   function dp_menu(){
       let click = document.getElementById("drop-content");
@@ -257,41 +258,42 @@
       }
   }
   
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-        mapOption = {
-            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
-            level: 5 // 지도의 확대 레벨
-        };
+  var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 5 // 지도의 확대 레벨
+    };  
 
-    //지도를 미리 생성
-    var map = new daum.maps.Map(mapContainer, mapOption);
-    //주소-좌표 변환 객체를 생성
-    var geocoder = new daum.maps.services.Geocoder();
-    
-    // 주소로 좌표를 검색합니다
-    geocoder.addressSearch('{{place.location}}', function(result, status) {
+    // 지도를 생성합니다    
+    var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-    // 정상적으로 검색이 완료됐으면 
-    if (status === kakao.maps.services.Status.OK) {
+    // 주소-좌표 변환 객체를 생성합니다
+    var geocoder = new kakao.maps.services.Geocoder();
+  
+  // 주소로 좌표를 검색합니다
+  geocoder.addressSearch('{{place.location}}', function(result, status) {
 
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+  // 정상적으로 검색이 완료됐으면 
+  if (status === kakao.maps.services.Status.OK) {
 
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
-        });
+      var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">{{place.name}}</div>'
-        });
-        infowindow.open(map, marker);
+      // 결과값으로 받은 위치를 마커로 표시합니다
+      var marker = new kakao.maps.Marker({
+          map: map,
+          position: coords
+      });
 
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-    } 
-    });  
+      // 인포윈도우로 장소에 대한 설명을 표시합니다
+      var infowindow = new kakao.maps.InfoWindow({
+          content: '<div style="width:150px;text-align:center;padding:10px 0;font-size:80%;font-weight:bold;">{{place.name}}</div>'
+      });
+      infowindow.open(map, marker);
+
+      // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+      map.setCenter(coords);
+  } 
+});
     
   const sp = document.getElementById('main_detail__comment__contents__txt')
   let idd = null;

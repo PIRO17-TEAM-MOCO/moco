@@ -217,5 +217,5 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-# 디버그 툴바
-INTERNAL_IPS = ('127.0.0.1',)
+# summernote 허용
+X_FRAME_OPTIONS = 'SAMEORIGIN'

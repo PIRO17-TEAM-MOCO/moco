@@ -39,9 +39,9 @@ def write_place(request, id):
 
 @csrf_exempt
 @login_required
-def revise(request, id):
+def revise(request):
     req = json.loads(request.body)
-    comment_id = id
+    comment_id = req['id']
     comment_content = req['content']
     Comment.objects.filter(id=comment_id).update(content=comment_content)
     data = {

@@ -7,12 +7,12 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from constants import EXP_CMT, POST_NAME, PLACE_NAME
 
-POST_NAME = "post"
-PLACE_NAME = "place"
+
 
 def update_exp(user, exp):
-    user.exp = exp + 10
+    user.exp = exp + EXP_CMT
     user.save()
     
 @login_required

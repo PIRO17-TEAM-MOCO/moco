@@ -15,10 +15,7 @@ from .forms import PostForm
 from users.views import profile_valid
 import simplejson
 from django.utils.html import strip_tags
-
-POST_WRITE_POINT = 25
-POST_CLOSE_POINT = 50
-REVIEW_WRITE_POINT = 25
+from constants import EXP_CLOSE, EXP_WRITE
 
 def update_exp(user, point):
     user.exp = user.exp + point
@@ -127,7 +124,7 @@ def write(request):
             post.tag = tags
             post.user = request.user
             post.save()
-            update_exp(post.user, POST_WRITE_POINT)
+            update_exp(post.user, EXP_WRITE)
             return redirect(f"/post/detail/{post.id}")
         else:
             return redirect("/post/write")
@@ -287,7 +284,7 @@ def close(request, id):
     if request.method == "POST":
         Post.objects.filter(id=id).update(activation=False)
         post = Post.objects.get(id=id)
-        update_exp(post.user, POST_CLOSE_POINT)
+        update_exp(post.user, EXP_CLOSE)
         return redirect(f"/post/detail/{id}")
 
 
@@ -310,7 +307,7 @@ def review_write(request, id):
         content = request.POST['review_content']
         user = request.user
         post = Post.objects.get(id=id)
-        update_exp(user, REVIEW_WRITE_POINT)
+        update_exp(user, EXP_WRITE)
         Review.objects.create(user=user, content=content, post=post, image=img)
         return redirect(f"/post/detail/{id}")
 

@@ -7,12 +7,12 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from constants import EXP_CMT, POST_NAME, PLACE_NAME
 
-POST_NAME = "post"
-PLACE_NAME = "place"
+
 
 def update_exp(user, exp):
-    user.exp = exp + 10
+    user.exp = exp + EXP_CMT
     user.save()
     
 @login_required
@@ -39,9 +39,9 @@ def write_place(request, id):
 
 @csrf_exempt
 @login_required
-def revise(request, id):
+def revise(request):
     req = json.loads(request.body)
-    comment_id = id
+    comment_id = req['id']
     comment_content = req['content']
     Comment.objects.filter(id=comment_id).update(content=comment_content)
     data = {

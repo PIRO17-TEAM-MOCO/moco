@@ -400,6 +400,12 @@ integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="ano
       }
   }
 
+  for (var i = 1; i <= 5; i++){
+    if ($('input[value='+ i + ']').attr("value") == "{{ form.rating.value }}"){
+      $('input[value='+ i + ']').attr('checked', true);
+    };
+  }
+
   $(document).ready(function () {
     $("#id_content").summernote();
   });

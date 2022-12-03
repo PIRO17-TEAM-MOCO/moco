@@ -266,7 +266,7 @@ integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="ano
             };
           })(itemEl, places[i].road_address_name);
 
-          (function(marker, title, address) {
+          (function(marker, title, road_address, address) {
               kakao.maps.event.addListener(marker, 'mouseover', function() {
                   displayInfowindow(marker, title);
               });
@@ -285,10 +285,14 @@ integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="ano
 
               itemEl.onclick =  function () {
                 $('input[name=name]').attr('value', title);
-                $('input[name=location]').attr('value', address);
+                if (places.road_address_name) {
+                  $('input[name=location]').attr('value', road_address);
+                } else {
+                  $('input[name=location]').attr('value', address);
+                }
               };
 
-          })(marker, places[i].place_name, places[i].road_address_name);
+          })(marker, places[i].place_name, places[i].road_address_name, places[i].address_name);
 
           fragment.appendChild(itemEl);
       }

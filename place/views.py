@@ -173,7 +173,6 @@ def update(request, id):
         }
         return render(request, template_name='place/update.html', context=context)
 
-
 @login_required
 def delete(request, id):
     if request.method == "POST":

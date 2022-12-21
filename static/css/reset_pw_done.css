@@ -68,3 +68,33 @@ main {
   color: #fff;
   font-weight: 900;
 }
+
+@media screen and (max-width:1023px) {
+  /* 타블렛 가로 */
+}
+
+@media screen and (max-width: 767px) {
+  /* 타블렛 세로, 모바일 가로 */
+}
+
+@media screen and (max-width:480px) {
+  /* 모바일 세로 */
+  #reset-pw-done__desc {
+    width: 20rem;
+    font-size: 1rem;
+    text-align: center;
+    color: #000;
+    font-weight: 100;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  #reset-pw-done__desc span {
+    font-size: 1rem;
+  }
+}

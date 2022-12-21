@@ -4,9 +4,6 @@ from posts.models import Post
 from place.models import Place
 from notice.models import Notice
 
-# Create your models here.
-
-
 class Comment(models.Model):
     TAG_POST = 1
     TAG_PLACE = 2

@@ -102,7 +102,7 @@
           <div class="content-item__content">{{place.content | safe }}</div>
         </div>
         <hr style= "color: #BCBCBC; height:1px; width: 100%; opacity: 1;">
-        <div class="content-item" style= "width:1180px;">
+        <div class="content-item" style= "width:100%;">
           <div class="content-item__title">지도</div>
           <div id="map" style="height:400px; margin: 1.5rem 0; z-index: 0;"></div>
         </div>
@@ -264,11 +264,11 @@
         level: 5 // 지도의 확대 레벨
     };  
 
-    // 지도를 생성합니다    
-    var map = new kakao.maps.Map(mapContainer, mapOption); 
+  // 지도를 생성합니다    
+  var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-    // 주소-좌표 변환 객체를 생성합니다
-    var geocoder = new kakao.maps.services.Geocoder();
+  // 주소-좌표 변환 객체를 생성합니다
+  var geocoder = new kakao.maps.services.Geocoder();
   
   // 주소로 좌표를 검색합니다
   geocoder.addressSearch('{{place.location}}', function(result, status) {
@@ -292,8 +292,8 @@
 
       // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
       map.setCenter(coords);
-  } 
-});
+    } 
+  });
     
   const sp = document.getElementById('main_detail__comment__contents__txt')
   let idd = null;

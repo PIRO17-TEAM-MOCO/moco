@@ -27,10 +27,8 @@
           <div id="menu_wrap" class="bg_white">
               <div class="option">
                   <div>
-                    <!-- <form onsubmit="searchPlaces(); return false;"> -->
                       <input type="text" value="상호명을 입력해주세요" id="keyword" size="15" style="width:65%; padding:0.5rem; border-radius: 0.5rem;"> 
                       <input type="button" value="검색하기" onclick=searchPlaces() style="width:30%; padding:0.5rem; border-radius: 0.5rem;"></input> 
-                    <!-- </form> -->
                   </div>
               </div>
               <hr>
@@ -38,6 +36,7 @@
               <div id="pagination"></div>
           </div>
         </div>
+      </div>
       <div class="content-write__item">
         <div for="{{ form.name.id_for_label }}">상호명</div>
         <input type="text" name="name" placeholder="상호명" maxlength="25" required="" id="id_name" value="" readonly/>
@@ -69,83 +68,85 @@
         <div class="content-write__title_num"><h2>3</h2></div>
         <h2>구체적인 정보를 작성해주세요</h2>
       </div>
-      <div class="content-write__two">
-        <div class="content-write__item">
-          {{ form.category.errors }}
-          <div for="{{ form.category.id_for_label }}">장소 분류</div>
-          {{ form.category }}
-          <i class="fa-solid fa-angle-down"></i>
+      <div class="content-write__title__input">
+        <div class="content-write__two">
+          <div class="content-write__item">
+            {{ form.category.errors }}
+            <div for="{{ form.category.id_for_label }}">장소 분류</div>
+            {{ form.category }}
+            <i class="fa-solid fa-angle-down"></i>
+          </div>
+          <div class="content-write__item">
+            {{ form.wifi.errors }}
+            <div for="{{ form.wifi_time.id_for_label }}">와이파이</div>
+            {{ form.wifi }}
+            <i class="fa-solid fa-angle-down"></i>
+          </div>
         </div>
-        <div class="content-write__item">
-          {{ form.wifi.errors }}
-          <div for="{{ form.wifi_time.id_for_label }}">와이파이</div>
-          {{ form.wifi }}
-          <i class="fa-solid fa-angle-down"></i>
+        <div class="content-write__two">
+          <div class="content-write__item">
+            {{ form.opening_time.errors }}
+            <div for="{{ form.opening_time.id_for_label }}">오픈 시간</div>
+            {{ form.opening_time }}
+          </div>
+          <div class="content-write__item">
+            {{ form.closing_time.errors }}
+            <div for="{{ form.closing_time.id_for_label }}">마감 시간</div>
+            {{ form.closing_time }}
+          </div>
         </div>
-      </div>
-      <div class="content-write__two">
-        <div class="content-write__item">
-          {{ form.opening_time.errors }}
-          <div for="{{ form.opening_time.id_for_label }}">오픈 시간</div>
-          {{ form.opening_time }}
-        </div>
-        <div class="content-write__item">
-          {{ form.closing_time.errors }}
-          <div for="{{ form.closing_time.id_for_label }}">마감 시간</div>
-          {{ form.closing_time }}
-        </div>
-      </div>
-      <div class="content-write__two">
-        <div class="content-write__item">
-          {{ form.power_socket.errors }}
-          <div for="{{ form.power_socket.id_for_label }}">콘센트</div>
-          {{ form.power_socket }}
-          <i class="fa-solid fa-angle-down"></i>
-        </div>
-        <div class="content-write__item">
-          {{ form.rating.errors }}
-          <div for="{{ form.rating.id_for_label }}">별점</div>
-          <div class="star-rating space-x-4 mx-auto">
-            <input
-              type="radio"
-              id="5-stars"
-              name="rating"
-              value="5"
-              v-model="ratings"
-            />
-            <label for="5-stars" class="star pr-4">★</label>
-            <input
-              type="radio"
-              id="4-stars"
-              name="rating"
-              value="4"
-              v-model="ratings"
-            />
-            <label for="4-stars" class="star">★</label>
-            <input
-              type="radio"
-              id="3-stars"
-              name="rating"
-              value="3"
-              v-model="ratings"
-            />
-            <label for="3-stars" class="star">★</label>
-            <input
-              type="radio"
-              id="2-stars"
-              name="rating"
-              value="2"
-              v-model="ratings"
-            />
-            <label for="2-stars" class="star">★</label>
-            <input
-              type="radio"
-              id="1-star"
-              name="rating"
-              value="1"
-              v-model="ratings"
-            />
-            <label for="1-star" class="star">★</label>
+        <div class="content-write__two">
+          <div class="content-write__item">
+            {{ form.power_socket.errors }}
+            <div for="{{ form.power_socket.id_for_label }}">콘센트</div>
+            {{ form.power_socket }}
+            <i class="fa-solid fa-angle-down"></i>
+          </div>
+          <div class="content-write__item">
+            {{ form.rating.errors }}
+            <div for="{{ form.rating.id_for_label }}">별점</div>
+            <div class="star-rating space-x-4 mx-auto">
+              <input
+                type="radio"
+                id="5-stars"
+                name="rating"
+                value="5"
+                v-model="ratings"
+              />
+              <label for="5-stars" class="star pr-4">★</label>
+              <input
+                type="radio"
+                id="4-stars"
+                name="rating"
+                value="4"
+                v-model="ratings"
+              />
+              <label for="4-stars" class="star">★</label>
+              <input
+                type="radio"
+                id="3-stars"
+                name="rating"
+                value="3"
+                v-model="ratings"
+              />
+              <label for="3-stars" class="star">★</label>
+              <input
+                type="radio"
+                id="2-stars"
+                name="rating"
+                value="2"
+                v-model="ratings"
+              />
+              <label for="2-stars" class="star">★</label>
+              <input
+                type="radio"
+                id="1-star"
+                name="rating"
+                value="1"
+                v-model="ratings"
+              />
+              <label for="1-star" class="star">★</label>
+            </div>
           </div>
         </div>
       </div>

@@ -384,3 +384,25 @@
 	margin: 10px 0;
 	margin-right: 0.5rem;
 }
+
+@media screen and (max-width:1023px) {
+  #drop-content {
+		right: 0.5rem;
+	}
+	.place_detail__comments_dropdown_menu{
+		right: 0.75rem;
+	}
+}
+
+@media screen and (max-width: 767px) {
+  .content{
+    max-width: 767px;
+    min-width: 481px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+	.place-search__content{
+		flex-direction: column;
+	}
+}

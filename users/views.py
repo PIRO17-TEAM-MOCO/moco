@@ -191,7 +191,7 @@ def reset_pw(request):
                     c = {
                         "email": user.email,
                         # local: '127.0.0.1:8000', prod: '?' // settings.HOSTNAME 후에 사용
-                        'domain': 'ec2-3-34-125-211.ap-northeast-2.compute.amazonaws.com',
+                        'domain': 'moco-coding.com',
                         'site_name': 'MOCO',
                         # MTE4
                         "uid": urlsafe_base64_encode(force_bytes(user.pk)),
@@ -199,7 +199,7 @@ def reset_pw(request):
                         # Return a token that can be used once to do a password reset for the given user.
                         'token': default_token_generator.make_token(user),
                         # local: http, prod: https // settings.PROTOCOL 후에 사용
-                        'protocol': 'http',
+                        'protocol': 'https',
                     }
                     email = render_to_string(email_template_name, c)
                     try:

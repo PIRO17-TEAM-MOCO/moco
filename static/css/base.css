@@ -30,7 +30,7 @@ body {
   z-index: 1;
 }
 
-.navbar {
+.navbar-desktop {
   font-family: "Noto Sans", sans-serif;
   font-family: "Noto Sans KR", sans-serif;
   font-weight: 600;
@@ -45,6 +45,10 @@ body {
   display: flex;
   justify-content: flex-start;
   position: relative;
+}
+
+.navbar-mobile {
+  display: none;
 }
 
 .navbar__logo {
@@ -190,9 +194,26 @@ body {
   opacity: 1;
 }
 
+/* 햄버거 메뉴바*/
+.fa-bars {
+  display: none !important; 
+}
+
 /* 반응형 */
 
 @media screen and (max-width:1023px) {
+
+}
+
+@media screen and (max-width: 767px) {
+
+}
+
+@media screen and (max-width: 480px) {
+  
+}
+
+/* @media screen and (max-width:1023px) {
   .content{
     max-width: 1023px;
     min-width: 768px;
@@ -260,4 +281,4 @@ body {
   .base__dropdown {
     height: 0;
   }
-}
+} */

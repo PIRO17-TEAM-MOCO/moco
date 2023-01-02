@@ -43,12 +43,12 @@
   </head>
   <body>
     <div class="wrap">
-      <nav class="navbar">
+      <nav class="navbar-desktop">
         <a class="navbar__logo" href="{% url 'users:main' %}">
           <img src="{% static "img/moco_logo.png" %}" alt="profile_img"></img>
         </a>
 
-        <ul class="navbar__list">
+        <ul class="navbar__menu">
           <li class="base__dropdown">
             <a href="{% url 'posts:home' %}">모각코</a>
             <ul class="base__dropmenu">
@@ -95,7 +95,71 @@
           {% endif %}
         </ul>
       </nav>
+
+      <!-- 모바일 -->
+      <nav class="navbar-mobile">
+        <div class="navbar-top">
+
+          <a href="#" class="navbar__toggle">
+            <i class="fa-solid fa-bars"></i>
+          </a>
+
+          <a class="navbar__logo" href="{% url 'users:main' %}">
+            <img src="{% static "img/moco_logo.png" %}" alt="profile_img"></img>
+          </a>
+
+          <ul class="navbar__shortcut">
+            {% if user.is_authenticated %}
+            <li class="base__dropdown">
+                <span>글쓰기</span>
+                <ul class="base__dropmenu">
+                  <li><a href="{% url 'posts:write' %}">모각코 모집</a></li>
+                  <li><a href="{% url 'place:write' %}">플레이스</a></li>
+                </ul>
+            </li>
+            <li class="base__dropdown">
+              <span class="base__profile_dropbtn">
+                {% if user.profile_img %}
+                <div class="profile_img"><img src="{{user.profile_img.url}}" alt="profile_img"></img></div>
+                {% else %}
+                <div class="profile_img"><img src="{% static "img/moco_symbol.png" %}" alt="profile_img"></img></div>
+                {% endif %}
+              </span>
+              <ul class="base__dropmenu">
+                <li><a href="{% url 'users:profile_edit' user.id %}">프로필 수정</a></li>
+                <li><a href="{% url 'users:profile_view' user.id %}">마이페이지</a></li>
+                <li><a href="{% url 'users:logout' %}?next={{request.path}}">로그아웃</a></li>
+              </ul>
+            </li>
+            {% else %}
+            <li class="base__dropdown">
+              <span>글쓰기</span>
+              <ul class="base__dropmenu">
+                <li><a href="{% url 'posts:write' %}">모각코 모집</a></li>
+                <li><a href="{% url 'place:write' %}">플레이스</a></li>
+              </ul>
+            </li>
+            <li><a href="{% url 'users:login' %}?next={{request.path}}">로그인</a></li>
+            {% endif %}
+          </ul>
+        </div>
+
+        <ul class="navbar__menu">
+          <li class="base__dropdown">
+            <a class="navbar__menu__toggle" href="#">모각코
+              <i class="fa-solid fa-angle-down"></i></a>
+            <ul class="base__dropmenu">
+              <li><a href="{% url 'posts:home' %}">모각코 홈</a></li>
+              <li><a href="{% url 'posts:review_home' %}">모각코 후기</a></li>
+            </ul>
+          </li>
+          <li class="base__dropdown"><a href="{% url 'place:home' %}">플레이스</a></li>
+          <li class="base__dropdown"><a href="{% url 'notice:home' %}">공지사항</a></li>
+        </ul>
+      </nav>
     </div>
     {% block content %} {% endblock content %}
+    <script src="https://kit.fontawesome.com/f0c26c0bfa.js" crossorigin="anonymous"></script>
+    <script src="/static/js/base.js"></script>
   </body>
 </html>

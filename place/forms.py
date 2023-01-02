@@ -12,7 +12,7 @@ class PlaceForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': '상호명을 입력해주세요'}),
             'location': forms.TextInput(attrs={'placeholder': '주소를 입력해주세요'}),
-            'content': SummernoteWidget(), 
+            'content': SummernoteWidget(attrs={'summernote': {'width': '100%', 'height': '500px'}}),
             'opening_time': forms.TimeInput(attrs={'type': 'time'}),  
             'closing_time': forms.TimeInput(attrs={'type': 'time'})  
         }

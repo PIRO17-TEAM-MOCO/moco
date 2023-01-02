@@ -271,7 +271,11 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="reply_txt">{{recomment.content}}</div>
+                            <div class="reply_txt">
+                              {% if recomment.user != comment.user %}
+                              <span style="color: #2253FF;">@{{comment.user.nickname}} </span>
+                              {% endif %}
+                              {{recomment.content}}</div>
                           </div>
                           <div>
                             <div class="main_detail__comments__contents__options">

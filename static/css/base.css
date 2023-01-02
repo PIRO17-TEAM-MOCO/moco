@@ -38,7 +38,6 @@ body {
   align-items: center;
   z-index: 1;
   max-width: 1200px;
-  /* min-width: 1200px; */
   width: 100%;
   padding: 1rem;
   margin: 0 auto;
@@ -110,7 +109,6 @@ body {
   align-items: center;
   justify-content: center;
   max-width: 1200px;
-  min-width: 1200px;
   width: 100%;
   padding: 0 1.5rem;
   margin: 3rem auto;
@@ -241,6 +239,10 @@ body {
 }
 
 @media screen and (max-width:1023px) {
+  .base__dropmenu {
+    right: -1rem;
+  }
+  
   .navbar-desktop {
     display: none;
   }

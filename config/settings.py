@@ -32,7 +32,7 @@ if env_path.exists():
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '.ap-northeast-2.compute.amazonaws.com',

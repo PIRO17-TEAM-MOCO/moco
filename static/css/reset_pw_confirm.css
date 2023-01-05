@@ -18,7 +18,7 @@ main {
   align-items: center;
   font-size: 1rem;
   flex-wrap: wrap;
-  margin-top: 5rem;
+  margin-top: 3rem;
 }
 
 #reset-pw-cf__container p {
@@ -26,10 +26,14 @@ main {
   font-size: 1rem;
 }
 
+.reset-pw__input {
+  margin-top: 2rem;
+}
+
 #reset-pw-cf__title {
   font-size: 2rem;
   font-weight: 900;
-  margin-bottom: 5rem;
+  margin-bottom: 2rem;
   color: black;
 }
 
@@ -57,7 +61,7 @@ main {
   cursor: pointer;
   margin-top: 2rem;
   margin-bottom: 2rem;
-  width: 20rem;
+  width: 22rem;
   height: 3.3rem;
   outline: 0;
   border: 0;
@@ -66,4 +70,34 @@ main {
   background-color: #2253ff;
   color: #fff;
   font-weight: 900;
+}
+
+@media screen and (max-width:1023px) {
+  /* 타블렛 가로 */
+}
+
+@media screen and (max-width: 767px) {
+  /* 타블렛 세로, 모바일 가로 */
+}
+
+@media screen and (max-width: 479px) {
+  /* 모바일 세로 */
+  #reset-pw-cf__container {
+    width: 50rem;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+  }
+
+  #reset-pw-cf__title {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    color: black;
+  }
 }

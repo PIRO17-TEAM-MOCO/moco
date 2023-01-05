@@ -7,23 +7,31 @@
 		</div>
 		<hr class="hr" />
 		<p style="font-weight: 900; margin-bottom: 1rem">새 비밀번호를 입력해 주세요.</p>
-		<form method="POST">
-			{% csrf_token %}
-			<div class="input__reset__pw">
-				{{ form.new_password1.errors }}
-				<lable for="{{ form.new_password1.id_for_label }}"><p>새 비밀번호</p></lable>
-				<input type="password" name="new_password1" autocomplete="new-password" required="" id="id_new_password1" placeholder="새 비밀번호" />
-			</div>
-			<div class="input__reset__pw">
-				{{ form.new_password2.errors }}
-				<lable for="{{ form.new_password2.id_for_label }}"><p>새 비밀번호 (확인)</p></lable>
-				<input type="password" name="new_password2" autocomplete="new-password" required="" id="id_new_password2" placeholder="새 비밀번호 (확인)" />
-			</div>
-			<!--{{ form }}-->
-			<div id="reset-pw-cf__btn__container">
-				<button onclick="resetPwForm()" id="reset-pw-cf__btn">저장</button>
-			</div>
-		</form>
+		<div class="reset-pw__input">
+			<form method="POST">
+				{% csrf_token %}
+				<div class="input__reset__pw">
+					{{ form.new_password1.errors }}
+					<lable for="{{ form.new_password1.id_for_label }}">
+						<p>새 비밀번호</p>
+					</lable>
+					<input type="password" name="new_password1" autocomplete="new-password" required=""
+						id="id_new_password1" placeholder="새 비밀번호" />
+				</div>
+				<div class="input__reset__pw">
+					{{ form.new_password2.errors }}
+					<lable for="{{ form.new_password2.id_for_label }}">
+						<p>새 비밀번호 (확인)</p>
+					</lable>
+					<input type="password" name="new_password2" autocomplete="new-password" required=""
+						id="id_new_password2" placeholder="새 비밀번호 (확인)" />
+				</div>
+				<!--{{ form }}-->
+				<div id="reset-pw-cf__btn__container">
+					<button onclick="resetPwForm()" id="reset-pw-cf__btn">저장</button>
+				</div>
+			</form>
+		</div>
 	</div>
 </main>
 <script>

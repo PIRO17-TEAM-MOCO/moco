@@ -131,7 +131,9 @@
       myElementValue = '?search=' + search + '&' + '?sort=' + myElement.value;
     }
     location.href = myElementValue
-    
   }
+
+  // 게시글 이미지가 없는 경우 썸네일 비율 조정
+  $('.no_image').css("object-fit", "contain");
   </script>
 {% endblock %}

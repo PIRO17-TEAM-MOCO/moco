@@ -18,6 +18,11 @@
   display: flex;
 }
 
+.content-bottom > p {
+  font-size: 1.1rem;
+  line-height: 1.75rem;
+}
+
 .content-title {
   display: flex;
   flex-direction: column;
@@ -26,6 +31,7 @@
 
 .content-title__top {
   font-weight: 700;
+  line-height: 2.5rem;
   font-size: 1.75rem;
   margin-bottom: 1rem;
 }
@@ -63,6 +69,7 @@
 
 #drop-content{
   position: absolute;
+	top: 1.5rem;
   background-color: white;
   box-shadow: 0px 3px 6px -4px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05);
   border-radius: 2px;
@@ -131,4 +138,10 @@
 .content-box__profile {
   display: flex;
   align-items: center;
+}
+
+@media screen and (max-width:1023px) {
+  #drop-content {
+		right: 0rem;
+	}
 }

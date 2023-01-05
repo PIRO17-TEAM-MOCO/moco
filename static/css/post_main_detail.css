@@ -1006,7 +1006,6 @@
   text-decoration: none;
   color: rgb(37, 37, 37);
   font-weight: 400;
-  font-size: 0.9rem;
   background-color: white;
   line-height: 25px;
   text-align: center;
@@ -1015,8 +1014,12 @@
   z-index: 1; /*다른 요소들보다 앞에 배치*/
   width: 4em;
   top: 100%;
-  padding: 0.5rem 0;
   box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+}
+
+.main_detail__comments_dropdown_menu_revise,
+.main_detail__comments_dropdown_menu_delete{
+  padding: 0.5rem 0;
 }
 
 .main_detail__comments_dropdown_menu_revise:hover {
@@ -1251,4 +1254,10 @@
 .content-pagination .pagination {
   --bs-pagination-color: #2253ff;
   --bs-pagination-disabled-color: #8c8c8c;
+}
+
+@media screen and (max-width: 1023px) {
+  .main_detail__comments_dropdown_menu {
+    right: 0;
+  }
 }

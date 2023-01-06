@@ -278,45 +278,6 @@
             </div>
           </div>
         </div>
-
-
-
-
-      </div>
-    </div>
-    <div id="signup-top">
-      <div class="signup__sim">
-        <hr noshade />
-        <span>간편 회원가입</span>
-        <hr noshade />
-      </div>
-      {% load socialaccount %} {% providers_media_js %}
-      <div class="login__sim__soc" style="margin-bottom: 5rem;">
-        <div>
-          <form method="post" action="{% provider_login_url 'google' %}">
-            {% csrf_token %}
-            <button type="submit"><img src="{{ google_button }}" height="42" width="152"></button>
-            <!-- <button type="submit">구글</button> -->
-          </form>
-          <form method="post" action="{% provider_login_url 'kakao' %}">
-            {% csrf_token %}
-            <button type="submit"><img src="{{ kakao_button }}" height="40" width="150"></button>
-            <!-- <button type="submit">카카오</button> -->
-          </form>
-        </div>
-        <div>
-          <form method="post" action="{% provider_login_url 'naver' %}">
-            {% csrf_token %}
-            <button type="submit"><img src="{{ naver_button }}" height="40" width="152"
-                style="padding-bottom: 0.1rem;"></button>
-            <!-- <button type="submit">네이버</button> -->
-          </form>
-          <form method="post" action="{% provider_login_url 'github' %}">
-            {% csrf_token %}
-            <button type="submit"><img src="{{ github_button }}" height="40" width="152"></button>
-            <!-- <button type="submit">깃허브</button> -->
-          </form>
-        </div>
       </div>
     </div>
     <div id="signup__2nd__container">
@@ -407,10 +368,45 @@
               placeholder="100자 이내로 입력해주세요."></textarea>
           </div>
         </div>
-        <button id="signup__2nd__btn" type="submit" onclick="signup2Function()">가입 완료</button>
+        <button id="signup__2nd__btn" type="submit" onclick="signup2Function();">가입 완료</button>
       </div>
     </div>
   </form>
+  <div id="signup-top">
+    <div class="signup__sim">
+      <hr noshade />
+      <span>간편 회원가입</span>
+      <hr noshade />
+    </div>
+    {% load socialaccount %} {% providers_media_js %}
+    <div class="login__sim__soc" style="margin-bottom: 5rem;">
+      <div>
+        <form method="post" action="{% provider_login_url 'google' %}">
+          {% csrf_token %}
+          <button type="submit"><img src="{{ google_button }}" height="42" width="152"></button>
+          <!-- <button type="submit">구글</button> -->
+        </form>
+        <form method="post" action="{% provider_login_url 'kakao' %}">
+          {% csrf_token %}
+          <button type="submit"><img src="{{ kakao_button }}" height="40" width="150"></button>
+          <!-- <button type="submit">카카오</button> -->
+        </form>
+      </div>
+      <div>
+        <form method="post" action="{% provider_login_url 'naver' %}">
+          {% csrf_token %}
+          <button type="submit"><img src="{{ naver_button }}" height="40" width="152"
+              style="padding-bottom: 0.1rem;"></button>
+          <!-- <button type="submit">네이버</button> -->
+        </form>
+        <form method="post" action="{% provider_login_url 'github' %}">
+          {% csrf_token %}
+          <button type="submit"><img src="{{ github_button }}" height="40" width="152"></button>
+          <!-- <button type="submit">깃허브</button> -->
+        </form>
+      </div>
+    </div>
+  </div>
 </main>
 <script>
   const modal = document.getElementById("signup__modal-1")

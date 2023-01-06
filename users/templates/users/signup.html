@@ -5,41 +5,6 @@
 {% static 'img/kakao_login.png' as kakao_button %}
 {% static 'img/github_login.png' as github_button %}
 <main id="signup">
-  <div id="signup-top">
-    <div class="signup__sim">
-      <hr noshade />
-      <span>간편 회원가입</span>
-      <hr noshade />
-    </div>
-    {% load socialaccount %} {% providers_media_js %}
-    <div class="login__sim__soc" style="margin-bottom: 5rem;">
-      <div>
-        <form method="post" action="{% provider_login_url 'google' %}">
-          {% csrf_token %}
-          <button type="submit"><img src="{{ google_button }}" height="42" width="152"></button>
-          <!-- <button type="submit">구글</button> -->
-        </form>
-        <form method="post" action="{% provider_login_url 'kakao' %}">
-          {% csrf_token %}
-          <button type="submit"><img src="{{ kakao_button }}" height="40" width="150"></button>
-          <!-- <button type="submit">카카오</button> -->
-        </form>
-      </div>
-      <div>
-        <form method="post" action="{% provider_login_url 'naver' %}">
-          {% csrf_token %}
-          <button type="submit"><img src="{{ naver_button }}" height="40" width="152"
-              style="padding-bottom: 0.1rem;"></button>
-          <!-- <button type="submit">네이버</button> -->
-        </form>
-        <form method="post" action="{% provider_login_url 'github' %}">
-          {% csrf_token %}
-          <button type="submit"><img src="{{ github_button }}" height="40" width="152"></button>
-          <!-- <button type="submit">깃허브</button> -->
-        </form>
-      </div>
-    </div>
-  </div>
   <form action="{% url 'users:signup' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div id="signup__1st__container">
@@ -249,7 +214,7 @@
         <div id="signup__modal-2" class="modal-overlay" style="display: none;">
           <div class="modal__window">
             <div class="modal__title">
-              <h3>개인정보취급방침</h3>
+              <h3>개인정보 처리방침</h3>
             </div>
             <div class="modal-close"><i class="fa-solid fa-xmark"></i></div>
             <div class="modal__content">
@@ -319,6 +284,41 @@
 
       </div>
     </div>
+    <div id="signup-top">
+      <div class="signup__sim">
+        <hr noshade />
+        <span>간편 회원가입</span>
+        <hr noshade />
+      </div>
+      {% load socialaccount %} {% providers_media_js %}
+      <div class="login__sim__soc" style="margin-bottom: 5rem;">
+        <div>
+          <form method="post" action="{% provider_login_url 'google' %}">
+            {% csrf_token %}
+            <button type="submit"><img src="{{ google_button }}" height="42" width="152"></button>
+            <!-- <button type="submit">구글</button> -->
+          </form>
+          <form method="post" action="{% provider_login_url 'kakao' %}">
+            {% csrf_token %}
+            <button type="submit"><img src="{{ kakao_button }}" height="40" width="150"></button>
+            <!-- <button type="submit">카카오</button> -->
+          </form>
+        </div>
+        <div>
+          <form method="post" action="{% provider_login_url 'naver' %}">
+            {% csrf_token %}
+            <button type="submit"><img src="{{ naver_button }}" height="40" width="152"
+                style="padding-bottom: 0.1rem;"></button>
+            <!-- <button type="submit">네이버</button> -->
+          </form>
+          <form method="post" action="{% provider_login_url 'github' %}">
+            {% csrf_token %}
+            <button type="submit"><img src="{{ github_button }}" height="40" width="152"></button>
+            <!-- <button type="submit">깃허브</button> -->
+          </form>
+        </div>
+      </div>
+    </div>
     <div id="signup__2nd__container">
       <div class="signup__2nd__nor">
         <span>회원가입</span>
@@ -356,9 +356,9 @@
                 <img src="{% static 'img/moco_symbol.png' %}" alt="profile_img"></img>
                 {% endif %}
                 <!-- <img src="" onerror="this.style.display='none'"> -->
-                <div id="camera__img">
+                <!-- <div id="camera__img">
                   <i class="fa-solid fa-camera"></i>
-                </div>
+                </div> -->
               </div>
             </label>
           </div>

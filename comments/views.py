@@ -7,72 +7,48 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from constants import EXP_CMT, POST_NAME, PLACE_NAME
 
 
+
+def update_exp(user, exp):
+    user.exp = exp + EXP_CMT
+    user.save()
+    
 @login_required
 def write_post(request, id):
     if request.method == 'POST':
         content = request.POST["content"]
-        user = request.user
         post = Post.objects.get(id=id)
         tag = Comment.TAG_POST
-        exp = user.exp
-        user.exp = exp + 10
-        user.save()
-        Comment.objects.create(user=user, post=post,
+        update_exp(request.user, request.user.exp)
+        Comment.objects.create(user=request.user, post=post,
                                tag=tag, content=content)
         return redirect(f"/post/detail/{id}")
-
 
 @login_required
 def write_place(request, id):
     if request.method == 'POST':
         content = request.POST["content"]
-        user = request.user
         place = Place.objects.get(id=id)
         tag = Comment.TAG_PLACE
-        exp = user.exp
-        user.exp = exp + 10
-        user.save()
-        Comment.objects.create(user=user, place=place,
+        update_exp(request.user, request.user.exp)
+        Comment.objects.create(user=request.user, place=place,
                                tag=tag, content=content)
         return redirect(f"/place/detail/{id}")
 
-
-@login_required
-def write_notice(request, id):
-    if request.method == 'POST':
-        content = request.POST["content"]
-        user = request.user
-        notice = Notice.objects.get(id=id)
-        tag = Comment.TAG_NOTICE
-        exp = user.exp
-        user.exp = exp + 10
-        user.save()
-        Comment.objects.create(user=user, notice=notice,
-                               tag=tag, content=content)
-        return redirect(f"/notice/detail/{id}")
-
-
 @csrf_exempt
 @login_required
-def revise(request, id):
-    if request.method == 'POST':
-        content = request.POST["content"]
-        comment = Comment.objects.get(id=id)
-        Comment.objects.filter(id=id).update(content=content)
-        if comment.tag == Comment.TAG_POST:
-            post = comment.post
-            post.save()
-            return redirect(f"/post/detail/{post.id}")
-        elif comment.tag == Comment.TAG_PLACE:
-            place = comment.place
-            place.save()
-            return redirect(f"/place/detail/{place.id}")
-        elif comment.tag == Comment.TAG_NOTICE:
-            notice = comment.notice
-            notice.save()
-            return redirect(f"/notice/detail/{notice.id}")
+def revise(request):
+    req = json.loads(request.body)
+    comment_id = req['id']
+    comment_content = req['content']
+    Comment.objects.filter(id=comment_id).update(content=comment_content)
+    data = {
+        'id': comment_id,
+        'content':comment_content
+    }
+    return JsonResponse(data)
 
 
 @csrf_exempt
@@ -81,25 +57,13 @@ def delete(request):
     req = json.loads(request.body)
     comment_id = req['id']
     comment = Comment.objects.get(id=comment_id)
-
     if comment.tag == Comment.TAG_POST:
-        post = comment.post
-        Comment.objects.get(id=comment_id).delete()
-        post_id = post.id
-        length = len(post.comment_set.all())
-        post.save()
+        temp = comment.post
     elif comment.tag == Comment.TAG_PLACE:
-        place = comment.place
-        Comment.objects.get(id=comment_id).delete()
-        place_id = place.id
-        length = len(place.comment_set.all())
-        place.save()
-    elif comment.tag == Comment.TAG_NOTICE:
-        notice = comment.notice
-        Comment.objects.get(id=comment_id).delete()
-        notice_id = notice.id
-        length = len(notice.comment_set.all())
-        notice.save()
+        temp = comment.place
+    Comment.objects.get(id=comment_id).delete()
+    length = len(temp.comment_set.all())
+    temp.save()
     data = {
         'id': comment_id,
         'len': length
@@ -116,19 +80,15 @@ def recomment(request, id):
         pnt_comment = Comment.objects.get(id=pnt_id)
         tag = pnt_comment.tag
         cmt_class = Comment.CMT_CHILD
-
         if pnt_comment.tag == Comment.TAG_POST:
-            post = pnt_comment.post
+            temp = pnt_comment.post
+            temp_name = POST_NAME
             Comment.objects.create(
-                user=user, pnt_comment=pnt_comment, content=content, tag=tag, cmt_class=cmt_class, post=post)
-            return redirect(f"/post/detail/{post.id}")
+                user=user, pnt_comment=pnt_comment, content=content, tag=tag, cmt_class=cmt_class, post=temp)
         elif pnt_comment.tag == Comment.TAG_PLACE:
-            place = pnt_comment.place
+            temp = pnt_comment.place
+            temp_name = PLACE_NAME
             Comment.objects.create(
-                user=user, pnt_comment=pnt_comment, content=content, tag=tag, cmt_class=cmt_class, place=place)
-            return redirect(f"/place/detail/{place.id}")
-        elif pnt_comment.tag == Comment.TAG_NOTICE:
-            notice = pnt_comment.notice
-            Comment.objects.create(
-                user=user, pnt_comment=pnt_comment, content=content, tag=tag, cmt_class=cmt_class, notice=notice)
-            return redirect(f"/notice/detail/{notice.id}")
+                user=user, pnt_comment=pnt_comment, content=content, tag=tag, cmt_class=cmt_class, place=temp)
+        return redirect(f"/{temp_name}/detail/{temp.id}")
+

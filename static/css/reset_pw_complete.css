@@ -24,12 +24,12 @@ main {
 #reset-pw-com__title {
   font-size: 2rem;
   font-weight: 900;
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
   color: black;
 }
 
 .hr {
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 #reset-pw-com__desc {
@@ -37,7 +37,7 @@ main {
   font-size: 1rem;
   color: #000;
   font-weight: 100;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
   line-height: 1.2rem;
   display: flex;
   flex-direction: row;
@@ -47,7 +47,7 @@ main {
 #backtologin__btn {
   cursor: pointer;
   margin-top: 1rem;
-  width: 15rem;
+  width: 22rem;
   height: 3rem;
   font-size: 1rem;
   outline: 0;
@@ -56,4 +56,17 @@ main {
   background-color: rgb(47, 82, 245);
   color: #fff;
   font-weight: 100;
+}
+
+@media screen and (max-width:1023px) {
+  /* 타블렛 가로 */
+}
+
+@media screen and (max-width: 767px) {
+  /* 타블렛 세로, 모바일 가로 */
+}
+
+@media screen and (max-width: 479px) {
+  /* 모바일 세로 */
+
 }

@@ -1,3 +1,13 @@
 TAG_POST = 1
 TAG_PLACE = 2
 TAG_NOTICE = 3
+
+# 경험치
+EXP_WRITE = 25
+EXP_IMG = 10
+EXP_CLOSE = 50
+EXP_CMT = 10
+
+# 댓글 구분용
+POST_NAME = "post"
+PLACE_NAME = "place"

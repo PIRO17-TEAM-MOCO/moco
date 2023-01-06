@@ -15,11 +15,15 @@ from .forms import PostForm
 from users.views import profile_valid
 import simplejson
 from django.utils.html import strip_tags
+from constants import EXP_CLOSE, EXP_WRITE
 
+def update_exp(user, point):
+    user.exp = user.exp + point
+    user.save()
 
 @profile_valid
 def home(request, contact='None'):
-    # contact filtering (url로 매개변수 받아옴 => 없다면 None)
+    # contact filtering
     if contact == 'offline':
         posts = Post.objects.filter(contact='Off')
     elif contact == 'online':
@@ -35,22 +39,21 @@ def home(request, contact='None'):
         posts = posts.filter(
             Q(title__icontains=search) |
             Q(content__icontains=search) |
-            Q(user__nickname__exact=search) |  # 글쓴이는 닉네임 정확히 일치해야함
+            Q(user__nickname__exact=search) | 
             Q(location__icontains=search)
         )
 
     # tag filtering
+    q=Q()
     tag = request.GET.get('tag', '')
-    tag_for_show = []
+    search_tag_list = []
     if tag != '':
-        tagg = []
-        tagList = simplejson.loads(tag)
-        for i in range(len(tagList)):
-            tagg.append(tagList[i]["value"])
-        tag_for_show = tagg
-        for i in tagg:
-            posts = posts.filter(Q(tag__contains=i))
-            tagg = []
+        tags_list = simplejson.loads(tag)
+        for tag_index in range(len(tags_list)):
+            search_tag_list.append(tags_list[tag_index]["value"])
+        for search_tag in search_tag_list:
+            q.add(Q(tag__contains="'"+search_tag+"'"), q.OR)
+        posts = posts.filter(q)
 
     # duration filtering
     duration = request.GET.get('duration', 'None')
@@ -58,10 +61,10 @@ def home(request, contact='None'):
         posts = posts.filter(duration=duration)
 
     # active filtering
-    onActive = request.GET.get('onActive', 'None')
-    if (onActive == "on"):
+    on_active = request.GET.get('onActive', 'None')
+    if (on_active == "on"):
         posts = posts.filter(activation=True)
-    elif (onActive == "off"):
+    elif (on_active == "off"):
         posts = posts.filter(activation=True or False)
 
     # sorting
@@ -78,28 +81,25 @@ def home(request, contact='None'):
     else:
         posts = posts.order_by("-published_at")
 
-    # show searching tags
-    tags_all = {}
-    for i in posts:
-        tags = i.tag
-        tags = tags.replace(" ", "")
-        tags = tags.replace("'", "")
-        tags_len = len(tags)
-        tags = tags[1:tags_len-1]
-        tags = tags.split(",")
-        tags_all[i.id] = tags
+    # post 각각의 태그들 모음
+    post_tags_dict = {}
+    for post in posts:
+        post_tags = post.tag
+        post_tags = post_tags.replace(" ", "").replace("'", "")[1:len(post_tags)-1]
+        post_tags = post_tags.split(",")
+        post_tags_dict[post.id] = post_tags
 
     for post in posts:
         post.content = strip_tags(post.content)
-
+    
     context = {
         "posts": posts,
         "sort": sort,
         "duration": duration,
-        "onActive": onActive,
-        "tags": tags_all,
+        "onActive": on_active,
+        "tags": post_tags_dict,
         "search": search,
-        "tag_for_show": tag_for_show,
+        "tag_for_show": search_tag_list,
         "user": request.user,
     }
 
@@ -117,20 +117,16 @@ def write(request):
                 redirect(f"/post/write")
             tag = form.cleaned_data["tag"]
             tags = []
-            tagList = simplejson.loads(tag)
-            for i in range(len(tagList)):
-                tags.append(tagList[i]["value"])
+            tag_list = simplejson.loads(tag)
+            for i in range(len(tag_list)):
+                tags.append(tag_list[i]["value"])
             post = form.save(commit=False)
             post.tag = tags
             post.user = request.user
             post.save()
-            exp = post.user.exp
-            user = post.user
-            user.exp = exp + 25
-            user.save()
+            update_exp(post.user, EXP_WRITE)
             return redirect(f"/post/detail/{post.id}")
         else:
-            print("form is not valid")
             return redirect("/post/write")
 
     form = PostForm()
@@ -288,10 +284,7 @@ def close(request, id):
     if request.method == "POST":
         Post.objects.filter(id=id).update(activation=False)
         post = Post.objects.get(id=id)
-        user = post.user
-        exp = user.exp
-        user.exp = exp + 50
-        user.save()
+        update_exp(post.user, EXP_CLOSE)
         return redirect(f"/post/detail/{id}")
 
 
@@ -304,7 +297,6 @@ def review_home(request):
     context = {
         'reviews': reviews,
     }
-
     return render(request, template_name="reviews/review.html", context=context)
 
 
@@ -315,9 +307,7 @@ def review_write(request, id):
         content = request.POST['review_content']
         user = request.user
         post = Post.objects.get(id=id)
-        exp = user.exp
-        user.exp = exp + 25
-        user.save()
+        update_exp(user, EXP_WRITE)
         Review.objects.create(user=user, content=content, post=post, image=img)
         return redirect(f"/post/detail/{id}")
 
@@ -333,18 +323,6 @@ def review_revise(request, id):
             revised_review.image = request.FILES.get('review_image')
         revised_review.save()
         return redirect(f"/post/detail/{revised_review.post.id}")
-
-    post = revised_review.post
-    all_reviews = post.review_set.all()
-    all_comments = post.comment_set.all()
-
-    context = {
-        'reviews': all_reviews,
-        'revised_review': revised_review,
-        'comments': all_comments,
-        'post': post
-    }
-    return render(request, template_name="reviews/review_revise.html", context=context)
 
 
 @ csrf_exempt

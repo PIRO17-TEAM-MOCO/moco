@@ -23,8 +23,13 @@
           </div>
         </div>
         <div class="profile-top__level">
-          <div class="profile-top__level__left">Lv. <span style="color: #2253FF; ">{{user.exp|intdiv:100}}</span></div>
-          <div class="profile-top__level__right"></div>
+          <div style="display: flex; flex-direction: row;">
+            <div class="profile-top__level__left">Lv. <span style="color: #2253FF; ">{{user.exp|intdiv:35}}</span></div>
+            <div class="profile-top__level__bar"><hr class="level"><hr class="level-fill"></div>
+          </div>
+          <div class="profile-top__level__next">
+            <p>다음 레벨까지 <span style="color: #2253FF;"></span> 남았어요!</p>
+          </div>
         </div>
       </div>
     </div>
@@ -61,7 +66,7 @@
             <p>{{like_post.title}}</p>
             <div class="profile-bottom__post__content">
               <p>
-                {{like_post.content|truncatechars:50|safe}}
+                {{ like_post.content | truncatechars:50 | safe }}
               </p></div>
             <div class="profile-bottom__post__icon">
               <span><i class="fa-solid fa-eye"></i></i><span>{{like_post.views}}</span></span>
@@ -187,4 +192,11 @@
     </div>
   </div>
 </div>
+<script>
+  let level = ("{{ user.exp }}" - ("{{ user.exp|intdiv:35 }}" * 35)) * 2.86;
+  $('.level-fill').css('width', level + '%');
+
+  let nextLevel = (parseInt("{{ user.exp|intdiv:35 }}") + 1) * 35 - "{{user.exp}}";
+  $('.profile-top__level__next p span').text(nextLevel + 'p');
+</script>
 {% endblock %}

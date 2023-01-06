@@ -102,7 +102,7 @@
           <div class="content-item__content">{{place.content | safe }}</div>
         </div>
         <hr style= "color: #BCBCBC; height:1px; width: 100%; opacity: 1;">
-        <div class="content-item" style= "width:1180px;">
+        <div class="content-item" style= "width:100%;">
           <div class="content-item__title">지도</div>
           <div id="map" style="height:400px; margin: 1.5rem 0; z-index: 0;"></div>
         </div>
@@ -178,16 +178,16 @@
               </div>
             </div>
             <div id="place_detail__comment__contents__txt__{{comment.id}}">
-              <h1>{{comment.content}}</h1>
+              <h1 id="place_detail__comment__contents__txt__h1__{{comment.id}}">{{comment.content}}</h1>
             </div>
             <div class="place_detail_comment_reply_btn">
-              <button onclick="changeForm2Place({{comment.id}});">답글</button>
+              <button onclick="changeForm2Place({{comment.id}}); return false;">답글</button>
             </div>
             <br />
             <div class="place_detail_commnet_reply_form">
               <div id="place_detail_comment_contents_reply_form__{{comment.id}}"></div>
             </div>
-            <div id="place_detail__comment__contents__reply">
+            <div id="place_detail__comment__contents__reply__{{comment.id}}">
               {% for recomment in comment.comment_set.all %}
               <div class="place_detail__comment__contents__reply_bundle__{{recomment.id}}">
                 <div class="place_detail__reply_top">
@@ -217,10 +217,10 @@
                       </div>
                       <div class="place_detail__comments_dropdown_menu">
                         <div class="place_detail__comments_dropdown_menu_revise">
-                          <button onclick="changeForm4Place({{recomment.id}}, '{{recomment.content}}');">수정</button>
+                          <button onclick="changeForm4Place({{comment.id}}, {{recomment.id}}, '{{recomment.content}}');">수정</button>
                         </div>
                         <div class="place_detail__comments_dropdown_menu_delete">
-                          <button onclick="onClickdeleteRecmtPlace({{recomment.id}});">삭제</button>
+                          <button onclick="onClickdeleteRecmtPlace({{comment.id}},{{recomment.id}});">삭제</button>
                         </div>
                       </div>
                     </div>
@@ -247,6 +247,7 @@
       </div>
   </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cb7ccec687e9ae05def0b343b1f55486&libraries=services"></script>
 <script>
   function dp_menu(){
       let click = document.getElementById("drop-content");
@@ -257,41 +258,42 @@
       }
   }
   
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-        mapOption = {
-            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
-            level: 5 // 지도의 확대 레벨
-        };
+  var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 5 // 지도의 확대 레벨
+    };  
 
-    //지도를 미리 생성
-    var map = new daum.maps.Map(mapContainer, mapOption);
-    //주소-좌표 변환 객체를 생성
-    var geocoder = new daum.maps.services.Geocoder();
-    
-    // 주소로 좌표를 검색합니다
-    geocoder.addressSearch('{{place.location}}', function(result, status) {
+  // 지도를 생성합니다    
+  var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-    // 정상적으로 검색이 완료됐으면 
-    if (status === kakao.maps.services.Status.OK) {
+  // 주소-좌표 변환 객체를 생성합니다
+  var geocoder = new kakao.maps.services.Geocoder();
+  
+  // 주소로 좌표를 검색합니다
+  geocoder.addressSearch('{{place.location}}', function(result, status) {
 
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+  // 정상적으로 검색이 완료됐으면 
+  if (status === kakao.maps.services.Status.OK) {
 
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
-        });
+      var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">{{place.name}}</div>'
-        });
-        infowindow.open(map, marker);
+      // 결과값으로 받은 위치를 마커로 표시합니다
+      var marker = new kakao.maps.Marker({
+          map: map,
+          position: coords
+      });
 
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
+      // 인포윈도우로 장소에 대한 설명을 표시합니다
+      var infowindow = new kakao.maps.InfoWindow({
+          content: '<div style="width:150px;text-align:center;padding:10px 0;font-size:80%;font-weight:bold;">{{place.name}}</div>'
+      });
+      infowindow.open(map, marker);
+
+      // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+      map.setCenter(coords);
     } 
-    });  
+  });
     
   const sp = document.getElementById('main_detail__comment__contents__txt')
   let idd = null;
@@ -324,12 +326,12 @@ function place_like(id) {
   // 댓글 수정
   const changeFormPlace = (id, content) => {
     const reviseCmtPlace = document.getElementById(`place_detail__comment__contents__txt__${id}`)
-    reviseCmtPlace.innerHTML = `<form action="/comment/revise/${id}" method="post">
+    reviseCmtPlace.innerHTML = `
         {% csrf_token %}
         <textarea
           type="text"
           name="content"
-          id="comment_input_box"
+          id="comment_input_box__${id}"
           cols="30"
           rows="10"
           placeholder="댓글을 입력해주세요."
@@ -343,10 +345,10 @@ function place_like(id) {
   font-weight: 600;
   font-size: 0.9rem;
   margin: 10px 0;">취소</a>
-  <input
-            type="submit"
+  <button
+            type="button"
+            onclick="updateCmt(${id})"
             id="main_detail__comment__btn_revise"
-            value="댓글 수정"
             style="background-color: #2253ff;
   border-style: none;
   border-radius: 0.5rem;
@@ -356,22 +358,37 @@ function place_like(id) {
   font-size: 0.9rem;
   margin: 10px 0;
   margin-right: 10px;"
-          />
-        </div>
-      </form>`
+  >댓글 수정</button>
+        </div>`
+  }
+  const updateCmt = (id) => {
+    const updateContent = document.querySelector(`#comment_input_box__${id}`);
+    const updateValue = updateContent.value;
+    axios({
+      url: "{%url 'comments:revise' %}",
+      method: 'post',
+      data: {
+        id: id,
+        content: updateValue
+      }
+    }).then(function (response) {
+      const { id, content } = response['data'];
+      const reviseCmt = document.getElementById(`place_detail__comment__contents__txt__${id}`);
+      reviseCmt.innerHTML = `<h1 id="place_detail__comment__contents__txt__h1__{{comment.id}}">${content}</h1>`;
+    });
+
   }
 
   // 대댓글 수정
-  const changeForm4Place = (id, content) => {
+  const changeForm4Place = (parentId, id, content) => {
     console.log("click")
     const reviseRecmtPlace = document.querySelector(`.place_detail__comment__contents__reply_bundle__${id}`)
-    console.log(reviseRecmtPlace)
-    reviseRecmtPlace.innerHTML = `<form action="/comment/revise/${id}" method="post">
+    reviseRecmtPlace.innerHTML = `
         {% csrf_token %}
         <textarea
           type="text"
           name="content"
-          id="comment_input_box"
+          id="comment_input_box__${id}"
           cols="30"
           rows="10"
           placeholder="댓글을 입력해주세요."
@@ -385,10 +402,9 @@ function place_like(id) {
   font-weight: 600;
   font-size: 0.9rem;
   margin: 10px 0;">취소</a>
-  <input
-            type="submit"
+  <button
+            type="button"
             id="main_detail__comment__btn_revise"
-            value="대댓글 수정"
             style="background-color: #2253ff;
   border-style: none;
   border-radius: 0.5rem;
@@ -398,10 +414,64 @@ function place_like(id) {
   font-size: 0.9rem;
   margin: 10px 0;
   margin-right: 10px;"
-          />
-        </div>
-      </form>`
+  onclick="updateRecmt(${parentId}, ${id})"
+  >대댓글 수정</button>
+        </div>`
   }
+
+  const updateRecmt = (parentId, id) =>{
+    const updateContent = document.querySelector(`#comment_input_box__${id}`);
+    const updateValue = updateContent.value;
+
+    axios({
+      url: "{%url 'comments:revise' %}",
+      method: 'post',
+      data: {
+        id: id,
+        content: updateValue
+      }
+    }).then(function (response) {
+      const {id, content} = response['data'];
+      const reviseCmt = document.querySelector(`.place_detail__comment__contents__reply_bundle__${id}`);
+      reviseCmt.innerHTML = `
+        <div class="place_detail__reply_top">
+          <div class="place_detail__comment__contetns__profile_userinfo">
+            <span style="font-size:1.25rem; font-weight: 600;">ㄴ </span>
+            <div id="place_detail__comment__contents__img">
+              {% if recomment.user.profile_img %}
+              <img src="{{recomment.user.profile_img.url}}" width="45px" alt="profile_img"></img>
+              {% else %}
+              <img src="/static/img/moco_symbol.png" width="45px" alt="profile_img"></img>
+              {% endif %}
+            </div>
+            <div id="place_detail__comments__contents__info">
+              <div id="place_detail__comments__contents__name">
+                <span>{{recomment.user.nickname}}</span>
+              </div>
+              <div id="place_detail__comments__contents__time">
+                <span>{{recomment.published_at|date:"Y. m. d" }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="place_detail__comments__contents__options">
+            <div class="place_detail__comments_revise_delete_btn">
+              <div class="place_detail__comments_dropdown_btn">
+                <i class="fa-solid fa-ellipsis fa-lg" style="color: #BFBFBF"></i>
+              </div>
+              <div class="place_detail__comments_dropdown_menu">
+                <div class="place_detail__comments_dropdown_menu_revise">
+                  <button onclick="changeForm4Place(${parentId}, ${id}, '${content}');">수정</button>
+                </div>
+                <div class="place_detail__comments_dropdown_menu_delete">
+                  <button onclick="onClickdeleteRecmtPlace(${parentId}, ${id});">삭제</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="place_detail__reply_txt">${content}</div>
+      `
+  })}
 
   // 대댓글
   const changeForm2Place = (id) => {
@@ -418,54 +488,42 @@ function place_like(id) {
   }
 
   //대댓글 삭제
-  const recmtDeletePlace = new XMLHttpRequest();
-  const onClickdeleteRecmtPlace = (id) => {
-      const url = "/comment/delete";
-      recmtDeletePlace.open("POST",url,true);
-      recmtDeletePlace.setRequestHeader(
-          "Content-Type",
-          "application/x-www-form-urlencoded"
-      );
-      recmtDeletePlace.send(JSON.stringify({'id':id}));
-  }
-  recmtDeletePlace.onreadystatechange = () => {
-      if (recmtDeletePlace.readyState === XMLHttpRequest.DONE){
-          if(recmtDeletePlace.status < 400){
-              const {id, len} = JSON.parse(recmtDeletePlace.response);
-              console.log(id, len)
-              const topdomRcmtPlace = document.getElementById("place_detail__comment__contents__reply");
-              const deletedomRcmtPlace = document.querySelector(`.place_detail__comment__contents__reply_bundle__${id}`)
-              topdomRcmtPlace.removeChild(deletedomRcmtPlace);
-              const cmtLen = document.getElementById('main_detail__comment_num')
-              cmtLen.innerHTML = len
-          }
+  const onClickdeleteRecmtPlace = (parentId, id) => {
+    axios({
+      url: "{%url 'comments:delete' %}",
+      method: 'post',
+      data: {
+        id: id
       }
+    }).then(function (response){
+      const {id, len} = response['data'];
+      const topdomRcmtPlace = document.getElementById(`place_detail__comment__contents__reply__${parentId}`);
+      const deletedomRcmtPlace = document.querySelector(`.place_detail__comment__contents__reply_bundle__${id}`)
+      topdomRcmtPlace.removeChild(deletedomRcmtPlace);
+      const cmtLen = document.getElementById('main_detail__comment_num')
+      cmtLen.innerHTML = len
+    })
   }
 
   // 댓글 삭제
-  const cmtDeletePlace = new XMLHttpRequest();
   const onClickdeletePlace = (id) => {
-      const url = "/comment/delete";
-      cmtDeletePlace.open("POST",url,true);
-      cmtDeletePlace.setRequestHeader(
-          "Content-Type",
-          "application/x-www-form-urlencoded"
-      );
-      cmtDeletePlace.send(JSON.stringify({'id':id}));
-  }
-  cmtDeletePlace.onreadystatechange = () => {
-      if (cmtDeletePlace.readyState === XMLHttpRequest.DONE){
-          if(cmtDeletePlace.status < 400){
-              const {id, len} = JSON.parse(cmtDeletePlace.response);
-              const topdomPlace = document.getElementById("place_detail__comment__contents");
-              const deletedomPlace = document.querySelector(`.place_detail__comment__each__contents_div__${id}`);
-              console.log(deletedomPlace)
-              topdomPlace.removeChild(deletedomPlace);
-              const cmtLen = document.getElementById('main_detail__comment_num')
-              cmtLen.innerHTML = len
-          }
+    axios({
+      url: "{%url 'comments:delete' %}",
+      method: 'post',
+      data: {
+        id: id
       }
-  }
+    }).then(function (response){
+        const {id, len} = response['data'];
+        const topdomPlace = document.getElementById("place_detail__comment__contents");
+        const deletedomPlace = document.querySelector(`.place_detail__comment__each__contents_div__${id}`);
+        console.log(deletedomPlace)
+        topdomPlace.removeChild(deletedomPlace);
+        const cmtLen = document.getElementById('main_detail__comment_num')
+        cmtLen.innerHTML = len
+    });
+  };
+  
 </script>
 
 {% endblock %}

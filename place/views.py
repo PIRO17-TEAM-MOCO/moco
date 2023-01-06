@@ -6,6 +6,7 @@ from .models import Place, PlaceImage
 from .forms import PlaceForm
 from comments.models import Comment
 from users.views import profile_valid
+from constants import EXP_WRITE, EXP_IMG
 
 
 @profile_valid
@@ -82,14 +83,14 @@ def write(request):
             user = place.user
             exp = user.exp
             if request.FILES.getlist('place_images'):
-                exp += 10
+                exp += EXP_IMG
             for img in request.FILES.getlist('place_images'):
                 photo = PlaceImage()
                 photo.place = place
                 photo.image = img
                 photo.save()
 
-            user.exp = exp + 25
+            user.exp = exp + EXP_WRITE
             user.save()
 
             return redirect('/place')
@@ -171,7 +172,6 @@ def update(request, id):
             "images": images,
         }
         return render(request, template_name='place/update.html', context=context)
-
 
 @login_required
 def delete(request, id):

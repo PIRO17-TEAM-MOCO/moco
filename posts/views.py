@@ -85,7 +85,7 @@ def home(request, contact='None'):
     post_tags_dict = {}
     for post in posts:
         post_tags = post.tag
-        post_tags = post_tags.replace(" ", "").replace("'", "")[1:len(post_tags)-2]
+        post_tags = post_tags.replace(" ", "").replace("'", "")[1:len(post.tag)-1]
         post_tags = post_tags.split(",")
         post_tags_dict[post.id] = post_tags
 

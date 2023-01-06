@@ -49,7 +49,7 @@ def home(request, contact='None'):
     search_tag_list = []
     if tag != '':
         tags_list = simplejson.loads(tag)
-        for tag_index in range(len(tags_list)):
+        for tag_index in range(len(tags_list)-1):
             search_tag_list.append(tags_list[tag_index]["value"])
         for search_tag in search_tag_list:
             q.add(Q(tag__contains="'"+search_tag+"'"), q.OR)

@@ -49,7 +49,7 @@ def home(request, contact='None'):
     search_tag_list = []
     if tag != '':
         tags_list = simplejson.loads(tag)
-        for tag_index in range(len(tags_list)-1):
+        for tag_index in range(len(tags_list)):
             search_tag_list.append(tags_list[tag_index]["value"])
         for search_tag in search_tag_list:
             q.add(Q(tag__contains="'"+search_tag+"'"), q.OR)
@@ -85,7 +85,7 @@ def home(request, contact='None'):
     post_tags_dict = {}
     for post in posts:
         post_tags = post.tag
-        post_tags = post_tags.replace(" ", "").replace("'", "")[1:len(post_tags)-1]
+        post_tags = post_tags.replace(" ", "").replace("'", "")[1:len(post_tags)-2]
         post_tags = post_tags.split(",")
         post_tags_dict[post.id] = post_tags
 

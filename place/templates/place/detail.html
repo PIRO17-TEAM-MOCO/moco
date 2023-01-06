@@ -316,7 +316,7 @@ function place_like(id) {
             else
               $('#blank').removeClass("fa-solid fa-heart").addClass("fa-regular fa-heart");
             if (response.error) {
-              window.location.replace("http://127.0.0.1:8000/account/login"); // 배포용 서버로 변경
+              window.location.replace("{% url 'users:login' %}?next={{request.path}}"); // 배포용 서버로 변경
             } 
         }
     })

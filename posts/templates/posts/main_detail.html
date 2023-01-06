@@ -827,7 +827,7 @@
 					if (response.error) {
 						window
 							.location
-							.replace("http://127.0.0.1:8000/account/login"); // 배포용 서버로 변경
+							.replace("{% url 'users:login' %}?next={{request.path}}"); // 배포용 서버로 변경
 					}
 				}
 			})

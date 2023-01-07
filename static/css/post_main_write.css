@@ -24,9 +24,9 @@ form {
 }
 
 .main_write__title h1 {
-	font-weight: 700;
-	font-size: 1.3rem;
-	margin-top: 6px;
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-top: 6px;
 }
 
 .main_write__top__select_row {
@@ -114,20 +114,20 @@ form {
 }
 
 .main_write__title_num {
-	height: 29px;
-	width: 29px;
-	background-color: #2253ff;
-	border-radius: 100px;
-	color: white;
-	display: flex;
-	justify-content: center;
-	margin-right: 15px;
-	margin-top: 3px;
+  height: 29px;
+  width: 29px;
+  background-color: #2253ff;
+  border-radius: 100px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin-right: 15px;
+  margin-top: 3px;
 }
 
 .main_write__title_num h2 {
-	font-size: 1.3rem;
-	padding-top: 3px;
+  font-size: 1.3rem;
+  padding-top: 3px;
 }
 
 .main_write__title h2 {
@@ -273,15 +273,15 @@ form {
 }
 
 #main_write__top label {
-	font-size: 1.1rem;
+  font-size: 1.1rem;
 }
 
 .main_write__top__box_title {
-	font-size: 1.1rem;
+  font-size: 1.1rem;
 }
 
 .main_write__tag_write__main_title h3 {
-	font-size: 1.1rem;
+  font-size: 1.1rem;
 }
 
 #main_write__select_duration select:hover {
@@ -372,6 +372,7 @@ form {
   padding: 20px 0 30px;
   text-align: center;
   width: 40%;
+  min-width: 570px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   display: flex;
   align-items: center;
@@ -449,4 +450,49 @@ form {
   font-size: 15px;
   padding: 10px;
   margin-right: 10px;
+}
+
+@media screen and (max-width: 1023px) {
+  .post_write__modal__content {
+    min-width: 480px;
+  }
+  .post_write__modal__close_btn {
+    right: -9rem;
+  }
+}
+@media screen and (max-width: 767px) {
+  #main_write__top {
+    margin-top: 20px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .main_write__top__select_row {
+    flex-direction: column;
+  }
+
+  .main_write__dropdown__select_left {
+    width: 100%;
+  }
+  #main_write__select_contact {
+    width: 100%;
+  }
+  .main_write__dropdown__select_right {
+    width: 100%;
+  }
+  .main_write__top__select_left {
+    width: 100%;
+  }
+
+  .main_write__top__select_right {
+    width: 100%;
+  }
+  .main_write__top__box_title {
+    margin-top: 20px;
+  }
+  .main_write__top__select_row {
+    margin: 0;
+  }
+  .main_write__dropdown__select_right {
+    margin-bottom: 0;
+  }
 }

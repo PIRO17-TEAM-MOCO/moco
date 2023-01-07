@@ -14,8 +14,7 @@
 }
 
 .review__contents_box__user_info {
-  width: 20rem;
-  height: 5rem;
+  height: 4rem;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
   display: flex;
@@ -47,14 +46,16 @@
   height: 100%;
 }
 
-.review__contents_box__info {
-  width: 8rem;
+.reviews_review__contents_box__info {
+  width: 6rem;
   height: 5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-content: center;
-  margin: 2.3rem 0;
+  margin-top: 2rem;
+  padding-left: 1rem;
+  padding-bottom: 0.3rem;
+  margin-right: 1rem;
 }
 
 .review__contents_box__img img {
@@ -68,11 +69,11 @@
   margin-left: 30px;
 }
 
-.review__contents_box__profile {
+.review__contents_box__profile_container {
   display: flex;
 }
 
-.review__contents_box__profile img {
+.review__contents_box__profile_container img {
   width: 3rem;
   height: 3rem;
   border: 1px solid rgb(200, 200, 200);
@@ -87,16 +88,8 @@
   position: relative;
 }
 
-.review__contents_box__info {
-  display: inline-block;
-  margin-top: 3rem;
-  padding-left: 15px;
-  margin-right: 20px;
-  padding-top: 5px;
-}
-
 .main_detail__contents__profile_name {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: 100;
   margin-bottom: 0.5rem;
 }
@@ -117,24 +110,18 @@
   align-items: center;
 }
 
-#review__contents_box__auth_host {
+#reviews_review__contents_box__auth_host {
   border: 1px solid #2253ff;
   background-color: #e9f7ff;
   color: #2253ff;
   padding: 7px;
 }
 
-#review__contents_box__auth_guest {
+#reviews_review__contents_box__auth_guest {
   border: 1px solid #ff7a68;
   background-color: #fff0ec;
   color: #ff7a68;
   padding: 7px;
-}
-
-.review__contents_box__user_info {
-  width: 50%;
-  display: flex;
-  align-items: center;
 }
 
 .review__contents_box__tag_row {
@@ -155,4 +142,46 @@
   font-size: 15px;
   padding: 8px;
   margin-right: 8px;
+}
+
+@media screen and (max-width: 1023px) {
+  .review__contents_box__auth {
+    width: 60.16px;
+  }
+  .reviews_review__contents_box__info{
+    margin-right: 0.1rem;
+  }
+  .main_detail__contents__profile_name {
+    font-size: 1.2rem;
+  }
+  .review__contents_box__content{
+    min-width: 20rem;
+    margin-right: 30px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .review__contents_box__info {
+    padding-left: 0.5rem;
+    width: 5rem;
+  }
+  .main_detail__contents__profile_name {
+    font-size: 1.2rem;
+  }
+  .main_detail__contents__profile_time {
+    font-size: 0.7rem;
+  }
+  #review__img__container{
+    width: 10rem;
+    height: 8rem;
+  }
+  .review__contents_box__content{
+    margin-top: 0;
+    margin-bottom: 0;
+    min-width: 10rem;
+  }
+  .review__contents_box{
+    height: 190px;
+  }
+@media screen and (max-width: 480px) {
+
 }

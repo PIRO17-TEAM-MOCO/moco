@@ -192,10 +192,25 @@ body {
 
 /* 반응형 */
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 1023px) {
+  .content {
+    max-width: 1023px;
+    min-width: 768px;
+  }
+  .navbar__shortcut {
+    margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .content {
+    max-width: 767px;
+    min-width: 481px;
+  }
+
   .navbar {
     display: flex;
-    max-width: 1180px;
+    max-width: 767px;
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
@@ -234,11 +249,15 @@ body {
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 480px) {
+  .content {
+    min-width: 480px;
+  }
+
   .navbar__shortcut {
     position: absolute;
     top: -20px;
-    right: 750px;
+    right: 720px;
   }
 
   .base__dropdown {

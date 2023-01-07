@@ -466,4 +466,33 @@ form {
   }
 }
 @media screen and (max-width: 480px) {
+  .main_write__top__select_row {
+    flex-direction: column;
+  }
+
+  .main_write__dropdown__select_left {
+    width: 100%;
+  }
+  #main_write__select_contact {
+    width: 100%;
+  }
+  .main_write__dropdown__select_right {
+    width: 100%;
+  }
+  .main_write__top__select_left {
+    width: 100%;
+  }
+
+  .main_write__top__select_right {
+    width: 100%;
+  }
+  .main_write__top__box_title {
+    margin-top: 20px;
+  }
+  .main_write__top__select_row {
+    margin: 0;
+  }
+  .main_write__dropdown__select_right {
+    margin-bottom: 0;
+  }
 }

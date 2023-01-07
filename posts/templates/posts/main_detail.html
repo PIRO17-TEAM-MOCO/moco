@@ -540,386 +540,323 @@
 			comModal.style.display = "block";
 		});
 
-    const closeComModal = comModal.querySelector(
-      ".main_detail__complete_modal__close_btn"
-    );
-    closeComModal.addEventListener("click", (e) => {
-      comModal.style.display = "none";
-    });
+		const closeComModal = comModal.querySelector(".main_detail__complete_modal__close_btn");
+		closeComModal.addEventListener("click", (e) => {
+			comModal.style.display = "none";
+		});
 
-    const cancelComModal = comModal.querySelector(
-      ".main_detail__complete_modal__cancel_btn"
-    );
-    cancelComModal.addEventListener("click", (e) => {
-      comModal.style.display = "none";
-    });
-  </script>
+		const cancelComModal = comModal.querySelector(".main_detail__complete_modal__cancel_btn");
+		cancelComModal.addEventListener("click", (e) => {
+			comModal.style.display = "none";
+		});
+	</script>
 
-  <script>
-    const delModal = document.getElementById("main_detail__delete_modal");
-    const openDelModal = document.getElementById(
-      "main_detail__delete_modal_btn"
-    );
-    openDelModal.addEventListener("click", (e) => {
-      delModal.style.display = "block";
-    });
+	<script>
+		const delModal = document.getElementById("main_detail__delete_modal");
+		const openDelModal = document.getElementById("main_detail__delete_modal_btn");
+		openDelModal.addEventListener("click", (e) => {
+			delModal.style.display = "block";
+		});
 
-    const closeDelModal = delModal.querySelector(
-      ".main_detail__delete_modal__close_btn"
-    );
-    closeDelModal.addEventListener("click", (e) => {
-      delModal.style.display = "none";
-    });
+		const closeDelModal = delModal.querySelector(".main_detail__delete_modal__close_btn");
+		closeDelModal.addEventListener("click", (e) => {
+			delModal.style.display = "none";
+		});
 
-    const cancelDelModal = delModal.querySelector(
-      ".main_detail__delete_modal__cancel_btn"
-    );
-    cancelDelModal.addEventListener("click", (e) => {
-      delModal.style.display = "none";
-    });
-  </script>
+		const cancelDelModal = delModal.querySelector(".main_detail__delete_modal__cancel_btn");
+		cancelDelModal.addEventListener("click", (e) => {
+			delModal.style.display = "none";
+		});
+	</script>
 
-  <script>
-    const delModal2 = document.getElementById("main_detail__delete_modal_2");
-    const openDelModal2 = document.getElementById(
-      "main_detail__delete_modal_btn_2"
-    );
-    openDelModal2.addEventListener("click", (e) => {
-      delModal2.style.display = "block";
-    });
-  </script>
+	<script>
+		const delModal2 = document.getElementById("main_detail__delete_modal_2");
+		const openDelModal2 = document.getElementById("main_detail__delete_modal_btn_2");
+		openDelModal2.addEventListener("click", (e) => {
+			delModal2.style.display = "block";
+		});
+	</script>
 
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script>
-    // 댓글 수정
-    const changeCmtForm = (id, content) => {
-      const reviseCmt = document.getElementById(
-        `main_detail__comment__contents__txt__${id}`
-      );
-      reviseCmt.innerHTML = `
-		      {% csrf_token %}
-		      <textarea
-		        type="text"
-		        name="content"
-		        id="comment_input_box__${id}"
-		        cols="30"
-		        rows="10"
-		        placeholder="댓글을 입력해주세요."
-		      >${content}</textarea>
-		      <div id="main_detail__comment__btnplace">
-		        <a href="{% url 'posts:detail' post.id %}" style="background-color: #bfbfbf;
-		          border-style: none;
-		          border-radius: 0.5rem;
-		          color: white;
-		          padding: 1rem 2rem;
-		          font-weight: 600;
-		          font-size: 0.9rem;
-		          margin: 10px 0;">취소</a>
-		        <button
-		          type="button"
-		          onclick="updateCmt(${id})"
-		          id="main_detail__comment__btn_revise"
-		          value="댓글 수정"
-		          style="background-color: #2253ff;
-		                border-style: none;
-		                border-radius: 0.5rem;
-		                color: white;
-		                padding: 1rem 2rem;
-		                font-weight: 600;
-		                font-size: 0.9rem;
-		                margin: 10px 0;
-		                margin-right: 10px;"
-		        >댓글 수정</button>
-		      </div>`;
-    };
-    const updateCmt = (id) => {
-      const updateContent = document.querySelector(`#comment_input_box__${id}`);
-      const updateValue = updateContent.value;
-      axios({
-        url: "{%url 'comments:revise' %}",
-        method: "post",
-        data: {
-          id: id,
-          content: updateValue,
-        },
-      }).then(function (response) {
-        const { id, content } = response["data"];
-        const reviseCmt = document.getElementById(
-          `main_detail__comment__contents__txt__${id}`
-        );
-        reviseCmt.innerHTML = `<h1>${content}</h1>`;
-      });
-    };
+	<script>
+		// 댓글 수정
+		const changeForm = (id, content) => {
+			const reviseCmt = document.getElementById(`main_detail__comment__contents__txt__${id}`)
+			reviseCmt.innerHTML =
+				`<form action="/comment/revise/${id}" method="post">
+        {% csrf_token %}
+        <textarea
+          type="text"
+          name="content"
+          id="comment_input_box"
+          cols="30"
+          rows="10"
+          placeholder="댓글을 입력해주세요."
+        >${content}</textarea>
+        <div id="main_detail__comment__btnplace">
+          <a href="{% url 'posts:detail' post.id %}" style="background-color: #bfbfbf;
+  border-style: none;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 10px 0;">취소</a>
+  <input
+            type="submit"
+            id="main_detail__comment__btn_revise"
+            value="댓글 수정"
+            style="background-color: #2253ff;
+  border-style: none;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 10px 0;
+  margin-right: 10px;"
+          />
+        </div>
+      </form>`
+		}
 
-    // 댓글 삭제
-    const onClickdelete = (id) => {
-      axios({
-        url: "{%url 'comments:delete' %}",
-        method: "post",
-        data: {
-          id: id,
-        },
-      }).then(function (response) {
-        const { id, len } = response["data"];
-        const topdom = document.getElementById(
-          "main_detail__comment__contents"
-        );
-        const deletedom = document.querySelector(
-          `.main_detail__comment__each__contents_div__${id}`
-        );
-        topdom.removeChild(deletedom);
-        const cmtLen = document.getElementById("main_detail__comment_num");
-        cmtLen.innerHTML = len;
-      });
-    };
+		// 대댓글 수정
+		const changeForm4 = (id, content) => {
+			const reviseRecmt = document.querySelector(`.main_detail__comment__contents__reply_bundle__${id}`)
+			console.log(reviseRecmt)
+			reviseRecmt.innerHTML =
+				`<form action="/comment/revise/${id}" method="post">
+        {% csrf_token %}
+        <textarea
+          type="text"
+          name="content"
+          id="comment_input_box"
+          cols="30"
+          rows="10"
+          placeholder="댓글을 입력해주세요."
+        >${content}</textarea>
+        <div id="main_detail__comment__btnplace">
+          <a href="{% url 'posts:detail' post.id %}" style="background-color: #bfbfbf;
+  border-style: none;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 10px 0;">취소</a>
+  <input
+            type="submit"
+            id="main_detail__comment__btn_revise"
+            value="대댓글 수정"
+            style="background-color: #2253ff;
+  border-style: none;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 10px 0;
+  margin-right: 10px;"
+          />
+        </div>
+      </form>`
+		}
 
-    // 대댓글 달기
-    const createReCmt = (id) => {
-      const reCmt = document.getElementById(
-        `main_detail_comment_contents_reply_form__${id}`
-      );
-      reCmt.innerHTML = `<form action="/comment/recomment/${id}" method="post">{% csrf_token %}<textarea type="text" name="content"></textarea>
-					 <div class="comment-revise__button"><a href="{% url 'posts:detail' post.id %}">취소</a><input type="submit" value="등록"/></div></form>`;
-    };
+		// 대댓글
+		const changeForm2 = (id) => {
+			const reCmt = document.getElementById(`main_detail_comment_contents_reply_form__${id}`)
+			reCmt.innerHTML = `<form action="/comment/recomment/${id}" method="post">{% csrf_token %}<textarea type="text" name="content"></textarea>
+      <div class="comment-revise__button"><a href="{% url 'posts:detail' post.id %}">취소</a><input type="submit" value="등록"/></div></form>`
+		}
 
-    // 대댓글 수정
-    const changeReCmtForm = (parentId, id, content) => {
-      const reviseRecmt = document.querySelector(
-        `.main_detail__comment__contents__reply_bundle__${id}`
-      );
-      reviseRecmt.innerHTML = `
-		      {% csrf_token %}
-		      <textarea
-		        type="text"
-		        name="content"
-		        id="comment_input_box__${id}"
-		        cols="30"
-		        rows="10"
-		        placeholder="댓글을 입력해주세요."
-		      >${content}</textarea>
-		      <div id="main_detail__comment__btnplace">
-		        <a href="{% url 'posts:detail' post.id %}" style="background-color: #bfbfbf;border-style: none;border-radius: 0.5rem;color: white;padding: 1rem 2rem;font-weight: 600;font-size: 0.9rem;margin: 10px 0;">취소</a>
-				  <button type="submit" id="main_detail__comment__btn_revise" value="대댓글 수정" onclick="updateReCmt(${parentId}, ${id})" style="background-color: #2253ff;border-style: none;border-radius: 0.5rem;color: white;padding: 1rem 2rem;font-weight: 600;font-size: 0.9rem;margin: 10px 0;margin-right: 10px;">대댓글 수정</button>
-		      </div>
-		  `;
-    };
-    const updateReCmt = (parentId, id) => {
-      const updateContent = document.querySelector(`#comment_input_box__${id}`);
-      const updateValue = updateContent.value;
+		//대댓글 삭제
+		const recmtDelete = new XMLHttpRequest();
+		const onClickdeleteRecmt = (id) => {
+			const url = "/comment/delete";
+			recmtDelete.open("POST", url, true);
+			recmtDelete.setRequestHeader(
+				"Content-Type",
+				"application/x-www-form-urlencoded"
+			);
+			recmtDelete.send(JSON.stringify({ 'id': id }));
+		}
+		recmtDelete.onreadystatechange = () => {
+			if (recmtDelete.readyState === XMLHttpRequest.DONE) {
+				if (recmtDelete.status < 400) {
+					const { id, len } = JSON.parse(recmtDelete.response);
+					const topdomRcmt = document.getElementById("main_detail__comment__contents__reply");
+					console.log(topdomRcmt)
+					const deletedomRcmt = document.querySelector(`.main_detail__comment__contents__reply_bundle__${id}`)
+					console.log(deletedomRcmt)
+					topdomRcmt.removeChild(deletedomRcmt);
+					const cmtLen = document.getElementById('main_detail__comment_num')
+					cmtLen.innerHTML = len
+				}
+			}
+		}
 
-      axios({
-        url: "{%url 'comments:revise' %}",
-        method: "post",
-        data: {
-          id: id,
-          content: updateValue,
-        },
-      }).then(function (response) {
-        const { id, content } = response["data"];
-        const reviseCmt = document.querySelector(
-          `.main_detail__comment__contents__reply_bundle__${id}`
-        );
-        reviseCmt.innerHTML = `<div>
-		            <div class="main_detail__comment__contetns__profile_userinfo">
-		              <span style="font-size: 1.25rem; font-weight: 600">ㄴ</span>
-		              <div id="main_detail__comment__contents__img">
-		                {% if recomment.user.profile_img %}
-		                <img src="{{comment.user.profile_img.url}}" width="45px" alt="profile_img" />
-		                <img src="/static/img/moco_symbol.png" width="45px" alt="profile_img" />
-		                {% endif %}
-		              </div>
-		              <div id="main_detail__comments__contents__info">
-		                <div id="main_detail__comments__contents__name">
-		                  <span>{{recomment.user.nickname}}</span>
-		                </div>
-		                <div id="main_detail__comments__contents__time">
-		                  <span>{{recomment.published_at|date:"Y. m. d" }}</span>
-		                </div>
-		              </div>
-		            </div>
-		            <div class="reply_txt">${content}</div>
-		          </div>
-		          <div>
-		            <div class="main_detail__comments__contents__options">
-		              <div class="main_detail__comments_revise_delete_btn">
-		                <div class="main_detail__comments_dropdown_btn">
-		                  <i class="fa-solid fa-ellipsis fa-lg" style="color: #bfbfbf"></i>
-		                </div>
-		                <div class="main_detail__comments_dropdown_menu">
-		                  <div class="main_detail__comments_dropdown_menu_revise">
-		                    <button onclick="changeReCmtForm(${parentId}, ${id}, '${content}');">수정</button>
-		                  </div>
-		                  <div class="main_detail__comments_dropdown_menu_delete">
-		                    <button onclick="onClickdeleteRecmt(${parentId}, ${id});">삭제</button>
-		                  </div>
-		                </div>
-		              </div>
-		            </div>
-		          </div>`;
-      });
-    };
+		// 댓글 삭제
+		const cmtDelete = new XMLHttpRequest();
+		const onClickdelete = (id) => {
+			const url = "/comment/delete";
+			cmtDelete.open("POST", url, true);
+			cmtDelete.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			cmtDelete.send(JSON.stringify({ 'id': id }));
+		}
+		cmtDelete.onreadystatechange = () => {
+			if (cmtDelete.readyState === XMLHttpRequest.DONE) {
+				if (cmtDelete.status < 400) {
+					const { id, len } = JSON.parse(cmtDelete.response);
+					const topdom = document.getElementById("main_detail__comment__contents");
+					const deletedom = document.querySelector(`.main_detail__comment__each__contents_div__${id}`);
+					topdom.removeChild(deletedom);
+					const cmtLen = document.getElementById('main_detail__comment_num')
+					cmtLen.innerHTML = len
+				}
+			}
+		}
 
-    //대댓글 삭제
-    const onClickdeleteRecmt = (parentId, id) => {
-      axios({
-        url: "{%url 'comments:delete' %}",
-        method: "post",
-        data: {
-          id: id,
-        },
-      }).then(function (response) {
-        const { id, len } = response["data"];
-        const topdomRcmt = document.getElementById(
-          `main_detail__comment__contents__reply__${parentId}`
-        );
-        const deletedomRcmt = document.querySelector(
-          `.main_detail__comment__contents__reply_bundle__${id}`
-        );
-        topdomRcmt.removeChild(deletedomRcmt);
-        const cmtLen = document.getElementById("main_detail__comment_num");
-        cmtLen.innerHTML = len;
-      });
-    };
+		// 후기 수정
+		const changeForm3 = (id, content, imgurl) => {
+			console.log(imgurl)
+			const reviseRvw = document.querySelector(`.main_detail__review__contents_content__${id}`)
+			if (imgurl != '') {
+				reviseRvw.innerHTML =
+					`<form action="/post/review/revise/${id}" method="post" enctype="multipart/form-data" style="margin: 0 20px">
+        {% csrf_token %}
+        <div id="main_detail__review__blank_box">
+          <div id="main_detail__review__filebox">
+            <img src="${imgurl}" style="width: 90%; height: 90%; margin-bottom: 10px;"/>
+            <input
+              type="file"
+              name="review_image"
+              class="main_detail__review__upload_file"
+              accept="image/*"
+            />
+          </div>
+          <textarea
+            name="review_content"
+            id="review_input_box"
+            cols="30"
+            rows="10"
+            placeholder="후기를 입력하세요."
+          >${content}</textarea>
+        </div>
+        <div id="main_detail__review__btnplace">
+          <a href="{% url 'posts:detail' post.id %}">취소</a>
+          <button type="submit" id="main_detail__review__btn_revise">
+            <p>후기 수정</p>
+          </button>
+        </div>
+      </form>`
+			}
+			else {
+				reviseRvw.innerHTML =
+					`<form action="/post/review/revise/${id}" method="post" enctype="multipart/form-data" style="margin: 0 20px">
+        {% csrf_token %}
+        <div id="main_detail__review__blank_box">
+          <div id="main_detail__review__filebox">
+            <img src="/static/img/image-solid.svg" style="width: 90%; height: 90%;"/>
+            <input
+              type="file"
+              name="review_image"
+              class="main_detail__review__upload_file"
+              accept="image/*"
+            />
+          </div>
+          <textarea
+            name="review_content"
+            id="review_input_box"
+            cols="30"
+            rows="10"
+            placeholder="후기를 입력하세요."
+          >${content}</textarea>
+        </div>
+        <div id="main_detail__review__btnplace">
+          <a href="{% url 'posts:detail' post.id %}">취소</a>
+          <button type="submit" id="main_detail__review__btn_revise">
+            <p>후기 수정</p>
+          </button>
+        </div>
+      </form>`
 
-    // 후기 수정
-    const changeForm3 = (id, content, imgurl) => {
-      const reviseRvw = document.querySelector(
-        `.main_detail__review__contents_content__${id}`
-      );
-      if (imgurl != "") {
-        reviseRvw.innerHTML = `<form action="/post/review/revise/${id}" method="post" enctype="multipart/form-data" style="margin: 0 20px">
-		      {% csrf_token %}
-		      <div id="main_detail__review__blank_box">
-		        <div id="main_detail__review__filebox">
-		          <img src="${imgurl}" style="width: 90%; height: 90%; margin-bottom: 10px;"/>
-		          <input
-		            type="file"
-		            name="review_image"
-		            class="main_detail__review__upload_file"
-		            accept="image/*"
-		          />
-		        </div>
-		        <textarea
-		          name="review_content"
-		          id="review_input_box"
-		          cols="30"
-		          rows="10"
-		          placeholder="후기를 입력하세요."
-		        >${content}</textarea>
-		      </div>
-		      <div id="main_detail__review__btnplace">
-		        <a href="{% url 'posts:detail' post.id %}">취소</a>
-		        <button type="submit" id="main_detail__review__btn_revise">
-		          <p>후기 수정</p>
-		        </button>
-		      </div>
-		    </form>`;
-      } else {
-        reviseRvw.innerHTML = `<form action="/post/review/revise/${id}" method="post" enctype="multipart/form-data" style="margin: 0 20px">
-		      {% csrf_token %}
-		      <div id="main_detail__review__blank_box">
-		        <div id="main_detail__review__filebox">
-		          <img src="/static/img/image-solid.svg" style="width: 90%; height: 90%;"/>
-		          <input
-		            type="file"
-		            name="review_image"
-		            class="main_detail__review__upload_file"
-		            accept="image/*"
-		          />
-		        </div>
-		        <textarea
-		          name="review_content"
-		          id="review_input_box"
-		          cols="30"
-		          rows="10"
-		          placeholder="후기를 입력하세요."
-		        >${content}</textarea>
-		      </div>
-		      <div id="main_detail__review__btnplace">
-		        <a href="{% url 'posts:detail' post.id %}">취소</a>
-		        <button type="submit" id="main_detail__review__btn_revise">
-		          <p>후기 수정</p>
-		        </button>
-		      </div>
-		    </form>`;
-      }
-    };
+			}
+		}
 
-    // 후기 삭제
-    const onClickReviewDel = (id) => {
-      axios({
-        url: "{%url 'posts:review-delete' %}",
-        method: "post",
-        data: {
-          id: id,
-        },
-      }).then(function (response) {
-        const { id, len } = response["data"];
-        const topdom = document.getElementById("main_detail__review__contents");
-        const deletedom = document.getElementById(
-          `main_detail__review__contents_mine__${id}`
-        );
-        topdom.removeChild(deletedom);
-        const rvwLen = document.getElementById("main_detail__review_num");
-        rvwLen.innerHTML = len;
-      });
-    };
-  </script>
-  <script
-    src="https://code.jquery.com/jquery-3.5.1.js"
-    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-    crossorigin="anonymous"
-  ></script>
-  <script type="text/javascript">
-    function post_like(id) {
-      $.ajax({
-        url: "{%url 'users:likes' 1 %}", // data를 전송할 url 입니다. post = 1
-        data: {
-          id: id,
-        }, // id 값 전송
-        dataType: "json",
-        success: function (response) {
-          // ajax 통신이 정상적으로 완료되었을 때
-          $("#like_count").html(response.like_count); //id가 like_count의 내용을 전송받은 좋아요 수로 바꾼다
-          if ($("#blank").hasClass("fa-regular fa-heart"))
-            $("#blank")
-              .removeClass("fa-regular fa-heart")
-              .addClass("fa-solid fa-heart");
-          else
-            $("#blank")
-              .removeClass("fa-solid fa-heart")
-              .addClass("fa-regular fa-heart");
-          if (response.error) {
-            window.location.replace("http://127.0.0.1:8000/account/login"); // 배포용 서버로 변경
-          }
-        },
-      });
-    }
+		// 후기 삭제
+		const rvwDelete = new XMLHttpRequest();
+		const onClickdelete2 = (id) => {
+			const url = "/post/review/delete";
+			rvwDelete.open("POST", url, true);
+			rvwDelete.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			rvwDelete.send(JSON.stringify({ 'id': id }));
+		}
+		rvwDelete.onreadystatechange = () => {
+			if (rvwDelete.readyState === XMLHttpRequest.DONE) {
+				if (rvwDelete.status < 400) {
+					const { id, len } = JSON.parse(rvwDelete.response);
+					console.log(len)
+					const topdom = document.getElementById("main_detail__review__contents");
+					const deletedom = document.getElementById(`main_detail__review__contents_mine__${id}`);
+					topdom.removeChild(deletedom);
+					const rvwLen = document.getElementById('main_detail__review_num')
+					rvwLen.innerHTML = len
+				}
+			}
+		}
+	</script>
+	<script src="https://code.jquery.com/jquery-3.5.1.js"
+		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		function post_like(id) {
+			$.ajax({
+				url: "{%url 'users:likes' 1 %}", // data를 전송할 url 입니다. post = 1
+				data: {
+					'id': id
+				}, // id 값 전송
+				dataType: "json",
+				success: function (response) { // ajax 통신이 정상적으로 완료되었을 때
+					$('#like_count').html(response.like_count) //id가 like_count의 내용을 전송받은 좋아요 수로 바꾼다
+					if ($('#blank').hasClass("fa-regular fa-heart"))
+						$('#blank')
+							.removeClass("fa-regular fa-heart")
+							.addClass("fa-solid fa-heart");
+					else
+						$('#blank')
+							.removeClass("fa-solid fa-heart")
+							.addClass("fa-regular fa-heart");
+					if (response.error) {
+						window
+							.location
+							.replace("{% url 'users:login' %}?next={{request.path}}"); // 배포용 서버로 변경
+					}
+				}
+			})
+		}
 
-    function dp_menu() {
-      let click = document.getElementById("drop-content");
-      if (click.style.display === "none") {
-        click.style.display = "block";
-      } else {
-        click.style.display = "none";
-      }
-    }
+		function dp_menu() {
+			let click = document.getElementById("drop-content");
+			if (click.style.display === "none") {
+				click.style.display = "block";
+			} else {
+				click.style.display = "none";
+			}
+		}
 
-    // 후기 이미지 바로 띄우기
-    function thumbnailImg(event) {
-      var reader = new FileReader();
+		// 후기 이미지 바로 띄우기
+		function thumbnailImg(event) {
+			var reader = new FileReader();
 
-      reader.onload = function (event) {
-        var img = document.createElement("img");
-        img.setAttribute("src", event.target.result);
-        document
-          .querySelector("div#main_detail__review__uploadbtn")
-          .appendChild(img);
-      };
+			reader.onload = function (event) {
+				var img = document.createElement("img");
+				img.setAttribute("src", event.target.result);
+				document
+					.querySelector("div#main_detail__review__uploadbtn")
+					.appendChild(img);
+			};
 
-      reader.readAsDataURL(event.target.files[0]);
-    }
-  </script>
+			reader.readAsDataURL(event.target.files[0]);
+		}
+	</script>
 
   {% endblock content%}
 </div>

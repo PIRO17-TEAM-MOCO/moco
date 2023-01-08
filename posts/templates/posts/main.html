@@ -14,7 +14,7 @@
             </div>
             <div id="search_div__top_left__search">
               {% if search %}
-              <i class="fa-solid fa-magnifying-glass"></i>
+              <img src="{% static "img/magnifying-glass.svg" %}" alt="search_icon"></img>
               <input
                 id="main__search_text"
                 type="text"
@@ -23,7 +23,7 @@
                 value="{{ search }}"
               />
               {% else %}
-              <i class="fa-solid fa-magnifying-glass"></i>
+              <img src="{% static "img/magnifying-glass.svg" %}" alt="search_icon"></img>
               <input type="text" name="search" class="main__search_text" placeholder="관심 모각코를 검색해보세요">
               {% endif %}
               <input
@@ -51,7 +51,7 @@
             </div>
             <div id="search_div__top_right__reset">
               <div class="post_main__tag__reset">
-                <i class="fa-solid fa-arrows-rotate" style="color: black;"></i>
+                <img src="{% static "img/arrows-rotate.svg" %}" alt="reset_icon"></img>
                 <input type="reset" name="reset" class="post-main__tag__reset" value="초기화" onClick="location.href='/post'">
               </div>
             </div>
@@ -109,15 +109,15 @@
             {{post.content|truncatechars:142|safe}}
           </div>
           <div id="main__info_div__post_left__reaction">
-            <i class="fa-solid fa-eye"></i>
+            <img src="{% static "img/eye.svg" %}" alt="eye_icon"></img>
             <span>{{post.views}}</span>
-            <i class="fa-solid fa-comment-dots"></i>
+            <img src="{% static "img/comment-dots.svg" %}" alt="comment_icon"></img>
             <span>{{post.comment_set.all|length}}</span>
             {% if user in post.like_users.all %}
-              <i id="blank" class="fa-solid fa-heart"></i> <!-- 채워져 있는 하트-->
+              <img src="{% static "img/heart.svg" %}" alt="heart_icon"></img> <!-- 채워져 있는 하트-->
               <span id="like_count">{{post.likes}}</span>
               {% else %}
-              <i id="blank" class="fa-regular fa-heart"></i> <!--비어있는 하트-->
+              <img src="{% static "img/heart.svg" %}" alt="heart_icon"></img> <!--비어있는 하트-->
               <span id="like_count">{{post.likes}}</span>
               {% endif %}
           </div>

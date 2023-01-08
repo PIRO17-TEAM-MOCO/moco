@@ -10,8 +10,7 @@
   </div>
 
   <form class="place-search" method="GET">
-     <!--검색-->
-      <i class="fa-solid fa-magnifying-glass"></i>
+      <img src="{% static "img/magnifying-glass.svg" %}" alt="search_img"></img>
       {% if search %}
       <div class="place-search__content">
         <input value="{{ search }}" type="text" name="search" class="search__input" placeholder="관심 모각코를 검색해보세요">
@@ -44,7 +43,7 @@
         <div class="content-box__top">
           <div class="content-box__name">{{place.name}}</div>
           <div class="content-box__location">
-            <i class="fa-solid fa-location-dot"></i> {{place.location}}</div>
+            <img src="{% static "img/location-dot.svg" %}" alt="location_icon"></img> {{place.location}}</div>
           <div class="content-box__rating"><div class="star-ratings">
             <div 
               class="star-ratings-fill"
@@ -65,15 +64,19 @@
               <div>{{place.user.nickname}}</div>
               {% endif %}
           </span>
-          <span>
-            <span style="margin-right: 0.5rem;"><i class="fa-solid fa-comment-dots"></i>{{place.comment_set.all|length}}</span>
+          <span class="content-box__icon">
+            <span style="margin-right: 0.75rem;">
+              <img src="{% static "img/comment-dots.svg" %}" alt="comment_icon">{{place.comment_set.all|length}}
+            </span>
+            <span>
               {% if user in place.like_users.all %}
-              <i id="blank" class="fa-solid fa-heart"></i> <!-- 빨간색 채워져 있는 하트-->
-              <span id="like_count">{{place.likes}}</span>
+              <img src="{% static "img/heart.svg" %}" alt="heart_icon"> 
+              <span id="like_count">{{place.likes}}</span> <!--빨간색 채워져 있는 하트-->
               {% else %}
-              <i id="blank" class="fa-regular fa-heart"></i> <!--비어있는 하트-->
-              <span id="like_count">{{place.likes}}</span>
+              <img src="{% static "img/heart.svg" %}" alt="heart_icon"> 
+              <span id="like_count">{{place.likes}}</span> <!--비어있는 하트 -->
               {% endif %}
+            </span>
           </span>
         </div>
       </a>

@@ -128,6 +128,7 @@
 
 .content-box__itme {
 	border: 1px solid #bfbfbf;
+	width: 22rem;
 	border-radius: 10px;
 	background-color: white;
 	filter: drop-shadow(0 4px 10px rgba(26, 28, 29, 0.06));
@@ -189,7 +190,7 @@
 .content-box__name {
 	font-weight: 700;
 	font-size: 1.25rem;
-	line-height: 18px;
+	line-height: 1.5rem;
 	margin-bottom: 0.75rem;
 }
 

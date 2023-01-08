@@ -63,10 +63,11 @@
   position: relative;
 }
 
-#search_div__top_left__search i {
+#search_div__top_left__search img {
   position: absolute;
   left: 1.25rem;
   top: 28%;
+  width: 1rem;
 }
 
 #search_div__top_left__search input {
@@ -94,7 +95,6 @@
 }
 
 #main__search_tag {
-  background-image: url(/static/img/tag.png);
   background-position: 13px center;
   background-size: 30px;
   background-repeat: no-repeat;
@@ -266,11 +266,11 @@
   line-height: 25px;
 }
 
-#main__info_div__post_left__reaction i {
-  width: 16px;
+#main__info_div__post_left__reaction img {
+  width: 1rem;
   height: 16px;
   margin-right: 5px;
-  color: rgb(110, 110, 110);
+  filter: invert(76%) sepia(9%) saturate(12%) hue-rotate(319deg) brightness(72%) contrast(89%);
 }
 
 #main__info_div__post_left__reaction span {
@@ -283,6 +283,8 @@
   margin-bottom: 10px;
   width: 100%;
   padding-top: 20px;
+  display: flex;
+  align-items: center;
 }
 
 #main__info_div__post_right__info {
@@ -461,8 +463,8 @@
   margin-top: 45px;
 }
 
-.post_main__tag__reset i {
-  position: static;
+.post_main__tag__reset img {
+  width: 1rem;
 }
 
 .post_main__tag__reset input {

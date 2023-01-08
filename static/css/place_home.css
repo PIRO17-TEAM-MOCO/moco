@@ -192,6 +192,12 @@
 	font-size: 1.25rem;
 	line-height: 1.5rem;
 	margin-bottom: 0.75rem;
+	min-height: 3rem;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	word-break: break-all;
+	overflow: hidden;
 }
 
 .content-box__location {

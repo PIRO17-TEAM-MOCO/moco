@@ -705,7 +705,7 @@
 		                  <span>${comment.user.nickname}</span>
 		                </div>
 		                <div id="main_detail__comments__contents__time">
-		                  <span>${comment.published_at|date:"Y. m. d" }</span>
+		                  <span>{${comment.published_at}|date:"Y. m. d" }</span>
 		                </div>
 		              </div>
 		            </div>
@@ -728,7 +728,6 @@
 		              </div>
 		            </div>
 		          </div>`;
-
                 } else {
                     reviseCmt.innerHTML = `<div>
 		            <div class="main_detail__comment__contetns__profile_userinfo">
@@ -741,7 +740,7 @@
 		                  <span>${comment.user.nickname}</span>
 		                </div>
 		                <div id="main_detail__comments__contents__time">
-		                  <span>${comment.published_at|date:"Y. m. d" }</span>
+		                  <span>{${comment.published_at}|date:"Y. m. d" }</span>
 		                </div>
 		              </div>
 		            </div>
@@ -764,7 +763,6 @@
 		              </div>
 		            </div>
 		          </div>`;
-
                 }
 			});
 		};

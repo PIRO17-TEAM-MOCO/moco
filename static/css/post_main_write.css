@@ -35,6 +35,14 @@ form {
   margin-bottom: 20px;
 }
 
+#main_write__top__box_text_number div,
+#main_write__top__box_text_location div,
+#main_write__top__box_text_link div {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
 #main_write__top__box_text_number input {
   width: 100%;
   border: 1px solid #bfbfbf;
@@ -79,18 +87,12 @@ form {
   border: 1px solid #2253ff;
 }
 
-.main_write__dropdown__select_left {
+.main_write__dropdown__select_left,
+.main_write__top__select_left,
+.main_write__top__select_right {
   width: 48%;
   margin-bottom: 15px;
   margin-top: 10px;
-}
-
-.main_write__top__select_left {
-  width: 48%;
-}
-
-.main_write__top__select_right {
-  width: 48%;
 }
 
 .main_write__top__select_all {

@@ -44,11 +44,9 @@ def revise(request):
     comment_id = req['id']
     comment_content = req['content']
     Comment.objects.filter(id=comment_id).update(content=comment_content)
-    comment = Comment.objects.get(id=comment_id)
     data = {
         'id': comment_id,
         'content':comment_content,
-        'comment': comment
     }
     return JsonResponse(data)
 

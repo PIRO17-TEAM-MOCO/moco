@@ -690,8 +690,7 @@
 					content: updateValue
 				}
 			}).then(function (response) {
-				const { id, content, comment } = response['data'];
-                console.log(comment.user.profile_img.url)
+				const { id, content } = response['data'];
 				const reviseCmt = document.querySelector(`.main_detail__comment__contents__reply_bundle__${id}`);
                 if (comment.user.profile_img.url) {
                     reviseCmt.innerHTML = `<div>

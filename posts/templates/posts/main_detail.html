@@ -230,7 +230,7 @@
                                 </div>
                                 <div class="main_detail__comments_dropdown_menu">
                                     <div class="main_detail__comments_dropdown_menu_revise">
-                                        <button onclick="changeForm({{comment.id}}, '{{comment.content}}');">수정</button>
+                                        <button onclick="changeCmtForm({{comment.id}}, '{{comment.content}}');">수정</button>
                                     </div>
                                     <div class="main_detail__comments_dropdown_menu_delete">
                                         <button onclick="onClickdelete({{comment.id}});">삭제</button>
@@ -243,7 +243,7 @@
                             <h1>{{comment.content}}</h1>
                         </div>
                         <div class="main_detail_comment_reply_btn">
-                            <button onclick="changeForm2({{comment.id}});">답글</button>
+                            <button onclick="createReCmt({{comment.id}});">답글</button>
                         </div>
                         <br />
                         <div class="main_detail_commnet_reply_form">
@@ -290,7 +290,7 @@
                                             <div class="main_detail__comments_dropdown_menu">
                                                 <div class="main_detail__comments_dropdown_menu_revise">
                                                     <button
-                                                        onclick="changeForm4({{recomment.id}}, '{{recomment.content}}');">수정</button>
+                                                        onclick="changeReCmtForm({{recomment.id}}, '{{recomment.content}}');">수정</button>
                                                 </div>
                                                 <div class="main_detail__comments_dropdown_menu_delete">
                                                     <button onclick="onClickdeleteRecmt({{recomment.id}});">삭제</button>

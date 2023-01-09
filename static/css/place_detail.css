@@ -269,6 +269,10 @@
 	border-bottom: 1px solid #bfbfbf;
 }
 
+#place_detail__comment__contents textarea {
+	width: 100%;
+}
+
 #main_detail__comment__each__contents {
 	border-bottom: 1px solid rgb(162, 162, 162);
 	padding-top: 23px;

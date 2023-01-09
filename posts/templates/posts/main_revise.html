@@ -9,7 +9,7 @@
     <div id="main_write__top">
       <div class="main_write__title">
         <div class="main_write__title_num"><h2>1</h2></div>
-        <h2>모집 요건을 작성해주세요</h2>
+        <h1>모집 요건을 작성해주세요</h1>
       </div>
       <div id="main_write__top__select">
         <div class="main_write__top__select_row">
@@ -36,8 +36,7 @@
           </div>-->
             <!--드롭다운 아직 연결 안돼서 일단 select box로-->
             <div id="main_write__select_contact">
-              진행방식 :
-              <label for="{{form.contact.id_for_label}}"></label>
+              <label for="{{form.contact.id_for_label}}">진행 방식</label>
               <select name="contact">
                 <option value="default">----------</option>
                 {% for key, value in contacts %}
@@ -70,8 +69,7 @@
           <!--드롭다운 아직 연결 안돼서 일단 select box로-->
           <div class="main_write__dropdown__select_right">
             <div id="main_write__select_duration">
-              모임 형태 :
-              <label for="{{form.duration.id_for_label}}"></label>
+              <label for="{{form.duration.id_for_label}}">모임 형태</label>
               <select name="duration">
                 <option value="default">----------</option>
                 {% for key, value in durations %}
@@ -109,7 +107,7 @@
     <div id="main_write__tag">
       <div class="main_write__title">
         <div class="main_write__title_num"><h2>2</h2></div>
-        <h2>태그를 입력해주세요</h2>
+        <h1>태그를 입력해주세요</h1>
       </div>
       <div class="main_write__tag_write__main">
         <div class="main_write__tag_write__main_title"><h3>태그</h3></div>
@@ -133,7 +131,7 @@
     <div id="main_write__content">
       <div class="main_write__title">
         <div class="main_write__title_num"><h2>3</h2></div>
-        <h2>글 제목과 내용을 작성해주세요</h2>
+        <h1>글 제목과 내용을 작성해주세요</h1>
       </div>
       <div class="main_write__tag_write__main">
         <div id="main_write__title_write__main_content_input">

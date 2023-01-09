@@ -249,7 +249,7 @@
                         <div class="main_detail_commnet_reply_form">
                             <div id="main_detail_comment_contents_reply_form__{{comment.id}}"></div>
                         </div>
-                        <div id="main_detail__comment__contents__reply">
+                        <div id="main_detail__comment__contents__reply__{{comment.id}}">
                             {% for recomment in comment.comment_set.all %}
                             <div class="main_detail__comment__contents__reply_bundle__{{recomment.id}}"
                                 style="display: flex; justify-content: space-between;">

@@ -450,4 +450,8 @@
 	.place-search img {
 		top: 11%;
 	}
+
+	.content-box__list {
+		justify-content: center;
+	}
 }

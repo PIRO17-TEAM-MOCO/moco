@@ -1041,6 +1041,7 @@
   z-index: 1; /*다른 요소들보다 앞에 배치*/
   width: 4em;
   box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+  top: 80%;
   right: 0.7rem;
 }
 

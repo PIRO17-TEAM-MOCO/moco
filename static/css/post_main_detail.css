@@ -305,6 +305,7 @@
 .main_detail__comment__contetns__profile_userinfo {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 #main_detail__comments__contents__info {
@@ -941,7 +942,7 @@
   border: 1px solid #8c8c8c;
   display: inline-block;
   padding: 5px;
-  margin-top: 19px;
+  margin: 19px 0;
 }
 
 .main_detail_comment_reply_btn button {

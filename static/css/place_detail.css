@@ -261,6 +261,11 @@
 	margin-bottom: 50px;
 }
 
+#place_detail__comment__contents__img img{
+	width: 2.5rem;
+	height: 2.5rem;
+}
+
 #place_detail__comment__contents {
 	border-top: 1px solid #bfbfbf;
 }

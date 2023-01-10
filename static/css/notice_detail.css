@@ -144,15 +144,3 @@
 		right: 0rem;
 	}
 }
-
-@media screen and (max-width: 480px) {
-  .profile-top__left img {
-    margin-right: 2rem;
-    width: 8rem;
-    height: 8rem;
-  }
-
-  .profile-top__edit h1 {
-    font-size: 1.75rem;
-  }
-}

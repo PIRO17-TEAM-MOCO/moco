@@ -23,6 +23,18 @@
   width: 100%;
 }
 
+#main_detail__comment__contents__img {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+#main_detail__comment__contents__img img{
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 80%;
+}
+
 #main__detail__top_left__ul__recruit {
   background-color: #2253ff;
   color: white;
@@ -987,7 +999,6 @@
 .main_detail__comments__contents__options {
   position: relative;
   display: inline-flex;
-  height: 100%;
   align-items: flex-start;
 }
 
@@ -1029,7 +1040,6 @@
   opacity: 0;
   z-index: 1; /*다른 요소들보다 앞에 배치*/
   width: 4em;
-  top: 100%;
   box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
   right: 0.7rem;
 }

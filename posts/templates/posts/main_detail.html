@@ -249,10 +249,10 @@
                         <div class="main_detail_commnet_reply_form">
                             <div id="main_detail_comment_contents_reply_form__{{comment.id}}"></div>
                         </div>
-                        <div id="main_detail__comment__contents__reply__{{comment.id}}">
+                        <div id="main_detail__comment__contents__reply__{{comment.id}}" 
+                        style="padding: 20px 0; border-top: 1px solid #bfbfbf;">
                             {% for recomment in comment.comment_set.all %}
-                            <div class="main_detail__comment__contents__reply_bundle__{{recomment.id}}"
-                                style="display: flex; justify-content: space-between;">
+                            <div class="main_detail__comment__contents__reply_bundle__{{recomment.id}}">
                                 <div>
                                     <div class="main_detail__comment__contetns__profile_userinfo">
                                         <span style="font-size:1.25rem; font-weight: 600;">ㄴ</span>
@@ -583,12 +583,13 @@
 			const reviseCmt = document.getElementById(`main_detail__comment__contents__txt__${id}`);
 			reviseCmt.innerHTML = `
 		      {% csrf_token %}
-		      <textarea
+		      <textarea style="width: 100%; padding: 1rem"
 		        type="text"
 		        name="content"
 		        id="comment_input_box__${id}"
 		        cols="30"
 		        rows="10"
+                width="100%" 
 		        placeholder="댓글을 입력해주세요."
 		      >${content}</textarea>
 		      <div id="main_detail__comment__btnplace">
@@ -664,7 +665,7 @@
 			const reviseRecmt = document.querySelector(`.main_detail__comment__contents__reply_bundle__${id}`);
 			reviseRecmt.innerHTML = `
 		      {% csrf_token %}
-		      <textarea
+		      <textarea style="width: 100%; padding: 1rem"
 		        type="text"
 		        name="content"
 		        id="comment_input_box__${id}"

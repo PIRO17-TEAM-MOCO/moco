@@ -222,21 +222,21 @@
                                         <span>{{comment.published_at|date:"Y. m. d" }}</span>
                                     </div>
                                 </div>
-                                <div class="main_detail__comments__contents__options">
-                                    {% if comment.user == request.user %}
-                                    <div class="main_detail__comments_dropdown_btn">
-                                        <i class="fa-solid fa-ellipsis fa-lg" style="color: #BFBFBF"></i>
-                                    </div>
-                                    <div class="main_detail__comments_dropdown_menu">
-                                        <div class="main_detail__comments_dropdown_menu_revise">
-                                            <button onclick="changeCmtForm({{comment.id}}, '{{comment.content}}');">수정</button>
-                                        </div>
-                                        <div class="main_detail__comments_dropdown_menu_delete">
-                                            <button onclick="onClickdelete({{comment.id}});">삭제</button>
-                                        </div>
-                                    </div>
-                                    {% endif%}
+                            </div>
+                            <div class="main_detail__comments__contents__options">
+                                {% if comment.user == request.user %}
+                                <div class="main_detail__comments_dropdown_btn">
+                                    <i class="fa-solid fa-ellipsis fa-lg" style="color: #BFBFBF"></i>
                                 </div>
+                                <div class="main_detail__comments_dropdown_menu">
+                                    <div class="main_detail__comments_dropdown_menu_revise">
+                                        <button onclick="changeCmtForm({{comment.id}}, '{{comment.content}}');">수정</button>
+                                    </div>
+                                    <div class="main_detail__comments_dropdown_menu_delete">
+                                        <button onclick="onClickdelete({{comment.id}});">삭제</button>
+                                    </div>
+                                </div>
+                                {% endif%}
                             </div>
                         </div>
                         <div id="main_detail__comment__contents__txt__{{comment.id}}">
@@ -246,9 +246,6 @@
                             <button onclick="createReCmt({{comment.id}});">답글</button>
                         </div>
                         <br />
-                        <div class="main_detail_commnet_reply_form">
-                            <div id="main_detail_comment_contents_reply_form__{{comment.id}}"></div>
-                        </div>
                         <div id="main_detail__comment__contents__reply__{{comment.id}}" 
                         style="padding-top: 20px; border-top: 1px solid #bfbfbf;">
                             {% for recomment in comment.comment_set.all %}

@@ -18,9 +18,8 @@
   display: flex;
 }
 
-.content-bottom > p {
-  font-size: 1.1rem;
-  line-height: 1.75rem;
+.content-bottom {
+  line-height: 1.5rem;
 }
 
 .content-title {

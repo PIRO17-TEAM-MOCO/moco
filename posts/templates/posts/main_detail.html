@@ -246,10 +246,9 @@
                             <button onclick="createReCmt({{comment.id}});">답글</button>
                         </div>
                         <br />
-                        <div id="main_detail__comment__contents__reply__{{comment.id}}" 
-                        style="padding-top: 20px; border-top: 1px solid #bfbfbf;">
+                        <div id="main_detail__comment__contents__reply__{{comment.id}}" >
                             {% for recomment in comment.comment_set.all %}
-                            <div class="main_detail__comment__contents__reply_bundle__{{recomment.id}}">
+                            <div class="main_detail__comment__contents__reply_bundle__{{recomment.id}}" style="padding-top: 20px; border-top: 1px solid #bfbfbf;">
                                 <div style="display: flex; justify-content: space-between;">
                                     <div class="main_detail__comment__contetns__profile_userinfo">
                                         <span style="font-size:1.25rem; font-weight: 600;">ㄴ</span>
